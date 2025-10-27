@@ -1,0 +1,6 @@
+.claude
+docs
+.env.local
+.env.example
+ARCHITECTURE.md
+DEVELOPMENT.md
