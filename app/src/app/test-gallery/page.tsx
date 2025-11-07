@@ -8,7 +8,7 @@
 'use client';
 
 import { useState } from 'react';
-import { MasonryGrid, GalleryCard, Lightbox, LightboxImage } from '@/components/gallery';
+import { MasonryGrid, GalleryCard, Lightbox, LightboxImage, LightboxStyles } from '@/components/gallery';
 import { Container } from '@/components/ui';
 import type { GalleryImage } from '@/types/image';
 
@@ -130,6 +130,7 @@ export default function TestGalleryPage() {
 
   return (
     <div className="min-h-screen bg-neutral-50 py-12 dark:bg-neutral-950">
+      <LightboxStyles />
       <Container>
         {/* Test Header */}
         <div className="mb-8">
@@ -181,7 +182,7 @@ export default function TestGalleryPage() {
               }}
             >
               {(image, index) => (
-                <LightboxImage src={image.src} alt={image.alt}>
+                <LightboxImage src={image.src}>
                   <div
                     onLoad={() => {
                       if (index === 0) {

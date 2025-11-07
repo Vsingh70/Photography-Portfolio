@@ -27,8 +27,7 @@ const breakpointColumns = {
   1280: 3, // 3 columns for desktops (1280px)
   1024: 3, // 3 columns for small desktops (1024px)
   768: 2, // 2 columns for tablets (768px)
-  640: 2, // 2 columns for large mobile (640px)
-  0: 1, // 1 column for mobile (< 640px)
+  640: 1, // 1 column for mobile (< 640px)
 };
 
 export function MasonryGrid({ images, onImageClick, children, className = '' }: MasonryGridProps) {

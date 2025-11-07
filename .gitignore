@@ -4,3 +4,5 @@ docs
 .env.example
 ARCHITECTURE.md
 DEVELOPMENT.md
+TEST-RESULTS.md
+TESTING-README.md
