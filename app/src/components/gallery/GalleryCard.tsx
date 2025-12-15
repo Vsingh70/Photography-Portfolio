@@ -26,10 +26,19 @@ export function GalleryCard({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
+  // Preload full-size image on hover for instant lightbox display
+  const handleMouseEnter = () => {
+    if (image.src && image.src !== image.thumbnail) {
+      const img = new window.Image();
+      img.src = image.src;
+    }
+  };
+
   return (
     <div
       className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-neutral-900"
       onClick={onClick}
+      onMouseEnter={handleMouseEnter}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={(e) => {
@@ -56,7 +65,7 @@ export function GalleryCard({
             `}
             onLoad={() => setIsLoaded(true)}
             onError={() => setHasError(true)}
-            quality={85}
+            quality={95}
           />
         ) : (
           <div className="flex h-64 items-center justify-center bg-neutral-200 dark:bg-neutral-800">

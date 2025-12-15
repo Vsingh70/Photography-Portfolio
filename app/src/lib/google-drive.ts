@@ -74,13 +74,14 @@ export async function fetchImagesFromDrive(
       const imageMetadata = file.imageMediaMetadata;
 
       // Generate thumbnail URL (Google Drive provides thumbnails)
-      // s=w400 parameter requests 400px width thumbnail
+      // s=w800 parameter requests 800px width thumbnail for high-quality grid display
       const thumbnailUrl = file.thumbnailLink
-        ? file.thumbnailLink.replace('=s220', '=s400')
-        : `https://drive.google.com/thumbnail?id=${file.id}&sz=w400`;
+        ? file.thumbnailLink.replace('=s220', '=s800')
+        : `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
 
-      // Direct download link for high-res image
-      const fullSizeUrl = `https://drive.google.com/uc?export=view&id=${file.id}`;
+      // Full-size URL for lightbox - use our authenticated proxy to avoid rate limits
+      // This proxies the original file through our API with service account auth
+      const fullSizeUrl = `/api/google-drive/image?id=${file.id}&size=full`;
 
       // Extract filename without extension for title
       const title = file.name?.replace(/\.[^/.]+$/, '') || `Image ${index + 1}`;
