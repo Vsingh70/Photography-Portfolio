@@ -27,6 +27,8 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
+        display: ['var(--font-canela)', 'serif'],
+        serif: ['var(--font-serif)', 'serif'],
       },
       aspectRatio: {
         '4/3': '4 / 3',
