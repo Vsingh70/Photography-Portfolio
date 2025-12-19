@@ -21,7 +21,7 @@ interface LightboxProps {
  * Lightbox wrapper component
  * Wraps PhotoProvider around gallery content
  */
-export function Lightbox({ images, children }: LightboxProps) {
+export function Lightbox({ children }: LightboxProps) {
   return (
     <PhotoProvider
       speed={() => 300}
@@ -56,18 +56,17 @@ export function LightboxImage({ src, children }: LightboxImageProps) {
 
 /**
  * Custom toolbar with metadata and controls
+ * Currently unused but kept for future enhancement
  */
-interface LightboxToolbarProps {
-  image: GalleryImage;
-  onScale: (scale: number) => void;
-  scale: number;
-  rotate: number;
-  onRotate: (rotate: number) => void;
-  currentIndex: number;
-  totalImages: number;
-}
-
-
+// interface LightboxToolbarProps {
+//   image: GalleryImage;
+//   onScale: (scale: number) => void;
+//   scale: number;
+//   rotate: number;
+//   onRotate: (rotate: number) => void;
+//   currentIndex: number;
+//   totalImages: number;
+// }
 
 /**
  * Loading spinner for image loading

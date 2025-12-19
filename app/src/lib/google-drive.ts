@@ -135,9 +135,19 @@ export async function fetchImagesFromDrive(
 }
 
 /**
+ * Camera metadata interface
+ */
+interface CameraMetadata {
+  focalLength?: number;
+  aperture?: number;
+  exposureTime?: string | number;
+  isoSpeed?: number;
+}
+
+/**
  * Format camera settings into a readable string
  */
-function formatCameraSettings(metadata?: any): string | undefined {
+function formatCameraSettings(metadata?: CameraMetadata | null): string | undefined {
   if (!metadata) return undefined;
 
   const parts: string[] = [];
@@ -151,7 +161,10 @@ function formatCameraSettings(metadata?: any): string | undefined {
   }
 
   if (metadata.exposureTime) {
-    parts.push(`${formatExposureTime(metadata.exposureTime)}`);
+    const formattedExposure = typeof metadata.exposureTime === 'string'
+      ? metadata.exposureTime
+      : formatExposureTime(metadata.exposureTime);
+    parts.push(formattedExposure);
   }
 
   if (metadata.isoSpeed) {

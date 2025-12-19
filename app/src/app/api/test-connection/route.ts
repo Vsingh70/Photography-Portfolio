@@ -14,7 +14,7 @@ export async function GET() {
     timestamp: new Date().toISOString(),
     tests: {
       apiRoute: { status: 'pass', message: 'API route is accessible' },
-      galleryConfig: { status: 'unknown', message: '', data: null as any },
+      galleryConfig: { status: 'unknown', message: '', data: null as { id: string; name: string; slug: string; hasEnvVar: boolean }[] | null },
       googleDriveCredentials: { status: 'unknown', message: '' },
       googleDriveConnection: { status: 'unknown', message: '' },
     },

@@ -35,7 +35,6 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const fileId = searchParams.get('id');
-    const size = searchParams.get('size') || 'full';
 
     if (!fileId) {
       return NextResponse.json(

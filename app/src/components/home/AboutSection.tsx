@@ -32,11 +32,11 @@ export function AboutSection() {
             <p>
               With years of experience in portrait, event, and artistic photography, I bring
               a unique perspective to every shoot. My work is driven by passion, creativity,
-              and a commitment to delivering images that you'll treasure forever.
+              and a commitment to delivering images that you&apos;ll treasure forever.
             </p>
             <p>
-              Whether it's a milestone celebration, a professional headshot, or an artistic
-              vision, I'm here to bring your story to life through stunning imagery.
+              Whether it&apos;s a milestone celebration, a professional headshot, or an artistic
+              vision, I&apos;m here to bring your story to life through stunning imagery.
             </p>
           </div>
         </motion.div>

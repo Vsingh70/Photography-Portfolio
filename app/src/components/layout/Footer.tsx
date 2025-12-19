@@ -51,7 +51,7 @@ export const Footer = ({ showSocial = true, showContact = true }: FooterProps) =
                 Your Name
               </Link>
               <p className="mt-4 text-primary-300 text-sm">
-                Professional photography services capturing life's most beautiful moments.
+                Professional photography services capturing life&apos;s most beautiful moments.
               </p>
             </div>
 
