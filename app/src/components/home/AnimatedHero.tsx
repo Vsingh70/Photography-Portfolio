@@ -86,7 +86,7 @@ export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
   if (prefersReducedMotion || !HERO_ANIMATION_CONFIG.enabled) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <h1 className="font-display font-light italic text-5xl text-primary-900 md:text-7xl lg:text-8xl">
+        <h1 className="font-display font-light italic text-4xl text-primary-900 md:text-5xl lg:text-6xl">
           VIRAJ SINGH
         </h1>
       </div>
@@ -116,8 +116,8 @@ function Phase1() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: HERO_ANIMATION_CONFIG.easing.fadeIn }}
-      className="font-canela italic text-5xl text-primary-900 md:text-7xl lg:text-8xl"
-      style={{ fontWeight: 300, fontVariationSettings: '"wght" 100' }}
+      className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl"
+      style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}
     >
       VFLICS
     </motion.h1>
@@ -133,7 +133,7 @@ function Phase2() {
   const irajLetters = ['I', 'R', 'A', 'J', ' '];
 
   return (
-    <motion.h1 className="font-canela italic text-5xl text-primary-900 md:text-7xl lg:text-8xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 100' }}>
+    <motion.h1 className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}>
       {/* V stays in place */}
       <span className="inline-block align-top">V</span>
 
@@ -182,7 +182,7 @@ function Phase3() {
   ];
 
   return (
-    <motion.h1 className="font-canela italic text-5xl text-primary-900 md:text-7xl lg:text-8xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 100' }}>
+    <motion.h1 className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}>
       <span className="inline-block align-top">VIRAJ</span>
 
       <span className="relative inline-block align-top">
@@ -229,7 +229,7 @@ function Phase4() {
   const letters = ['I', 'N', 'G', 'H'];
 
   return (
-    <motion.h1 className="font-canela italic text-5xl text-primary-900 md:text-7xl lg:text-8xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 100' }}>
+    <motion.h1 className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl" style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}>
       <span className="inline-block align-top">VIRAJ S</span>
 
       <span className="relative inline-block align-top">
@@ -269,8 +269,8 @@ function Phase5() {
     <motion.h1
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      className="font-canela italic text-5xl text-primary-900 md:text-7xl lg:text-8xl"
-      style={{ fontWeight: 300, fontVariationSettings: '"wght" 100' }}
+      className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl"
+      style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}
     >
       VIRAJ SINGH
     </motion.h1>

@@ -64,7 +64,7 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm dark:bg-black/70"
             aria-hidden="true"
           />
 
@@ -74,17 +74,17 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col bg-white shadow-2xl"
+            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col bg-white shadow-2xl dark:bg-primary-900"
           >
             {/* Close button */}
             <div className="flex items-center justify-end p-6">
               <button
                 onClick={onClose}
-                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-primary-100"
+                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-primary-100 dark:hover:bg-primary-800"
                 aria-label="Close navigation menu"
               >
                 <svg
-                  className="h-6 w-6 text-primary-900"
+                  className="h-6 w-6 text-primary-900 dark:text-primary-100"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
                   <Link
                     href={link.href}
                     onClick={onClose}
-                    className="block rounded-lg px-4 py-4 font-display text-2xl font-medium text-primary-900 transition-colors hover:bg-primary-50"
+                    className="block rounded-lg px-4 py-4 font-display text-2xl font-medium text-primary-900 transition-colors hover:bg-primary-50 dark:text-primary-100 dark:hover:bg-primary-800"
                   >
                     {link.label}
                   </Link>
@@ -120,8 +120,8 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
             </nav>
 
             {/* Footer (optional - can add social links here) */}
-            <div className="border-t border-primary-200 p-6">
-              <p className="text-center text-sm text-primary-600">
+            <div className="border-t border-primary-200 p-6 dark:border-primary-700">
+              <p className="text-center text-sm text-primary-600 dark:text-primary-400">
                 © {new Date().getFullYear()} Viraj Singh Photography
               </p>
             </div>

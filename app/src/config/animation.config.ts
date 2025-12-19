@@ -12,7 +12,7 @@ export const HERO_ANIMATION_CONFIG = {
   // Phase durations (in milliseconds)
   timings: {
     // Initial display of "VFLICS"
-    initial: 250,
+    initial: 750,
 
     // Transition 1: "FLICS" slides right, "IRAJ " fades in → "VIRAJ FLICS"
     transition1: 500, // Reduced to a quarter of the original 2500ms
@@ -30,7 +30,7 @@ export const HERO_ANIMATION_CONFIG = {
     letterStagger: 150,
 
     // Hold final "VIRAJ SINGH" state before showing content
-    finalHold: 500,
+    finalHold: 1500,
   },
 
   // Easing curves (cubic-bezier values for smooth animations)
