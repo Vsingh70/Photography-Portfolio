@@ -5,3 +5,9 @@
     font-family: var(--font-canela), serif;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

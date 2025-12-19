@@ -9,9 +9,10 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 interface NavLink {
   href: string;
@@ -28,6 +29,13 @@ interface HamburgerMenuProps {
 }
 
 export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -57,34 +65,43 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop overlay */}
+          {/* Backdrop overlay - covers the page content */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm dark:bg-black/70"
+            className="fixed inset-0 z-[90]"
+            style={{
+              backgroundColor: !mounted ? '#ffffff' : (resolvedTheme === 'dark' ? '#121212' : '#ffffff')
+            }}
             aria-hidden="true"
           />
 
-          {/* Menu panel */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col bg-white shadow-2xl dark:bg-primary-900"
-          >
+          {/* Menu content - sits on top of backdrop */}
+          <div className="fixed inset-0 z-[100]">
             {/* Close button */}
-            <div className="flex items-center justify-end p-6">
+            <div className="absolute right-4 top-4 sm:right-6 sm:top-6 md:right-8 md:top-8 lg:right-10 lg:top-10">
               <button
                 onClick={onClose}
-                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-primary-100 dark:hover:bg-primary-800"
+                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-opacity-10"
+                style={{
+                  backgroundColor: 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = resolvedTheme === 'dark' ? '#343a40' : '#f1f3f5';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
                 aria-label="Close navigation menu"
               >
                 <svg
-                  className="h-6 w-6 text-primary-900 dark:text-primary-100"
+                  className="h-6 w-6"
+                  style={{
+                    color: !mounted ? '#212529' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529')
+                  }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -99,19 +116,28 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
               </button>
             </div>
 
-            {/* Navigation links */}
-            <nav className="flex flex-1 flex-col gap-2 px-6">
+            {/* Navigation links - centered in screen */}
+            <nav className="flex h-full w-full flex-col items-center justify-center gap-6">
               {links.map((link, index) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                 >
                   <Link
                     href={link.href}
                     onClick={onClose}
-                    className="block rounded-lg px-4 py-4 font-display text-2xl font-medium text-primary-900 transition-colors hover:bg-primary-50 dark:text-primary-100 dark:hover:bg-primary-800"
+                    className="block px-4 py-2 font-display font-light text-4xl transition-colors sm:text-5xl"
+                    style={{
+                      color: !mounted ? '#212529' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529')
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = resolvedTheme === 'dark' ? '#dee2e6' : '#495057';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = resolvedTheme === 'dark' ? '#ffffff' : '#212529';
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -119,13 +145,13 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
               ))}
             </nav>
 
-            {/* Footer (optional - can add social links here) */}
-            <div className="border-t border-primary-200 p-6 dark:border-primary-700">
-              <p className="text-center text-sm text-primary-600 dark:text-primary-400">
+            {/* Footer */}
+            <div className="absolute bottom-4 left-0 right-0 sm:bottom-6 md:bottom-8 lg:bottom-10">
+              <p className="font-display text-center text-sm font-light text-primary-600 dark:text-primary-400">
                 © {new Date().getFullYear()} Viraj Singh Photography
               </p>
             </div>
-          </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
