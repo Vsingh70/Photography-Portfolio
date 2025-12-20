@@ -12,6 +12,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Container } from '@/components/ui';
 import { HamburgerMenu } from './HamburgerMenu';
@@ -50,7 +51,7 @@ export function Navbar({ visible = true }: NavbarProps) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           className={`fixed left-0 right-0 top-0 ${mobileMenuOpen ? 'z-[10000]' : 'z-50 bg-white dark:bg-black'}`}
         >
           <Container size="full">
@@ -69,6 +70,27 @@ export function Navbar({ visible = true }: NavbarProps) {
                     {link.label}
                   </Link>
                 ))}
+
+                {/* Instagram Icon */}
+                <Link
+                  href="https://www.instagram.com/_vflics"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-80"
+                  aria-label="Instagram"
+                >
+                  {!mounted ? (
+                    <div className="h-6 w-6 animate-pulse rounded bg-primary-200 dark:bg-primary-700" />
+                  ) : (
+                    <Image
+                      src={resolvedTheme === 'dark' ? '/instagram-white.svg' : '/instagram-black.svg'}
+                      alt="Instagram"
+                      width={48}
+                      height={48}
+                      className="h-8 w-8"
+                    />
+                  )}
+                </Link>
               </div>
 
               {/* Mobile Menu Button - animates between hamburger and X */}

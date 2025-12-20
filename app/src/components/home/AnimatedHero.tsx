@@ -19,7 +19,7 @@ interface AnimatedHeroProps {
   onComplete: () => void;
 }
 
-type AnimationPhase = 1 | 2 | 3 | 4 | 5;
+type AnimationPhase = 1 | 2 | 3 | 4 | 5 | 6;
 
 export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
   const [phase, setPhase] = useState<AnimationPhase>(1);
@@ -65,16 +65,31 @@ export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
     // Phase 5: After transition3 + finalHold
     timers.push(
       setTimeout(
-        () => {
-          setPhase(5);
-          handleComplete();
-        },
+        () => setPhase(5),
         timings.initial +
           timings.transition1 +
           timings.hold1 +
           timings.transition2 +
           timings.transition3 +
           timings.finalHold
+      )
+    );
+
+    // Phase 6: Fade out and complete
+    timers.push(
+      setTimeout(
+        () => {
+          setPhase(6);
+          // Delay the onComplete callback slightly to allow fade-out to start
+          setTimeout(() => handleComplete(), 100);
+        },
+        timings.initial +
+          timings.transition1 +
+          timings.hold1 +
+          timings.transition2 +
+          timings.transition3 +
+          timings.finalHold +
+          timings.fadeOut
       )
     );
 
@@ -102,6 +117,7 @@ export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
         {phase === 3 && <Phase3 />}
         {phase === 4 && <Phase4 />}
         {phase === 5 && <Phase5 />}
+        {phase === 6 && <Phase6 />}
       </div>
     </div>
   );
@@ -262,13 +278,35 @@ function Phase4() {
 }
 
 /**
- * Phase 5: Final "VIRAJ SINGH" state (holds before showing content)
+ * Phase 5: Final "VIRAJ SINGH" state (holds before fading out)
  */
 function Phase5() {
   return (
     <motion.h1
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
+      className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl"
+      style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}
+    >
+      VIRAJ SINGH
+    </motion.h1>
+  );
+}
+
+/**
+ * Phase 6: Fade out "VIRAJ SINGH"
+ */
+function Phase6() {
+  const { timings, easing } = HERO_ANIMATION_CONFIG;
+
+  return (
+    <motion.h1
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{
+        duration: timings.fadeOut / 1000,
+        ease: easing.fadeOut
+      }}
       className="font-display italic text-4xl text-primary-900 md:text-5xl lg:text-6xl"
       style={{ fontWeight: 300, fontVariationSettings: '"wght" 300' }}
     >

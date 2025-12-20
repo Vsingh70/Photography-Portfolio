@@ -11,7 +11,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { AnimatedHero, HeroContent, AboutSection } from '@/components/home';
+import { AnimatedHero, HeroContent } from '@/components/home';
 import { Navbar } from '@/components/layout/Navbar';
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
     // Slight delay before showing content for smoother transition
     setTimeout(() => {
       setShowContent(true);
-    }, 500);
+    }, 150);
   }, []);
 
   return (
@@ -32,14 +32,13 @@ export default function Home() {
       <Navbar visible={animationComplete} />
 
       <main>
-        {/* Animated Hero Section */}
-        <AnimatedHero onComplete={handleAnimationComplete} />
+        {/* Animated Hero Section - hidden after animation completes */}
+        {!showContent && <AnimatedHero onComplete={handleAnimationComplete} />}
 
         {/* Content that appears after animation */}
         {showContent && (
           <>
             <HeroContent />
-            <AboutSection />
           </>
         )}
       </main>

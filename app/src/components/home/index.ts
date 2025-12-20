@@ -7,4 +7,3 @@
 
 export { AnimatedHero } from './AnimatedHero';
 export { HeroContent } from './HeroContent';
-export { AboutSection } from './AboutSection';

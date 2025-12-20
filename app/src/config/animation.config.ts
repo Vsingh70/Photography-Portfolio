@@ -29,8 +29,11 @@ export const HERO_ANIMATION_CONFIG = {
     // Delay between each letter in "INGH"
     letterStagger: 150,
 
-    // Hold final "VIRAJ SINGH" state before showing content
+    // Hold final "VIRAJ SINGH" state before fading out
     finalHold: 1500,
+
+    // Fade out "VIRAJ SINGH" completely
+    fadeOut: 250,
   },
 
   // Easing curves (cubic-bezier values for smooth animations)
@@ -68,6 +71,7 @@ export const getTotalAnimationDuration = () => {
     timings.hold1 +
     timings.transition2 +
     timings.transition3 +
-    timings.finalHold
+    timings.finalHold +
+    timings.fadeOut
   );
 };

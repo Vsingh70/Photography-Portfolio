@@ -12,6 +12,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 interface NavLink {
@@ -111,6 +112,34 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Instagram Icon */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: links.length * 0.1, duration: 0.3 }}
+              >
+                <Link
+                  href="https://www.instagram.com/_vflics"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={onClose}
+                  className="block transition-opacity hover:opacity-80"
+                  aria-label="Instagram"
+                >
+                  {!mounted ? (
+                    <div className="h-12 w-12 animate-pulse rounded bg-primary-200 dark:bg-primary-700" />
+                  ) : (
+                    <Image
+                      src={resolvedTheme === 'dark' ? '/instagram-white.svg' : '/instagram-black.svg'}
+                      alt="Instagram"
+                      width={48}
+                      height={48}
+                      className="h-12 w-12"
+                    />
+                  )}
+                </Link>
+              </motion.div>
             </nav>
 
             {/* Footer */}

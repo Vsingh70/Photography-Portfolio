@@ -27,7 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${canela.variable} bg-white dark:bg-black antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${canela.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
@@ -35,7 +36,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          {children}
+          <div className="bg-white dark:bg-black min-h-screen">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
