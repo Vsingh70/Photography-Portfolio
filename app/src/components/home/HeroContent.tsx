@@ -33,7 +33,7 @@ export function HeroContent() {
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
       className="flex min-h-screen flex-col items-center justify-start px-4 pt-32 sm:px-6 sm:pt-40 md:px-8 md:pt-48 lg:px-10"
     >
-      <div className="flex flex-col items-center gap-20 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
+      <div className="flex flex-col items-center gap-16 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
         {/* Paragraph - left on desktop, below logo on mobile */}
         <p className="order-2 max-w-3xl font-display font-light text-2xl leading-relaxed text-primary-900 dark:text-primary-100 sm:text-3xl md:order-1 md:text-left lg:text-4xl">
           Viraj <span className="font-thin italic">(/vur-ahj/)</span> is a transdisciplinary photographer with a specialization in portraits, capturing the raw emotions and untold stories behind every frame.
