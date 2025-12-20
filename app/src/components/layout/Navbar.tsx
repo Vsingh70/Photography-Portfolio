@@ -30,8 +30,8 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/gallery', label: 'Gallery' },
-  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
+  { href: '/about', label: 'About' },
 ];
 
 export function Navbar({ visible = true }: NavbarProps) {
@@ -51,12 +51,12 @@ export function Navbar({ visible = true }: NavbarProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed left-0 right-0 top-0 z-50"
+          className={`fixed left-0 right-0 top-0 ${mobileMenuOpen ? 'z-[10000]' : 'z-50 bg-white dark:bg-black'}`}
         >
           <Container size="full">
-            <div className="flex items-center justify-between px-4 py-4 sm:px-6 md:px-8 lg:px-10">
-              {/* Logo/Brand */}
-              <Logo />
+            <div className={`flex items-center justify-between px-4 py-4 sm:px-6 md:px-8 lg:px-10 ${!mobileMenuOpen ? 'bg-white dark:bg-black' : ''}`}>
+              {/* Logo/Brand - only visible when menu is closed */}
+              {!mobileMenuOpen && <Logo />}
 
               {/* Desktop Navigation */}
               <div className="hidden items-center gap-6 md:flex lg:gap-8">
@@ -71,29 +71,58 @@ export function Navbar({ visible = true }: NavbarProps) {
                 ))}
               </div>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - animates between hamburger and X */}
               <button
-                className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-                onClick={() => setMobileMenuOpen(true)}
-                aria-label="Open navigation menu"
+                className={`flex h-10 w-10 items-center justify-center md:hidden ${mobileMenuOpen ? 'fixed right-[32px] top-4 z-[10001] sm:right-[40px] sm:top-6 md:right-[48px] md:top-8 lg:right-[56px] lg:top-10' : 'relative'}`}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               >
-                <span
-                  className="h-[2px] w-6 rounded-full transition-all"
-                  style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
-                ></span>
-                <span
-                  className="h-[2px] w-6 rounded-full transition-all"
-                  style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
-                ></span>
-                <span
-                  className="h-[2px] w-6 rounded-full transition-all"
-                  style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
-                ></span>
+                <div className="relative h-5 w-6">
+                  {/* Top bar - rotates to form top part of X */}
+                  <motion.span
+                    className="absolute left-0 h-[2px] w-6 rounded-full"
+                    style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
+                    animate={mobileMenuOpen ? {
+                      rotate: 45,
+                      y: 9
+                    } : {
+                      rotate: 0,
+                      y: 0
+                    }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                  />
+
+                  {/* Middle bar - rotates to form bottom part of X */}
+                  <motion.span
+                    className="absolute left-0 top-[9px] h-[2px] w-6 rounded-full"
+                    style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
+                    animate={mobileMenuOpen ? {
+                      rotate: -45
+                    } : {
+                      rotate: 0
+                    }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                  />
+
+                  {/* Bottom bar - fades out */}
+                  <motion.span
+                    className="absolute left-0 top-[18px] h-[2px] w-6 rounded-full"
+                    style={{ backgroundColor: !mounted ? '#6b7280' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529') }}
+                    animate={mobileMenuOpen ? {
+                      opacity: 0
+                    } : {
+                      opacity: 1
+                    }}
+                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                  />
+                </div>
               </button>
             </div>
 
-            {/* Responsive bottom border line */}
-            <div className="border-b border-primary-200 px-4 dark:border-primary-700 sm:px-6 md:px-8 lg:px-10" />
+            {/* Responsive bottom border line - only visible when menu is closed */}
+            {!mobileMenuOpen && (
+              <div className="border-b border-primary-200 px-4 dark:border-primary-700 sm:px-6 md:px-8 lg:px-10" />
+            )}
           </Container>
 
           {/* Mobile Menu */}

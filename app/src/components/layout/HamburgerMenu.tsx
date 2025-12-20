@@ -62,7 +62,7 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
   }, [isOpen, onClose]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <>
           {/* Backdrop overlay - covers the page content */}
@@ -70,52 +70,20 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             onClick={onClose}
-            className="fixed inset-0 z-[90]"
-            style={{
-              backgroundColor: !mounted ? '#ffffff' : (resolvedTheme === 'dark' ? '#121212' : '#ffffff')
-            }}
+            className="fixed inset-0 z-[9998] bg-white dark:bg-black"
             aria-hidden="true"
           />
 
           {/* Menu content - sits on top of backdrop */}
-          <div className="fixed inset-0 z-[100]">
-            {/* Close button */}
-            <div className="absolute right-4 top-4 sm:right-6 sm:top-6 md:right-8 md:top-8 lg:right-10 lg:top-10">
-              <button
-                onClick={onClose}
-                className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-opacity-10"
-                style={{
-                  backgroundColor: 'transparent'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = resolvedTheme === 'dark' ? '#343a40' : '#f1f3f5';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-                aria-label="Close navigation menu"
-              >
-                <svg
-                  className="h-6 w-6"
-                  style={{
-                    color: !mounted ? '#212529' : (resolvedTheme === 'dark' ? '#ffffff' : '#212529')
-                  }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed inset-0 z-[9999]"
+          >
             {/* Navigation links - centered in screen */}
             <nav className="flex h-full w-full flex-col items-center justify-center gap-6">
               {links.map((link, index) => (
@@ -151,7 +119,7 @@ export function HamburgerMenu({ isOpen, onClose, links }: HamburgerMenuProps) {
                 © {new Date().getFullYear()} Viraj Singh Photography
               </p>
             </div>
-          </div>
+          </motion.div>
         </>
       )}
     </AnimatePresence>

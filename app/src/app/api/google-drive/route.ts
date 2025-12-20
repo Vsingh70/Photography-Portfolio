@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchImagesFromDrive } from '@/lib/google-drive';
 import { getGalleryBySlug, getFolderIdForGallery } from '@/config/galleries';
 
+export const dynamic = 'force-dynamic'; // Route uses search params, must be dynamic
 export const revalidate = 3600; // Revalidate every 1 hour (ISR)
 
 /**
