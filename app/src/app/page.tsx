@@ -18,7 +18,19 @@ export default function Home() {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
+  // Check if animation has already played in this session
+  useEffect(() => {
+    const hasPlayedAnimation = sessionStorage.getItem('hero-animation-played');
+    if (hasPlayedAnimation === 'true') {
+      // Skip animation and show content immediately
+      setAnimationComplete(true);
+      setShowContent(true);
+    }
+  }, []);
+
   const handleAnimationComplete = useCallback(() => {
+    // Mark animation as played in session storage
+    sessionStorage.setItem('hero-animation-played', 'true');
     setAnimationComplete(true);
     // Slight delay before showing content for smoother transition
     setTimeout(() => {
