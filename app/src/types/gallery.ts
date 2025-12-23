@@ -45,3 +45,25 @@ export interface GalleryFilter {
   sortBy?: 'date' | 'title' | 'popular';
   order?: 'asc' | 'desc';
 }
+
+/**
+ * Gallery cover image for main gallery page
+ */
+export interface GalleryCover {
+  id: string;
+  category: string;
+  slug: string;
+  title: string;
+  imageUrl: string;
+  width: number;
+  height: number;
+}
+
+/**
+ * API response for gallery covers endpoint
+ */
+export interface GalleryCoversResponse {
+  success: boolean;
+  count: number;
+  covers: GalleryCover[];
+}

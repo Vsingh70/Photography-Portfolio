@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/api/google-drive/image',
+      },
+    ],
   },
 };
 

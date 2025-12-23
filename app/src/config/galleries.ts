@@ -19,28 +19,12 @@ export interface GalleryCategory {
  */
 export const GALLERY_CATEGORIES: GalleryCategory[] = [
   {
-    id: 'portraits',
-    name: 'Portraits',
-    slug: 'portraits',
-    description: 'Portrait photography capturing personality and emotion',
-    folderIdEnvVar: 'GOOGLE_DRIVE_PORTRAITS_FOLDER_ID',
+    id: 'editorial',
+    name: 'Editorial',
+    slug: 'editorial',
+    description: 'Editorial photography showcasing creative storytelling',
+    folderIdEnvVar: 'GOOGLE_DRIVE_EDITORIAL_FOLDER_ID',
     order: 1,
-  },
-  {
-    id: 'dance',
-    name: 'Dance',
-    slug: 'dance',
-    description: 'Dynamic dance photography capturing movement and grace',
-    folderIdEnvVar: 'GOOGLE_DRIVE_DANCE_FOLDER_ID',
-    order: 2,
-  },
-  {
-    id: 'events',
-    name: 'Events',
-    slug: 'events',
-    description: 'Event photography capturing memorable moments',
-    folderIdEnvVar: 'GOOGLE_DRIVE_EVENTS_FOLDER_ID',
-    order: 3,
   },
   {
     id: 'graduation',
@@ -48,7 +32,39 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
     slug: 'graduation',
     description: 'Graduation photography celebrating achievements',
     folderIdEnvVar: 'GOOGLE_DRIVE_GRADUATION_FOLDER_ID',
+    order: 2,
+  },
+  {
+    id: 'portraits',
+    name: 'Portraits',
+    slug: 'portraits',
+    description: 'Portrait photography capturing personality and emotion',
+    folderIdEnvVar: 'GOOGLE_DRIVE_PORTRAITS_FOLDER_ID',
+    order: 3,
+  },
+  {
+    id: 'engagement',
+    name: 'Engagement',
+    slug: 'engagement',
+    description: 'Engagement photography capturing love and connection',
+    folderIdEnvVar: 'GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID',
     order: 4,
+  },
+  {
+    id: 'events',
+    name: 'Events',
+    slug: 'events',
+    description: 'Event photography capturing memorable moments',
+    folderIdEnvVar: 'GOOGLE_DRIVE_EVENTS_FOLDER_ID',
+    order: 5,
+  },
+  {
+    id: 'dance',
+    name: 'Dance',
+    slug: 'dance',
+    description: 'Dynamic dance photography capturing movement and grace',
+    folderIdEnvVar: 'GOOGLE_DRIVE_DANCE_FOLDER_ID',
+    order: 6,
   },
   {
     id: 'wedding',
@@ -56,7 +72,7 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
     slug: 'wedding',
     description: 'Wedding photography documenting your special day',
     folderIdEnvVar: 'GOOGLE_DRIVE_WEDDING_FOLDER_ID',
-    order: 5,
+    order: 7,
   },
 ];
 

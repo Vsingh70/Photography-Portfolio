@@ -10,7 +10,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AnimatedHero, HeroContent } from '@/components/home';
 import { Navbar } from '@/components/layout/Navbar';
 
@@ -25,6 +25,19 @@ export default function Home() {
       setShowContent(true);
     }, 150);
   }, []);
+
+  // Prefetch gallery cover images after animation completes
+  useEffect(() => {
+    if (animationComplete) {
+      // Prefetch gallery covers API data
+      fetch('/api/gallery-covers')
+        .then((res) => res.json())
+        .catch((err) => {
+          // Silently fail - prefetch is optional enhancement
+          console.warn('Failed to prefetch gallery covers:', err);
+        });
+    }
+  }, [animationComplete]);
 
   return (
     <>
