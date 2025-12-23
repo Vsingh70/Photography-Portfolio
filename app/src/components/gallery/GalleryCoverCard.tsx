@@ -29,23 +29,28 @@ export function GalleryCoverCard({ cover, index }: GalleryCoverCardProps) {
         }}
         className="group cursor-pointer"
       >
-        {/* Image Container */}
+        {/* Image Container with Overlay and Centered Text */}
         <div className="relative overflow-hidden rounded-lg">
           <Image
             src={cover.imageUrl}
             alt={cover.title}
             width={cover.width}
             height={cover.height}
-            className="h-auto w-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
+            className="h-auto w-full object-cover transition-all duration-500 group-hover:scale-105"
             priority
             quality={95}
           />
-        </div>
 
-        {/* Title */}
-        <h2 className="mt-4 font-display font-light text-2xl text-primary-900 transition-colors group-hover:text-primary-700 dark:text-primary-100 dark:group-hover:text-primary-300 md:text-3xl">
-          {cover.title}
-        </h2>
+          {/* Dark Translucent Overlay */}
+          <div className="absolute inset-0 bg-black/40 transition-all duration-500 group-hover:bg-black/50" />
+
+          {/* Centered Title */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h2 className="font-display font-light text-2xl text-white transition-all duration-300 group-hover:scale-105 md:text-3xl lg:text-4xl">
+              {cover.title}
+            </h2>
+          </div>
+        </div>
       </motion.div>
     </Link>
   );
