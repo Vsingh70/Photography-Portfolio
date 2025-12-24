@@ -1,13 +1,14 @@
 /**
  * Google Drive Image Proxy API Route
  *
- * Endpoint: GET /api/google-drive/image?id={fileId}&size={thumbnail|full}
+ * Endpoint: GET /api/google-drive/image?id={fileId}&size={thumbnail|medium|full}&format={auto|webp|jpeg}
  * Proxies Google Drive images through our authenticated service account
- * to avoid rate limits and CORS issues
+ * Features: format conversion (WebP/AVIF), multiple sizes, aggressive caching
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
+import sharp from 'sharp';
 
 /**
  * Initialize Google Drive API client with service account credentials
@@ -31,10 +32,37 @@ function getDriveClient() {
   return google.drive({ version: 'v3', auth });
 }
 
+/**
+ * Determine optimal image format based on Accept header and requested format
+ */
+function getOptimalFormat(acceptHeader: string | null, requestedFormat?: string): 'webp' | 'avif' | 'jpeg' {
+  // If specific format requested, use it (unless it's 'auto')
+  if (requestedFormat && requestedFormat !== 'auto') {
+    if (requestedFormat === 'webp' || requestedFormat === 'avif') {
+      return requestedFormat;
+    }
+    return 'jpeg';
+  }
+
+  // Check browser support via Accept header
+  if (acceptHeader) {
+    if (acceptHeader.includes('image/avif')) {
+      return 'avif'; // Best compression
+    }
+    if (acceptHeader.includes('image/webp')) {
+      return 'webp'; // Good compression, wide support
+    }
+  }
+
+  return 'jpeg'; // Fallback for maximum compatibility
+}
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const fileId = searchParams.get('id');
+    const size = searchParams.get('size') || 'full'; // thumbnail | medium | full
+    const requestedFormat = searchParams.get('format') || 'auto';
 
     if (!fileId) {
       return NextResponse.json(
@@ -67,12 +95,75 @@ export async function GET(request: NextRequest) {
       { responseType: 'arraybuffer' }
     );
 
-    // Return the image with appropriate headers
-    return new NextResponse(response.data as ArrayBuffer, {
+    const imageBuffer = Buffer.from(response.data as ArrayBuffer);
+
+    // Determine optimal format based on browser support
+    const acceptHeader = request.headers.get('accept');
+    const outputFormat = getOptimalFormat(acceptHeader, requestedFormat);
+
+    // Process image with sharp for optimization and format conversion
+    let processedImage = sharp(imageBuffer);
+
+    // Resize based on requested size
+    if (size === 'thumbnail') {
+      // 800px width for high-DPI displays (Retina, 2x displays)
+      // This ensures sharp rendering on modern devices without pixelation
+      processedImage = processedImage.resize(800, null, {
+        fit: 'inside',
+        withoutEnlargement: true,
+        kernel: 'lanczos3', // Best quality resize algorithm
+        fastShrinkOnLoad: true, // Performance optimization for JPEG/WebP
+      });
+    } else if (size === 'medium') {
+      processedImage = processedImage.resize(1200, null, {
+        fit: 'inside',
+        withoutEnlargement: true,
+        kernel: 'lanczos3',
+        fastShrinkOnLoad: true,
+      });
+    }
+    // For 'full', no resize - serve maximum quality
+
+    // Convert to optimal format
+    let outputBuffer: Buffer;
+    let contentType: string;
+
+    if (outputFormat === 'avif') {
+      outputBuffer = await processedImage
+        .avif({
+          quality: size === 'full' ? 95 : 93, // Higher quality for thumbnails (professional photography)
+          effort: 4, // Balance between speed and compression
+        })
+        .toBuffer();
+      contentType = 'image/avif';
+    } else if (outputFormat === 'webp') {
+      outputBuffer = await processedImage
+        .webp({
+          quality: size === 'full' ? 95 : 93, // Higher quality for thumbnails (professional photography)
+          effort: 4,
+        })
+        .toBuffer();
+      contentType = 'image/webp';
+    } else {
+      // JPEG fallback
+      outputBuffer = await processedImage
+        .jpeg({
+          quality: size === 'full' ? 95 : 93, // Higher quality for thumbnails (professional photography)
+          progressive: true,
+          mozjpeg: true,
+        })
+        .toBuffer();
+      contentType = 'image/jpeg';
+    }
+
+    // Return the optimized image with aggressive caching
+    return new NextResponse(outputBuffer, {
       status: 200,
       headers: {
-        'Content-Type': fileMetadata.data.mimeType,
+        'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable', // Cache for 1 year
+        'Vary': 'Accept', // Cache separately based on Accept header
+        'Content-Length': outputBuffer.length.toString(),
       },
     });
   } catch (error) {

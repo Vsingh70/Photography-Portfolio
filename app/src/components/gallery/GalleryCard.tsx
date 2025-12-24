@@ -2,13 +2,16 @@
  * GalleryCard Component
  *
  * Individual image card with Next.js Image optimization, hover effects, and metadata overlay
+ * Features: lazy loading, blur placeholders, network-aware loading
  */
 
 'use client';
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { GalleryImage } from '@/types/image';
+import { useLazyLoad } from '@/hooks/useLazyLoad';
+import { useNetworkStatus, shouldPreload } from '@/hooks/useNetworkStatus';
 
 interface GalleryCardProps {
   image: GalleryImage;
@@ -25,17 +28,41 @@ export function GalleryCard({
 }: GalleryCardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [showBlur, setShowBlur] = useState(true);
 
-  // Preload full-size image on hover for instant lightbox display
+  // Lazy load images that aren't priority
+  const { ref, isVisible } = useLazyLoad<HTMLDivElement>({
+    enabled: !priority,
+    rootMargin: '100px',
+  });
+
+  // Get network status for smart preloading
+  const { quality } = useNetworkStatus();
+
+  // Smart preload full-size image on hover (only on fast connections)
   const handleMouseEnter = () => {
-    if (image.src && image.src !== image.thumbnail) {
+    if (!shouldPreload(quality)) return;
+
+    if (image.src && image.src !== image.thumbnail && isLoaded) {
       const img = new window.Image();
       img.src = image.src;
     }
   };
 
+  // Hide blur placeholder after main image loads
+  useEffect(() => {
+    if (isLoaded) {
+      const timer = setTimeout(() => setShowBlur(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded]);
+
+  // Determine if we should load the image (priority or visible)
+  const shouldLoad = priority || isVisible;
+
   return (
     <div
+      ref={ref}
       className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-neutral-900"
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
@@ -50,7 +77,21 @@ export function GalleryCard({
     >
       {/* Image */}
       <div className="relative aspect-auto">
-        {!hasError ? (
+        {/* Blur placeholder - loads immediately for smooth experience */}
+        {showBlur && image.blurDataURL && shouldLoad && (
+          <Image
+            src={image.blurDataURL}
+            alt=""
+            width={image.width}
+            height={image.height}
+            className="absolute inset-0 h-auto w-full object-cover blur-lg scale-110"
+            quality={60}
+            loading="eager"
+          />
+        )}
+
+        {/* Main image - lazy loaded based on visibility */}
+        {shouldLoad && !hasError ? (
           <Image
             src={image.thumbnail || image.src}
             alt={image.alt}
@@ -58,24 +99,30 @@ export function GalleryCard({
             height={image.height}
             sizes={sizes}
             priority={priority}
+            loading={priority ? 'eager' : 'lazy'}
+            unoptimized={true} // Skip Next.js processing - already optimized by Sharp
             className={`
-              h-auto w-full object-cover transition-all duration-500
-              ${isLoaded ? 'scale-100 blur-0' : 'scale-105 blur-sm'}
+              relative h-auto w-full object-cover transition-all duration-500
+              ${isLoaded ? 'scale-100 blur-0 opacity-100' : 'scale-105 blur-sm opacity-0'}
               ${onClick ? 'cursor-pointer group-hover:scale-105' : ''}
             `}
             onLoad={() => setIsLoaded(true)}
             onError={() => setHasError(true)}
-            quality={90}
           />
-        ) : (
+        ) : hasError ? (
           <div className="flex h-64 items-center justify-center bg-neutral-200 dark:bg-neutral-800">
             <p className="text-sm text-neutral-500">Failed to load image</p>
+          </div>
+        ) : (
+          // Placeholder for lazy-loaded images not yet visible
+          <div className="flex h-64 items-center justify-center bg-neutral-200 dark:bg-neutral-800">
+            <div className="h-12 w-12 animate-pulse rounded-full bg-neutral-300 dark:bg-neutral-700" />
           </div>
         )}
 
         {/* Loading state */}
-        {!isLoaded && !hasError && (
-          <div className="absolute inset-0 animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+        {shouldLoad && !isLoaded && !hasError && (
+          <div className="absolute inset-0 animate-pulse bg-neutral-200/50 dark:bg-neutral-800/50" />
         )}
       </div>
 

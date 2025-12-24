@@ -34,7 +34,7 @@
     "eslint-config-next": "15.4.4",
     "plaiceholder": "^3.0.0",
     "postcss": "^8.5.6",
-    "sharp": "^0.34.4",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.12",
     "typescript": "^5"
   }

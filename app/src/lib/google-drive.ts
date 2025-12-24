@@ -73,14 +73,19 @@ export async function fetchImagesFromDrive(
     const images: GalleryImage[] = files.map((file, index) => {
       const imageMetadata = file.imageMediaMetadata;
 
-      // Generate thumbnail URL (Google Drive provides thumbnails)
-      // s=w800 parameter requests 800px width thumbnail for high-quality grid display
-      const thumbnailUrl = file.thumbnailLink
-        ? file.thumbnailLink.replace('=s220', '=s800')
-        : `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
+      // Generate multi-resolution thumbnail URLs
+      // All URLs go through our API for consistent quality and format optimization
 
-      // Full-size URL for lightbox - use our authenticated proxy to avoid rate limits
-      // This proxies the original file through our API with service account auth
+      // Small blur placeholder for instant loading (32px)
+      const blurUrl = file.thumbnailLink
+        ? file.thumbnailLink.replace('=s220', '=s32')
+        : `https://drive.google.com/thumbnail?id=${file.id}&sz=w32`;
+
+      // Medium thumbnail for grid display - use API route for quality control
+      // This processes images with Sharp at high quality (90-95%)
+      const thumbnailUrl = `/api/google-drive/image?id=${file.id}&size=thumbnail`;
+
+      // Full-size URL for lightbox - maximum quality through API
       const fullSizeUrl = `/api/google-drive/image?id=${file.id}&size=full`;
 
       // Extract filename without extension for title
@@ -90,6 +95,7 @@ export async function fetchImagesFromDrive(
         id: file.id || `image-${index}`,
         src: fullSizeUrl,
         thumbnail: thumbnailUrl,
+        blurDataURL: blurUrl,
         alt: title,
         title: title,
         description: '', // Can be populated from file description if needed
