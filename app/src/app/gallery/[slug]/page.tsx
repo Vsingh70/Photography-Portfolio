@@ -90,16 +90,13 @@ export default async function CategoryPage({ params }: PageProps) {
     return (
       <>
         <Navbar visible={true} />
-        <main className="min-h-screen bg-white pt-24 dark:bg-black md:pt-28 lg:pt-32">
+        <main className="min-h-screen bg-white dark:bg-black">
           <Container size="xl">
             {/* Category Header */}
-            <div className="mb-12">
+            <div className="mb-6 pt-24 text-center md:mb-10 md:pt-28 lg:mb-12 lg:pt-32">
               <h1 className="font-display font-light text-4xl text-primary-900 dark:text-primary-100 md:text-5xl lg:text-6xl">
                 {gallery.name}
               </h1>
-              <p className="mt-4 font-display font-light text-xl text-primary-700 dark:text-primary-300">
-                {gallery.description}
-              </p>
             </div>
 
             {/* Gallery Grid with Lightbox */}

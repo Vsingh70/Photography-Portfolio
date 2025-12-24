@@ -65,7 +65,7 @@ export function GalleryCard({
             `}
             onLoad={() => setIsLoaded(true)}
             onError={() => setHasError(true)}
-            quality={95}
+            quality={90}
           />
         ) : (
           <div className="flex h-64 items-center justify-center bg-neutral-200 dark:bg-neutral-800">
