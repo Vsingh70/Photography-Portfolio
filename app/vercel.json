@@ -1,0 +1,23 @@
+{
+  "headers": [
+    {
+      "source": "/api/google-drive/image(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=31536000, stale-while-revalidate=86400"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "public, s-maxage=31536000"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "app/src/app/api/google-drive/image/route.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}

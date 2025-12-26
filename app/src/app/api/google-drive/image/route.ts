@@ -10,6 +10,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import sharp from 'sharp';
 
+// Configure Sharp for optimal serverless performance
+sharp.cache({ memory: 50, files: 20, items: 100 });
+sharp.simd(true); // Enable SIMD optimizations
+sharp.concurrency(1); // Limit concurrent operations in serverless environment
+
 /**
  * Initialize Google Drive API client with service account credentials
  */
@@ -73,20 +78,8 @@ export async function GET(request: NextRequest) {
 
     const drive = getDriveClient();
 
-    // Get file metadata to determine if it's an image
-    const fileMetadata = await drive.files.get({
-      fileId,
-      fields: 'mimeType, name',
-    });
-
-    if (!fileMetadata.data.mimeType?.startsWith('image/')) {
-      return NextResponse.json(
-        { error: 'File is not an image' },
-        { status: 400 }
-      );
-    }
-
-    // Download the file content
+    // Download the file content directly (skip metadata check for performance)
+    // Sharp will validate if it's a valid image format
     const response = await drive.files.get(
       {
         fileId,
@@ -96,6 +89,15 @@ export async function GET(request: NextRequest) {
     );
 
     const imageBuffer = Buffer.from(response.data as ArrayBuffer);
+
+    // Validate image buffer with Sharp (will throw if not a valid image)
+    const metadata = await sharp(imageBuffer).metadata();
+    if (!metadata.format) {
+      return NextResponse.json(
+        { error: 'File is not a valid image' },
+        { status: 400 }
+      );
+    }
 
     // Determine optimal format based on browser support
     const acceptHeader = request.headers.get('accept');
@@ -157,7 +159,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Return the optimized image with aggressive caching
-    return new NextResponse(outputBuffer, {
+    return new NextResponse(outputBuffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': contentType,
