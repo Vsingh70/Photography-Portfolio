@@ -41,13 +41,24 @@ export default function Home() {
   // Prefetch gallery cover images after animation completes
   useEffect(() => {
     if (animationComplete) {
-      // Prefetch gallery covers API data
-      fetch('/api/gallery-covers')
-        .then((res) => res.json())
-        .catch((err) => {
-          // Silently fail - prefetch is optional enhancement
-          console.warn('Failed to prefetch gallery covers:', err);
-        });
+      // Prefetch pre-generated static gallery cover images
+      const coverImages = [
+        '/gallery-covers/editorial.webp',
+        '/gallery-covers/graduation.webp',
+        '/gallery-covers/portraits.webp',
+        '/gallery-covers/engagement.webp',
+        '/gallery-covers/events.webp',
+      ];
+
+      coverImages.forEach((src) => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      });
+
+      console.log('⚡ Prefetched gallery cover images');
     }
   }, [animationComplete]);
 

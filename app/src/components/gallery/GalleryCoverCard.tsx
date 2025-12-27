@@ -2,6 +2,7 @@
  * Gallery Cover Card Component
  *
  * Displays an individual cover image with title for the main gallery page
+ * OPTIMIZED: Uses static pre-generated WebP thumbnails for instant loading
  */
 
 'use client';
@@ -10,6 +11,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { GalleryCover } from '@/types/gallery';
+import coverThumbnails from '@/generated/cover-thumbnails.json';
 
 interface GalleryCoverCardProps {
   cover: GalleryCover;
@@ -17,6 +19,10 @@ interface GalleryCoverCardProps {
 }
 
 export function GalleryCoverCard({ cover, index }: GalleryCoverCardProps) {
+  // Get blur placeholder from pre-generated data
+  const thumbnail = coverThumbnails.find((t) => t.categorySlug === cover.slug);
+  const blurDataURL = thumbnail?.blurDataURL;
+
   return (
     <Link href={`/gallery/${cover.slug}`}>
       <motion.div
@@ -38,7 +44,9 @@ export function GalleryCoverCard({ cover, index }: GalleryCoverCardProps) {
             height={cover.height}
             className="h-auto w-full object-cover transition-all duration-500 group-hover:scale-105"
             priority
-            quality={95}
+            placeholder={blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={blurDataURL}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
 
           {/* Dark Translucent Overlay */}

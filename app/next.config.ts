@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/google-drive/image',
       },
+      {
+        pathname: '/gallery-covers/**',
+      },
     ],
   },
 };

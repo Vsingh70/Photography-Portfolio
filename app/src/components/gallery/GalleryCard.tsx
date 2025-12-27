@@ -77,8 +77,8 @@ export function GalleryCard({
     >
       {/* Image */}
       <div className="relative aspect-auto">
-        {/* Blur placeholder - loads immediately for smooth experience */}
-        {showBlur && image.blurDataURL && shouldLoad && (
+        {/* Blur placeholder - loads immediately from Google Drive CDN (no auth required) */}
+        {showBlur && image.blurDataURL && (
           <Image
             src={image.blurDataURL}
             alt=""
@@ -87,6 +87,7 @@ export function GalleryCard({
             className="absolute inset-0 h-auto w-full object-cover blur-lg scale-110"
             quality={60}
             loading="eager"
+            unoptimized={true}
           />
         )}
 

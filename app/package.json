@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run generate-covers && next build",
+    "build:skip-covers": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-covers": "tsx scripts/generate-cover-thumbnails.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
@@ -36,6 +38,7 @@
     "plaiceholder": "^3.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.12",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

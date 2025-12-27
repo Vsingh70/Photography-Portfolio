@@ -2,14 +2,14 @@
  * Gallery Page
  *
  * Main gallery landing page displaying cover images for each gallery category
+ * OPTIMIZED: Uses pre-generated static thumbnails for instant loading
  */
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Container } from '@/components/ui/Container';
 import { GalleryGrid } from '@/components/gallery/GalleryGrid';
-import { fetchImagesFromDrive } from '@/lib/google-drive';
-import { GALLERY_COVER_MAPPINGS, getCoverImageMapping } from '@/config/gallery-covers';
 import type { GalleryCover } from '@/types/gallery';
+import coverThumbnails from '@/generated/cover-thumbnails.json';
 
 export const revalidate = 3600; // Revalidate every 1 hour (ISR)
 
@@ -19,55 +19,32 @@ export const metadata = {
 };
 
 /**
- * Fetch gallery cover images directly from Google Drive
+ * Get gallery cover images from pre-generated thumbnails
+ * INSTANT LOADING: No API calls, no Google Drive, no serverless cold starts!
  */
 async function getGalleryCovers() {
   try {
-    const galleryFolderId = process.env.GOOGLE_DRIVE_GALLERY_FOLDER_ID;
+    console.log('⚡ Using pre-generated static thumbnails (INSTANT loading!)');
 
-    if (!galleryFolderId) {
-      throw new Error('Gallery folder ID not configured');
-    }
+    // Map pre-generated thumbnails to GalleryCover format
+    const covers: GalleryCover[] = coverThumbnails.map((thumbnail) => ({
+      id: thumbnail.categorySlug,
+      category: thumbnail.displayTitle,
+      slug: thumbnail.categorySlug,
+      title: thumbnail.displayTitle,
+      imageUrl: thumbnail.path, // Static file path: /gallery-covers/editorial.webp
+      width: thumbnail.width,
+      height: thumbnail.height,
+    }));
 
-    // Fetch all images from the gallery folder
-    const allImages = await fetchImagesFromDrive(galleryFolderId, 'Gallery');
-
-    // Filter to only include cover images and map them to gallery categories
-    const covers: GalleryCover[] = [];
-
-    for (const image of allImages) {
-      // Check if this image filename matches any of our cover mappings
-      const mapping = getCoverImageMapping(image.title + '.jpg');
-
-      if (mapping) {
-        covers.push({
-          id: image.id,
-          category: mapping.displayTitle,
-          slug: mapping.categorySlug,
-          title: mapping.displayTitle,
-          imageUrl: image.src,
-          width: image.width || 1920,
-          height: image.height || 1080,
-        });
-      }
-    }
-
-    // Sort covers by display order
-    const sortedCovers = covers.sort((a, b) => {
-      const orderA =
-        GALLERY_COVER_MAPPINGS.find((m) => m.categorySlug === a.slug)?.displayOrder || 999;
-      const orderB =
-        GALLERY_COVER_MAPPINGS.find((m) => m.categorySlug === b.slug)?.displayOrder || 999;
-      return orderA - orderB;
-    });
-
+    // Already sorted by displayOrder in the JSON
     return {
       success: true,
-      count: sortedCovers.length,
-      covers: sortedCovers,
+      count: covers.length,
+      covers,
     };
   } catch (error) {
-    console.error('Error fetching gallery covers:', error);
+    console.error('Error loading gallery covers:', error);
     throw error;
   }
 }

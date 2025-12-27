@@ -90,15 +90,6 @@ export async function GET(request: NextRequest) {
 
     const imageBuffer = Buffer.from(response.data as ArrayBuffer);
 
-    // Validate image buffer with Sharp (will throw if not a valid image)
-    const metadata = await sharp(imageBuffer).metadata();
-    if (!metadata.format) {
-      return NextResponse.json(
-        { error: 'File is not a valid image' },
-        { status: 400 }
-      );
-    }
-
     // Determine optimal format based on browser support
     const acceptHeader = request.headers.get('accept');
     const outputFormat = getOptimalFormat(acceptHeader, requestedFormat);

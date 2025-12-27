@@ -74,15 +74,15 @@ export async function fetchImagesFromDrive(
       const imageMetadata = file.imageMediaMetadata;
 
       // Generate multi-resolution thumbnail URLs
-      // All URLs go through our API for consistent quality and format optimization
+      // Blur placeholders use Google Drive's fast CDN
+      // Main thumbnails use our API for quality control
 
-      // Small blur placeholder for instant loading (32px)
-      const blurUrl = file.thumbnailLink
-        ? file.thumbnailLink.replace('=s220', '=s32')
-        : `https://drive.google.com/thumbnail?id=${file.id}&sz=w32`;
+      // Small blur placeholder for instant loading (32px) - Direct from Google Drive CDN
+      // This bypasses our API for instant loading
+      const blurUrl = `https://drive.google.com/thumbnail?id=${file.id}&sz=w64`;
 
       // Medium thumbnail for grid display - use API route for quality control
-      // This processes images with Sharp at high quality (90-95%)
+      // This processes images with Sharp at high quality (93%)
       const thumbnailUrl = `/api/google-drive/image?id=${file.id}&size=thumbnail`;
 
       // Full-size URL for lightbox - maximum quality through API
