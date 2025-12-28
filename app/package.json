@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run generate-covers && next build",
-    "build:skip-covers": "next build",
+    "build": "npm run generate-all && next build",
+    "build:skip-generation": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-covers": "tsx scripts/generate-cover-thumbnails.ts"
+    "generate-covers": "tsx scripts/generate-cover-thumbnails.ts",
+    "generate-galleries": "tsx scripts/generate-gallery-data.ts",
+    "generate-all": "npm run generate-covers && npm run generate-galleries"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",

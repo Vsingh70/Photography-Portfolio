@@ -1,0 +1,21 @@
+[
+  {
+    "id": "1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB",
+    "src": "/api/google-drive/image?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&sz=w64",
+    "alt": "DSC03516-Enhanced-NR-1",
+    "title": "DSC03516-Enhanced-NR-1",
+    "description": "",
+    "category": "Event",
+    "width": 4256,
+    "height": 5320,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2025-12-28T03:43:24.051Z",
+      "fileSize": "1.6 MB"
+    }
+  }
+]
