@@ -13,6 +13,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
+    "@react-email/render": "^2.0.0",
     "framer-motion": "^12.23.22",
     "googleapis": "^161.0.0",
     "next": "^16.1.0",
