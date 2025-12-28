@@ -32,6 +32,9 @@ export function Lightbox({ children }: LightboxProps) {
       }
       maskOpacity={0.95}
       loadingElement={<LoadingSpinner />}
+      onIndexChange={(index) => {
+        console.log('Lightbox image changed to index:', index);
+      }}
     >
       {children}
     </PhotoProvider>

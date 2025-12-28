@@ -12,6 +12,7 @@ import type { GalleryCover } from '@/types/gallery';
 import coverThumbnails from '@/generated/cover-thumbnails.json';
 
 export const revalidate = 3600; // Revalidate every 1 hour (ISR)
+export const dynamic = 'force-static'; // Force static generation
 
 export const metadata = {
   title: 'Gallery | Viraj Singh Photography',

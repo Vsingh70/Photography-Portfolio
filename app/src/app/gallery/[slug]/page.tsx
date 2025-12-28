@@ -17,6 +17,8 @@ interface PageProps {
 }
 
 export const revalidate = 3600; // Revalidate every 1 hour (ISR)
+export const dynamic = 'force-static'; // Force static generation when possible
+export const dynamicParams = true; // Generate params at request time if not in static params
 
 /**
  * Generate static params for all gallery categories

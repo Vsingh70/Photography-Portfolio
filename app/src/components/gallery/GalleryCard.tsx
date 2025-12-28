@@ -33,7 +33,7 @@ export function GalleryCard({
   // Lazy load images that aren't priority
   const { ref, isVisible } = useLazyLoad<HTMLDivElement>({
     enabled: !priority,
-    rootMargin: '100px',
+    rootMargin: '200px', // Start loading earlier for smoother experience
   });
 
   // Get network status for smart preloading

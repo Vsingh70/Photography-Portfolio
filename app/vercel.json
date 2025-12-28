@@ -20,8 +20,8 @@
   ],
   "functions": {
     "app/src/app/api/google-drive/image/route.ts": {
-      "memory": 1024,
-      "maxDuration": 30
+      "memory": 2048,
+      "maxDuration": 60
     }
   },
   "crons": []

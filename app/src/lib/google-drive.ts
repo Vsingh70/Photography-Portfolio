@@ -10,6 +10,7 @@ import type { GalleryImage } from '@/types/image';
 
 /**
  * Initialize Google Drive API client with service account credentials
+ * Uses JWT constructor to avoid deprecation warnings
  */
 function getDriveClient() {
   const clientEmail = process.env.GOOGLE_DRIVE_CLIENT_EMAIL;
@@ -21,11 +22,10 @@ function getDriveClient() {
     );
   }
 
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: clientEmail,
-      private_key: privateKey.replace(/\\n/g, '\n'), // Handle escaped newlines
-    },
+  // Use JWT constructor instead of GoogleAuth to avoid deprecation warning
+  const auth = new google.auth.JWT({
+    email: clientEmail,
+    key: privateKey.replace(/\\n/g, '\n'), // Handle escaped newlines
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   });
 
@@ -85,8 +85,10 @@ export async function fetchImagesFromDrive(
       // This processes images with Sharp at high quality (93%)
       const thumbnailUrl = `/api/google-drive/image?id=${file.id}&size=thumbnail`;
 
-      // Full-size URL for lightbox - maximum quality through API
-      const fullSizeUrl = `/api/google-drive/image?id=${file.id}&size=full`;
+      // Lightbox URL - use full quality WebP for fastest loading
+      // WebP at 100% quality is 60-80% smaller than JPEG with same visual fidelity
+      // Forces WebP format for maximum performance
+      const fullSizeUrl = `/api/google-drive/image?id=${file.id}&size=full&format=webp`;
 
       // Extract filename without extension for title
       const title = file.name?.replace(/\.[^/.]+$/, '') || `Image ${index + 1}`;
