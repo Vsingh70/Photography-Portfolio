@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Turnstile } from '@marsidev/react-turnstile';
 import { ContactFormData, ContactFormResponse } from '@/types/contact';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
     message: string;
@@ -19,6 +21,15 @@ export default function ContactForm() {
   } = useForm<ContactFormData>();
 
   const onSubmit = async (data: ContactFormData) => {
+    // Check if Turnstile token exists
+    if (!turnstileToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the security check.',
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
 
@@ -28,7 +39,10 @@ export default function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          turnstileToken,
+        }),
       });
 
       const result: ContactFormResponse = await response.json();
@@ -39,6 +53,7 @@ export default function ContactForm() {
           message: result.message || 'Thank you for your message! We\'ll get back to you soon.',
         });
         reset();
+        setTurnstileToken(''); // Reset token
       } else {
         setSubmitStatus({
           type: 'error',
@@ -163,6 +178,20 @@ export default function ContactForm() {
         {errors.message && (
           <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.message.message}</p>
         )}
+      </div>
+
+      {/* Cloudflare Turnstile */}
+      <div className="flex justify-center">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onError={() => setTurnstileToken('')}
+          onExpire={() => setTurnstileToken('')}
+          options={{
+            theme: 'auto',
+            size: 'normal',
+          }}
+        />
       </div>
 
       {/* Status Message */}

@@ -1,13 +1,86 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { ContactFormData } from '@/types/contact';
+import { rateLimit, getClientIP } from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/**
+ * Verify Cloudflare Turnstile token
+ */
+async function verifyTurnstileToken(token: string, ip: string): Promise<boolean> {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secretKey) {
+    console.warn('TURNSTILE_SECRET_KEY not configured - skipping verification');
+    return true; // Allow in development if not configured
+  }
+
+  try {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        secret: secretKey,
+        response: token,
+        remoteip: ip,
+      }),
+    });
+
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error('Turnstile verification error:', error);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body: ContactFormData = await request.json();
-    const { name, email, subject, message, phone } = body;
+    const body: ContactFormData & { turnstileToken?: string } = await request.json();
+    const { name, email, subject, message, phone, turnstileToken } = body;
+
+    // Get client IP for rate limiting and Turnstile verification
+    const clientIP = getClientIP(request.headers);
+
+    // Rate limiting - 5 requests per hour per IP
+    const rateLimitResult = rateLimit(clientIP, { limit: 5, window: 60 * 60 * 1000 });
+    if (!rateLimitResult.success) {
+      const resetDate = new Date(rateLimitResult.reset);
+      const resetTime = resetDate.toLocaleTimeString();
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Too many requests. Please try again after ${resetTime}.`,
+        },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+            'X-RateLimit-Reset': rateLimitResult.reset.toString(),
+          },
+        }
+      );
+    }
+
+    // Verify Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { success: false, error: 'Security verification required' },
+        { status: 400 }
+      );
+    }
+
+    const isValidToken = await verifyTurnstileToken(turnstileToken, clientIP);
+    if (!isValidToken) {
+      return NextResponse.json(
+        { success: false, error: 'Security verification failed. Please try again.' },
+        { status: 403 }
+      );
+    }
 
     // Validate required fields
     if (!name || !email || !message) {
