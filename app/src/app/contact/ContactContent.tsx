@@ -21,7 +21,7 @@ export function ContactContent() {
       className="px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 lg:px-8 lg:pt-32 lg:pb-12"
     >
       {/* Header Section */}
-      <div className="mb-16 text-center">
+      <div className="mb-10 sm:mb-12 lg:mb-16 text-center">
         <h1 className="font-display font-light italic text-primary-900 dark:text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
           Let's Work Together
         </h1>

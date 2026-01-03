@@ -35,7 +35,7 @@ export function HeroContent() {
     >
       <div className="flex flex-col items-center gap-16 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
         {/* Paragraph - left on desktop, below logo on mobile */}
-        <p className="order-2 max-w-3xl font-display font-light text-2xl leading-relaxed text-primary-900 dark:text-primary-100 sm:text-3xl md:order-1 md:text-left lg:text-4xl">
+        <p className="order-2 max-w-3xl text-center font-display font-light text-2xl leading-relaxed text-primary-900 dark:text-primary-100 sm:text-3xl md:order-1 md:text-left lg:text-4xl">
           Viraj <span className="font-thin italic">(/vur-ahj/)</span> is a multidisciplinary photographer with a specialization in portraits, capturing the raw emotions behind every frame.
         </p>
 
@@ -66,10 +66,9 @@ export function HeroContent() {
         <Link
           href="/gallery"
           prefetch={true}
-          className="group relative inline-block px-8 py-4 font-display font-thin italic text-2xl text-primary-900 transition-all hover:text-primary-700 hover:drop-shadow-lg dark:text-primary-100 dark:hover:text-primary-300 sm:text-3xl"
+          className="group relative inline-block px-8 py-4 font-display font-thin italic text-2xl text-primary-900 underline decoration-2 transition-all duration-300 ease-in-out hover:text-primary-700 hover:[text-shadow:2px_2px_4px_rgba(0,0,0,0.3)] dark:text-primary-100 dark:hover:text-primary-300 dark:hover:[text-shadow:3px_3px_6px_rgba(0,0,0,0.8)] sm:text-3xl"
         >
           View Gallery
-          <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-primary-900 transition-all duration-300 group-hover:w-full dark:bg-primary-100" />
         </Link>
       </motion.div>
     </motion.section>
