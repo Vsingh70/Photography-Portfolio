@@ -10,6 +10,7 @@
 
 import { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/ui';
 import { ContactContent } from './ContactContent';
 
@@ -27,6 +28,7 @@ export default function ContactPage() {
           <ContactContent />
         </Container>
       </main>
+      <Footer />
     </>
   );
 }

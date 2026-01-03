@@ -13,6 +13,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AnimatedHero, HeroContent } from '@/components/home';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 
 export default function Home() {
   const [animationComplete, setAnimationComplete] = useState(false);
@@ -78,6 +79,9 @@ export default function Home() {
           </>
         )}
       </main>
+
+      {/* Footer - shown after animation completes */}
+      {showContent && <Footer />}
     </>
   );
 }

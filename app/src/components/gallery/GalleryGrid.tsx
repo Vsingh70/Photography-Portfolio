@@ -21,7 +21,7 @@ export function GalleryGrid({ covers }: GalleryGridProps) {
   const secondRow = covers.slice(3, 5);
 
   return (
-    <div className="py-16 md:py-24">
+    <div className="pt-16 pb-8 md:pt-24 md:pb-12">
       {/* First Row - 3 columns on desktop, 2 on tablet, 1 on mobile */}
       <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {firstRow.map((cover, index) => (

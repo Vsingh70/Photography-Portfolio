@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
       {
         pathname: '/gallery-covers/**',
       },
+      {
+        pathname: '/about/**',
+      },
     ],
   },
 };

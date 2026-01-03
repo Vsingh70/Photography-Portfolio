@@ -18,7 +18,7 @@ export function ContactContent() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 lg:px-8 lg:pt-32 lg:pb-24"
+      className="px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 lg:px-8 lg:pt-32 lg:pb-12"
     >
       {/* Header Section */}
       <div className="mb-16 text-center">

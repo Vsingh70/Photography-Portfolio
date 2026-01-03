@@ -6,6 +6,7 @@
  */
 
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/ui/Container';
 import { GalleryGrid } from '@/components/gallery/GalleryGrid';
 import type { GalleryCover } from '@/types/gallery';
@@ -70,6 +71,7 @@ export default async function GalleryPage() {
               </div>
             </Container>
           </main>
+          <Footer />
         </>
       );
     }
@@ -82,6 +84,7 @@ export default async function GalleryPage() {
             <GalleryGrid covers={data.covers} />
           </Container>
         </main>
+        <Footer />
       </>
     );
   } catch (error) {
@@ -100,6 +103,7 @@ export default async function GalleryPage() {
             </div>
           </Container>
         </main>
+        <Footer />
       </>
     );
   }

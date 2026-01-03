@@ -7,67 +7,34 @@
  * - Mobile: Title top, Image middle, Text bottom
  * - Fade-in animation matching home page
  * - Theme-aware colors
- * - Image from Google Drive About folder
+ * - OPTIMIZED: Uses pre-generated static image for instant loading
  */
 
 import { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/ui';
-import { fetchImagesFromDrive } from '@/lib/google-drive';
 import { AboutContent } from './AboutContent';
+import aboutImageData from '@/generated/about-image.json';
 
 export const metadata: Metadata = {
-  title: 'About | VFlics Photography',
-  description: 'Learn more about Viraj Singh and VFlics Photography.',
+  title: 'About',
+  description: 'Learn more about Viraj Singh.',
 };
 
 export const revalidate = 3600; // Revalidate every 1 hour (ISR)
+export const dynamic = 'force-static'; // Force static generation
 
-/**
- * Fetch about image from Google Drive
- */
-async function getAboutImage() {
-  try {
-    const folderId = process.env.GOOGLE_DRIVE_ABOUT_FOLDER_ID;
-
-    if (!folderId) {
-      throw new Error('GOOGLE_DRIVE_ABOUT_FOLDER_ID not configured');
-    }
-
-    const images = await fetchImagesFromDrive(folderId, 'about');
-
-    // Return first image from the about folder
-    if (images.length > 0) {
-      return {
-        success: true,
-        image: images[0],
-      };
-    }
-
-    return {
-      success: false,
-      image: null,
-    };
-  } catch (error) {
-    console.error('Error fetching about image:', error);
-    return {
-      success: false,
-      image: null,
-    };
-  }
-}
-
-export default async function AboutPage() {
-  const data = await getAboutImage();
-
+export default function AboutPage() {
   return (
     <>
       <Navbar visible={true} />
       <main className="min-h-screen bg-white dark:bg-black">
         <Container size="xl">
-          <AboutContent image={data.image} />
+          <AboutContent imageData={aboutImageData} />
         </Container>
       </main>
+      <Footer />
     </>
   );
 }

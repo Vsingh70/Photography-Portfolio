@@ -10,7 +10,8 @@
     "lint": "next lint",
     "generate-covers": "tsx scripts/generate-cover-thumbnails.ts",
     "generate-galleries": "tsx scripts/generate-gallery-data.ts",
-    "generate-all": "npm run generate-covers && npm run generate-galleries"
+    "generate-about": "tsx scripts/generate-about-image.ts",
+    "generate-all": "npm run generate-covers && npm run generate-galleries && npm run generate-about"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
