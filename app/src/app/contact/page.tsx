@@ -15,8 +15,8 @@ import { Container } from '@/components/ui';
 import { ContactContent } from './ContactContent';
 
 export const metadata: Metadata = {
-  title: 'Contact | VFlics Photography',
-  description: 'Get in touch with VFlics Photography for bookings, inquiries, or collaborations.',
+  title: 'Contact',
+  description: 'Get in touch with Viraj for bookings, inquiries, or collaborations.',
 };
 
 export default function ContactPage() {

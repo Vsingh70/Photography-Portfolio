@@ -1,11 +1,866 @@
 [
   {
-    "id": "1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB",
-    "src": "/api/google-drive/image?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1l-4EA83gT2GMm9ki8LZ1CAI03czEnYmB&sz=w64",
-    "alt": "DSC03516-Enhanced-NR-1",
-    "title": "DSC03516-Enhanced-NR-1",
+    "id": "12Mtae1oO7RlJBW3QEM_MRW-4GKMGLej2",
+    "src": "/api/google-drive/image?id=12Mtae1oO7RlJBW3QEM_MRW-4GKMGLej2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=12Mtae1oO7RlJBW3QEM_MRW-4GKMGLej2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=12Mtae1oO7RlJBW3QEM_MRW-4GKMGLej2&sz=w64",
+    "alt": "Bhangra Blowout (1)",
+    "title": "Bhangra Blowout (1)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:31:35.495Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM",
+    "src": "/api/google-drive/image?id=1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM&sz=w64",
+    "alt": "Bhangra Blowout (10)",
+    "title": "Bhangra Blowout (10)",
+    "description": "",
+    "category": "Event",
+    "width": 3818,
+    "height": 4773,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:31:52.872Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1XoQM7mZIRQH494zZ7s_sjcfMbcPIJxiu",
+    "src": "/api/google-drive/image?id=1XoQM7mZIRQH494zZ7s_sjcfMbcPIJxiu&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XoQM7mZIRQH494zZ7s_sjcfMbcPIJxiu&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XoQM7mZIRQH494zZ7s_sjcfMbcPIJxiu&sz=w64",
+    "alt": "Bhangra Blowout (11)",
+    "title": "Bhangra Blowout (11)",
+    "description": "",
+    "category": "Event",
+    "width": 4034,
+    "height": 5042,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:31:59.691Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1CBctOe5NSHt79UtzBV5rk_buiGZ-EHQz",
+    "src": "/api/google-drive/image?id=1CBctOe5NSHt79UtzBV5rk_buiGZ-EHQz&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1CBctOe5NSHt79UtzBV5rk_buiGZ-EHQz&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1CBctOe5NSHt79UtzBV5rk_buiGZ-EHQz&sz=w64",
+    "alt": "Bhangra Blowout (12)",
+    "title": "Bhangra Blowout (12)",
+    "description": "",
+    "category": "Event",
+    "width": 4035,
+    "height": 5044,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:01.327Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1XpQ8nN8NHgd0ps1Tg_r2aFQZslUYjE_6",
+    "src": "/api/google-drive/image?id=1XpQ8nN8NHgd0ps1Tg_r2aFQZslUYjE_6&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XpQ8nN8NHgd0ps1Tg_r2aFQZslUYjE_6&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XpQ8nN8NHgd0ps1Tg_r2aFQZslUYjE_6&sz=w64",
+    "alt": "Bhangra Blowout (13)",
+    "title": "Bhangra Blowout (13)",
+    "description": "",
+    "category": "Event",
+    "width": 2569,
+    "height": 3211,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:30:16.441Z",
+      "fileSize": "675.2 KB"
+    }
+  },
+  {
+    "id": "1KdkDFU3r7VJplIrX3s2eIaD74Bon6mXm",
+    "src": "/api/google-drive/image?id=1KdkDFU3r7VJplIrX3s2eIaD74Bon6mXm&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1KdkDFU3r7VJplIrX3s2eIaD74Bon6mXm&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1KdkDFU3r7VJplIrX3s2eIaD74Bon6mXm&sz=w64",
+    "alt": "Bhangra Blowout (14)",
+    "title": "Bhangra Blowout (14)",
+    "description": "",
+    "category": "Event",
+    "width": 6679,
+    "height": 4453,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "34mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:03.344Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1PanaohtTwT8_DvJcQbHapljxp23D0TXR",
+    "src": "/api/google-drive/image?id=1PanaohtTwT8_DvJcQbHapljxp23D0TXR&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1PanaohtTwT8_DvJcQbHapljxp23D0TXR&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1PanaohtTwT8_DvJcQbHapljxp23D0TXR&sz=w64",
+    "alt": "Bhangra Blowout (15)",
+    "title": "Bhangra Blowout (15)",
+    "description": "",
+    "category": "Event",
+    "width": 3507,
+    "height": 4384,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "39mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:05.398Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1Him6rkLKB0EBn3M0b6bKnlK471uC0GPD",
+    "src": "/api/google-drive/image?id=1Him6rkLKB0EBn3M0b6bKnlK471uC0GPD&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Him6rkLKB0EBn3M0b6bKnlK471uC0GPD&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Him6rkLKB0EBn3M0b6bKnlK471uC0GPD&sz=w64",
+    "alt": "Bhangra Blowout (16)",
+    "title": "Bhangra Blowout (16)",
+    "description": "",
+    "category": "Event",
+    "width": 3604,
+    "height": 4505,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 6400",
+      "date": "2026-01-06T02:30:16.815Z",
+      "fileSize": "983.1 KB"
+    }
+  },
+  {
+    "id": "1CB41Iknnix1EypL3fDujkX80umDKCd8_",
+    "src": "/api/google-drive/image?id=1CB41Iknnix1EypL3fDujkX80umDKCd8_&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1CB41Iknnix1EypL3fDujkX80umDKCd8_&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1CB41Iknnix1EypL3fDujkX80umDKCd8_&sz=w64",
+    "alt": "Bhangra Blowout (17)",
+    "title": "Bhangra Blowout (17)",
+    "description": "",
+    "category": "Event",
+    "width": 3300,
+    "height": 4125,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:30:16.911Z",
+      "fileSize": "968.8 KB"
+    }
+  },
+  {
+    "id": "1AulWWE8Ln2fAtG5JR-uuDhdDGsinaFNT",
+    "src": "/api/google-drive/image?id=1AulWWE8Ln2fAtG5JR-uuDhdDGsinaFNT&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1AulWWE8Ln2fAtG5JR-uuDhdDGsinaFNT&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1AulWWE8Ln2fAtG5JR-uuDhdDGsinaFNT&sz=w64",
+    "alt": "Bhangra Blowout (18)",
+    "title": "Bhangra Blowout (18)",
+    "description": "",
+    "category": "Event",
+    "width": 4508,
+    "height": 5635,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:32:07.189Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1P2-anYP3NvZi2BUgcicOa9bzBsAibzxr",
+    "src": "/api/google-drive/image?id=1P2-anYP3NvZi2BUgcicOa9bzBsAibzxr&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1P2-anYP3NvZi2BUgcicOa9bzBsAibzxr&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1P2-anYP3NvZi2BUgcicOa9bzBsAibzxr&sz=w64",
+    "alt": "Bhangra Blowout (19)",
+    "title": "Bhangra Blowout (19)",
+    "description": "",
+    "category": "Event",
+    "width": 4522,
+    "height": 5653,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:09.074Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74",
+    "src": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&sz=w64",
+    "alt": "Bhangra Blowout (2)",
+    "title": "Bhangra Blowout (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4601,
+    "height": 6902,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:31:37.116Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "11taE56JdCdMHsa9L813adXM35IGg8v_v",
+    "src": "/api/google-drive/image?id=11taE56JdCdMHsa9L813adXM35IGg8v_v&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=11taE56JdCdMHsa9L813adXM35IGg8v_v&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=11taE56JdCdMHsa9L813adXM35IGg8v_v&sz=w64",
+    "alt": "Bhangra Blowout (20)",
+    "title": "Bhangra Blowout (20)",
+    "description": "",
+    "category": "Event",
+    "width": 4057,
+    "height": 5071,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:11.416Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1deTFu85OmqgmvDsFAggPwOitS2xW5AnB",
+    "src": "/api/google-drive/image?id=1deTFu85OmqgmvDsFAggPwOitS2xW5AnB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1deTFu85OmqgmvDsFAggPwOitS2xW5AnB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1deTFu85OmqgmvDsFAggPwOitS2xW5AnB&sz=w64",
+    "alt": "Bhangra Blowout (21)",
+    "title": "Bhangra Blowout (21)",
+    "description": "",
+    "category": "Event",
+    "width": 3976,
+    "height": 4970,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:13.352Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1-akVajDKGIAwkpm0KXWE-hsss-lCyn9P",
+    "src": "/api/google-drive/image?id=1-akVajDKGIAwkpm0KXWE-hsss-lCyn9P&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1-akVajDKGIAwkpm0KXWE-hsss-lCyn9P&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1-akVajDKGIAwkpm0KXWE-hsss-lCyn9P&sz=w64",
+    "alt": "Bhangra Blowout (22)",
+    "title": "Bhangra Blowout (22)",
+    "description": "",
+    "category": "Event",
+    "width": 3329,
+    "height": 4161,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "40mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:15.306Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1i3iZE--Sy70vpKQ8FN4UX-eAZOFaY7cG",
+    "src": "/api/google-drive/image?id=1i3iZE--Sy70vpKQ8FN4UX-eAZOFaY7cG&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1i3iZE--Sy70vpKQ8FN4UX-eAZOFaY7cG&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1i3iZE--Sy70vpKQ8FN4UX-eAZOFaY7cG&sz=w64",
+    "alt": "Bhangra Blowout (23)",
+    "title": "Bhangra Blowout (23)",
+    "description": "",
+    "category": "Event",
+    "width": 4382,
+    "height": 5478,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "61mm · f/5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:32:17.215Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "192iz7ccBT6raj9onkS6YZ4Os46e7vhWd",
+    "src": "/api/google-drive/image?id=192iz7ccBT6raj9onkS6YZ4Os46e7vhWd&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=192iz7ccBT6raj9onkS6YZ4Os46e7vhWd&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=192iz7ccBT6raj9onkS6YZ4Os46e7vhWd&sz=w64",
+    "alt": "Bhangra Blowout (24)",
+    "title": "Bhangra Blowout (24)",
+    "description": "",
+    "category": "Event",
+    "width": 4268,
+    "height": 5335,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "43mm · f/4.5 · 1/800 · ISO 5000",
+      "date": "2026-01-06T02:32:19.069Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "12wzWUtJZGGCaE5mCgYI1Jp683U_beKZ0",
+    "src": "/api/google-drive/image?id=12wzWUtJZGGCaE5mCgYI1Jp683U_beKZ0&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=12wzWUtJZGGCaE5mCgYI1Jp683U_beKZ0&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=12wzWUtJZGGCaE5mCgYI1Jp683U_beKZ0&sz=w64",
+    "alt": "Bhangra Blowout (25)",
+    "title": "Bhangra Blowout (25)",
+    "description": "",
+    "category": "Event",
+    "width": 4586,
+    "height": 5733,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:20.822Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1p9HCzM0fjpWva2KNioiFpTwS3-FGybv8",
+    "src": "/api/google-drive/image?id=1p9HCzM0fjpWva2KNioiFpTwS3-FGybv8&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1p9HCzM0fjpWva2KNioiFpTwS3-FGybv8&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1p9HCzM0fjpWva2KNioiFpTwS3-FGybv8&sz=w64",
+    "alt": "Bhangra Blowout (26)",
+    "title": "Bhangra Blowout (26)",
+    "description": "",
+    "category": "Event",
+    "width": 3371,
+    "height": 4214,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/250 · ISO 4000",
+      "date": "2026-01-06T02:32:22.667Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1FwWnZnoRD35sM9EEhbSBCui2TxSf6d6x",
+    "src": "/api/google-drive/image?id=1FwWnZnoRD35sM9EEhbSBCui2TxSf6d6x&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FwWnZnoRD35sM9EEhbSBCui2TxSf6d6x&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FwWnZnoRD35sM9EEhbSBCui2TxSf6d6x&sz=w64",
+    "alt": "Bhangra Blowout (27)",
+    "title": "Bhangra Blowout (27)",
+    "description": "",
+    "category": "Event",
+    "width": 4139,
+    "height": 6209,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 5000",
+      "date": "2026-01-06T02:32:24.458Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1bAOtIRbkIaoNbz4hCwzxavurgAhwuFOW",
+    "src": "/api/google-drive/image?id=1bAOtIRbkIaoNbz4hCwzxavurgAhwuFOW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1bAOtIRbkIaoNbz4hCwzxavurgAhwuFOW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1bAOtIRbkIaoNbz4hCwzxavurgAhwuFOW&sz=w64",
+    "alt": "Bhangra Blowout (28)",
+    "title": "Bhangra Blowout (28)",
+    "description": "",
+    "category": "Event",
+    "width": 4138,
+    "height": 5173,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "43mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:32:26.545Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1OBZ15KH9iB9AzO2pxkv8vtXrS79oZ1KL",
+    "src": "/api/google-drive/image?id=1OBZ15KH9iB9AzO2pxkv8vtXrS79oZ1KL&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1OBZ15KH9iB9AzO2pxkv8vtXrS79oZ1KL&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1OBZ15KH9iB9AzO2pxkv8vtXrS79oZ1KL&sz=w64",
+    "alt": "Bhangra Blowout (29)",
+    "title": "Bhangra Blowout (29)",
+    "description": "",
+    "category": "Event",
+    "width": 4181,
+    "height": 5226,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "41mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:28.496Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6",
+    "src": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&sz=w64",
+    "alt": "Bhangra Blowout (3)",
+    "title": "Bhangra Blowout (3)",
+    "description": "",
+    "category": "Event",
+    "width": 4487,
+    "height": 5609,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:31:39.501Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt",
+    "src": "/api/google-drive/image?id=1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt&sz=w64",
+    "alt": "Bhangra Blowout (30)",
+    "title": "Bhangra Blowout (30)",
+    "description": "",
+    "category": "Event",
+    "width": 3726,
+    "height": 4658,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "36mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:30.110Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "12MRMTEwJx4nLkPwaJq_RznfitNWADEcU",
+    "src": "/api/google-drive/image?id=12MRMTEwJx4nLkPwaJq_RznfitNWADEcU&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=12MRMTEwJx4nLkPwaJq_RznfitNWADEcU&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=12MRMTEwJx4nLkPwaJq_RznfitNWADEcU&sz=w64",
+    "alt": "Bhangra Blowout (31)",
+    "title": "Bhangra Blowout (31)",
+    "description": "",
+    "category": "Event",
+    "width": 4005,
+    "height": 6007,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:32.185Z",
+      "fileSize": "2.5 MB"
+    }
+  },
+  {
+    "id": "192NBqw6QkH4OPjtWlaKGRGKANxYPm06d",
+    "src": "/api/google-drive/image?id=192NBqw6QkH4OPjtWlaKGRGKANxYPm06d&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=192NBqw6QkH4OPjtWlaKGRGKANxYPm06d&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=192NBqw6QkH4OPjtWlaKGRGKANxYPm06d&sz=w64",
+    "alt": "Bhangra Blowout (32)",
+    "title": "Bhangra Blowout (32)",
+    "description": "",
+    "category": "Event",
+    "width": 3641,
+    "height": 4551,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:34.192Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1UGugcfanfUNVirXRYuqRD1nVbs2nNZHS",
+    "src": "/api/google-drive/image?id=1UGugcfanfUNVirXRYuqRD1nVbs2nNZHS&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1UGugcfanfUNVirXRYuqRD1nVbs2nNZHS&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1UGugcfanfUNVirXRYuqRD1nVbs2nNZHS&sz=w64",
+    "alt": "Bhangra Blowout (33)",
+    "title": "Bhangra Blowout (33)",
+    "description": "",
+    "category": "Event",
+    "width": 4267,
+    "height": 5334,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "43mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:36.448Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1zSlHft27dmmppx_T27KEpAxEygFr5kXY",
+    "src": "/api/google-drive/image?id=1zSlHft27dmmppx_T27KEpAxEygFr5kXY&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1zSlHft27dmmppx_T27KEpAxEygFr5kXY&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1zSlHft27dmmppx_T27KEpAxEygFr5kXY&sz=w64",
+    "alt": "Bhangra Blowout (34)",
+    "title": "Bhangra Blowout (34)",
+    "description": "",
+    "category": "Event",
+    "width": 4281,
+    "height": 6421,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "59mm · f/5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:38.507Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1C5X6Q7sgyD-Zw-i-GNRYOI5BvdKHbcHv",
+    "src": "/api/google-drive/image?id=1C5X6Q7sgyD-Zw-i-GNRYOI5BvdKHbcHv&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1C5X6Q7sgyD-Zw-i-GNRYOI5BvdKHbcHv&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1C5X6Q7sgyD-Zw-i-GNRYOI5BvdKHbcHv&sz=w64",
+    "alt": "Bhangra Blowout (35)",
+    "title": "Bhangra Blowout (35)",
+    "description": "",
+    "category": "Event",
+    "width": 4229,
+    "height": 6344,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "43mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:40.562Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1zCWMsR4xNmre7b9evp0vnsAUyujLknlu",
+    "src": "/api/google-drive/image?id=1zCWMsR4xNmre7b9evp0vnsAUyujLknlu&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1zCWMsR4xNmre7b9evp0vnsAUyujLknlu&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1zCWMsR4xNmre7b9evp0vnsAUyujLknlu&sz=w64",
+    "alt": "Bhangra Blowout (36)",
+    "title": "Bhangra Blowout (36)",
+    "description": "",
+    "category": "Event",
+    "width": 3555,
+    "height": 4444,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:42.709Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1Nfj_wuZFMw_Bw8U6BpGqz-gXULFnBx5J",
+    "src": "/api/google-drive/image?id=1Nfj_wuZFMw_Bw8U6BpGqz-gXULFnBx5J&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Nfj_wuZFMw_Bw8U6BpGqz-gXULFnBx5J&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Nfj_wuZFMw_Bw8U6BpGqz-gXULFnBx5J&sz=w64",
+    "alt": "Bhangra Blowout (37)",
+    "title": "Bhangra Blowout (37)",
+    "description": "",
+    "category": "Event",
+    "width": 4025,
+    "height": 5031,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "39mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:32:44.699Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1Z02b-g8_XW__-E8m2HeUZQg4vGymhegR",
+    "src": "/api/google-drive/image?id=1Z02b-g8_XW__-E8m2HeUZQg4vGymhegR&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Z02b-g8_XW__-E8m2HeUZQg4vGymhegR&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Z02b-g8_XW__-E8m2HeUZQg4vGymhegR&sz=w64",
+    "alt": "Bhangra Blowout (38)",
+    "title": "Bhangra Blowout (38)",
+    "description": "",
+    "category": "Event",
+    "width": 3682,
+    "height": 4603,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 5000",
+      "date": "2026-01-06T02:32:46.841Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "16Ys0ydqziFDV4Js9QVsRlllm9MxN2dh3",
+    "src": "/api/google-drive/image?id=16Ys0ydqziFDV4Js9QVsRlllm9MxN2dh3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=16Ys0ydqziFDV4Js9QVsRlllm9MxN2dh3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=16Ys0ydqziFDV4Js9QVsRlllm9MxN2dh3&sz=w64",
+    "alt": "Bhangra Blowout (39)",
+    "title": "Bhangra Blowout (39)",
+    "description": "",
+    "category": "Event",
+    "width": 3638,
+    "height": 4547,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:48.469Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6",
+    "src": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&sz=w64",
+    "alt": "Bhangra Blowout (4)",
+    "title": "Bhangra Blowout (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4158,
+    "height": 5198,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:31:41.583Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz",
+    "src": "/api/google-drive/image?id=1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz&sz=w64",
+    "alt": "Bhangra Blowout (40)",
+    "title": "Bhangra Blowout (40)",
+    "description": "",
+    "category": "Event",
+    "width": 3960,
+    "height": 4950,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "43mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:32:50.377Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1yv1rRPLAyVLOeRdH_lpvfZ6oVa4UfZhF",
+    "src": "/api/google-drive/image?id=1yv1rRPLAyVLOeRdH_lpvfZ6oVa4UfZhF&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yv1rRPLAyVLOeRdH_lpvfZ6oVa4UfZhF&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yv1rRPLAyVLOeRdH_lpvfZ6oVa4UfZhF&sz=w64",
+    "alt": "Bhangra Blowout (41)",
+    "title": "Bhangra Blowout (41)",
+    "description": "",
+    "category": "Event",
+    "width": 3653,
+    "height": 4566,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "37mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:52.254Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1gR0dM_GoyFeHxYRRPc5MgIgzczi7iPPO",
+    "src": "/api/google-drive/image?id=1gR0dM_GoyFeHxYRRPc5MgIgzczi7iPPO&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gR0dM_GoyFeHxYRRPc5MgIgzczi7iPPO&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gR0dM_GoyFeHxYRRPc5MgIgzczi7iPPO&sz=w64",
+    "alt": "Bhangra Blowout (42)",
+    "title": "Bhangra Blowout (42)",
+    "description": "",
+    "category": "Event",
+    "width": 4235,
+    "height": 5294,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 2000",
+      "date": "2026-01-06T02:32:54.227Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1b1BdSRXL82w8lzvS47K3odvwvP6TFzoY",
+    "src": "/api/google-drive/image?id=1b1BdSRXL82w8lzvS47K3odvwvP6TFzoY&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1b1BdSRXL82w8lzvS47K3odvwvP6TFzoY&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1b1BdSRXL82w8lzvS47K3odvwvP6TFzoY&sz=w64",
+    "alt": "Bhangra Blowout (43)",
+    "title": "Bhangra Blowout (43)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "58mm · f/5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:32:56.267Z",
+      "fileSize": "2.9 MB"
+    }
+  },
+  {
+    "id": "17wPmGXPJDx-YvQvlYDhZpFG6DUEeykS2",
+    "src": "/api/google-drive/image?id=17wPmGXPJDx-YvQvlYDhZpFG6DUEeykS2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=17wPmGXPJDx-YvQvlYDhZpFG6DUEeykS2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=17wPmGXPJDx-YvQvlYDhZpFG6DUEeykS2&sz=w64",
+    "alt": "Bhangra Blowout (44)",
+    "title": "Bhangra Blowout (44)",
+    "description": "",
+    "category": "Event",
+    "width": 4166,
+    "height": 5208,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:32:58.056Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "16sJw6nOHhhRfZvOG2qHMfQhjv6BhUaSf",
+    "src": "/api/google-drive/image?id=16sJw6nOHhhRfZvOG2qHMfQhjv6BhUaSf&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=16sJw6nOHhhRfZvOG2qHMfQhjv6BhUaSf&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=16sJw6nOHhhRfZvOG2qHMfQhjv6BhUaSf&sz=w64",
+    "alt": "Bhangra Blowout (45)",
+    "title": "Bhangra Blowout (45)",
+    "description": "",
+    "category": "Event",
+    "width": 4422,
+    "height": 5527,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:33:00.046Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1FPW9hRxytrmT23LANAi5pFHpC97UyiQi",
+    "src": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&sz=w64",
+    "alt": "Bhangra Blowout (5)",
+    "title": "Bhangra Blowout (5)",
+    "description": "",
+    "category": "Event",
+    "width": 3782,
+    "height": 4728,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:31:43.405Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI",
+    "src": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&sz=w64",
+    "alt": "Bhangra Blowout (6)",
+    "title": "Bhangra Blowout (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4179,
+    "height": 6269,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "42mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:31:45.347Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s",
+    "src": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&sz=w64",
+    "alt": "Bhangra Blowout (7)",
+    "title": "Bhangra Blowout (7)",
+    "description": "",
+    "category": "Event",
+    "width": 3954,
+    "height": 4942,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/800 · ISO 2000",
+      "date": "2026-01-06T02:31:47.117Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI",
+    "src": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&sz=w64",
+    "alt": "Bhangra Blowout (8)",
+    "title": "Bhangra Blowout (8)",
+    "description": "",
+    "category": "Event",
+    "width": 4492,
+    "height": 5615,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 6400",
+      "date": "2026-01-06T02:31:49.198Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l",
+    "src": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&sz=w64",
+    "alt": "Bhangra Blowout (9)",
+    "title": "Bhangra Blowout (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4118,
+    "height": 5147,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 10000",
+      "date": "2026-01-06T02:31:51.203Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes",
+    "src": "/api/google-drive/image?id=1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes&sz=w64",
+    "alt": "BKB (1)",
+    "title": "BKB (1)",
     "description": "",
     "category": "Event",
     "width": 4256,
@@ -14,8 +869,1775 @@
       "camera": "SONY ILCE-7M4",
       "lens": "FE 28-70mm F3.5-5.6 OSS",
       "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2025-12-28T03:43:24.051Z",
+      "date": "2026-01-06T02:33:02.107Z",
       "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1kPSb8HFMyF372uUAxQ22ek7hfKByW0T1",
+    "src": "/api/google-drive/image?id=1kPSb8HFMyF372uUAxQ22ek7hfKByW0T1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1kPSb8HFMyF372uUAxQ22ek7hfKByW0T1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1kPSb8HFMyF372uUAxQ22ek7hfKByW0T1&sz=w64",
+    "alt": "BKB (10)",
+    "title": "BKB (10)",
+    "description": "",
+    "category": "Event",
+    "width": 4396,
+    "height": 5495,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "59mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:19.864Z",
+      "fileSize": "2.7 MB"
+    }
+  },
+  {
+    "id": "18GRll1_qe996oVokliAuGZE5CpBNIA2W",
+    "src": "/api/google-drive/image?id=18GRll1_qe996oVokliAuGZE5CpBNIA2W&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=18GRll1_qe996oVokliAuGZE5CpBNIA2W&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=18GRll1_qe996oVokliAuGZE5CpBNIA2W&sz=w64",
+    "alt": "BKB (11)",
+    "title": "BKB (11)",
+    "description": "",
+    "category": "Event",
+    "width": 4225,
+    "height": 5281,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:21.788Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1H6DThwoCIXZQf_ndR3gll6msHk-1UWQG",
+    "src": "/api/google-drive/image?id=1H6DThwoCIXZQf_ndR3gll6msHk-1UWQG&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1H6DThwoCIXZQf_ndR3gll6msHk-1UWQG&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1H6DThwoCIXZQf_ndR3gll6msHk-1UWQG&sz=w64",
+    "alt": "BKB (12)",
+    "title": "BKB (12)",
+    "description": "",
+    "category": "Event",
+    "width": 4138,
+    "height": 5173,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "66mm · f/5.6 · 1/640 · ISO 10000",
+      "date": "2026-01-06T02:33:23.749Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1hR2aPQv0rz_feNShzKYTPiHEfQt-ylmv",
+    "src": "/api/google-drive/image?id=1hR2aPQv0rz_feNShzKYTPiHEfQt-ylmv&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1hR2aPQv0rz_feNShzKYTPiHEfQt-ylmv&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1hR2aPQv0rz_feNShzKYTPiHEfQt-ylmv&sz=w64",
+    "alt": "BKB (13)",
+    "title": "BKB (13)",
+    "description": "",
+    "category": "Event",
+    "width": 3686,
+    "height": 4607,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:25.738Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1x_gzyW3hg-xTheLLg_btQbXrJl97qRSg",
+    "src": "/api/google-drive/image?id=1x_gzyW3hg-xTheLLg_btQbXrJl97qRSg&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1x_gzyW3hg-xTheLLg_btQbXrJl97qRSg&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1x_gzyW3hg-xTheLLg_btQbXrJl97qRSg&sz=w64",
+    "alt": "BKB (14)",
+    "title": "BKB (14)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "59mm · f/5.6 · 1/640 · ISO 6400",
+      "date": "2026-01-06T02:33:27.710Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1FFb46V-9l70BFoAGvOqVyh7WsA7i85ei",
+    "src": "/api/google-drive/image?id=1FFb46V-9l70BFoAGvOqVyh7WsA7i85ei&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FFb46V-9l70BFoAGvOqVyh7WsA7i85ei&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FFb46V-9l70BFoAGvOqVyh7WsA7i85ei&sz=w64",
+    "alt": "BKB (15)",
+    "title": "BKB (15)",
+    "description": "",
+    "category": "Event",
+    "width": 4177,
+    "height": 5221,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:30.095Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "15lojReFRafUpUStEWuA_Nlw2e5T6N3yO",
+    "src": "/api/google-drive/image?id=15lojReFRafUpUStEWuA_Nlw2e5T6N3yO&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=15lojReFRafUpUStEWuA_Nlw2e5T6N3yO&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=15lojReFRafUpUStEWuA_Nlw2e5T6N3yO&sz=w64",
+    "alt": "BKB (16)",
+    "title": "BKB (16)",
+    "description": "",
+    "category": "Event",
+    "width": 4057,
+    "height": 5071,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:32.199Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1KDO2yr1VCxnv_nwX_NXMkidjmDDxtCsW",
+    "src": "/api/google-drive/image?id=1KDO2yr1VCxnv_nwX_NXMkidjmDDxtCsW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1KDO2yr1VCxnv_nwX_NXMkidjmDDxtCsW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1KDO2yr1VCxnv_nwX_NXMkidjmDDxtCsW&sz=w64",
+    "alt": "BKB (17)",
+    "title": "BKB (17)",
+    "description": "",
+    "category": "Event",
+    "width": 3546,
+    "height": 4433,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:34.235Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1W-1pk1NsTdUGnH3fP5Q7oA2HRPyDkhIL",
+    "src": "/api/google-drive/image?id=1W-1pk1NsTdUGnH3fP5Q7oA2HRPyDkhIL&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1W-1pk1NsTdUGnH3fP5Q7oA2HRPyDkhIL&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1W-1pk1NsTdUGnH3fP5Q7oA2HRPyDkhIL&sz=w64",
+    "alt": "BKB (18)",
+    "title": "BKB (18)",
+    "description": "",
+    "category": "Event",
+    "width": 2850,
+    "height": 3562,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "42mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:30:16.744Z",
+      "fileSize": "784.9 KB"
+    }
+  },
+  {
+    "id": "1VILRHE2vC-KP7ugZ9wsWSNEucCsRk3Jp",
+    "src": "/api/google-drive/image?id=1VILRHE2vC-KP7ugZ9wsWSNEucCsRk3Jp&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VILRHE2vC-KP7ugZ9wsWSNEucCsRk3Jp&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VILRHE2vC-KP7ugZ9wsWSNEucCsRk3Jp&sz=w64",
+    "alt": "BKB (19)",
+    "title": "BKB (19)",
+    "description": "",
+    "category": "Event",
+    "width": 4340,
+    "height": 5425,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "62mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:36.153Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a",
+    "src": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&sz=w64",
+    "alt": "BKB (2)",
+    "title": "BKB (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "65mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:04.077Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "177tRtofifbHzPHMUqivV0BtHisZQaxr2",
+    "src": "/api/google-drive/image?id=177tRtofifbHzPHMUqivV0BtHisZQaxr2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=177tRtofifbHzPHMUqivV0BtHisZQaxr2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=177tRtofifbHzPHMUqivV0BtHisZQaxr2&sz=w64",
+    "alt": "BKB (20)",
+    "title": "BKB (20)",
+    "description": "",
+    "category": "Event",
+    "width": 4246,
+    "height": 5307,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:38.198Z",
+      "fileSize": "2.3 MB"
+    }
+  },
+  {
+    "id": "1nmTLAnRAam7iyEH2zDsehs0He2zH2Gf0",
+    "src": "/api/google-drive/image?id=1nmTLAnRAam7iyEH2zDsehs0He2zH2Gf0&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1nmTLAnRAam7iyEH2zDsehs0He2zH2Gf0&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1nmTLAnRAam7iyEH2zDsehs0He2zH2Gf0&sz=w64",
+    "alt": "BKB (21)",
+    "title": "BKB (21)",
+    "description": "",
+    "category": "Event",
+    "width": 4035,
+    "height": 5044,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:39.924Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1EppN7HYLRqEk9Y5GUNg1k_bL_PS-Cb8v",
+    "src": "/api/google-drive/image?id=1EppN7HYLRqEk9Y5GUNg1k_bL_PS-Cb8v&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1EppN7HYLRqEk9Y5GUNg1k_bL_PS-Cb8v&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1EppN7HYLRqEk9Y5GUNg1k_bL_PS-Cb8v&sz=w64",
+    "alt": "BKB (22)",
+    "title": "BKB (22)",
+    "description": "",
+    "category": "Event",
+    "width": 4654,
+    "height": 5817,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "69mm · f/5.6 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:41.953Z",
+      "fileSize": "2.5 MB"
+    }
+  },
+  {
+    "id": "1xppmdOl-3kEwepQR6UnW6Oalc0RijQwv",
+    "src": "/api/google-drive/image?id=1xppmdOl-3kEwepQR6UnW6Oalc0RijQwv&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1xppmdOl-3kEwepQR6UnW6Oalc0RijQwv&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1xppmdOl-3kEwepQR6UnW6Oalc0RijQwv&sz=w64",
+    "alt": "BKB (23)",
+    "title": "BKB (23)",
+    "description": "",
+    "category": "Event",
+    "width": 4323,
+    "height": 5404,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "68mm · f/5.6 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:44.097Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1mv8Dn9QEWcT5jACNpx1y4GWF7mgYaDM1",
+    "src": "/api/google-drive/image?id=1mv8Dn9QEWcT5jACNpx1y4GWF7mgYaDM1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1mv8Dn9QEWcT5jACNpx1y4GWF7mgYaDM1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1mv8Dn9QEWcT5jACNpx1y4GWF7mgYaDM1&sz=w64",
+    "alt": "BKB (24)",
+    "title": "BKB (24)",
+    "description": "",
+    "category": "Event",
+    "width": 4303,
+    "height": 5379,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:46.079Z",
+      "fileSize": "2.3 MB"
+    }
+  },
+  {
+    "id": "13k1KxDCesBlZ5rd9ejhRar_vKjf5iPVI",
+    "src": "/api/google-drive/image?id=13k1KxDCesBlZ5rd9ejhRar_vKjf5iPVI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=13k1KxDCesBlZ5rd9ejhRar_vKjf5iPVI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=13k1KxDCesBlZ5rd9ejhRar_vKjf5iPVI&sz=w64",
+    "alt": "BKB (25)",
+    "title": "BKB (25)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:33:48.052Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n",
+    "src": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&sz=w64",
+    "alt": "BKB (3)",
+    "title": "BKB (3)",
+    "description": "",
+    "category": "Event",
+    "width": 4549,
+    "height": 6823,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "68mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:06.222Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO",
+    "src": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&sz=w64",
+    "alt": "BKB (4)",
+    "title": "BKB (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4229,
+    "height": 5286,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:08.471Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4",
+    "src": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&sz=w64",
+    "alt": "BKB (5)",
+    "title": "BKB (5)",
+    "description": "",
+    "category": "Event",
+    "width": 4595,
+    "height": 6893,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:10.357Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a",
+    "src": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&sz=w64",
+    "alt": "BKB (6)",
+    "title": "BKB (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4583,
+    "height": 5729,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:12.195Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks",
+    "src": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&sz=w64",
+    "alt": "BKB (7)",
+    "title": "BKB (7)",
+    "description": "",
+    "category": "Event",
+    "width": 4007,
+    "height": 5009,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:14.109Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2",
+    "src": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&sz=w64",
+    "alt": "BKB (8)",
+    "title": "BKB (8)",
+    "description": "",
+    "category": "Event",
+    "width": 3786,
+    "height": 4732,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "62mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:15.714Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V",
+    "src": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&sz=w64",
+    "alt": "BKB (9)",
+    "title": "BKB (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4285,
+    "height": 5356,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:17.639Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ",
+    "src": "/api/google-drive/image?id=1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ&sz=w64",
+    "alt": "BKE Halloween (1)",
+    "title": "BKE Halloween (1)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "22mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:29:58.730Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq",
+    "src": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&sz=w64",
+    "alt": "BKE Halloween (10)",
+    "title": "BKE Halloween (10)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:17.154Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r",
+    "src": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&sz=w64",
+    "alt": "BKE Halloween (11)",
+    "title": "BKE Halloween (11)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "24mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:18.914Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y",
+    "src": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&sz=w64",
+    "alt": "BKE Halloween (12)",
+    "title": "BKE Halloween (12)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:21.207Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5",
+    "src": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&sz=w64",
+    "alt": "BKE Halloween (13)",
+    "title": "BKE Halloween (13)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "22mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:23.385Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4",
+    "src": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&sz=w64",
+    "alt": "BKE Halloween (14)",
+    "title": "BKE Halloween (14)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "24mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:25.281Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1",
+    "src": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&sz=w64",
+    "alt": "BKE Halloween (15)",
+    "title": "BKE Halloween (15)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:27.383Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "19NsZxjS1hi0mesjLiPdd8h9UZLl4rt9I",
+    "src": "/api/google-drive/image?id=19NsZxjS1hi0mesjLiPdd8h9UZLl4rt9I&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=19NsZxjS1hi0mesjLiPdd8h9UZLl4rt9I&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=19NsZxjS1hi0mesjLiPdd8h9UZLl4rt9I&sz=w64",
+    "alt": "BKE Halloween (2)",
+    "title": "BKE Halloween (2)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "31mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:00.615Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1qXgNrQQa1Dcb68gbtGSeWPPHUk3jkA5j",
+    "src": "/api/google-drive/image?id=1qXgNrQQa1Dcb68gbtGSeWPPHUk3jkA5j&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1qXgNrQQa1Dcb68gbtGSeWPPHUk3jkA5j&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1qXgNrQQa1Dcb68gbtGSeWPPHUk3jkA5j&sz=w64",
+    "alt": "BKE Halloween (3)",
+    "title": "BKE Halloween (3)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "21mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:02.380Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1fKZoeLwzf4JrWRPx_kLb42A2BvDGK2PC",
+    "src": "/api/google-drive/image?id=1fKZoeLwzf4JrWRPx_kLb42A2BvDGK2PC&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1fKZoeLwzf4JrWRPx_kLb42A2BvDGK2PC&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1fKZoeLwzf4JrWRPx_kLb42A2BvDGK2PC&sz=w64",
+    "alt": "BKE Halloween (4)",
+    "title": "BKE Halloween (4)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "30mm · f/4 · 1/200 · ISO 400",
+      "date": "2026-01-06T02:30:04.346Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1vCHBHDoCJqKWfvt87h8t6AfmazVK6GI_",
+    "src": "/api/google-drive/image?id=1vCHBHDoCJqKWfvt87h8t6AfmazVK6GI_&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1vCHBHDoCJqKWfvt87h8t6AfmazVK6GI_&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1vCHBHDoCJqKWfvt87h8t6AfmazVK6GI_&sz=w64",
+    "alt": "BKE Halloween (5)",
+    "title": "BKE Halloween (5)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:06.380Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "11sBCJ82I4YCLr8xpZSLcju9nxPIGaQBc",
+    "src": "/api/google-drive/image?id=11sBCJ82I4YCLr8xpZSLcju9nxPIGaQBc&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=11sBCJ82I4YCLr8xpZSLcju9nxPIGaQBc&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=11sBCJ82I4YCLr8xpZSLcju9nxPIGaQBc&sz=w64",
+    "alt": "BKE Halloween (6)",
+    "title": "BKE Halloween (6)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:08.124Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1af65ZffD9OVDDxGmDA5Zd4LyLtX1j4gb",
+    "src": "/api/google-drive/image?id=1af65ZffD9OVDDxGmDA5Zd4LyLtX1j4gb&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1af65ZffD9OVDDxGmDA5Zd4LyLtX1j4gb&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1af65ZffD9OVDDxGmDA5Zd4LyLtX1j4gb&sz=w64",
+    "alt": "BKE Halloween (7)",
+    "title": "BKE Halloween (7)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "35mm · f/4.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:10.148Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1kfzVDfJsRnulPT6j9MVNlMaIgR-WLeKM",
+    "src": "/api/google-drive/image?id=1kfzVDfJsRnulPT6j9MVNlMaIgR-WLeKM&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1kfzVDfJsRnulPT6j9MVNlMaIgR-WLeKM&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1kfzVDfJsRnulPT6j9MVNlMaIgR-WLeKM&sz=w64",
+    "alt": "BKE Halloween (8)",
+    "title": "BKE Halloween (8)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "25mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:12.306Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "15H8UdwTBuA6oA6bcAZxuQsGItUi2J-yW",
+    "src": "/api/google-drive/image?id=15H8UdwTBuA6oA6bcAZxuQsGItUi2J-yW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=15H8UdwTBuA6oA6bcAZxuQsGItUi2J-yW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=15H8UdwTBuA6oA6bcAZxuQsGItUi2J-yW&sz=w64",
+    "alt": "BKE Halloween (9)",
+    "title": "BKE Halloween (9)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "28mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:14.184Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3",
+    "src": "/api/google-drive/image?id=1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3&sz=w64",
+    "alt": "BKE Showcase (1)",
+    "title": "BKE Showcase (1)",
+    "description": "",
+    "category": "Event",
+    "width": 6265,
+    "height": 3394,
+    "metadata": {
+      "camera": "Canon Canon EOS R",
+      "lens": "RF24-105mm F4 L IS USM",
+      "settings": "40mm · f/4 · 1/800 · ISO 1250",
+      "date": "2026-01-06T02:30:34.537Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1Lm1_Qw1JBqLdyncXNkEyugqlyD5uUhM4",
+    "src": "/api/google-drive/image?id=1Lm1_Qw1JBqLdyncXNkEyugqlyD5uUhM4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Lm1_Qw1JBqLdyncXNkEyugqlyD5uUhM4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Lm1_Qw1JBqLdyncXNkEyugqlyD5uUhM4&sz=w64",
+    "alt": "BKE Showcase (2)",
+    "title": "BKE Showcase (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4225,
+    "height": 5767,
+    "metadata": {
+      "camera": "Canon Canon EOS R",
+      "lens": "RF24-105mm F4 L IS USM",
+      "settings": "76mm · f/4 · 1/800 · ISO 1000",
+      "date": "2026-01-06T02:29:58.311Z",
+      "fileSize": "919.5 KB"
+    }
+  },
+  {
+    "id": "1qW_vcedffwPKMcWVkcyaJggYUNa94ylT",
+    "src": "/api/google-drive/image?id=1qW_vcedffwPKMcWVkcyaJggYUNa94ylT&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1qW_vcedffwPKMcWVkcyaJggYUNa94ylT&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1qW_vcedffwPKMcWVkcyaJggYUNa94ylT&sz=w64",
+    "alt": "DCMPA Youth Festival (1)",
+    "title": "DCMPA Youth Festival (1)",
+    "description": "",
+    "category": "Event",
+    "width": 3248,
+    "height": 4060,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:49.936Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1dM8ctHkY6jE1NfniMqrbf834yrpYJb_Q",
+    "src": "/api/google-drive/image?id=1dM8ctHkY6jE1NfniMqrbf834yrpYJb_Q&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1dM8ctHkY6jE1NfniMqrbf834yrpYJb_Q&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1dM8ctHkY6jE1NfniMqrbf834yrpYJb_Q&sz=w64",
+    "alt": "DCMPA Youth Festival (10)",
+    "title": "DCMPA Youth Festival (10)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "30mm · f/5.6 · 1/250 · ISO 6400",
+      "date": "2026-01-06T02:34:07.798Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1Lpr0gYKYbIVli1C3wSO1dDuNdb4mYAD3",
+    "src": "/api/google-drive/image?id=1Lpr0gYKYbIVli1C3wSO1dDuNdb4mYAD3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Lpr0gYKYbIVli1C3wSO1dDuNdb4mYAD3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Lpr0gYKYbIVli1C3wSO1dDuNdb4mYAD3&sz=w64",
+    "alt": "DCMPA Youth Festival (11)",
+    "title": "DCMPA Youth Festival (11)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "46mm · f/4.5 · 1/250 · ISO 4000",
+      "date": "2026-01-06T02:34:09.755Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1GE2SWR3U9JbcfkPslSggm_uGBR1OvqMA",
+    "src": "/api/google-drive/image?id=1GE2SWR3U9JbcfkPslSggm_uGBR1OvqMA&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1GE2SWR3U9JbcfkPslSggm_uGBR1OvqMA&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1GE2SWR3U9JbcfkPslSggm_uGBR1OvqMA&sz=w64",
+    "alt": "DCMPA Youth Festival (12)",
+    "title": "DCMPA Youth Festival (12)",
+    "description": "",
+    "category": "Event",
+    "width": 4462,
+    "height": 6693,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5 · 1/250 · ISO 8000",
+      "date": "2026-01-06T02:34:11.960Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1COWpdSWHyULH0TwQNz58hyOUcZVVmiRg",
+    "src": "/api/google-drive/image?id=1COWpdSWHyULH0TwQNz58hyOUcZVVmiRg&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1COWpdSWHyULH0TwQNz58hyOUcZVVmiRg&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1COWpdSWHyULH0TwQNz58hyOUcZVVmiRg&sz=w64",
+    "alt": "DCMPA Youth Festival (13)",
+    "title": "DCMPA Youth Festival (13)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/250 · ISO 3200",
+      "date": "2026-01-06T02:34:13.867Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1K1jeL4_smBLodN8p4NobZax7jWfd1l_r",
+    "src": "/api/google-drive/image?id=1K1jeL4_smBLodN8p4NobZax7jWfd1l_r&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1K1jeL4_smBLodN8p4NobZax7jWfd1l_r&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1K1jeL4_smBLodN8p4NobZax7jWfd1l_r&sz=w64",
+    "alt": "DCMPA Youth Festival (14)",
+    "title": "DCMPA Youth Festival (14)",
+    "description": "",
+    "category": "Event",
+    "width": 3151,
+    "height": 3939,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:30:16.873Z",
+      "fileSize": "958.8 KB"
+    }
+  },
+  {
+    "id": "1uz2kAh8YyrwrtKEiE3Ozl_xcPS93TJn7",
+    "src": "/api/google-drive/image?id=1uz2kAh8YyrwrtKEiE3Ozl_xcPS93TJn7&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1uz2kAh8YyrwrtKEiE3Ozl_xcPS93TJn7&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1uz2kAh8YyrwrtKEiE3Ozl_xcPS93TJn7&sz=w64",
+    "alt": "DCMPA Youth Festival (15)",
+    "title": "DCMPA Youth Festival (15)",
+    "description": "",
+    "category": "Event",
+    "width": 3651,
+    "height": 2434,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "28mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:30:16.909Z",
+      "fileSize": "870.5 KB"
+    }
+  },
+  {
+    "id": "1Poa3rHnlpDk7YzSGj4iacGqsXnTfR6xK",
+    "src": "/api/google-drive/image?id=1Poa3rHnlpDk7YzSGj4iacGqsXnTfR6xK&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Poa3rHnlpDk7YzSGj4iacGqsXnTfR6xK&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Poa3rHnlpDk7YzSGj4iacGqsXnTfR6xK&sz=w64",
+    "alt": "DCMPA Youth Festival (16)",
+    "title": "DCMPA Youth Festival (16)",
+    "description": "",
+    "category": "Event",
+    "width": 4099,
+    "height": 6148,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:16.112Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1vpUp-PPTGKb7MfWACEgQ1N8od-muKMP0",
+    "src": "/api/google-drive/image?id=1vpUp-PPTGKb7MfWACEgQ1N8od-muKMP0&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1vpUp-PPTGKb7MfWACEgQ1N8od-muKMP0&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1vpUp-PPTGKb7MfWACEgQ1N8od-muKMP0&sz=w64",
+    "alt": "DCMPA Youth Festival (17)",
+    "title": "DCMPA Youth Festival (17)",
+    "description": "",
+    "category": "Event",
+    "width": 3924,
+    "height": 4905,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:18.277Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1TpT_EMXAsV72r3P85fAmo8hgK_Cl9-di",
+    "src": "/api/google-drive/image?id=1TpT_EMXAsV72r3P85fAmo8hgK_Cl9-di&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1TpT_EMXAsV72r3P85fAmo8hgK_Cl9-di&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1TpT_EMXAsV72r3P85fAmo8hgK_Cl9-di&sz=w64",
+    "alt": "DCMPA Youth Festival (18)",
+    "title": "DCMPA Youth Festival (18)",
+    "description": "",
+    "category": "Event",
+    "width": 4537,
+    "height": 5671,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "62mm · f/5.6 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:20.525Z",
+      "fileSize": "2.3 MB"
+    }
+  },
+  {
+    "id": "1ZhKTJ8tstIL5ctEa9XUtRM6CBHi-fbhR",
+    "src": "/api/google-drive/image?id=1ZhKTJ8tstIL5ctEa9XUtRM6CBHi-fbhR&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZhKTJ8tstIL5ctEa9XUtRM6CBHi-fbhR&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZhKTJ8tstIL5ctEa9XUtRM6CBHi-fbhR&sz=w64",
+    "alt": "DCMPA Youth Festival (19)",
+    "title": "DCMPA Youth Festival (19)",
+    "description": "",
+    "category": "Event",
+    "width": 4186,
+    "height": 5233,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:22.787Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS",
+    "src": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&sz=w64",
+    "alt": "DCMPA Youth Festival (2)",
+    "title": "DCMPA Youth Festival (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4235,
+    "height": 5294,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/200 · ISO 8000",
+      "date": "2026-01-06T02:33:52.059Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1MH33xnEtujyzih6EFb6EwFngtdxcW2dq",
+    "src": "/api/google-drive/image?id=1MH33xnEtujyzih6EFb6EwFngtdxcW2dq&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1MH33xnEtujyzih6EFb6EwFngtdxcW2dq&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1MH33xnEtujyzih6EFb6EwFngtdxcW2dq&sz=w64",
+    "alt": "DCMPA Youth Festival (20)",
+    "title": "DCMPA Youth Festival (20)",
+    "description": "",
+    "category": "Event",
+    "width": 6327,
+    "height": 4218,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:25.034Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1o-Epe3bNhDiBj_5CQGBF-NSXc3-NSwvV",
+    "src": "/api/google-drive/image?id=1o-Epe3bNhDiBj_5CQGBF-NSXc3-NSwvV&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1o-Epe3bNhDiBj_5CQGBF-NSXc3-NSwvV&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1o-Epe3bNhDiBj_5CQGBF-NSXc3-NSwvV&sz=w64",
+    "alt": "DCMPA Youth Festival (21)",
+    "title": "DCMPA Youth Festival (21)",
+    "description": "",
+    "category": "Event",
+    "width": 4288,
+    "height": 5360,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:27.479Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1ZMlrPBAX2igivPWVDhSM8dFlrhSRvI7f",
+    "src": "/api/google-drive/image?id=1ZMlrPBAX2igivPWVDhSM8dFlrhSRvI7f&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZMlrPBAX2igivPWVDhSM8dFlrhSRvI7f&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZMlrPBAX2igivPWVDhSM8dFlrhSRvI7f&sz=w64",
+    "alt": "DCMPA Youth Festival (22)",
+    "title": "DCMPA Youth Festival (22)",
+    "description": "",
+    "category": "Event",
+    "width": 3978,
+    "height": 4972,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:29.597Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1yTn5nIasLkmPDR42zPwVaRLPE5ioHKY1",
+    "src": "/api/google-drive/image?id=1yTn5nIasLkmPDR42zPwVaRLPE5ioHKY1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yTn5nIasLkmPDR42zPwVaRLPE5ioHKY1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yTn5nIasLkmPDR42zPwVaRLPE5ioHKY1&sz=w64",
+    "alt": "DCMPA Youth Festival (23)",
+    "title": "DCMPA Youth Festival (23)",
+    "description": "",
+    "category": "Event",
+    "width": 3074,
+    "height": 3843,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/400 · ISO 8000",
+      "date": "2026-01-06T02:30:16.877Z",
+      "fileSize": "960.1 KB"
+    }
+  },
+  {
+    "id": "1mRjf2IayxUzMk6PSz3p0XXB20Qo0zEP_",
+    "src": "/api/google-drive/image?id=1mRjf2IayxUzMk6PSz3p0XXB20Qo0zEP_&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1mRjf2IayxUzMk6PSz3p0XXB20Qo0zEP_&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1mRjf2IayxUzMk6PSz3p0XXB20Qo0zEP_&sz=w64",
+    "alt": "DCMPA Youth Festival (24)",
+    "title": "DCMPA Youth Festival (24)",
+    "description": "",
+    "category": "Event",
+    "width": 3379,
+    "height": 4224,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "60mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:30:16.996Z",
+      "fileSize": "986.2 KB"
+    }
+  },
+  {
+    "id": "1oQ7zsRZ_GOcH_VMPJhai3NP7MIINxRRw",
+    "src": "/api/google-drive/image?id=1oQ7zsRZ_GOcH_VMPJhai3NP7MIINxRRw&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1oQ7zsRZ_GOcH_VMPJhai3NP7MIINxRRw&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1oQ7zsRZ_GOcH_VMPJhai3NP7MIINxRRw&sz=w64",
+    "alt": "DCMPA Youth Festival (25)",
+    "title": "DCMPA Youth Festival (25)",
+    "description": "",
+    "category": "Event",
+    "width": 4005,
+    "height": 6007,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/400 · ISO 8000",
+      "date": "2026-01-06T02:34:31.240Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1qj-o8RmU4hkK8JDL3v8GnXC_dxnhcLBQ",
+    "src": "/api/google-drive/image?id=1qj-o8RmU4hkK8JDL3v8GnXC_dxnhcLBQ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1qj-o8RmU4hkK8JDL3v8GnXC_dxnhcLBQ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1qj-o8RmU4hkK8JDL3v8GnXC_dxnhcLBQ&sz=w64",
+    "alt": "DCMPA Youth Festival (26)",
+    "title": "DCMPA Youth Festival (26)",
+    "description": "",
+    "category": "Event",
+    "width": 2818,
+    "height": 3523,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/400 · ISO 8000",
+      "date": "2026-01-06T02:30:16.865Z",
+      "fileSize": "1006.4 KB"
+    }
+  },
+  {
+    "id": "1w6hJMk0idTwRuZMjGfLtAjGABRmuN1Pt",
+    "src": "/api/google-drive/image?id=1w6hJMk0idTwRuZMjGfLtAjGABRmuN1Pt&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1w6hJMk0idTwRuZMjGfLtAjGABRmuN1Pt&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1w6hJMk0idTwRuZMjGfLtAjGABRmuN1Pt&sz=w64",
+    "alt": "DCMPA Youth Festival (27)",
+    "title": "DCMPA Youth Festival (27)",
+    "description": "",
+    "category": "Event",
+    "width": 6293,
+    "height": 4195,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "36mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:33.271Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1bVpor2CWe6MxUqlfTW958h21aY9OHBrA",
+    "src": "/api/google-drive/image?id=1bVpor2CWe6MxUqlfTW958h21aY9OHBrA&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1bVpor2CWe6MxUqlfTW958h21aY9OHBrA&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1bVpor2CWe6MxUqlfTW958h21aY9OHBrA&sz=w64",
+    "alt": "DCMPA Youth Festival (28)",
+    "title": "DCMPA Youth Festival (28)",
+    "description": "",
+    "category": "Event",
+    "width": 2627,
+    "height": 3284,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:30:16.444Z",
+      "fileSize": "634.3 KB"
+    }
+  },
+  {
+    "id": "1toYibVoM9GN8fHHy6ZprD46i2RI_RWFb",
+    "src": "/api/google-drive/image?id=1toYibVoM9GN8fHHy6ZprD46i2RI_RWFb&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1toYibVoM9GN8fHHy6ZprD46i2RI_RWFb&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1toYibVoM9GN8fHHy6ZprD46i2RI_RWFb&sz=w64",
+    "alt": "DCMPA Youth Festival (29)",
+    "title": "DCMPA Youth Festival (29)",
+    "description": "",
+    "category": "Event",
+    "width": 4255,
+    "height": 5319,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:35.342Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1HqucHfe91vOml6BT9jIddTO-Aquq58_N",
+    "src": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&sz=w64",
+    "alt": "DCMPA Youth Festival (3)",
+    "title": "DCMPA Youth Festival (3)",
+    "description": "",
+    "category": "Event",
+    "width": 3442,
+    "height": 4303,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:53.894Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju",
+    "src": "/api/google-drive/image?id=1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju&sz=w64",
+    "alt": "DCMPA Youth Festival (30)",
+    "title": "DCMPA Youth Festival (30)",
+    "description": "",
+    "category": "Event",
+    "width": 3786,
+    "height": 4732,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:37.099Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1oI-ji8uBU4qOlPAiG4-kQ4bWDo3YPG2w",
+    "src": "/api/google-drive/image?id=1oI-ji8uBU4qOlPAiG4-kQ4bWDo3YPG2w&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1oI-ji8uBU4qOlPAiG4-kQ4bWDo3YPG2w&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1oI-ji8uBU4qOlPAiG4-kQ4bWDo3YPG2w&sz=w64",
+    "alt": "DCMPA Youth Festival (31)",
+    "title": "DCMPA Youth Festival (31)",
+    "description": "",
+    "category": "Event",
+    "width": 3886,
+    "height": 4857,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "58mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:39.010Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1kGK-mgTsnJc3Tv6AIFtowfao4iOMJ61Q",
+    "src": "/api/google-drive/image?id=1kGK-mgTsnJc3Tv6AIFtowfao4iOMJ61Q&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1kGK-mgTsnJc3Tv6AIFtowfao4iOMJ61Q&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1kGK-mgTsnJc3Tv6AIFtowfao4iOMJ61Q&sz=w64",
+    "alt": "DCMPA Youth Festival (32)",
+    "title": "DCMPA Youth Festival (32)",
+    "description": "",
+    "category": "Event",
+    "width": 3679,
+    "height": 4599,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:41.308Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "18GINySmxO9nSIy5B2z6V7Q5wrR4ipgDF",
+    "src": "/api/google-drive/image?id=18GINySmxO9nSIy5B2z6V7Q5wrR4ipgDF&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=18GINySmxO9nSIy5B2z6V7Q5wrR4ipgDF&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=18GINySmxO9nSIy5B2z6V7Q5wrR4ipgDF&sz=w64",
+    "alt": "DCMPA Youth Festival (33)",
+    "title": "DCMPA Youth Festival (33)",
+    "description": "",
+    "category": "Event",
+    "width": 3631,
+    "height": 4539,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:34:43.082Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-",
+    "src": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&sz=w64",
+    "alt": "DCMPA Youth Festival (4)",
+    "title": "DCMPA Youth Festival (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4295,
+    "height": 6442,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:55.611Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1aizC4rY76eFGV8amC8QDkfsyWD5sknkI",
+    "src": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&sz=w64",
+    "alt": "DCMPA Youth Festival (5)",
+    "title": "DCMPA Youth Festival (5)",
+    "description": "",
+    "category": "Event",
+    "width": 4138,
+    "height": 5173,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "47mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:57.681Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN",
+    "src": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&sz=w64",
+    "alt": "DCMPA Youth Festival (6)",
+    "title": "DCMPA Youth Festival (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4551,
+    "height": 6827,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/250 · ISO 5000",
+      "date": "2026-01-06T02:33:59.713Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB",
+    "src": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&sz=w64",
+    "alt": "DCMPA Youth Festival (7)",
+    "title": "DCMPA Youth Festival (7)",
+    "description": "",
+    "category": "Event",
+    "width": 4449,
+    "height": 6673,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/5.6 · 1/250 · ISO 8000",
+      "date": "2026-01-06T02:34:02.156Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ",
+    "src": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&sz=w64",
+    "alt": "DCMPA Youth Festival (8)",
+    "title": "DCMPA Youth Festival (8)",
+    "description": "",
+    "category": "Event",
+    "width": 4335,
+    "height": 5419,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "28mm · f/4.5 · 1/250 · ISO 4000",
+      "date": "2026-01-06T02:34:03.984Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "181stE65nPKs3JsgpZogWQFynDFGGEzTN",
+    "src": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&sz=w64",
+    "alt": "DCMPA Youth Festival (9)",
+    "title": "DCMPA Youth Festival (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4191,
+    "height": 6287,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/250 · ISO 3200",
+      "date": "2026-01-06T02:34:05.954Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S",
+    "src": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&sz=w64",
+    "alt": "RCR After Party (1)",
+    "title": "RCR After Party (1)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "28mm · f/4 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:36.825Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso",
+    "src": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&sz=w64",
+    "alt": "RCR After Party (10)",
+    "title": "RCR After Party (10)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:55.839Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "199CqFKMqreEQ34EFsw_ssL6jmtha8bRy",
+    "src": "/api/google-drive/image?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&sz=w64",
+    "alt": "RCR After Party (2)",
+    "title": "RCR After Party (2)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "21mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:38.971Z",
+      "fileSize": "2.9 MB"
+    }
+  },
+  {
+    "id": "1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ",
+    "src": "/api/google-drive/image?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&sz=w64",
+    "alt": "RCR After Party (3)",
+    "title": "RCR After Party (3)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:41.260Z",
+      "fileSize": "2.8 MB"
+    }
+  },
+  {
+    "id": "1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF",
+    "src": "/api/google-drive/image?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&sz=w64",
+    "alt": "RCR After Party (4)",
+    "title": "RCR After Party (4)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:43.214Z",
+      "fileSize": "2.6 MB"
+    }
+  },
+  {
+    "id": "12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph",
+    "src": "/api/google-drive/image?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&sz=w64",
+    "alt": "RCR After Party (5)",
+    "title": "RCR After Party (5)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:45.504Z",
+      "fileSize": "2.9 MB"
+    }
+  },
+  {
+    "id": "1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W",
+    "src": "/api/google-drive/image?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&sz=w64",
+    "alt": "RCR After Party (6)",
+    "title": "RCR After Party (6)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:47.695Z",
+      "fileSize": "3.0 MB"
+    }
+  },
+  {
+    "id": "1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs",
+    "src": "/api/google-drive/image?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&sz=w64",
+    "alt": "RCR After Party (7)",
+    "title": "RCR After Party (7)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:49.576Z",
+      "fileSize": "2.6 MB"
+    }
+  },
+  {
+    "id": "1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk",
+    "src": "/api/google-drive/image?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&sz=w64",
+    "alt": "RCR After Party (8)",
+    "title": "RCR After Party (8)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:51.418Z",
+      "fileSize": "2.8 MB"
+    }
+  },
+  {
+    "id": "1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W",
+    "src": "/api/google-drive/image?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&sz=w64",
+    "alt": "RCR After Party (9)",
+    "title": "RCR After Party (9)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "28mm · f/4 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:53.745Z",
+      "fileSize": "2.8 MB"
+    }
+  },
+  {
+    "id": "1OmPzn2GXWK4sksXP-jP-eLemzHPe2ga1",
+    "src": "/api/google-drive/image?id=1OmPzn2GXWK4sksXP-jP-eLemzHPe2ga1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1OmPzn2GXWK4sksXP-jP-eLemzHPe2ga1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1OmPzn2GXWK4sksXP-jP-eLemzHPe2ga1&sz=w64",
+    "alt": "Turnt Desi (1)",
+    "title": "Turnt Desi (1)",
+    "description": "",
+    "category": "Event",
+    "width": 4366,
+    "height": 6549,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/250 · ISO 200",
+      "date": "2026-01-06T02:30:58.877Z",
+      "fileSize": "11.9 MB"
+    }
+  },
+  {
+    "id": "1soIFOiOKZimXlpDeX3nZnPtxa8XnHCm_",
+    "src": "/api/google-drive/image?id=1soIFOiOKZimXlpDeX3nZnPtxa8XnHCm_&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1soIFOiOKZimXlpDeX3nZnPtxa8XnHCm_&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1soIFOiOKZimXlpDeX3nZnPtxa8XnHCm_&sz=w64",
+    "alt": "Turnt Desi (2)",
+    "title": "Turnt Desi (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4489,
+    "height": 6734,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/250 · ISO 8000",
+      "date": "2026-01-06T02:31:03.162Z",
+      "fileSize": "23.8 MB"
+    }
+  },
+  {
+    "id": "1OlqjvjGq_ck7l7XVkvU3dLTyfvZJQT4r",
+    "src": "/api/google-drive/image?id=1OlqjvjGq_ck7l7XVkvU3dLTyfvZJQT4r&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1OlqjvjGq_ck7l7XVkvU3dLTyfvZJQT4r&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1OlqjvjGq_ck7l7XVkvU3dLTyfvZJQT4r&sz=w64",
+    "alt": "Turnt Desi (3)",
+    "title": "Turnt Desi (3)",
+    "description": "",
+    "category": "Event",
+    "width": 7008,
+    "height": 4672,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/250 · ISO 160",
+      "date": "2026-01-06T02:31:07.430Z",
+      "fileSize": "14.8 MB"
+    }
+  },
+  {
+    "id": "1SomeiLtl8IJ9SiVfyS9mGuvz3tDam9Pz",
+    "src": "/api/google-drive/image?id=1SomeiLtl8IJ9SiVfyS9mGuvz3tDam9Pz&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1SomeiLtl8IJ9SiVfyS9mGuvz3tDam9Pz&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1SomeiLtl8IJ9SiVfyS9mGuvz3tDam9Pz&sz=w64",
+    "alt": "Turnt Desi (4)",
+    "title": "Turnt Desi (4)",
+    "description": "",
+    "category": "Event",
+    "width": 7008,
+    "height": 4672,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/160 · ISO 160",
+      "date": "2026-01-06T02:31:11.207Z",
+      "fileSize": "14.1 MB"
+    }
+  },
+  {
+    "id": "1fiZei_lHsYtmpFf_NnxofDC8XvvSt7la",
+    "src": "/api/google-drive/image?id=1fiZei_lHsYtmpFf_NnxofDC8XvvSt7la&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1fiZei_lHsYtmpFf_NnxofDC8XvvSt7la&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1fiZei_lHsYtmpFf_NnxofDC8XvvSt7la&sz=w64",
+    "alt": "Turnt Desi (5)",
+    "title": "Turnt Desi (5)",
+    "description": "",
+    "category": "Event",
+    "width": 7008,
+    "height": 4672,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/1250 · ISO 8000",
+      "date": "2026-01-06T02:31:17.326Z",
+      "fileSize": "37.4 MB"
+    }
+  },
+  {
+    "id": "1ZJ_LIZytXTVIW_ZABWnxP2te1dYBuMaJ",
+    "src": "/api/google-drive/image?id=1ZJ_LIZytXTVIW_ZABWnxP2te1dYBuMaJ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZJ_LIZytXTVIW_ZABWnxP2te1dYBuMaJ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZJ_LIZytXTVIW_ZABWnxP2te1dYBuMaJ&sz=w64",
+    "alt": "Turnt Desi (6)",
+    "title": "Turnt Desi (6)",
+    "description": "",
+    "category": "Event",
+    "width": 7008,
+    "height": 4672,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/250 · ISO 50",
+      "date": "2026-01-06T02:31:21.757Z",
+      "fileSize": "16.5 MB"
+    }
+  },
+  {
+    "id": "1gACOVjBKOm-fZ0TVIuBeAWEaCPkLAN5n",
+    "src": "/api/google-drive/image?id=1gACOVjBKOm-fZ0TVIuBeAWEaCPkLAN5n&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gACOVjBKOm-fZ0TVIuBeAWEaCPkLAN5n&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gACOVjBKOm-fZ0TVIuBeAWEaCPkLAN5n&sz=w64",
+    "alt": "Turnt Desi (7)",
+    "title": "Turnt Desi (7)",
+    "description": "",
+    "category": "Event",
+    "width": 6209,
+    "height": 4139,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/250 · ISO 200",
+      "date": "2026-01-06T02:31:25.180Z",
+      "fileSize": "11.4 MB"
+    }
+  },
+  {
+    "id": "1-qCfUpQfT9gwyqeu-gGsoJi3uwU87UQ2",
+    "src": "/api/google-drive/image?id=1-qCfUpQfT9gwyqeu-gGsoJi3uwU87UQ2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1-qCfUpQfT9gwyqeu-gGsoJi3uwU87UQ2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1-qCfUpQfT9gwyqeu-gGsoJi3uwU87UQ2&sz=w64",
+    "alt": "Turnt Desi (8)",
+    "title": "Turnt Desi (8)",
+    "description": "",
+    "category": "Event",
+    "width": 7008,
+    "height": 4672,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.4 · 1/250 · ISO 64",
+      "date": "2026-01-06T02:31:28.165Z",
+      "fileSize": "8.8 MB"
+    }
+  },
+  {
+    "id": "1c2gvoSRZB8fsNMGqOZTWs9DVoTQ9rsRX",
+    "src": "/api/google-drive/image?id=1c2gvoSRZB8fsNMGqOZTWs9DVoTQ9rsRX&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1c2gvoSRZB8fsNMGqOZTWs9DVoTQ9rsRX&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1c2gvoSRZB8fsNMGqOZTWs9DVoTQ9rsRX&sz=w64",
+    "alt": "Turnt Desi (9)",
+    "title": "Turnt Desi (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/160 · ISO 3200",
+      "date": "2026-01-06T02:31:33.029Z",
+      "fileSize": "26.6 MB"
     }
   }
 ]

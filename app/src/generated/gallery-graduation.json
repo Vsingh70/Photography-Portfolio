@@ -1,11 +1,106 @@
 [
   {
-    "id": "1MIhMDJyZbzmizj75PM5ysDwmD1aw2dH5",
-    "src": "/api/google-drive/image?id=1MIhMDJyZbzmizj75PM5ysDwmD1aw2dH5&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1MIhMDJyZbzmizj75PM5ysDwmD1aw2dH5&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1MIhMDJyZbzmizj75PM5ysDwmD1aw2dH5&sz=w64",
-    "alt": "20250418-DSC02619",
-    "title": "20250418-DSC02619",
+    "id": "1HHpVHSyEhk8rZrKFSB9bHS39WUIkPbIX",
+    "src": "/api/google-drive/image?id=1HHpVHSyEhk8rZrKFSB9bHS39WUIkPbIX&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1HHpVHSyEhk8rZrKFSB9bHS39WUIkPbIX&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1HHpVHSyEhk8rZrKFSB9bHS39WUIkPbIX&sz=w64",
+    "alt": "Maanya and Ayush (1)",
+    "title": "Maanya and Ayush (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/320 · ISO 2000",
+      "date": "2026-01-03T23:56:13.477Z",
+      "fileSize": "3.8 MB"
+    }
+  },
+  {
+    "id": "1TIY0Xgs9XPmmBHfuCqUeqR0xw-N3Nrmv",
+    "src": "/api/google-drive/image?id=1TIY0Xgs9XPmmBHfuCqUeqR0xw-N3Nrmv&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1TIY0Xgs9XPmmBHfuCqUeqR0xw-N3Nrmv&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1TIY0Xgs9XPmmBHfuCqUeqR0xw-N3Nrmv&sz=w64",
+    "alt": "Maanya and Ayush (2)",
+    "title": "Maanya and Ayush (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 3847,
+    "height": 4809,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/250 · ISO 200",
+      "date": "2026-01-03T23:55:34.804Z",
+      "fileSize": "592.8 KB"
+    }
+  },
+  {
+    "id": "1mieLhhzjODUa81929zHCahcsc0onBz4P",
+    "src": "/api/google-drive/image?id=1mieLhhzjODUa81929zHCahcsc0onBz4P&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1mieLhhzjODUa81929zHCahcsc0onBz4P&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1mieLhhzjODUa81929zHCahcsc0onBz4P&sz=w64",
+    "alt": "Om (1)",
+    "title": "Om (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4533,
+    "height": 6799,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "46mm · f/4.5 · 1/200 · ISO 320",
+      "date": "2026-01-03T23:56:05.616Z",
+      "fileSize": "2.6 MB"
+    }
+  },
+  {
+    "id": "1DFGJTLj_GCEkVzATDVsWYvB1j2w-K2ae",
+    "src": "/api/google-drive/image?id=1DFGJTLj_GCEkVzATDVsWYvB1j2w-K2ae&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1DFGJTLj_GCEkVzATDVsWYvB1j2w-K2ae&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1DFGJTLj_GCEkVzATDVsWYvB1j2w-K2ae&sz=w64",
+    "alt": "Om (2)",
+    "title": "Om (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4429,
+    "height": 6643,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/200 · ISO 125",
+      "date": "2026-01-03T23:55:57.680Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1XJUAS_3xN9xqjC00k-1kxsIM4RwQKG2j",
+    "src": "/api/google-drive/image?id=1XJUAS_3xN9xqjC00k-1kxsIM4RwQKG2j&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XJUAS_3xN9xqjC00k-1kxsIM4RwQKG2j&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XJUAS_3xN9xqjC00k-1kxsIM4RwQKG2j&sz=w64",
+    "alt": "Om (3)",
+    "title": "Om (3)",
+    "description": "",
+    "category": "Graduation",
+    "width": 2404,
+    "height": 3005,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/160 · ISO 640",
+      "date": "2026-01-03T23:55:34.787Z",
+      "fileSize": "656.4 KB"
+    }
+  },
+  {
+    "id": "1XTa92p-kFpDhgVeE79l2emh1DuQZre4f",
+    "src": "/api/google-drive/image?id=1XTa92p-kFpDhgVeE79l2emh1DuQZre4f&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XTa92p-kFpDhgVeE79l2emh1DuQZre4f&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XTa92p-kFpDhgVeE79l2emh1DuQZre4f&sz=w64",
+    "alt": "Sagar (1)",
+    "title": "Sagar (1)",
     "description": "",
     "category": "Graduation",
     "width": 4226,
@@ -14,17 +109,245 @@
       "camera": "SONY ILCE-7M4",
       "lens": "FE 28-70mm F3.5-5.6 OSS",
       "settings": "49mm · f/4.5 · 1/125 · ISO 125",
-      "date": "2025-12-28T00:46:19.292Z",
+      "date": "2026-01-03T23:56:19.876Z",
       "fileSize": "1.5 MB"
     }
   },
   {
-    "id": "1cozopZrB1kmeyLm0Em-iRxX_Ow_EMjbR",
-    "src": "/api/google-drive/image?id=1cozopZrB1kmeyLm0Em-iRxX_Ow_EMjbR&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1cozopZrB1kmeyLm0Em-iRxX_Ow_EMjbR&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1cozopZrB1kmeyLm0Em-iRxX_Ow_EMjbR&sz=w64",
-    "alt": "Copy of 20250427-DSC07480",
-    "title": "Copy of 20250427-DSC07480",
+    "id": "1T6WYdVVpu1DYHAcyenKtylrmQXocmLzT",
+    "src": "/api/google-drive/image?id=1T6WYdVVpu1DYHAcyenKtylrmQXocmLzT&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1T6WYdVVpu1DYHAcyenKtylrmQXocmLzT&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1T6WYdVVpu1DYHAcyenKtylrmQXocmLzT&sz=w64",
+    "alt": "Sagar (2)",
+    "title": "Sagar (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 3734,
+    "height": 4668,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "39mm · f/4.5 · 1/125 · ISO 2000",
+      "date": "2026-01-05T08:18:02.911Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1KxRCo-e0YxvhsrYxh7WLwpk1Qb-LkrnZ",
+    "src": "/api/google-drive/image?id=1KxRCo-e0YxvhsrYxh7WLwpk1Qb-LkrnZ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1KxRCo-e0YxvhsrYxh7WLwpk1Qb-LkrnZ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1KxRCo-e0YxvhsrYxh7WLwpk1Qb-LkrnZ&sz=w64",
+    "alt": "Sahi (1)",
+    "title": "Sahi (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-03T23:56:08.683Z",
+      "fileSize": "4.0 MB"
+    }
+  },
+  {
+    "id": "1IS04N7euftscPeg8JteEFIcyr008L8cU",
+    "src": "/api/google-drive/image?id=1IS04N7euftscPeg8JteEFIcyr008L8cU&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1IS04N7euftscPeg8JteEFIcyr008L8cU&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1IS04N7euftscPeg8JteEFIcyr008L8cU&sz=w64",
+    "alt": "Sahi (2)",
+    "title": "Sahi (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4253,
+    "height": 6380,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/250 · ISO 320",
+      "date": "2026-01-03T23:56:16.066Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1iVvo4CWmeDX604-tIdcYl9K_mjxwj2pl",
+    "src": "/api/google-drive/image?id=1iVvo4CWmeDX604-tIdcYl9K_mjxwj2pl&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1iVvo4CWmeDX604-tIdcYl9K_mjxwj2pl&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1iVvo4CWmeDX604-tIdcYl9K_mjxwj2pl&sz=w64",
+    "alt": "Sakhi (1)",
+    "title": "Sakhi (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4417,
+    "height": 6626,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/320 · ISO 100",
+      "date": "2026-01-03T23:55:38.701Z",
+      "fileSize": "11.8 MB"
+    }
+  },
+  {
+    "id": "1nvsubpwAWzP09p5hoYdu68kuP-5OBlss",
+    "src": "/api/google-drive/image?id=1nvsubpwAWzP09p5hoYdu68kuP-5OBlss&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1nvsubpwAWzP09p5hoYdu68kuP-5OBlss&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1nvsubpwAWzP09p5hoYdu68kuP-5OBlss&sz=w64",
+    "alt": "Sakhi (2)",
+    "title": "Sakhi (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4484,
+    "height": 6726,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/640 · ISO 100",
+      "date": "2026-01-03T23:55:44.649Z",
+      "fileSize": "13.0 MB"
+    }
+  },
+  {
+    "id": "1DInj2wG3KLBlkXEgqNW_74G1fNhC4qsW",
+    "src": "/api/google-drive/image?id=1DInj2wG3KLBlkXEgqNW_74G1fNhC4qsW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1DInj2wG3KLBlkXEgqNW_74G1fNhC4qsW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1DInj2wG3KLBlkXEgqNW_74G1fNhC4qsW&sz=w64",
+    "alt": "Sakhi (3)",
+    "title": "Sakhi (3)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4587,
+    "height": 6881,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/640 · ISO 100",
+      "date": "2026-01-03T23:55:52.961Z",
+      "fileSize": "14.6 MB"
+    }
+  },
+  {
+    "id": "1EDi_3inEDK5LOzVJDQ2YCszOOpvcSC31",
+    "src": "/api/google-drive/image?id=1EDi_3inEDK5LOzVJDQ2YCszOOpvcSC31&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1EDi_3inEDK5LOzVJDQ2YCszOOpvcSC31&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1EDi_3inEDK5LOzVJDQ2YCszOOpvcSC31&sz=w64",
+    "alt": "Samhita",
+    "title": "Samhita",
+    "description": "",
+    "category": "Graduation",
+    "width": 4379,
+    "height": 6568,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.4 · 1/2000 · ISO 50",
+      "date": "2026-01-03T23:56:10.847Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1QWQzVy6wZeoExQMG-oFCfjnzVmqg3ofI",
+    "src": "/api/google-drive/image?id=1QWQzVy6wZeoExQMG-oFCfjnzVmqg3ofI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1QWQzVy6wZeoExQMG-oFCfjnzVmqg3ofI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1QWQzVy6wZeoExQMG-oFCfjnzVmqg3ofI&sz=w64",
+    "alt": "Shivani",
+    "title": "Shivani",
+    "description": "",
+    "category": "Graduation",
+    "width": 3407,
+    "height": 4259,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/250 · ISO 250",
+      "date": "2026-01-03T23:56:22.095Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1XM9Y2nH3vChldWfEM8_BBFlwZxbCQ4BX",
+    "src": "/api/google-drive/image?id=1XM9Y2nH3vChldWfEM8_BBFlwZxbCQ4BX&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XM9Y2nH3vChldWfEM8_BBFlwZxbCQ4BX&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XM9Y2nH3vChldWfEM8_BBFlwZxbCQ4BX&sz=w64",
+    "alt": "Sigma Phi Epsilon (1)",
+    "title": "Sigma Phi Epsilon (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4295,
+    "height": 6442,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.4 · 1/1250 · ISO 50",
+      "date": "2026-01-03T23:56:02.563Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "11Esb8pfStMNj2qHRUEpD0DCP6O3LJhhY",
+    "src": "/api/google-drive/image?id=11Esb8pfStMNj2qHRUEpD0DCP6O3LJhhY&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=11Esb8pfStMNj2qHRUEpD0DCP6O3LJhhY&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=11Esb8pfStMNj2qHRUEpD0DCP6O3LJhhY&sz=w64",
+    "alt": "Sigma Phi Epsilon (2)",
+    "title": "Sigma Phi Epsilon (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4347,
+    "height": 6521,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/2000 · ISO 50",
+      "date": "2026-01-03T23:56:26.573Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1wG_chiL8mjlUP4hkfYLfe2WdbPXzaOHB",
+    "src": "/api/google-drive/image?id=1wG_chiL8mjlUP4hkfYLfe2WdbPXzaOHB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1wG_chiL8mjlUP4hkfYLfe2WdbPXzaOHB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1wG_chiL8mjlUP4hkfYLfe2WdbPXzaOHB&sz=w64",
+    "alt": "Sumita (1)",
+    "title": "Sumita (1)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.3 · 1/2000 · ISO 50",
+      "date": "2026-01-03T23:55:55.535Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1lhDCeLPYrrPPJZaoCbLnonTk3GEmqxiQ",
+    "src": "/api/google-drive/image?id=1lhDCeLPYrrPPJZaoCbLnonTk3GEmqxiQ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1lhDCeLPYrrPPJZaoCbLnonTk3GEmqxiQ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1lhDCeLPYrrPPJZaoCbLnonTk3GEmqxiQ&sz=w64",
+    "alt": "Sumita (2)",
+    "title": "Sumita (2)",
+    "description": "",
+    "category": "Graduation",
+    "width": 4534,
+    "height": 6801,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 50mm F1.2 GM",
+      "settings": "50mm · f/1.2 · 1/1600 · ISO 50",
+      "date": "2026-01-03T23:56:17.818Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1x9YaJStnq4dk053xdQkrMkpCEK8kTvCW",
+    "src": "/api/google-drive/image?id=1x9YaJStnq4dk053xdQkrMkpCEK8kTvCW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1x9YaJStnq4dk053xdQkrMkpCEK8kTvCW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1x9YaJStnq4dk053xdQkrMkpCEK8kTvCW&sz=w64",
+    "alt": "Swar",
+    "title": "Swar",
     "description": "",
     "category": "Graduation",
     "width": 3774,
@@ -33,8 +356,27 @@
       "camera": "SONY ILCE-7M4",
       "lens": "FE 50mm F1.2 GM",
       "settings": "50mm · f/1.3 · 1/500 · ISO 50",
-      "date": "2025-12-28T00:46:13.759Z",
+      "date": "2026-01-03T23:56:28.766Z",
       "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1J7Nfs2XunDarWuWZBvHFwGob387AIACM",
+    "src": "/api/google-drive/image?id=1J7Nfs2XunDarWuWZBvHFwGob387AIACM&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1J7Nfs2XunDarWuWZBvHFwGob387AIACM&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1J7Nfs2XunDarWuWZBvHFwGob387AIACM&sz=w64",
+    "alt": "Zach",
+    "title": "Zach",
+    "description": "",
+    "category": "Graduation",
+    "width": 4533,
+    "height": 6799,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/250 · ISO 160",
+      "date": "2026-01-03T23:56:24.326Z",
+      "fileSize": "2.1 MB"
     }
   }
 ]

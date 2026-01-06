@@ -16,7 +16,7 @@ export const revalidate = 3600; // Revalidate every 1 hour (ISR)
 export const dynamic = 'force-static'; // Force static generation
 
 export const metadata = {
-  title: 'Gallery | Viraj Singh Photography',
+  title: 'Gallery',
   description: 'Explore photography galleries showcasing editorial, portraits, events, and more.',
 };
 
@@ -26,8 +26,6 @@ export const metadata = {
  */
 async function getGalleryCovers() {
   try {
-    console.log('⚡ Using pre-generated static thumbnails (INSTANT loading!)');
-
     // Map pre-generated thumbnails to GalleryCover format
     const covers: GalleryCover[] = coverThumbnails.map((thumbnail) => ({
       id: thumbnail.categorySlug,

@@ -74,7 +74,7 @@ export function ContactContent() {
                     rel="noopener noreferrer"
                     className="text-primary-900 dark:text-white hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
                   >
-                    @_vflics
+                    @vflics
                   </a>
                 </div>
               )}

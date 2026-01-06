@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { canela } from "../lib/fonts";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Viraj Singh | Photography Portfolio",
+  title: "vflics - Photography Portfolio",
   description: "Capturing timeless moments through the lens of creativity and passion. Professional photography services including portraits, events, dance, and more.",
 };
 
@@ -39,6 +41,8 @@ export default function RootLayout({
           <div className="bg-white dark:bg-black min-h-screen">
             {children}
           </div>
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

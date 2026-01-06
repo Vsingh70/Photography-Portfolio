@@ -43,12 +43,12 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!gallery) {
     return {
-      title: 'Gallery Not Found | Viraj Singh Photography',
+      title: 'Gallery Not Found',
     };
   }
 
   return {
-    title: `${gallery.name} | Viraj Singh Photography`,
+    title: `${gallery.name}`,
     description: gallery.description,
   };
 }

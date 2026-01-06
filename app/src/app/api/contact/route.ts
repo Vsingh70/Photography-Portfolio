@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: `${process.env.NEXT_PUBLIC_SITE_NAME} Contact Form <onboarding@resend.dev>`,
+      from: `${process.env.NEXT_PUBLIC_SITE_NAME} Contact Form <noreply@vflics.com>`,
       to: [process.env.CONTACT_EMAIL!],
       replyTo: email,
       subject: subject || `New Contact Form Submission from ${name}`,
