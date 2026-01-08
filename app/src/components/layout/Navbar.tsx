@@ -77,7 +77,7 @@ export function Navbar({ visible = true }: NavbarProps) {
 
                 {/* Instagram Icon */}
                 <Link
-                  href="https://www.instagram.com/_vflics"
+                  href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/vflics'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-700 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-white"
