@@ -47,11 +47,12 @@ export function Lightbox({ children }: LightboxProps) {
 interface LightboxImageProps {
   src: string;
   children: React.ReactElement;
+  index?: number; // Optional index to control lightbox navigation order
 }
 
-export function LightboxImage({ src, children }: LightboxImageProps) {
+export function LightboxImage({ src, children, index }: LightboxImageProps) {
   return (
-    <PhotoView src={src}>
+    <PhotoView src={src} index={index}>
       {children}
     </PhotoView>
   );
