@@ -19,6 +19,158 @@
     }
   },
   {
+    "id": "1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74",
+    "src": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&sz=w64",
+    "alt": "Bhangra Blowout (2)",
+    "title": "Bhangra Blowout (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4601,
+    "height": 6902,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:31:37.116Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6",
+    "src": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&sz=w64",
+    "alt": "Bhangra Blowout (3)",
+    "title": "Bhangra Blowout (3)",
+    "description": "",
+    "category": "Event",
+    "width": 4487,
+    "height": 5609,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 4000",
+      "date": "2026-01-06T02:31:39.501Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6",
+    "src": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&sz=w64",
+    "alt": "Bhangra Blowout (4)",
+    "title": "Bhangra Blowout (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4158,
+    "height": 5198,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 12800",
+      "date": "2026-01-06T02:31:41.583Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1FPW9hRxytrmT23LANAi5pFHpC97UyiQi",
+    "src": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&sz=w64",
+    "alt": "Bhangra Blowout (5)",
+    "title": "Bhangra Blowout (5)",
+    "description": "",
+    "category": "Event",
+    "width": 3782,
+    "height": 4728,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
+      "date": "2026-01-06T02:31:43.405Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI",
+    "src": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&sz=w64",
+    "alt": "Bhangra Blowout (6)",
+    "title": "Bhangra Blowout (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4179,
+    "height": 6269,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "42mm · f/4.5 · 1/800 · ISO 2500",
+      "date": "2026-01-06T02:31:45.347Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s",
+    "src": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&sz=w64",
+    "alt": "Bhangra Blowout (7)",
+    "title": "Bhangra Blowout (7)",
+    "description": "",
+    "category": "Event",
+    "width": 3954,
+    "height": 4942,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/800 · ISO 2000",
+      "date": "2026-01-06T02:31:47.117Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI",
+    "src": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&sz=w64",
+    "alt": "Bhangra Blowout (8)",
+    "title": "Bhangra Blowout (8)",
+    "description": "",
+    "category": "Event",
+    "width": 4492,
+    "height": 5615,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 6400",
+      "date": "2026-01-06T02:31:49.198Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l",
+    "src": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&sz=w64",
+    "alt": "Bhangra Blowout (9)",
+    "title": "Bhangra Blowout (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4118,
+    "height": 5147,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/4.5 · 1/800 · ISO 10000",
+      "date": "2026-01-06T02:31:51.203Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
     "id": "1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM",
     "src": "/api/google-drive/image?id=1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1GnzzZBagvrQjWlwzFZr_Fclw9cEtIzHM&size=thumbnail",
@@ -206,25 +358,6 @@
       "settings": "48mm · f/4.5 · 1/800 · ISO 2500",
       "date": "2026-01-06T02:32:09.074Z",
       "fileSize": "1.8 MB"
-    }
-  },
-  {
-    "id": "1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74",
-    "src": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1YqCO3OLPZtMJz3X-9lsqPTXyD4lo3W74&sz=w64",
-    "alt": "Bhangra Blowout (2)",
-    "title": "Bhangra Blowout (2)",
-    "description": "",
-    "category": "Event",
-    "width": 4601,
-    "height": 6902,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
-      "date": "2026-01-06T02:31:37.116Z",
-      "fileSize": "1.9 MB"
     }
   },
   {
@@ -418,25 +551,6 @@
     }
   },
   {
-    "id": "1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6",
-    "src": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1U2Hc4Vz5EKvBaqbT6ZHrchlTm8xIljN6&sz=w64",
-    "alt": "Bhangra Blowout (3)",
-    "title": "Bhangra Blowout (3)",
-    "description": "",
-    "category": "Event",
-    "width": 4487,
-    "height": 5609,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "38mm · f/4.5 · 1/800 · ISO 4000",
-      "date": "2026-01-06T02:31:39.501Z",
-      "fileSize": "1.6 MB"
-    }
-  },
-  {
     "id": "1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt",
     "src": "/api/google-drive/image?id=1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1EMo_zQL8lfBoOKx1O1xIgC9tjVHktSBt&size=thumbnail",
@@ -627,25 +741,6 @@
     }
   },
   {
-    "id": "1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6",
-    "src": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1YSBlR9OeKI9w3MsYCELmZkh8ILGVeCP6&sz=w64",
-    "alt": "Bhangra Blowout (4)",
-    "title": "Bhangra Blowout (4)",
-    "description": "",
-    "category": "Event",
-    "width": 4158,
-    "height": 5198,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "48mm · f/4.5 · 1/800 · ISO 12800",
-      "date": "2026-01-06T02:31:41.583Z",
-      "fileSize": "1.5 MB"
-    }
-  },
-  {
     "id": "1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz",
     "src": "/api/google-drive/image?id=1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1XVIqex3ml7By2xxyY1SdxD3hDHApNlzz&size=thumbnail",
@@ -760,101 +855,6 @@
     }
   },
   {
-    "id": "1FPW9hRxytrmT23LANAi5pFHpC97UyiQi",
-    "src": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1FPW9hRxytrmT23LANAi5pFHpC97UyiQi&sz=w64",
-    "alt": "Bhangra Blowout (5)",
-    "title": "Bhangra Blowout (5)",
-    "description": "",
-    "category": "Event",
-    "width": 3782,
-    "height": 4728,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "49mm · f/4.5 · 1/800 · ISO 3200",
-      "date": "2026-01-06T02:31:43.405Z",
-      "fileSize": "1.4 MB"
-    }
-  },
-  {
-    "id": "1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI",
-    "src": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1B6qoKp5aCzi1PHjWGBFBCsbVjT9NvaTI&sz=w64",
-    "alt": "Bhangra Blowout (6)",
-    "title": "Bhangra Blowout (6)",
-    "description": "",
-    "category": "Event",
-    "width": 4179,
-    "height": 6269,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "42mm · f/4.5 · 1/800 · ISO 2500",
-      "date": "2026-01-06T02:31:45.347Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s",
-    "src": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1zjAe-JDTgs0mGjczKY20Wf04KNDkbp8s&sz=w64",
-    "alt": "Bhangra Blowout (7)",
-    "title": "Bhangra Blowout (7)",
-    "description": "",
-    "category": "Event",
-    "width": 3954,
-    "height": 4942,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "51mm · f/4.5 · 1/800 · ISO 2000",
-      "date": "2026-01-06T02:31:47.117Z",
-      "fileSize": "1.4 MB"
-    }
-  },
-  {
-    "id": "17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI",
-    "src": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=17T1dtvyRDBPicq02jXHJ-G3lv9D2DkUI&sz=w64",
-    "alt": "Bhangra Blowout (8)",
-    "title": "Bhangra Blowout (8)",
-    "description": "",
-    "category": "Event",
-    "width": 4492,
-    "height": 5615,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "38mm · f/4.5 · 1/800 · ISO 6400",
-      "date": "2026-01-06T02:31:49.198Z",
-      "fileSize": "1.7 MB"
-    }
-  },
-  {
-    "id": "1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l",
-    "src": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1gHRRYZ6LZTnzsvDJQO_kKoqY4zCfYD9l&sz=w64",
-    "alt": "Bhangra Blowout (9)",
-    "title": "Bhangra Blowout (9)",
-    "description": "",
-    "category": "Event",
-    "width": 4118,
-    "height": 5147,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "38mm · f/4.5 · 1/800 · ISO 10000",
-      "date": "2026-01-06T02:31:51.203Z",
-      "fileSize": "1.2 MB"
-    }
-  },
-  {
     "id": "1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes",
     "src": "/api/google-drive/image?id=1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1uXd3GTgNjeQuugNr0BmyRsbe4UasYqes&size=thumbnail",
@@ -870,6 +870,158 @@
       "lens": "FE 28-70mm F3.5-5.6 OSS",
       "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
       "date": "2026-01-06T02:33:02.107Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a",
+    "src": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&sz=w64",
+    "alt": "BKB (2)",
+    "title": "BKB (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "65mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:04.077Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n",
+    "src": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&sz=w64",
+    "alt": "BKB (3)",
+    "title": "BKB (3)",
+    "description": "",
+    "category": "Event",
+    "width": 4549,
+    "height": 6823,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "68mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:06.222Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO",
+    "src": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&sz=w64",
+    "alt": "BKB (4)",
+    "title": "BKB (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4229,
+    "height": 5286,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:08.471Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4",
+    "src": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&sz=w64",
+    "alt": "BKB (5)",
+    "title": "BKB (5)",
+    "description": "",
+    "category": "Event",
+    "width": 4595,
+    "height": 6893,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:10.357Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a",
+    "src": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&sz=w64",
+    "alt": "BKB (6)",
+    "title": "BKB (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4583,
+    "height": 5729,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:12.195Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks",
+    "src": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&sz=w64",
+    "alt": "BKB (7)",
+    "title": "BKB (7)",
+    "description": "",
+    "category": "Event",
+    "width": 4007,
+    "height": 5009,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:14.109Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2",
+    "src": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&sz=w64",
+    "alt": "BKB (8)",
+    "title": "BKB (8)",
+    "description": "",
+    "category": "Event",
+    "width": 3786,
+    "height": 4732,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "62mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:15.714Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V",
+    "src": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&sz=w64",
+    "alt": "BKB (9)",
+    "title": "BKB (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4285,
+    "height": 5356,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5.6 · 1/640 · ISO 12800",
+      "date": "2026-01-06T02:33:17.639Z",
       "fileSize": "1.6 MB"
     }
   },
@@ -1064,25 +1216,6 @@
     }
   },
   {
-    "id": "1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a",
-    "src": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZxdnnxUceHHF7HNcN5s34kKhxLoW800a&sz=w64",
-    "alt": "BKB (2)",
-    "title": "BKB (2)",
-    "description": "",
-    "category": "Event",
-    "width": 4672,
-    "height": 5840,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "65mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:04.077Z",
-      "fileSize": "2.4 MB"
-    }
-  },
-  {
     "id": "177tRtofifbHzPHMUqivV0BtHisZQaxr2",
     "src": "/api/google-drive/image?id=177tRtofifbHzPHMUqivV0BtHisZQaxr2&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=177tRtofifbHzPHMUqivV0BtHisZQaxr2&size=thumbnail",
@@ -1197,139 +1330,6 @@
     }
   },
   {
-    "id": "1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n",
-    "src": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1ZIV5kka_Fc2fxQFO3h0iOZ6-X1u0z24n&sz=w64",
-    "alt": "BKB (3)",
-    "title": "BKB (3)",
-    "description": "",
-    "category": "Event",
-    "width": 4549,
-    "height": 6823,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "68mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:06.222Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO",
-    "src": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1x0Zfg2iykA3q4pflJ759eYjEvyZ3RjAO&sz=w64",
-    "alt": "BKB (4)",
-    "title": "BKB (4)",
-    "description": "",
-    "category": "Event",
-    "width": 4229,
-    "height": 5286,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:08.471Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4",
-    "src": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1Oh7xQ2VHrchoh77XiUUYFr8f3l4lHCI4&sz=w64",
-    "alt": "BKB (5)",
-    "title": "BKB (5)",
-    "description": "",
-    "category": "Event",
-    "width": 4595,
-    "height": 6893,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "55mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:10.357Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a",
-    "src": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1FU3PrFuWAxQum0zZywkXOXvkh0eGyh-a&sz=w64",
-    "alt": "BKB (6)",
-    "title": "BKB (6)",
-    "description": "",
-    "category": "Event",
-    "width": 4583,
-    "height": 5729,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:12.195Z",
-      "fileSize": "2.4 MB"
-    }
-  },
-  {
-    "id": "1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks",
-    "src": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1rxUSWjd1hPfLNUrOO5SzzFsYaUMdWCks&sz=w64",
-    "alt": "BKB (7)",
-    "title": "BKB (7)",
-    "description": "",
-    "category": "Event",
-    "width": 4007,
-    "height": 5009,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "52mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:14.109Z",
-      "fileSize": "1.5 MB"
-    }
-  },
-  {
-    "id": "13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2",
-    "src": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=13W8yGaYe4RBb_-LRhlCoP3bAuXeKH4n2&sz=w64",
-    "alt": "BKB (8)",
-    "title": "BKB (8)",
-    "description": "",
-    "category": "Event",
-    "width": 3786,
-    "height": 4732,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "62mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:15.714Z",
-      "fileSize": "1.6 MB"
-    }
-  },
-  {
-    "id": "1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V",
-    "src": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1VPKyOzvemt1cW3pWvzTPlLP8AwXegf0V&sz=w64",
-    "alt": "BKB (9)",
-    "title": "BKB (9)",
-    "description": "",
-    "category": "Event",
-    "width": 4285,
-    "height": 5356,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "54mm · f/5.6 · 1/640 · ISO 12800",
-      "date": "2026-01-06T02:33:17.639Z",
-      "fileSize": "1.6 MB"
-    }
-  },
-  {
     "id": "1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ",
     "src": "/api/google-drive/image?id=1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1yqwU1hpwmTn43jkyv0fwAHVmjMCcKAnQ&size=thumbnail",
@@ -1346,120 +1346,6 @@
       "settings": "22mm · f/3.5 · 1/200 · ISO 800",
       "date": "2026-01-06T02:29:58.730Z",
       "fileSize": "1.4 MB"
-    }
-  },
-  {
-    "id": "1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq",
-    "src": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&sz=w64",
-    "alt": "BKE Halloween (10)",
-    "title": "BKE Halloween (10)",
-    "description": "",
-    "category": "Event",
-    "width": 3456,
-    "height": 5184,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:17.154Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r",
-    "src": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&sz=w64",
-    "alt": "BKE Halloween (11)",
-    "title": "BKE Halloween (11)",
-    "description": "",
-    "category": "Event",
-    "width": 3456,
-    "height": 5184,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "24mm · f/4 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:18.914Z",
-      "fileSize": "2.1 MB"
-    }
-  },
-  {
-    "id": "1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y",
-    "src": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&sz=w64",
-    "alt": "BKE Halloween (12)",
-    "title": "BKE Halloween (12)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:21.207Z",
-      "fileSize": "1.9 MB"
-    }
-  },
-  {
-    "id": "1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5",
-    "src": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&sz=w64",
-    "alt": "BKE Halloween (13)",
-    "title": "BKE Halloween (13)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "22mm · f/3.5 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:23.385Z",
-      "fileSize": "1.6 MB"
-    }
-  },
-  {
-    "id": "1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4",
-    "src": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&sz=w64",
-    "alt": "BKE Halloween (14)",
-    "title": "BKE Halloween (14)",
-    "description": "",
-    "category": "Event",
-    "width": 3456,
-    "height": 5184,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "24mm · f/4 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:25.281Z",
-      "fileSize": "1.2 MB"
-    }
-  },
-  {
-    "id": "1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1",
-    "src": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&sz=w64",
-    "alt": "BKE Halloween (15)",
-    "title": "BKE Halloween (15)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
-      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
-      "date": "2026-01-06T02:30:27.383Z",
-      "fileSize": "2.1 MB"
     }
   },
   {
@@ -1615,6 +1501,120 @@
     }
   },
   {
+    "id": "1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq",
+    "src": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Hljwqh-T7EgcNIFI17iy7X-4V86hdcGq&sz=w64",
+    "alt": "BKE Halloween (10)",
+    "title": "BKE Halloween (10)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:17.154Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r",
+    "src": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1lOeJjRJIsj1o_xgHiYBoOd3dFp1-yh7r&sz=w64",
+    "alt": "BKE Halloween (11)",
+    "title": "BKE Halloween (11)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "24mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:18.914Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y",
+    "src": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ss7r-CRdgAVuoBAs6_66Tvm70m-Cwj7Y&sz=w64",
+    "alt": "BKE Halloween (12)",
+    "title": "BKE Halloween (12)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:21.207Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5",
+    "src": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1cpKDhG5qONBTygO7kaJB0yjis-ipSrv5&sz=w64",
+    "alt": "BKE Halloween (13)",
+    "title": "BKE Halloween (13)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "22mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:23.385Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4",
+    "src": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1HMPiAXZBqFwUvBksFHqCPaxjJPoed_j4&sz=w64",
+    "alt": "BKE Halloween (14)",
+    "title": "BKE Halloween (14)",
+    "description": "",
+    "category": "Event",
+    "width": 3456,
+    "height": 5184,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "24mm · f/4 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:25.281Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1",
+    "src": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1o1D5_pcmnJ4aFNvBKe30R91s5DjGC8a1&sz=w64",
+    "alt": "BKE Halloween (15)",
+    "title": "BKE Halloween (15)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "EF-S18-55mm f/3.5-5.6 IS STM",
+      "settings": "18mm · f/3.5 · 1/200 · ISO 800",
+      "date": "2026-01-06T02:30:27.383Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
     "id": "1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3",
     "src": "/api/google-drive/image?id=1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1orO1giayBLCUmXwkm2Bm9QoBL_taGIa3&size=thumbnail",
@@ -1653,6 +1653,1659 @@
     }
   },
   {
+    "id": "1XCod6t8yIqT4l6s9IwtOG5q7wBm0TXyR",
+    "src": "/api/google-drive/image?id=1XCod6t8yIqT4l6s9IwtOG5q7wBm0TXyR&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XCod6t8yIqT4l6s9IwtOG5q7wBm0TXyR&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XCod6t8yIqT4l6s9IwtOG5q7wBm0TXyR&sz=w64",
+    "alt": "Classical Indian Dance Showcase (1)",
+    "title": "Classical Indian Dance Showcase (1)",
+    "description": "",
+    "category": "Event",
+    "width": 3803,
+    "height": 4754,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:21:29.394Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1YBP8Iaffh7JIDQMr1LaQBTEJlw0SXhlV",
+    "src": "/api/google-drive/image?id=1YBP8Iaffh7JIDQMr1LaQBTEJlw0SXhlV&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YBP8Iaffh7JIDQMr1LaQBTEJlw0SXhlV&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YBP8Iaffh7JIDQMr1LaQBTEJlw0SXhlV&sz=w64",
+    "alt": "Classical Indian Dance Showcase (2)",
+    "title": "Classical Indian Dance Showcase (2)",
+    "description": "",
+    "category": "Event",
+    "width": 3437,
+    "height": 4296,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 800",
+      "date": "2026-01-06T03:21:29.712Z",
+      "fileSize": "750.5 KB"
+    }
+  },
+  {
+    "id": "1SdaMzAHaeHMbRpoC4BkahoZNDbcrjhRJ",
+    "src": "/api/google-drive/image?id=1SdaMzAHaeHMbRpoC4BkahoZNDbcrjhRJ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1SdaMzAHaeHMbRpoC4BkahoZNDbcrjhRJ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1SdaMzAHaeHMbRpoC4BkahoZNDbcrjhRJ&sz=w64",
+    "alt": "Classical Indian Dance Showcase (3)",
+    "title": "Classical Indian Dance Showcase (3)",
+    "description": "",
+    "category": "Event",
+    "width": 3906,
+    "height": 4882,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 800",
+      "date": "2026-01-06T03:21:31.232Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1oayWrnkTJNwEw76IgsPzMxZ3KipFdDBc",
+    "src": "/api/google-drive/image?id=1oayWrnkTJNwEw76IgsPzMxZ3KipFdDBc&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1oayWrnkTJNwEw76IgsPzMxZ3KipFdDBc&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1oayWrnkTJNwEw76IgsPzMxZ3KipFdDBc&sz=w64",
+    "alt": "Classical Indian Dance Showcase (4)",
+    "title": "Classical Indian Dance Showcase (4)",
+    "description": "",
+    "category": "Event",
+    "width": 3409,
+    "height": 4261,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:32.958Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1EOlw6419lZjM9OjyvI_gGHRM5k6Ve5nr",
+    "src": "/api/google-drive/image?id=1EOlw6419lZjM9OjyvI_gGHRM5k6Ve5nr&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1EOlw6419lZjM9OjyvI_gGHRM5k6Ve5nr&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1EOlw6419lZjM9OjyvI_gGHRM5k6Ve5nr&sz=w64",
+    "alt": "Classical Indian Dance Showcase (5)",
+    "title": "Classical Indian Dance Showcase (5)",
+    "description": "",
+    "category": "Event",
+    "width": 3953,
+    "height": 4941,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:34.659Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1TPVrzmE_1i6QHYntG_RVkjndOrwyfJlM",
+    "src": "/api/google-drive/image?id=1TPVrzmE_1i6QHYntG_RVkjndOrwyfJlM&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1TPVrzmE_1i6QHYntG_RVkjndOrwyfJlM&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1TPVrzmE_1i6QHYntG_RVkjndOrwyfJlM&sz=w64",
+    "alt": "Classical Indian Dance Showcase (6)",
+    "title": "Classical Indian Dance Showcase (6)",
+    "description": "",
+    "category": "Event",
+    "width": 3394,
+    "height": 4243,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:36.532Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1f5GQMGkcbWjdyBmjjH5XJGlf6quPdtBB",
+    "src": "/api/google-drive/image?id=1f5GQMGkcbWjdyBmjjH5XJGlf6quPdtBB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1f5GQMGkcbWjdyBmjjH5XJGlf6quPdtBB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1f5GQMGkcbWjdyBmjjH5XJGlf6quPdtBB&sz=w64",
+    "alt": "Classical Indian Dance Showcase (7)",
+    "title": "Classical Indian Dance Showcase (7)",
+    "description": "",
+    "category": "Event",
+    "width": 4047,
+    "height": 5059,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:21:38.379Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1whzh6YorN9HvajLAMXEkK9N5Kcv7Yafc",
+    "src": "/api/google-drive/image?id=1whzh6YorN9HvajLAMXEkK9N5Kcv7Yafc&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1whzh6YorN9HvajLAMXEkK9N5Kcv7Yafc&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1whzh6YorN9HvajLAMXEkK9N5Kcv7Yafc&sz=w64",
+    "alt": "Classical Indian Dance Showcase (8)",
+    "title": "Classical Indian Dance Showcase (8)",
+    "description": "",
+    "category": "Event",
+    "width": 3502,
+    "height": 4377,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 800",
+      "date": "2026-01-06T03:21:29.722Z",
+      "fileSize": "815.1 KB"
+    }
+  },
+  {
+    "id": "1NevQtFKmd_Ggt-ZwUVFOTvEHl_wVwqIS",
+    "src": "/api/google-drive/image?id=1NevQtFKmd_Ggt-ZwUVFOTvEHl_wVwqIS&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1NevQtFKmd_Ggt-ZwUVFOTvEHl_wVwqIS&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1NevQtFKmd_Ggt-ZwUVFOTvEHl_wVwqIS&sz=w64",
+    "alt": "Classical Indian Dance Showcase (9)",
+    "title": "Classical Indian Dance Showcase (9)",
+    "description": "",
+    "category": "Event",
+    "width": 3891,
+    "height": 4864,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:21:40.159Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1TuJvwLDvdxYTo9-a-9WtP4ImzFMV7Xaw",
+    "src": "/api/google-drive/image?id=1TuJvwLDvdxYTo9-a-9WtP4ImzFMV7Xaw&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1TuJvwLDvdxYTo9-a-9WtP4ImzFMV7Xaw&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1TuJvwLDvdxYTo9-a-9WtP4ImzFMV7Xaw&sz=w64",
+    "alt": "Classical Indian Dance Showcase (10)",
+    "title": "Classical Indian Dance Showcase (10)",
+    "description": "",
+    "category": "Event",
+    "width": 3402,
+    "height": 4253,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:29.797Z",
+      "fileSize": "778.7 KB"
+    }
+  },
+  {
+    "id": "1Sexu0bvBVwPbOPfgDj5SaFkYadYRDPEr",
+    "src": "/api/google-drive/image?id=1Sexu0bvBVwPbOPfgDj5SaFkYadYRDPEr&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Sexu0bvBVwPbOPfgDj5SaFkYadYRDPEr&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Sexu0bvBVwPbOPfgDj5SaFkYadYRDPEr&sz=w64",
+    "alt": "Classical Indian Dance Showcase (11)",
+    "title": "Classical Indian Dance Showcase (11)",
+    "description": "",
+    "category": "Event",
+    "width": 3620,
+    "height": 4525,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 8000",
+      "date": "2026-01-06T03:21:42.039Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1S5oEJuC838GfbRT_w5yO5OzIw6XpyNGu",
+    "src": "/api/google-drive/image?id=1S5oEJuC838GfbRT_w5yO5OzIw6XpyNGu&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1S5oEJuC838GfbRT_w5yO5OzIw6XpyNGu&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1S5oEJuC838GfbRT_w5yO5OzIw6XpyNGu&sz=w64",
+    "alt": "Classical Indian Dance Showcase (12)",
+    "title": "Classical Indian Dance Showcase (12)",
+    "description": "",
+    "category": "Event",
+    "width": 4445,
+    "height": 5556,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 5000",
+      "date": "2026-01-06T03:21:43.944Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1wuvvaBED3gyrEP-1gaIuTsEcBJvP8ljh",
+    "src": "/api/google-drive/image?id=1wuvvaBED3gyrEP-1gaIuTsEcBJvP8ljh&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1wuvvaBED3gyrEP-1gaIuTsEcBJvP8ljh&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1wuvvaBED3gyrEP-1gaIuTsEcBJvP8ljh&sz=w64",
+    "alt": "Classical Indian Dance Showcase (13)",
+    "title": "Classical Indian Dance Showcase (13)",
+    "description": "",
+    "category": "Event",
+    "width": 3505,
+    "height": 4381,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 6400",
+      "date": "2026-01-06T03:21:45.700Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1Ysc7I1bfoI4Nm0HrINMPLVTD1cwir7Tk",
+    "src": "/api/google-drive/image?id=1Ysc7I1bfoI4Nm0HrINMPLVTD1cwir7Tk&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Ysc7I1bfoI4Nm0HrINMPLVTD1cwir7Tk&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Ysc7I1bfoI4Nm0HrINMPLVTD1cwir7Tk&sz=w64",
+    "alt": "Classical Indian Dance Showcase (14)",
+    "title": "Classical Indian Dance Showcase (14)",
+    "description": "",
+    "category": "Event",
+    "width": 3906,
+    "height": 4882,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 6400",
+      "date": "2026-01-06T03:21:47.231Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1xGEBg87U7K11_ZXg3RouX1NNXaIf718Q",
+    "src": "/api/google-drive/image?id=1xGEBg87U7K11_ZXg3RouX1NNXaIf718Q&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1xGEBg87U7K11_ZXg3RouX1NNXaIf718Q&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1xGEBg87U7K11_ZXg3RouX1NNXaIf718Q&sz=w64",
+    "alt": "Classical Indian Dance Showcase (15)",
+    "title": "Classical Indian Dance Showcase (15)",
+    "description": "",
+    "category": "Event",
+    "width": 4324,
+    "height": 5405,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 4000",
+      "date": "2026-01-06T03:21:49.122Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1xxoI098wrCO_-AYE6__PlzqWCxnPYsCN",
+    "src": "/api/google-drive/image?id=1xxoI098wrCO_-AYE6__PlzqWCxnPYsCN&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1xxoI098wrCO_-AYE6__PlzqWCxnPYsCN&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1xxoI098wrCO_-AYE6__PlzqWCxnPYsCN&sz=w64",
+    "alt": "Classical Indian Dance Showcase (16)",
+    "title": "Classical Indian Dance Showcase (16)",
+    "description": "",
+    "category": "Event",
+    "width": 4146,
+    "height": 5182,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:21:50.673Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1t_w65hi_0D3gRu7F4m_BQOjTUBiHP_9a",
+    "src": "/api/google-drive/image?id=1t_w65hi_0D3gRu7F4m_BQOjTUBiHP_9a&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1t_w65hi_0D3gRu7F4m_BQOjTUBiHP_9a&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1t_w65hi_0D3gRu7F4m_BQOjTUBiHP_9a&sz=w64",
+    "alt": "Classical Indian Dance Showcase (17)",
+    "title": "Classical Indian Dance Showcase (17)",
+    "description": "",
+    "category": "Event",
+    "width": 4570,
+    "height": 5712,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:52.568Z",
+      "fileSize": "1.9 MB"
+    }
+  },
+  {
+    "id": "1iNZNM2W4FDSvAap9hYKJ5AemUz05mzha",
+    "src": "/api/google-drive/image?id=1iNZNM2W4FDSvAap9hYKJ5AemUz05mzha&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1iNZNM2W4FDSvAap9hYKJ5AemUz05mzha&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1iNZNM2W4FDSvAap9hYKJ5AemUz05mzha&sz=w64",
+    "alt": "Classical Indian Dance Showcase (18)",
+    "title": "Classical Indian Dance Showcase (18)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 5840,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:54.501Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1LCxZcVhKN5nfWBGjI3j8_dH8ehKaHq61",
+    "src": "/api/google-drive/image?id=1LCxZcVhKN5nfWBGjI3j8_dH8ehKaHq61&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1LCxZcVhKN5nfWBGjI3j8_dH8ehKaHq61&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1LCxZcVhKN5nfWBGjI3j8_dH8ehKaHq61&sz=w64",
+    "alt": "Classical Indian Dance Showcase (19)",
+    "title": "Classical Indian Dance Showcase (19)",
+    "description": "",
+    "category": "Event",
+    "width": 3995,
+    "height": 4994,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:56.588Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1DoWAtJSYYOODbnuIn6e78H5k-o1r8EHK",
+    "src": "/api/google-drive/image?id=1DoWAtJSYYOODbnuIn6e78H5k-o1r8EHK&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1DoWAtJSYYOODbnuIn6e78H5k-o1r8EHK&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1DoWAtJSYYOODbnuIn6e78H5k-o1r8EHK&sz=w64",
+    "alt": "Classical Indian Dance Showcase (20)",
+    "title": "Classical Indian Dance Showcase (20)",
+    "description": "",
+    "category": "Event",
+    "width": 3934,
+    "height": 4918,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:21:58.465Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1GM0ak-I4QTufBfa-MIUlNzWvXtO_z3ZP",
+    "src": "/api/google-drive/image?id=1GM0ak-I4QTufBfa-MIUlNzWvXtO_z3ZP&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1GM0ak-I4QTufBfa-MIUlNzWvXtO_z3ZP&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1GM0ak-I4QTufBfa-MIUlNzWvXtO_z3ZP&sz=w64",
+    "alt": "Classical Indian Dance Showcase (21)",
+    "title": "Classical Indian Dance Showcase (21)",
+    "description": "",
+    "category": "Event",
+    "width": 3666,
+    "height": 4582,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "49mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:29.901Z",
+      "fileSize": "930.8 KB"
+    }
+  },
+  {
+    "id": "1MZFByrk1tEmR2EbCMi62_nv7peBWpYzh",
+    "src": "/api/google-drive/image?id=1MZFByrk1tEmR2EbCMi62_nv7peBWpYzh&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1MZFByrk1tEmR2EbCMi62_nv7peBWpYzh&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1MZFByrk1tEmR2EbCMi62_nv7peBWpYzh&sz=w64",
+    "alt": "Classical Indian Dance Showcase (22)",
+    "title": "Classical Indian Dance Showcase (22)",
+    "description": "",
+    "category": "Event",
+    "width": 3619,
+    "height": 4524,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:00.408Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1yaE-V141FMrCapVC7PN15T2wXL61uNeu",
+    "src": "/api/google-drive/image?id=1yaE-V141FMrCapVC7PN15T2wXL61uNeu&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yaE-V141FMrCapVC7PN15T2wXL61uNeu&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yaE-V141FMrCapVC7PN15T2wXL61uNeu&sz=w64",
+    "alt": "Classical Indian Dance Showcase (23)",
+    "title": "Classical Indian Dance Showcase (23)",
+    "description": "",
+    "category": "Event",
+    "width": 4017,
+    "height": 5021,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 6400",
+      "date": "2026-01-06T03:22:02.264Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1EDF3mj4tJzqjtPiUHB8G4jV1BqPLlZXW",
+    "src": "/api/google-drive/image?id=1EDF3mj4tJzqjtPiUHB8G4jV1BqPLlZXW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1EDF3mj4tJzqjtPiUHB8G4jV1BqPLlZXW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1EDF3mj4tJzqjtPiUHB8G4jV1BqPLlZXW&sz=w64",
+    "alt": "Classical Indian Dance Showcase (24)",
+    "title": "Classical Indian Dance Showcase (24)",
+    "description": "",
+    "category": "Event",
+    "width": 3686,
+    "height": 4608,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:03.967Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1XDSC4Lwh8K0Ahisz6iQoMjlXify2Ah8M",
+    "src": "/api/google-drive/image?id=1XDSC4Lwh8K0Ahisz6iQoMjlXify2Ah8M&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XDSC4Lwh8K0Ahisz6iQoMjlXify2Ah8M&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XDSC4Lwh8K0Ahisz6iQoMjlXify2Ah8M&sz=w64",
+    "alt": "Classical Indian Dance Showcase (25)",
+    "title": "Classical Indian Dance Showcase (25)",
+    "description": "",
+    "category": "Event",
+    "width": 3731,
+    "height": 4664,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:22:05.920Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1gv2IUbyge5g5oSbGW36GdWtuNxK1bgBf",
+    "src": "/api/google-drive/image?id=1gv2IUbyge5g5oSbGW36GdWtuNxK1bgBf&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gv2IUbyge5g5oSbGW36GdWtuNxK1bgBf&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gv2IUbyge5g5oSbGW36GdWtuNxK1bgBf&sz=w64",
+    "alt": "Classical Indian Dance Showcase (26)",
+    "title": "Classical Indian Dance Showcase (26)",
+    "description": "",
+    "category": "Event",
+    "width": 3555,
+    "height": 4444,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:07.608Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1nnNM3Jb1q1GEUOz9j6atTLXFomkixQho",
+    "src": "/api/google-drive/image?id=1nnNM3Jb1q1GEUOz9j6atTLXFomkixQho&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1nnNM3Jb1q1GEUOz9j6atTLXFomkixQho&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1nnNM3Jb1q1GEUOz9j6atTLXFomkixQho&sz=w64",
+    "alt": "Classical Indian Dance Showcase (27)",
+    "title": "Classical Indian Dance Showcase (27)",
+    "description": "",
+    "category": "Event",
+    "width": 3458,
+    "height": 4323,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:09.244Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1t6nJD9nBgfjvcW9eGGy2Mmlvw4wXnuhh",
+    "src": "/api/google-drive/image?id=1t6nJD9nBgfjvcW9eGGy2Mmlvw4wXnuhh&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1t6nJD9nBgfjvcW9eGGy2Mmlvw4wXnuhh&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1t6nJD9nBgfjvcW9eGGy2Mmlvw4wXnuhh&sz=w64",
+    "alt": "Classical Indian Dance Showcase (28)",
+    "title": "Classical Indian Dance Showcase (28)",
+    "description": "",
+    "category": "Event",
+    "width": 3264,
+    "height": 4080,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:29.912Z",
+      "fileSize": "1003.1 KB"
+    }
+  },
+  {
+    "id": "1ELSgepih75xde4a3UOp_LTO5_k4h3XPs",
+    "src": "/api/google-drive/image?id=1ELSgepih75xde4a3UOp_LTO5_k4h3XPs&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ELSgepih75xde4a3UOp_LTO5_k4h3XPs&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ELSgepih75xde4a3UOp_LTO5_k4h3XPs&sz=w64",
+    "alt": "Classical Indian Dance Showcase (29)",
+    "title": "Classical Indian Dance Showcase (29)",
+    "description": "",
+    "category": "Event",
+    "width": 3301,
+    "height": 4126,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:29.867Z",
+      "fileSize": "959.6 KB"
+    }
+  },
+  {
+    "id": "1wsHYItayaaj2DwZfXcoTv9na45nrSXbq",
+    "src": "/api/google-drive/image?id=1wsHYItayaaj2DwZfXcoTv9na45nrSXbq&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1wsHYItayaaj2DwZfXcoTv9na45nrSXbq&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1wsHYItayaaj2DwZfXcoTv9na45nrSXbq&sz=w64",
+    "alt": "Classical Indian Dance Showcase (30)",
+    "title": "Classical Indian Dance Showcase (30)",
+    "description": "",
+    "category": "Event",
+    "width": 4332,
+    "height": 5415,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:11.183Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1lQQZVPReIMmIyRECKGmZIec1iQZdBMUk",
+    "src": "/api/google-drive/image?id=1lQQZVPReIMmIyRECKGmZIec1iQZdBMUk&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1lQQZVPReIMmIyRECKGmZIec1iQZdBMUk&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1lQQZVPReIMmIyRECKGmZIec1iQZdBMUk&sz=w64",
+    "alt": "Classical Indian Dance Showcase (31)",
+    "title": "Classical Indian Dance Showcase (31)",
+    "description": "",
+    "category": "Event",
+    "width": 3458,
+    "height": 4323,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:12.980Z",
+      "fileSize": "1.0 MB"
+    }
+  },
+  {
+    "id": "1Ark6_Cz225gOin4C2yuosxGuQA3LQPUT",
+    "src": "/api/google-drive/image?id=1Ark6_Cz225gOin4C2yuosxGuQA3LQPUT&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Ark6_Cz225gOin4C2yuosxGuQA3LQPUT&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Ark6_Cz225gOin4C2yuosxGuQA3LQPUT&sz=w64",
+    "alt": "Classical Indian Dance Showcase (32)",
+    "title": "Classical Indian Dance Showcase (32)",
+    "description": "",
+    "category": "Event",
+    "width": 3354,
+    "height": 4193,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:22:14.944Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1tlYXd0lIVemiyTmYYsZ3NyB5NfRO1dzt",
+    "src": "/api/google-drive/image?id=1tlYXd0lIVemiyTmYYsZ3NyB5NfRO1dzt&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1tlYXd0lIVemiyTmYYsZ3NyB5NfRO1dzt&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1tlYXd0lIVemiyTmYYsZ3NyB5NfRO1dzt&sz=w64",
+    "alt": "Classical Indian Dance Showcase (33)",
+    "title": "Classical Indian Dance Showcase (33)",
+    "description": "",
+    "category": "Event",
+    "width": 3555,
+    "height": 4444,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:22:16.539Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1ekflniMbHX__kKY8AF0iVxXl9rRwiMMq",
+    "src": "/api/google-drive/image?id=1ekflniMbHX__kKY8AF0iVxXl9rRwiMMq&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ekflniMbHX__kKY8AF0iVxXl9rRwiMMq&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ekflniMbHX__kKY8AF0iVxXl9rRwiMMq&sz=w64",
+    "alt": "Classical Indian Dance Showcase (34)",
+    "title": "Classical Indian Dance Showcase (34)",
+    "description": "",
+    "category": "Event",
+    "width": 3745,
+    "height": 4681,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:22:18.201Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1xoA8IcyeHaAXCQ1vFJ9h7PYW__QwPn4T",
+    "src": "/api/google-drive/image?id=1xoA8IcyeHaAXCQ1vFJ9h7PYW__QwPn4T&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1xoA8IcyeHaAXCQ1vFJ9h7PYW__QwPn4T&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1xoA8IcyeHaAXCQ1vFJ9h7PYW__QwPn4T&sz=w64",
+    "alt": "Classical Indian Dance Showcase (35)",
+    "title": "Classical Indian Dance Showcase (35)",
+    "description": "",
+    "category": "Event",
+    "width": 3685,
+    "height": 4606,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 4000",
+      "date": "2026-01-06T03:22:20.248Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1kmHyqwJpJ-BzfalnYsGv_P0RfybuvXHn",
+    "src": "/api/google-drive/image?id=1kmHyqwJpJ-BzfalnYsGv_P0RfybuvXHn&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1kmHyqwJpJ-BzfalnYsGv_P0RfybuvXHn&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1kmHyqwJpJ-BzfalnYsGv_P0RfybuvXHn&sz=w64",
+    "alt": "Classical Indian Dance Showcase (36)",
+    "title": "Classical Indian Dance Showcase (36)",
+    "description": "",
+    "category": "Event",
+    "width": 4617,
+    "height": 5771,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 6400",
+      "date": "2026-01-06T03:22:22.074Z",
+      "fileSize": "2.6 MB"
+    }
+  },
+  {
+    "id": "160TF0LjJgXeekmkka4dqL7byZJq9A7L2",
+    "src": "/api/google-drive/image?id=160TF0LjJgXeekmkka4dqL7byZJq9A7L2&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=160TF0LjJgXeekmkka4dqL7byZJq9A7L2&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=160TF0LjJgXeekmkka4dqL7byZJq9A7L2&sz=w64",
+    "alt": "Classical Indian Dance Showcase (37)",
+    "title": "Classical Indian Dance Showcase (37)",
+    "description": "",
+    "category": "Event",
+    "width": 3750,
+    "height": 4687,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 4000",
+      "date": "2026-01-06T03:22:23.924Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "14fHc377JHnFOdCcg3VtWdUuaCGiBjaIl",
+    "src": "/api/google-drive/image?id=14fHc377JHnFOdCcg3VtWdUuaCGiBjaIl&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=14fHc377JHnFOdCcg3VtWdUuaCGiBjaIl&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=14fHc377JHnFOdCcg3VtWdUuaCGiBjaIl&sz=w64",
+    "alt": "Classical Indian Dance Showcase (38)",
+    "title": "Classical Indian Dance Showcase (38)",
+    "description": "",
+    "category": "Event",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 8000",
+      "date": "2026-01-06T03:22:25.837Z",
+      "fileSize": "2.5 MB"
+    }
+  },
+  {
+    "id": "11w_iJinLdmLoYvU-AUskNexbqWCyRfw3",
+    "src": "/api/google-drive/image?id=11w_iJinLdmLoYvU-AUskNexbqWCyRfw3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=11w_iJinLdmLoYvU-AUskNexbqWCyRfw3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=11w_iJinLdmLoYvU-AUskNexbqWCyRfw3&sz=w64",
+    "alt": "Classical Indian Dance Showcase (39)",
+    "title": "Classical Indian Dance Showcase (39)",
+    "description": "",
+    "category": "Event",
+    "width": 4332,
+    "height": 5415,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 4000",
+      "date": "2026-01-06T03:22:27.987Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "1mCP7u-pkjZGihNWh5IT9MjaZrVrDWQQU",
+    "src": "/api/google-drive/image?id=1mCP7u-pkjZGihNWh5IT9MjaZrVrDWQQU&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1mCP7u-pkjZGihNWh5IT9MjaZrVrDWQQU&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1mCP7u-pkjZGihNWh5IT9MjaZrVrDWQQU&sz=w64",
+    "alt": "Classical Indian Dance Showcase (40)",
+    "title": "Classical Indian Dance Showcase (40)",
+    "description": "",
+    "category": "Event",
+    "width": 4015,
+    "height": 6022,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 8000",
+      "date": "2026-01-06T03:22:30.067Z",
+      "fileSize": "2.4 MB"
+    }
+  },
+  {
+    "id": "1h9wyG2a8OJq_G8We1nYa1zS40vkbNgWW",
+    "src": "/api/google-drive/image?id=1h9wyG2a8OJq_G8We1nYa1zS40vkbNgWW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1h9wyG2a8OJq_G8We1nYa1zS40vkbNgWW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1h9wyG2a8OJq_G8We1nYa1zS40vkbNgWW&sz=w64",
+    "alt": "Classical Indian Dance Showcase (41)",
+    "title": "Classical Indian Dance Showcase (41)",
+    "description": "",
+    "category": "Event",
+    "width": 4186,
+    "height": 5233,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 8000",
+      "date": "2026-01-06T03:22:32.387Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1NWNoRnUf4obQO6mK8efRk-Q33FPh7RNX",
+    "src": "/api/google-drive/image?id=1NWNoRnUf4obQO6mK8efRk-Q33FPh7RNX&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1NWNoRnUf4obQO6mK8efRk-Q33FPh7RNX&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1NWNoRnUf4obQO6mK8efRk-Q33FPh7RNX&sz=w64",
+    "alt": "Classical Indian Dance Showcase (42)",
+    "title": "Classical Indian Dance Showcase (42)",
+    "description": "",
+    "category": "Event",
+    "width": 4556,
+    "height": 5695,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "55mm · f/5 · 1/500 · ISO 5000",
+      "date": "2026-01-06T03:22:34.179Z",
+      "fileSize": "2.0 MB"
+    }
+  },
+  {
+    "id": "1CglewJMJ4e-F_k5TLtymdYukYtG6K-hV",
+    "src": "/api/google-drive/image?id=1CglewJMJ4e-F_k5TLtymdYukYtG6K-hV&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1CglewJMJ4e-F_k5TLtymdYukYtG6K-hV&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1CglewJMJ4e-F_k5TLtymdYukYtG6K-hV&sz=w64",
+    "alt": "Classical Indian Dance Showcase (43)",
+    "title": "Classical Indian Dance Showcase (43)",
+    "description": "",
+    "category": "Event",
+    "width": 4078,
+    "height": 5097,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:35.832Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1umjwhZlacbLjEXnDjnAXBmIQj2Fs0LVd",
+    "src": "/api/google-drive/image?id=1umjwhZlacbLjEXnDjnAXBmIQj2Fs0LVd&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1umjwhZlacbLjEXnDjnAXBmIQj2Fs0LVd&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1umjwhZlacbLjEXnDjnAXBmIQj2Fs0LVd&sz=w64",
+    "alt": "Classical Indian Dance Showcase (44)",
+    "title": "Classical Indian Dance Showcase (44)",
+    "description": "",
+    "category": "Event",
+    "width": 3397,
+    "height": 4246,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:21:29.943Z",
+      "fileSize": "999.8 KB"
+    }
+  },
+  {
+    "id": "1FNs6z5vm7EbidBqPIR_Jm0GgLN0GnT12",
+    "src": "/api/google-drive/image?id=1FNs6z5vm7EbidBqPIR_Jm0GgLN0GnT12&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1FNs6z5vm7EbidBqPIR_Jm0GgLN0GnT12&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1FNs6z5vm7EbidBqPIR_Jm0GgLN0GnT12&sz=w64",
+    "alt": "Classical Indian Dance Showcase (45)",
+    "title": "Classical Indian Dance Showcase (45)",
+    "description": "",
+    "category": "Event",
+    "width": 3798,
+    "height": 4748,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:37.800Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1TInP9M483zy1ZCGdmAtTX1gbvbwThzel",
+    "src": "/api/google-drive/image?id=1TInP9M483zy1ZCGdmAtTX1gbvbwThzel&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1TInP9M483zy1ZCGdmAtTX1gbvbwThzel&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1TInP9M483zy1ZCGdmAtTX1gbvbwThzel&sz=w64",
+    "alt": "Classical Indian Dance Showcase (46)",
+    "title": "Classical Indian Dance Showcase (46)",
+    "description": "",
+    "category": "Event",
+    "width": 3909,
+    "height": 4886,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:39.511Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "14E2om-gd18yf_PyFvYhhxN7pxPrysPb-",
+    "src": "/api/google-drive/image?id=14E2om-gd18yf_PyFvYhhxN7pxPrysPb-&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=14E2om-gd18yf_PyFvYhhxN7pxPrysPb-&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=14E2om-gd18yf_PyFvYhhxN7pxPrysPb-&sz=w64",
+    "alt": "Classical Indian Dance Showcase (47)",
+    "title": "Classical Indian Dance Showcase (47)",
+    "description": "",
+    "category": "Event",
+    "width": 3627,
+    "height": 4534,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:41.155Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1U6ty1sn506ehe9Rai9wXok8sxuX7fRes",
+    "src": "/api/google-drive/image?id=1U6ty1sn506ehe9Rai9wXok8sxuX7fRes&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1U6ty1sn506ehe9Rai9wXok8sxuX7fRes&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1U6ty1sn506ehe9Rai9wXok8sxuX7fRes&sz=w64",
+    "alt": "Classical Indian Dance Showcase (48)",
+    "title": "Classical Indian Dance Showcase (48)",
+    "description": "",
+    "category": "Event",
+    "width": 4122,
+    "height": 5152,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:22:42.729Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1ba3KfD_peUvzxH0TkIseQPGUQ0--CXQ3",
+    "src": "/api/google-drive/image?id=1ba3KfD_peUvzxH0TkIseQPGUQ0--CXQ3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ba3KfD_peUvzxH0TkIseQPGUQ0--CXQ3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ba3KfD_peUvzxH0TkIseQPGUQ0--CXQ3&sz=w64",
+    "alt": "Classical Indian Dance Showcase (49)",
+    "title": "Classical Indian Dance Showcase (49)",
+    "description": "",
+    "category": "Event",
+    "width": 3875,
+    "height": 4844,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:44.588Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1Dc9kWw2E-rHo-g3tb3g7f-lwZrw27t5S",
+    "src": "/api/google-drive/image?id=1Dc9kWw2E-rHo-g3tb3g7f-lwZrw27t5S&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Dc9kWw2E-rHo-g3tb3g7f-lwZrw27t5S&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Dc9kWw2E-rHo-g3tb3g7f-lwZrw27t5S&sz=w64",
+    "alt": "Classical Indian Dance Showcase (50)",
+    "title": "Classical Indian Dance Showcase (50)",
+    "description": "",
+    "category": "Event",
+    "width": 3982,
+    "height": 4978,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:46.312Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "15PvY8UJAWAIEu5fLz1KinebUkSMGDyeY",
+    "src": "/api/google-drive/image?id=15PvY8UJAWAIEu5fLz1KinebUkSMGDyeY&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=15PvY8UJAWAIEu5fLz1KinebUkSMGDyeY&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=15PvY8UJAWAIEu5fLz1KinebUkSMGDyeY&sz=w64",
+    "alt": "Classical Indian Dance Showcase (51)",
+    "title": "Classical Indian Dance Showcase (51)",
+    "description": "",
+    "category": "Event",
+    "width": 3764,
+    "height": 4705,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:22:48.006Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1UtNX8ue4_c9tUhTcAz2ggKc5W4_hK4I4",
+    "src": "/api/google-drive/image?id=1UtNX8ue4_c9tUhTcAz2ggKc5W4_hK4I4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1UtNX8ue4_c9tUhTcAz2ggKc5W4_hK4I4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1UtNX8ue4_c9tUhTcAz2ggKc5W4_hK4I4&sz=w64",
+    "alt": "Classical Indian Dance Showcase (52)",
+    "title": "Classical Indian Dance Showcase (52)",
+    "description": "",
+    "category": "Event",
+    "width": 4403,
+    "height": 5504,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:50.038Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "14A0_qNisrNLgW5e1ud-ftbX3l_svPST_",
+    "src": "/api/google-drive/image?id=14A0_qNisrNLgW5e1ud-ftbX3l_svPST_&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=14A0_qNisrNLgW5e1ud-ftbX3l_svPST_&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=14A0_qNisrNLgW5e1ud-ftbX3l_svPST_&sz=w64",
+    "alt": "Classical Indian Dance Showcase (53)",
+    "title": "Classical Indian Dance Showcase (53)",
+    "description": "",
+    "category": "Event",
+    "width": 4384,
+    "height": 5480,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:51.943Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1RaaaJZsf3yh51BH2tMa81JNDDIHlPIjR",
+    "src": "/api/google-drive/image?id=1RaaaJZsf3yh51BH2tMa81JNDDIHlPIjR&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1RaaaJZsf3yh51BH2tMa81JNDDIHlPIjR&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1RaaaJZsf3yh51BH2tMa81JNDDIHlPIjR&sz=w64",
+    "alt": "Classical Indian Dance Showcase (54)",
+    "title": "Classical Indian Dance Showcase (54)",
+    "description": "",
+    "category": "Event",
+    "width": 4474,
+    "height": 5593,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:22:53.668Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1557_vb0nAC6TJ2V4c84t35JC_0SOVNkz",
+    "src": "/api/google-drive/image?id=1557_vb0nAC6TJ2V4c84t35JC_0SOVNkz&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1557_vb0nAC6TJ2V4c84t35JC_0SOVNkz&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1557_vb0nAC6TJ2V4c84t35JC_0SOVNkz&sz=w64",
+    "alt": "Classical Indian Dance Showcase (55)",
+    "title": "Classical Indian Dance Showcase (55)",
+    "description": "",
+    "category": "Event",
+    "width": 4254,
+    "height": 5318,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:22:55.585Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1LJf4AdBvZW8WXs-qGJ9jr5wIGskcz-iK",
+    "src": "/api/google-drive/image?id=1LJf4AdBvZW8WXs-qGJ9jr5wIGskcz-iK&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1LJf4AdBvZW8WXs-qGJ9jr5wIGskcz-iK&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1LJf4AdBvZW8WXs-qGJ9jr5wIGskcz-iK&sz=w64",
+    "alt": "Classical Indian Dance Showcase (56)",
+    "title": "Classical Indian Dance Showcase (56)",
+    "description": "",
+    "category": "Event",
+    "width": 4278,
+    "height": 5348,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "52mm · f/5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:22:57.317Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "1VHmacvy338ryghK3Z4TURW3b4Y8w31TS",
+    "src": "/api/google-drive/image?id=1VHmacvy338ryghK3Z4TURW3b4Y8w31TS&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VHmacvy338ryghK3Z4TURW3b4Y8w31TS&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VHmacvy338ryghK3Z4TURW3b4Y8w31TS&sz=w64",
+    "alt": "Classical Indian Dance Showcase (57)",
+    "title": "Classical Indian Dance Showcase (57)",
+    "description": "",
+    "category": "Event",
+    "width": 4107,
+    "height": 5134,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:22:59.270Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1YoZrPGfqUQLGqDfORBnZ-cxN3hQdt-XV",
+    "src": "/api/google-drive/image?id=1YoZrPGfqUQLGqDfORBnZ-cxN3hQdt-XV&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YoZrPGfqUQLGqDfORBnZ-cxN3hQdt-XV&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YoZrPGfqUQLGqDfORBnZ-cxN3hQdt-XV&sz=w64",
+    "alt": "Classical Indian Dance Showcase (58)",
+    "title": "Classical Indian Dance Showcase (58)",
+    "description": "",
+    "category": "Event",
+    "width": 3648,
+    "height": 4560,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:23:01.570Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1x0ZbrtWzG41PvVhnGXViut_nZlxioTY4",
+    "src": "/api/google-drive/image?id=1x0ZbrtWzG41PvVhnGXViut_nZlxioTY4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1x0ZbrtWzG41PvVhnGXViut_nZlxioTY4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1x0ZbrtWzG41PvVhnGXViut_nZlxioTY4&sz=w64",
+    "alt": "Classical Indian Dance Showcase (59)",
+    "title": "Classical Indian Dance Showcase (59)",
+    "description": "",
+    "category": "Event",
+    "width": 3130,
+    "height": 3912,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:29.600Z",
+      "fileSize": "636.4 KB"
+    }
+  },
+  {
+    "id": "13XVOHxWUUzDAjBCyGzaCUn3L2rfr6lAO",
+    "src": "/api/google-drive/image?id=13XVOHxWUUzDAjBCyGzaCUn3L2rfr6lAO&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=13XVOHxWUUzDAjBCyGzaCUn3L2rfr6lAO&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=13XVOHxWUUzDAjBCyGzaCUn3L2rfr6lAO&sz=w64",
+    "alt": "Classical Indian Dance Showcase (60)",
+    "title": "Classical Indian Dance Showcase (60)",
+    "description": "",
+    "category": "Event",
+    "width": 4219,
+    "height": 5274,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:03.590Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "16Bx1D5PhNGYrYspS_545ogr9LoV9-2nb",
+    "src": "/api/google-drive/image?id=16Bx1D5PhNGYrYspS_545ogr9LoV9-2nb&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=16Bx1D5PhNGYrYspS_545ogr9LoV9-2nb&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=16Bx1D5PhNGYrYspS_545ogr9LoV9-2nb&sz=w64",
+    "alt": "Classical Indian Dance Showcase (61)",
+    "title": "Classical Indian Dance Showcase (61)",
+    "description": "",
+    "category": "Event",
+    "width": 3796,
+    "height": 4745,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:05.402Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1R9j_AsNqXbw67l9jr9iSJbYGlaZaYLs9",
+    "src": "/api/google-drive/image?id=1R9j_AsNqXbw67l9jr9iSJbYGlaZaYLs9&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1R9j_AsNqXbw67l9jr9iSJbYGlaZaYLs9&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1R9j_AsNqXbw67l9jr9iSJbYGlaZaYLs9&sz=w64",
+    "alt": "Classical Indian Dance Showcase (62)",
+    "title": "Classical Indian Dance Showcase (62)",
+    "description": "",
+    "category": "Event",
+    "width": 4420,
+    "height": 5525,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:07.250Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1E2isaOS8jiNQidCnZyrYviMz-1-3Mo8B",
+    "src": "/api/google-drive/image?id=1E2isaOS8jiNQidCnZyrYviMz-1-3Mo8B&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1E2isaOS8jiNQidCnZyrYviMz-1-3Mo8B&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1E2isaOS8jiNQidCnZyrYviMz-1-3Mo8B&sz=w64",
+    "alt": "Classical Indian Dance Showcase (63)",
+    "title": "Classical Indian Dance Showcase (63)",
+    "description": "",
+    "category": "Event",
+    "width": 4309,
+    "height": 5386,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:09.469Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1hR2lp5HE20maLqHEYSaOVig-owleYHj8",
+    "src": "/api/google-drive/image?id=1hR2lp5HE20maLqHEYSaOVig-owleYHj8&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1hR2lp5HE20maLqHEYSaOVig-owleYHj8&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1hR2lp5HE20maLqHEYSaOVig-owleYHj8&sz=w64",
+    "alt": "Classical Indian Dance Showcase (64)",
+    "title": "Classical Indian Dance Showcase (64)",
+    "description": "",
+    "category": "Event",
+    "width": 4115,
+    "height": 5144,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:11.698Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1Fsxo-3oekqU0CqKtSS3xh-J-u1SLyfoH",
+    "src": "/api/google-drive/image?id=1Fsxo-3oekqU0CqKtSS3xh-J-u1SLyfoH&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Fsxo-3oekqU0CqKtSS3xh-J-u1SLyfoH&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Fsxo-3oekqU0CqKtSS3xh-J-u1SLyfoH&sz=w64",
+    "alt": "Classical Indian Dance Showcase (65)",
+    "title": "Classical Indian Dance Showcase (65)",
+    "description": "",
+    "category": "Event",
+    "width": 3702,
+    "height": 4628,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:23:13.803Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1ALfz4pcHsz7eJ3dcOHe-Li3w_T3SKn59",
+    "src": "/api/google-drive/image?id=1ALfz4pcHsz7eJ3dcOHe-Li3w_T3SKn59&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ALfz4pcHsz7eJ3dcOHe-Li3w_T3SKn59&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ALfz4pcHsz7eJ3dcOHe-Li3w_T3SKn59&sz=w64",
+    "alt": "Classical Indian Dance Showcase (66)",
+    "title": "Classical Indian Dance Showcase (66)",
+    "description": "",
+    "category": "Event",
+    "width": 3492,
+    "height": 4365,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:29.838Z",
+      "fileSize": "743.5 KB"
+    }
+  },
+  {
+    "id": "1VhSbvpWOI-ZvZQq0Sx7PWlqJEDYBxpk3",
+    "src": "/api/google-drive/image?id=1VhSbvpWOI-ZvZQq0Sx7PWlqJEDYBxpk3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1VhSbvpWOI-ZvZQq0Sx7PWlqJEDYBxpk3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1VhSbvpWOI-ZvZQq0Sx7PWlqJEDYBxpk3&sz=w64",
+    "alt": "Classical Indian Dance Showcase (67)",
+    "title": "Classical Indian Dance Showcase (67)",
+    "description": "",
+    "category": "Event",
+    "width": 4100,
+    "height": 5125,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:23:15.539Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1sVM8ZY_NtdzkX4KEziHw3minJ8B7i_ys",
+    "src": "/api/google-drive/image?id=1sVM8ZY_NtdzkX4KEziHw3minJ8B7i_ys&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1sVM8ZY_NtdzkX4KEziHw3minJ8B7i_ys&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1sVM8ZY_NtdzkX4KEziHw3minJ8B7i_ys&sz=w64",
+    "alt": "Classical Indian Dance Showcase (68)",
+    "title": "Classical Indian Dance Showcase (68)",
+    "description": "",
+    "category": "Event",
+    "width": 3362,
+    "height": 4202,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:21:29.772Z",
+      "fileSize": "789.1 KB"
+    }
+  },
+  {
+    "id": "1Y5KDSmiw12ETHMUre_eYrXyCzEMMRgre",
+    "src": "/api/google-drive/image?id=1Y5KDSmiw12ETHMUre_eYrXyCzEMMRgre&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Y5KDSmiw12ETHMUre_eYrXyCzEMMRgre&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Y5KDSmiw12ETHMUre_eYrXyCzEMMRgre&sz=w64",
+    "alt": "Classical Indian Dance Showcase (69)",
+    "title": "Classical Indian Dance Showcase (69)",
+    "description": "",
+    "category": "Event",
+    "width": 4470,
+    "height": 5587,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1600",
+      "date": "2026-01-06T03:23:17.205Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1q6595YGoe5Nc_7jATrfbe3H4MzOvrJ5G",
+    "src": "/api/google-drive/image?id=1q6595YGoe5Nc_7jATrfbe3H4MzOvrJ5G&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1q6595YGoe5Nc_7jATrfbe3H4MzOvrJ5G&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1q6595YGoe5Nc_7jATrfbe3H4MzOvrJ5G&sz=w64",
+    "alt": "Classical Indian Dance Showcase (70)",
+    "title": "Classical Indian Dance Showcase (70)",
+    "description": "",
+    "category": "Event",
+    "width": 4150,
+    "height": 5187,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:23:18.961Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1DQGqlKPGfRogyi8hUEXKy-iVI-K97bFs",
+    "src": "/api/google-drive/image?id=1DQGqlKPGfRogyi8hUEXKy-iVI-K97bFs&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1DQGqlKPGfRogyi8hUEXKy-iVI-K97bFs&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1DQGqlKPGfRogyi8hUEXKy-iVI-K97bFs&sz=w64",
+    "alt": "Classical Indian Dance Showcase (71)",
+    "title": "Classical Indian Dance Showcase (71)",
+    "description": "",
+    "category": "Event",
+    "width": 4127,
+    "height": 5159,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:20.882Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1gItk2cbM5SBhXrrBHxrJRZVVPIcWiYWW",
+    "src": "/api/google-drive/image?id=1gItk2cbM5SBhXrrBHxrJRZVVPIcWiYWW&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1gItk2cbM5SBhXrrBHxrJRZVVPIcWiYWW&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1gItk2cbM5SBhXrrBHxrJRZVVPIcWiYWW&sz=w64",
+    "alt": "Classical Indian Dance Showcase (72)",
+    "title": "Classical Indian Dance Showcase (72)",
+    "description": "",
+    "category": "Event",
+    "width": 3920,
+    "height": 4900,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2000",
+      "date": "2026-01-06T03:23:22.683Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1XaBi45X_EpSWvztGW_7SoN4cey-kynhJ",
+    "src": "/api/google-drive/image?id=1XaBi45X_EpSWvztGW_7SoN4cey-kynhJ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1XaBi45X_EpSWvztGW_7SoN4cey-kynhJ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1XaBi45X_EpSWvztGW_7SoN4cey-kynhJ&sz=w64",
+    "alt": "Classical Indian Dance Showcase (73)",
+    "title": "Classical Indian Dance Showcase (73)",
+    "description": "",
+    "category": "Event",
+    "width": 3920,
+    "height": 4900,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:23:24.875Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1_YZ6msKO3-mkjW-HTFjHNMsfjdIApWaE",
+    "src": "/api/google-drive/image?id=1_YZ6msKO3-mkjW-HTFjHNMsfjdIApWaE&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1_YZ6msKO3-mkjW-HTFjHNMsfjdIApWaE&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1_YZ6msKO3-mkjW-HTFjHNMsfjdIApWaE&sz=w64",
+    "alt": "Classical Indian Dance Showcase (74)",
+    "title": "Classical Indian Dance Showcase (74)",
+    "description": "",
+    "category": "Event",
+    "width": 3442,
+    "height": 4303,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:29.802Z",
+      "fileSize": "776.2 KB"
+    }
+  },
+  {
+    "id": "1W0nIv9guoEUi06wIndMCgj2sKQMzlIch",
+    "src": "/api/google-drive/image?id=1W0nIv9guoEUi06wIndMCgj2sKQMzlIch&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1W0nIv9guoEUi06wIndMCgj2sKQMzlIch&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1W0nIv9guoEUi06wIndMCgj2sKQMzlIch&sz=w64",
+    "alt": "Classical Indian Dance Showcase (75)",
+    "title": "Classical Indian Dance Showcase (75)",
+    "description": "",
+    "category": "Event",
+    "width": 3863,
+    "height": 4829,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 1000",
+      "date": "2026-01-06T03:23:26.775Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1WX6AjTrqNAwGbbqPUSh1Nen5ciF_Huct",
+    "src": "/api/google-drive/image?id=1WX6AjTrqNAwGbbqPUSh1Nen5ciF_Huct&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1WX6AjTrqNAwGbbqPUSh1Nen5ciF_Huct&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1WX6AjTrqNAwGbbqPUSh1Nen5ciF_Huct&sz=w64",
+    "alt": "Classical Indian Dance Showcase (76)",
+    "title": "Classical Indian Dance Showcase (76)",
+    "description": "",
+    "category": "Event",
+    "width": 4014,
+    "height": 5017,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:23:28.645Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1NYGlFQWOE9ZkUjRIRgxIvUHiSMeR8EzL",
+    "src": "/api/google-drive/image?id=1NYGlFQWOE9ZkUjRIRgxIvUHiSMeR8EzL&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1NYGlFQWOE9ZkUjRIRgxIvUHiSMeR8EzL&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1NYGlFQWOE9ZkUjRIRgxIvUHiSMeR8EzL&sz=w64",
+    "alt": "Classical Indian Dance Showcase (77)",
+    "title": "Classical Indian Dance Showcase (77)",
+    "description": "",
+    "category": "Event",
+    "width": 3883,
+    "height": 4854,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:23:30.294Z",
+      "fileSize": "1.6 MB"
+    }
+  },
+  {
+    "id": "1KkpafKCzZ7sGBlR4sagD6A-asyNm8nbL",
+    "src": "/api/google-drive/image?id=1KkpafKCzZ7sGBlR4sagD6A-asyNm8nbL&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1KkpafKCzZ7sGBlR4sagD6A-asyNm8nbL&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1KkpafKCzZ7sGBlR4sagD6A-asyNm8nbL&sz=w64",
+    "alt": "Classical Indian Dance Showcase (78)",
+    "title": "Classical Indian Dance Showcase (78)",
+    "description": "",
+    "category": "Event",
+    "width": 3654,
+    "height": 4567,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/500 · ISO 1000",
+      "date": "2026-01-06T03:21:29.976Z",
+      "fileSize": "1008.0 KB"
+    }
+  },
+  {
+    "id": "1LHxJx1NDxlBlJNkgXPpzzbDWJT5LNC0A",
+    "src": "/api/google-drive/image?id=1LHxJx1NDxlBlJNkgXPpzzbDWJT5LNC0A&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1LHxJx1NDxlBlJNkgXPpzzbDWJT5LNC0A&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1LHxJx1NDxlBlJNkgXPpzzbDWJT5LNC0A&sz=w64",
+    "alt": "Classical Indian Dance Showcase (79)",
+    "title": "Classical Indian Dance Showcase (79)",
+    "description": "",
+    "category": "Event",
+    "width": 4014,
+    "height": 5018,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:23:31.929Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1Os0dWu_HiTjQ0pFLyOku4-rfU211Utnx",
+    "src": "/api/google-drive/image?id=1Os0dWu_HiTjQ0pFLyOku4-rfU211Utnx&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Os0dWu_HiTjQ0pFLyOku4-rfU211Utnx&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Os0dWu_HiTjQ0pFLyOku4-rfU211Utnx&sz=w64",
+    "alt": "Classical Indian Dance Showcase (80)",
+    "title": "Classical Indian Dance Showcase (80)",
+    "description": "",
+    "category": "Event",
+    "width": 3830,
+    "height": 4788,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 800",
+      "date": "2026-01-06T03:23:33.599Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1KxcFqjp4jm9j1C3KcLAag6uuFa_VSnNw",
+    "src": "/api/google-drive/image?id=1KxcFqjp4jm9j1C3KcLAag6uuFa_VSnNw&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1KxcFqjp4jm9j1C3KcLAag6uuFa_VSnNw&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1KxcFqjp4jm9j1C3KcLAag6uuFa_VSnNw&sz=w64",
+    "alt": "Classical Indian Dance Showcase (81)",
+    "title": "Classical Indian Dance Showcase (81)",
+    "description": "",
+    "category": "Event",
+    "width": 3926,
+    "height": 4908,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "54mm · f/5 · 1/500 · ISO 1250",
+      "date": "2026-01-06T03:23:35.489Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1ds7FERPbKDth9Kwxd-ZGgfn0I1hRQj_4",
+    "src": "/api/google-drive/image?id=1ds7FERPbKDth9Kwxd-ZGgfn0I1hRQj_4&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1ds7FERPbKDth9Kwxd-ZGgfn0I1hRQj_4&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1ds7FERPbKDth9Kwxd-ZGgfn0I1hRQj_4&sz=w64",
+    "alt": "Classical Indian Dance Showcase (82)",
+    "title": "Classical Indian Dance Showcase (82)",
+    "description": "",
+    "category": "Event",
+    "width": 3278,
+    "height": 4098,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:21:29.842Z",
+      "fileSize": "844.4 KB"
+    }
+  },
+  {
+    "id": "182Z-jZv59B52uM9djLN4Zhm3cVn1Oio3",
+    "src": "/api/google-drive/image?id=182Z-jZv59B52uM9djLN4Zhm3cVn1Oio3&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=182Z-jZv59B52uM9djLN4Zhm3cVn1Oio3&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=182Z-jZv59B52uM9djLN4Zhm3cVn1Oio3&sz=w64",
+    "alt": "Classical Indian Dance Showcase (83)",
+    "title": "Classical Indian Dance Showcase (83)",
+    "description": "",
+    "category": "Event",
+    "width": 3846,
+    "height": 4807,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:23:37.530Z",
+      "fileSize": "1.2 MB"
+    }
+  },
+  {
+    "id": "1V--V86586ReUv9JYrl8MMF2835awezdX",
+    "src": "/api/google-drive/image?id=1V--V86586ReUv9JYrl8MMF2835awezdX&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1V--V86586ReUv9JYrl8MMF2835awezdX&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1V--V86586ReUv9JYrl8MMF2835awezdX&sz=w64",
+    "alt": "Classical Indian Dance Showcase (84)",
+    "title": "Classical Indian Dance Showcase (84)",
+    "description": "",
+    "category": "Event",
+    "width": 4072,
+    "height": 5090,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:23:39.422Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1yvBHT_-UIbOHzy2bZPN-Ndm7dnArgG9y",
+    "src": "/api/google-drive/image?id=1yvBHT_-UIbOHzy2bZPN-Ndm7dnArgG9y&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1yvBHT_-UIbOHzy2bZPN-Ndm7dnArgG9y&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1yvBHT_-UIbOHzy2bZPN-Ndm7dnArgG9y&sz=w64",
+    "alt": "Classical Indian Dance Showcase (85)",
+    "title": "Classical Indian Dance Showcase (85)",
+    "description": "",
+    "category": "Event",
+    "width": 4087,
+    "height": 5109,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:23:41.601Z",
+      "fileSize": "1.3 MB"
+    }
+  },
+  {
+    "id": "1YsrxbYb5nY9ALIUFOHxTM9OwFJcBxMmh",
+    "src": "/api/google-drive/image?id=1YsrxbYb5nY9ALIUFOHxTM9OwFJcBxMmh&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1YsrxbYb5nY9ALIUFOHxTM9OwFJcBxMmh&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1YsrxbYb5nY9ALIUFOHxTM9OwFJcBxMmh&sz=w64",
+    "alt": "Classical Indian Dance Showcase (86)",
+    "title": "Classical Indian Dance Showcase (86)",
+    "description": "",
+    "category": "Event",
+    "width": 4365,
+    "height": 5456,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 2500",
+      "date": "2026-01-06T03:23:43.461Z",
+      "fileSize": "1.4 MB"
+    }
+  },
+  {
+    "id": "1V1ioxggSuwwAjnMWIxJjYisIF-qULz-5",
+    "src": "/api/google-drive/image?id=1V1ioxggSuwwAjnMWIxJjYisIF-qULz-5&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1V1ioxggSuwwAjnMWIxJjYisIF-qULz-5&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1V1ioxggSuwwAjnMWIxJjYisIF-qULz-5&sz=w64",
+    "alt": "Classical Indian Dance Showcase (87)",
+    "title": "Classical Indian Dance Showcase (87)",
+    "description": "",
+    "category": "Event",
+    "width": 4242,
+    "height": 5302,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "53mm · f/5 · 1/500 · ISO 3200",
+      "date": "2026-01-06T03:23:45.524Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
     "id": "1qW_vcedffwPKMcWVkcyaJggYUNa94ylT",
     "src": "/api/google-drive/image?id=1qW_vcedffwPKMcWVkcyaJggYUNa94ylT&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1qW_vcedffwPKMcWVkcyaJggYUNa94ylT&size=thumbnail",
@@ -1669,6 +3322,158 @@
       "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
       "date": "2026-01-06T02:33:49.936Z",
       "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS",
+    "src": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&sz=w64",
+    "alt": "DCMPA Youth Festival (2)",
+    "title": "DCMPA Youth Festival (2)",
+    "description": "",
+    "category": "Event",
+    "width": 4235,
+    "height": 5294,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "70mm · f/5.6 · 1/200 · ISO 8000",
+      "date": "2026-01-06T02:33:52.059Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1HqucHfe91vOml6BT9jIddTO-Aquq58_N",
+    "src": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&sz=w64",
+    "alt": "DCMPA Youth Festival (3)",
+    "title": "DCMPA Youth Festival (3)",
+    "description": "",
+    "category": "Event",
+    "width": 3442,
+    "height": 4303,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:53.894Z",
+      "fileSize": "1.5 MB"
+    }
+  },
+  {
+    "id": "17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-",
+    "src": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&sz=w64",
+    "alt": "DCMPA Youth Festival (4)",
+    "title": "DCMPA Youth Festival (4)",
+    "description": "",
+    "category": "Event",
+    "width": 4295,
+    "height": 6442,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:55.611Z",
+      "fileSize": "2.2 MB"
+    }
+  },
+  {
+    "id": "1aizC4rY76eFGV8amC8QDkfsyWD5sknkI",
+    "src": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&sz=w64",
+    "alt": "DCMPA Youth Festival (5)",
+    "title": "DCMPA Youth Festival (5)",
+    "description": "",
+    "category": "Event",
+    "width": 4138,
+    "height": 5173,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "47mm · f/4.5 · 1/800 · ISO 8000",
+      "date": "2026-01-06T02:33:57.681Z",
+      "fileSize": "1.8 MB"
+    }
+  },
+  {
+    "id": "1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN",
+    "src": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&sz=w64",
+    "alt": "DCMPA Youth Festival (6)",
+    "title": "DCMPA Youth Festival (6)",
+    "description": "",
+    "category": "Event",
+    "width": 4551,
+    "height": 6827,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "51mm · f/4.5 · 1/250 · ISO 5000",
+      "date": "2026-01-06T02:33:59.713Z",
+      "fileSize": "1.7 MB"
+    }
+  },
+  {
+    "id": "172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB",
+    "src": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&sz=w64",
+    "alt": "DCMPA Youth Festival (7)",
+    "title": "DCMPA Youth Festival (7)",
+    "description": "",
+    "category": "Event",
+    "width": 4449,
+    "height": 6673,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "38mm · f/5.6 · 1/250 · ISO 8000",
+      "date": "2026-01-06T02:34:02.156Z",
+      "fileSize": "2.1 MB"
+    }
+  },
+  {
+    "id": "1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ",
+    "src": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&sz=w64",
+    "alt": "DCMPA Youth Festival (8)",
+    "title": "DCMPA Youth Festival (8)",
+    "description": "",
+    "category": "Event",
+    "width": 4335,
+    "height": 5419,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "28mm · f/4.5 · 1/250 · ISO 4000",
+      "date": "2026-01-06T02:34:03.984Z",
+      "fileSize": "1.1 MB"
+    }
+  },
+  {
+    "id": "181stE65nPKs3JsgpZogWQFynDFGGEzTN",
+    "src": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&sz=w64",
+    "alt": "DCMPA Youth Festival (9)",
+    "title": "DCMPA Youth Festival (9)",
+    "description": "",
+    "category": "Event",
+    "width": 4191,
+    "height": 6287,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "FE 28-70mm F3.5-5.6 OSS",
+      "settings": "50mm · f/4.5 · 1/250 · ISO 3200",
+      "date": "2026-01-06T02:34:05.954Z",
+      "fileSize": "1.7 MB"
     }
   },
   {
@@ -1862,25 +3667,6 @@
     }
   },
   {
-    "id": "1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS",
-    "src": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1OaRXSd5IBkQQ8_ub0m_pnO3jBVGDTCiS&sz=w64",
-    "alt": "DCMPA Youth Festival (2)",
-    "title": "DCMPA Youth Festival (2)",
-    "description": "",
-    "category": "Event",
-    "width": 4235,
-    "height": 5294,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "70mm · f/5.6 · 1/200 · ISO 8000",
-      "date": "2026-01-06T02:33:52.059Z",
-      "fileSize": "2.2 MB"
-    }
-  },
-  {
     "id": "1MH33xnEtujyzih6EFb6EwFngtdxcW2dq",
     "src": "/api/google-drive/image?id=1MH33xnEtujyzih6EFb6EwFngtdxcW2dq&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1MH33xnEtujyzih6EFb6EwFngtdxcW2dq&size=thumbnail",
@@ -2071,25 +3857,6 @@
     }
   },
   {
-    "id": "1HqucHfe91vOml6BT9jIddTO-Aquq58_N",
-    "src": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1HqucHfe91vOml6BT9jIddTO-Aquq58_N&sz=w64",
-    "alt": "DCMPA Youth Festival (3)",
-    "title": "DCMPA Youth Festival (3)",
-    "description": "",
-    "category": "Event",
-    "width": 3442,
-    "height": 4303,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
-      "date": "2026-01-06T02:33:53.894Z",
-      "fileSize": "1.5 MB"
-    }
-  },
-  {
     "id": "1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju",
     "src": "/api/google-drive/image?id=1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1yPx3GN-TfVPoxc-f0Ffypk4cLVDsJoju&size=thumbnail",
@@ -2166,120 +3933,6 @@
     }
   },
   {
-    "id": "17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-",
-    "src": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=17BWhxNn1o9Lth1CSYqvTHCxJmslyVbT-&sz=w64",
-    "alt": "DCMPA Youth Festival (4)",
-    "title": "DCMPA Youth Festival (4)",
-    "description": "",
-    "category": "Event",
-    "width": 4295,
-    "height": 6442,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "48mm · f/4.5 · 1/800 · ISO 8000",
-      "date": "2026-01-06T02:33:55.611Z",
-      "fileSize": "2.2 MB"
-    }
-  },
-  {
-    "id": "1aizC4rY76eFGV8amC8QDkfsyWD5sknkI",
-    "src": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1aizC4rY76eFGV8amC8QDkfsyWD5sknkI&sz=w64",
-    "alt": "DCMPA Youth Festival (5)",
-    "title": "DCMPA Youth Festival (5)",
-    "description": "",
-    "category": "Event",
-    "width": 4138,
-    "height": 5173,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "47mm · f/4.5 · 1/800 · ISO 8000",
-      "date": "2026-01-06T02:33:57.681Z",
-      "fileSize": "1.8 MB"
-    }
-  },
-  {
-    "id": "1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN",
-    "src": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1NF4uO7wNqIWBzeB1lOXcMNYcg7ZnutnN&sz=w64",
-    "alt": "DCMPA Youth Festival (6)",
-    "title": "DCMPA Youth Festival (6)",
-    "description": "",
-    "category": "Event",
-    "width": 4551,
-    "height": 6827,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "51mm · f/4.5 · 1/250 · ISO 5000",
-      "date": "2026-01-06T02:33:59.713Z",
-      "fileSize": "1.7 MB"
-    }
-  },
-  {
-    "id": "172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB",
-    "src": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=172oR_m9dbw9nPXQBpEabaKmr0ux3zYuB&sz=w64",
-    "alt": "DCMPA Youth Festival (7)",
-    "title": "DCMPA Youth Festival (7)",
-    "description": "",
-    "category": "Event",
-    "width": 4449,
-    "height": 6673,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "38mm · f/5.6 · 1/250 · ISO 8000",
-      "date": "2026-01-06T02:34:02.156Z",
-      "fileSize": "2.1 MB"
-    }
-  },
-  {
-    "id": "1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ",
-    "src": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1BUQ8xjHvwObL1W-9Hj5FnmRR9Bv5rLwJ&sz=w64",
-    "alt": "DCMPA Youth Festival (8)",
-    "title": "DCMPA Youth Festival (8)",
-    "description": "",
-    "category": "Event",
-    "width": 4335,
-    "height": 5419,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "28mm · f/4.5 · 1/250 · ISO 4000",
-      "date": "2026-01-06T02:34:03.984Z",
-      "fileSize": "1.1 MB"
-    }
-  },
-  {
-    "id": "181stE65nPKs3JsgpZogWQFynDFGGEzTN",
-    "src": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=181stE65nPKs3JsgpZogWQFynDFGGEzTN&sz=w64",
-    "alt": "DCMPA Youth Festival (9)",
-    "title": "DCMPA Youth Festival (9)",
-    "description": "",
-    "category": "Event",
-    "width": 4191,
-    "height": 6287,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "FE 28-70mm F3.5-5.6 OSS",
-      "settings": "50mm · f/4.5 · 1/250 · ISO 3200",
-      "date": "2026-01-06T02:34:05.954Z",
-      "fileSize": "1.7 MB"
-    }
-  },
-  {
     "id": "1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S",
     "src": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=thumbnail",
@@ -2296,25 +3949,6 @@
       "settings": "28mm · f/4 · 1/60 · ISO 1600",
       "date": "2026-01-06T02:30:36.825Z",
       "fileSize": "2.2 MB"
-    }
-  },
-  {
-    "id": "1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso",
-    "src": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&sz=w64",
-    "alt": "RCR After Party (10)",
-    "title": "RCR After Party (10)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:55.839Z",
-      "fileSize": "2.4 MB"
     }
   },
   {
@@ -2467,6 +4101,25 @@
       "settings": "28mm · f/4 · 1/60 · ISO 1600",
       "date": "2026-01-06T02:30:53.745Z",
       "fileSize": "2.8 MB"
+    }
+  },
+  {
+    "id": "1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso",
+    "src": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=full&format=webp",
+    "thumbnail": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=thumbnail",
+    "blurDataURL": "https://drive.google.com/thumbnail?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&sz=w64",
+    "alt": "RCR After Party (10)",
+    "title": "RCR After Party (10)",
+    "description": "",
+    "category": "Event",
+    "width": 5184,
+    "height": 3456,
+    "metadata": {
+      "camera": "Canon Canon EOS REBEL T5i",
+      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
+      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
+      "date": "2026-01-06T02:30:55.839Z",
+      "fileSize": "2.4 MB"
     }
   },
   {

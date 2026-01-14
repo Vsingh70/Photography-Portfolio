@@ -69,6 +69,10 @@ export async function fetchImagesFromDrive(
 
     const files = response.data.files || [];
 
+    // Sort files using natural sort (handles numbers in filenames correctly)
+    // This ensures "alley (1)", "alley (2)", "alley (10)" instead of "alley (1)", "alley (10)", "alley (2)"
+    files.sort((a, b) => naturalSort(a.name || '', b.name || ''));
+
     // Transform Drive files to GalleryImage format
     const images: GalleryImage[] = files.map((file, index) => {
       const imageMetadata = file.imageMediaMetadata;
@@ -193,6 +197,35 @@ function formatExposureTime(exposureTime: number): string {
   // Convert to fraction (e.g., 0.008 -> 1/125)
   const denominator = Math.round(1 / exposureTime);
   return `1/${denominator}s`;
+}
+
+/**
+ * Natural sort comparator for filenames with numbers
+ * Sorts "alley (1)", "alley (2)", "alley (10)" correctly instead of alphabetically
+ */
+function naturalSort(a: string, b: string): number {
+  const regex = /(\d+)|(\D+)/g;
+  const aParts = a.match(regex) || [];
+  const bParts = b.match(regex) || [];
+
+  for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+    const aPart = aParts[i] || '';
+    const bPart = bParts[i] || '';
+
+    // If both parts are numbers, compare numerically
+    const aNum = parseInt(aPart, 10);
+    const bNum = parseInt(bPart, 10);
+
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      if (aNum !== bNum) return aNum - bNum;
+    } else {
+      // Compare strings case-insensitively
+      const comparison = aPart.toLowerCase().localeCompare(bPart.toLowerCase());
+      if (comparison !== 0) return comparison;
+    }
+  }
+
+  return 0;
 }
 
 /**

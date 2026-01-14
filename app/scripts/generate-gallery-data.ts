@@ -142,6 +142,35 @@ function formatFileSize(bytes: number): string {
 }
 
 /**
+ * Natural sort comparator for filenames with numbers
+ * Sorts "alley (1)", "alley (2)", "alley (10)" correctly instead of alphabetically
+ */
+function naturalSort(a: string, b: string): number {
+  const regex = /(\d+)|(\D+)/g;
+  const aParts = a.match(regex) || [];
+  const bParts = b.match(regex) || [];
+
+  for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+    const aPart = aParts[i] || '';
+    const bPart = bParts[i] || '';
+
+    // If both parts are numbers, compare numerically
+    const aNum = parseInt(aPart, 10);
+    const bNum = parseInt(bPart, 10);
+
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      if (aNum !== bNum) return aNum - bNum;
+    } else {
+      // Compare strings case-insensitively
+      const comparison = aPart.toLowerCase().localeCompare(bPart.toLowerCase());
+      if (comparison !== 0) return comparison;
+    }
+  }
+
+  return 0;
+}
+
+/**
  * Fetch images from a Google Drive folder
  */
 async function fetchImagesFromDrive(folderId: string, category: string) {
@@ -160,6 +189,10 @@ async function fetchImagesFromDrive(folderId: string, category: string) {
   const files = response.data.files || [];
 
   console.log(`  Found ${files.length} images`);
+
+  // Sort files using natural sort (handles numbers in filenames correctly)
+  // This ensures "alley (1)", "alley (2)", "alley (10)" instead of "alley (1)", "alley (10)", "alley (2)"
+  files.sort((a, b) => naturalSort(a.name || '', b.name || ''));
 
   // Transform to gallery image format
   const images = files.map((file, index) => {

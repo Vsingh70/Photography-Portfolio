@@ -27,9 +27,9 @@ interface MasonryGridProps {
  */
 const breakpointColumns = {
   default: 4, // 4 columns for extra large screens (1536px+)
-  1536: 3, // 3 columns for large desktops
-  1280: 3, // 3 columns for desktops (1280px)
-  1024: 3, // 3 columns for small desktops (1024px)
+  1536: 4, // 4 columns for large desktops
+  1280: 4, // 4 columns for desktops (1280px)
+  1024: 2, // 2 columns for small desktops (1024px)
   768: 2, // 2 columns for tablets (768px)
   640: 2, // 2 columns for mobile (< 640px)
 };
