@@ -40,7 +40,7 @@ async function verifyTurnstileToken(token: string, ip: string): Promise<boolean>
 export async function POST(request: NextRequest) {
   try {
     const body: ContactFormData & { turnstileToken?: string } = await request.json();
-    const { name, email, subject, message, phone, turnstileToken } = body;
+    const { name, email, subject, message, phone, preferredContactMethod, turnstileToken } = body;
 
     // Get client IP for rate limiting and Turnstile verification
     const clientIP = getClientIP(request.headers);
@@ -175,6 +175,15 @@ export async function POST(request: NextRequest) {
                   </td>
                 </tr>
                 ` : ''}
+
+                <tr style="border-top: 1px solid #f1f3f5;">
+                  <td style="padding: 12px 0; font-size: 14px; color: #495057; width: 100px; vertical-align: top;">
+                    Preferred Contact
+                  </td>
+                  <td style="padding: 12px 0; font-size: 14px; color: #212529;">
+                    ${preferredContactMethod === 'phone' ? 'Phone' : 'Email'}
+                  </td>
+                </tr>
               </table>
             </div>
 

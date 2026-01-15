@@ -18,7 +18,14 @@ export default function ContactForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ContactFormData>();
+    watch,
+  } = useForm<ContactFormData>({
+    defaultValues: {
+      preferredContactMethod: 'email',
+    },
+  });
+
+  const preferredContactMethod = watch('preferredContactMethod');
 
   const onSubmit = async (data: ContactFormData) => {
     // Check if Turnstile token exists
@@ -125,19 +132,61 @@ export default function ContactForm() {
         )}
       </div>
 
-      {/* Phone Field (Optional) */}
+      {/* Phone Field (Required if preferred contact method is Phone) */}
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Phone <span className="text-primary-700 dark:text-primary-300 font-normal">(Optional)</span>
+          Phone {preferredContactMethod === 'phone' ? (
+            <span className="text-red-600 dark:text-red-400">*</span>
+          ) : (
+            <span className="text-primary-700 dark:text-primary-300 font-normal">(Optional)</span>
+          )}
         </label>
         <input
           type="tel"
           id="phone"
-          {...register('phone')}
-          className="w-full px-4 py-2.5 rounded-md border border-primary-200 dark:border-primary-700 bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:border-primary-900 dark:focus:border-white focus:ring-1 focus:ring-primary-900 dark:focus:ring-white focus:ring-offset-0 transition-colors"
+          {...register('phone', {
+            required: preferredContactMethod === 'phone' ? 'Phone is required when phone is your preferred contact method' : false,
+          })}
+          className={`w-full px-4 py-2.5 rounded-md border ${
+            errors.phone
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-primary-200 dark:border-primary-700 focus:border-primary-900 dark:focus:border-white focus:ring-primary-900 dark:focus:ring-white'
+          } bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:ring-1 focus:ring-offset-0 transition-colors`}
           placeholder="+1 (555) 123-4567"
           disabled={isSubmitting}
         />
+        {errors.phone && (
+          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.phone.message}</p>
+        )}
+      </div>
+
+      {/* Preferred Contact Method */}
+      <div>
+        <label className="block text-sm font-medium text-primary-900 dark:text-white mb-3">
+          Preferred Contact Method <span className="text-red-600 dark:text-red-400">*</span>
+        </label>
+        <div className="flex gap-6">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              value="email"
+              {...register('preferredContactMethod')}
+              className="w-4 h-4 text-primary-900 dark:text-white border-primary-300 dark:border-primary-600 focus:ring-primary-900 dark:focus:ring-white bg-white dark:bg-black"
+              disabled={isSubmitting}
+            />
+            <span className="text-primary-900 dark:text-white">Email</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              value="phone"
+              {...register('preferredContactMethod')}
+              className="w-4 h-4 text-primary-900 dark:text-white border-primary-300 dark:border-primary-600 focus:ring-primary-900 dark:focus:ring-white bg-white dark:bg-black"
+              disabled={isSubmitting}
+            />
+            <span className="text-primary-900 dark:text-white">Phone</span>
+          </label>
+        </div>
       </div>
 
       {/* Subject Field (Optional) */}

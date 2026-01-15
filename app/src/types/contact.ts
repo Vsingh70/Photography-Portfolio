@@ -7,6 +7,7 @@ export interface ContactFormData {
   subject?: string;
   message: string;
   phone?: string;
+  preferredContactMethod: 'email' | 'phone';
 }
 
 /**
@@ -36,5 +37,4 @@ export interface ContactInquiry extends ContactFormData {
   inquiryType: InquiryType;
   budget?: string;
   eventDate?: string;
-  preferredContactMethod?: 'email' | 'phone';
 }

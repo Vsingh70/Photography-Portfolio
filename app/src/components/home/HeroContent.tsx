@@ -31,9 +31,9 @@ export function HeroContent() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="flex min-h-screen flex-col items-center justify-start px-4 pt-32 sm:px-6 sm:pt-40 md:px-8 md:pt-48 lg:px-10"
+      className="flex min-h-screen flex-col items-center justify-start px-4 pt-24 sm:px-6 sm:pt-40 md:px-8 md:pt-48 lg:px-10"
     >
-      <div className="flex flex-col items-center gap-16 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
+      <div className="flex flex-col items-center gap-4 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
         {/* Paragraph - left on desktop, below logo on mobile */}
         <p className="order-2 max-w-3xl text-center font-display font-light text-2xl leading-relaxed text-primary-900 dark:text-primary-100 sm:text-3xl md:order-1 md:text-left lg:text-4xl">
           Viraj <span className="font-thin italic">(/vur-ahj/)</span> is a multidisciplinary photographer with a specialization in portraits, capturing the raw emotions behind every frame.
@@ -60,8 +60,8 @@ export function HeroContent() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className="mt-12 sm:mt-16 md:mt-20"
+        transition={{ delay: 0.6, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        className="mt-6 sm:mt-16 md:mt-20"
       >
         <Link
           href="/gallery"
