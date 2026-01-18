@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "vflics - Photography Portfolio",
-  description: "Capturing timeless moments through the lens of creativity and passion. Professional photography services including portraits, events, dance, and more.",
+  description: "Viraj Singh's professional photography portfolio.",
 };
 
 export default function RootLayout({
