@@ -19,24 +19,33 @@ export default function Home() {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
-  // Check if animation has already played in this session
+  // Check if animation has already played (persists across browser sessions)
   useEffect(() => {
-    const hasPlayedAnimation = sessionStorage.getItem('hero-animation-played');
+    const hasPlayedAnimation = localStorage.getItem('hero-animation-played');
     if (hasPlayedAnimation === 'true') {
-      // Skip animation and show content immediately
+      // Skip animation and show content immediately for returning users
       setAnimationComplete(true);
       setShowContent(true);
     }
   }, []);
 
   const handleAnimationComplete = useCallback(() => {
-    // Mark animation as played in session storage
-    sessionStorage.setItem('hero-animation-played', 'true');
+    // Mark animation as played in localStorage (persists across sessions)
+    localStorage.setItem('hero-animation-played', 'true');
     setAnimationComplete(true);
     // Slight delay before showing content for smoother transition
     setTimeout(() => {
       setShowContent(true);
     }, 150);
+  }, []);
+
+  // Handle when user skips the animation via input
+  const handleAnimationSkip = useCallback(() => {
+    // Mark animation as played in localStorage
+    localStorage.setItem('hero-animation-played', 'true');
+    setAnimationComplete(true);
+    // Show content immediately when skipped (no delay needed)
+    setShowContent(true);
   }, []);
 
   // Prefetch gallery cover images after animation completes
@@ -70,7 +79,7 @@ export default function Home() {
 
       <main>
         {/* Animated Hero Section - hidden after animation completes */}
-        {!showContent && <AnimatedHero onComplete={handleAnimationComplete} />}
+        {!showContent && <AnimatedHero onComplete={handleAnimationComplete} onSkip={handleAnimationSkip} />}
 
         {/* Content that appears after animation */}
         {showContent && (

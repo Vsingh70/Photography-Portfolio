@@ -1,20 +1,8 @@
 [
   {
-    "categorySlug": "editorial",
-    "displayTitle": "Editorial",
-    "displayOrder": 1,
-    "filename": "editorial.webp",
-    "path": "/gallery-covers/editorial.webp",
-    "width": 800,
-    "height": 1200,
-    "size": 141136,
-    "format": "webp",
-    "blurDataURL": "data:image/webp;base64,UklGRgQBAABXRUJQVlA4IPgAAACQBgCdASogADAAPy1+tFOuqCUitVv4AdAliWoAwzR1Lp1r93ymeAk9VpqfJ3SO4SzzIoJDxQ3aeYcYYcmgAP7yFfGMh4n1uh6mf7y+oMteB1sJV7y35rE54kZuCkQ0EkRY8+aRMkeBfvo/FHZo6n98/Ij0f6Nh3spCWFM//uht7dC3rScoSZXgRBTEPFOHjGaQSRgx34+9KNP+FpJtyKK+a8BLiZRyiVXlsqtUgv6uP9rcDrJaiXkxv3jTqGQH1L8SqGAD+t0gECuNNvbVzuPsqiPSEcUN0H9Mstekpd1U0Z8LyeTdR+N6xeoXf+f6Ps3oq/xHxAuAAA=="
-  },
-  {
     "categorySlug": "graduation",
     "displayTitle": "Graduation",
-    "displayOrder": 2,
+    "displayOrder": 1,
     "filename": "graduation.webp",
     "path": "/gallery-covers/graduation.webp",
     "width": 800,
@@ -22,6 +10,18 @@
     "size": 287380,
     "format": "webp",
     "blurDataURL": "data:image/webp;base64,UklGRiIBAABXRUJQVlA4IBYBAABQBwCdASogADAAPyF8tlOtKCWitVv8AaAkCWQAwOG0A8+jGeiyzpamsEb22B5R2cJZhzXRsTH1KUfuQRfZyvv3WKsAAP7vxqN8v5ztYE890KwhDM4lCSLiyOGB1dn4h2EjYQZVnTCOD6+9FCLmZ4HyJnxMWlAQb2cbNSM9K2/SyEHsSB7vtRioT0qHZeiNPWYqdTR6ZfzNem+DEDtpouWPC38bQneZjlfkVPE+tkkRgyONVJJJHxGcqMnLS8rCHMk6KaAzAZEp9iks4Cun0pWF14cCFteZHDhkjmXm8yDaIwk08n0W34YGDpDlrCovV1XIeHLIvk0etBtBKmJeTVQInKQsPf86CwFfPH8M56m0q6yn1lwAAA=="
+  },
+  {
+    "categorySlug": "editorial",
+    "displayTitle": "Editorial",
+    "displayOrder": 2,
+    "filename": "editorial.webp",
+    "path": "/gallery-covers/editorial.webp",
+    "width": 800,
+    "height": 1200,
+    "size": 141136,
+    "format": "webp",
+    "blurDataURL": "data:image/webp;base64,UklGRgQBAABXRUJQVlA4IPgAAACQBgCdASogADAAPy1+tFOuqCUitVv4AdAliWoAwzR1Lp1r93ymeAk9VpqfJ3SO4SzzIoJDxQ3aeYcYYcmgAP7yFfGMh4n1uh6mf7y+oMteB1sJV7y35rE54kZuCkQ0EkRY8+aRMkeBfvo/FHZo6n98/Ij0f6Nh3spCWFM//uht7dC3rScoSZXgRBTEPFOHjGaQSRgx34+9KNP+FpJtyKK+a8BLiZRyiVXlsqtUgv6uP9rcDrJaiXkxv3jTqGQH1L8SqGAD+t0gECuNNvbVzuPsqiPSEcUN0H9Mstekpd1U0Z8LyeTdR+N6xeoXf+f6Ps3oq/xHxAuAAA=="
   },
   {
     "categorySlug": "portraits",

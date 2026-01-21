@@ -29,7 +29,7 @@ export const GALLERY_COVER_MAPPINGS: GalleryCoverMapping[] = [
     filename: 'editorial_cover.jpg',
     categorySlug: 'editorial',
     displayTitle: 'Editorial',
-    displayOrder: 1,
+    displayOrder: 2,
     fileId: '1zPR5I5kLAv-MIq6ZcMYf2WndBHXA6iPy', // Add this for instant loading
     width: 1920,
     height: 1280,
@@ -38,7 +38,7 @@ export const GALLERY_COVER_MAPPINGS: GalleryCoverMapping[] = [
     filename: 'grad_cover.jpg',
     categorySlug: 'graduation',
     displayTitle: 'Graduation',
-    displayOrder: 2,
+    displayOrder: 1,
     fileId: '15AyXLwX-ktsogZ3ZdAFSEJtYIC5eb5fd',
     width: 1920,
     height: 1280,

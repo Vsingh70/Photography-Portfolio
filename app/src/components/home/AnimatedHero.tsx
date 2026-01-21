@@ -17,12 +17,15 @@ import { HERO_ANIMATION_CONFIG } from '@/config/animation.config';
 interface AnimatedHeroProps {
   /** Callback function triggered when animation completes */
   onComplete: () => void;
+  /** Callback function triggered when user skips the animation */
+  onSkip?: () => void;
 }
 
 type AnimationPhase = 1 | 2 | 3 | 4 | 5 | 6;
 
-export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
+export function AnimatedHero({ onComplete, onSkip }: AnimatedHeroProps) {
   const [phase, setPhase] = useState<AnimationPhase>(1);
+  const [isSkipped, setIsSkipped] = useState(false);
 
   // Check if user prefers reduced motion
   const prefersReducedMotion =
@@ -34,12 +37,65 @@ export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
     onComplete();
   }, [onComplete]);
 
+  // Handle skip action from user input
+  const handleSkip = useCallback(() => {
+    if (isSkipped) return; // Prevent multiple skips
+    setIsSkipped(true);
+    setPhase(6); // Jump to fade out phase
+    // Call onSkip if provided, otherwise fall back to onComplete
+    if (onSkip) {
+      onSkip();
+    } else {
+      handleComplete();
+    }
+  }, [isSkipped, onSkip, handleComplete]);
+
+  // Listen for user input to skip animation (keyboard, mouse, touch)
+  useEffect(() => {
+    // Don't add listeners if animation is disabled or already skipped
+    if (prefersReducedMotion || !HERO_ANIMATION_CONFIG.enabled || isSkipped) {
+      return;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip on any key press
+      handleSkip();
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      // Skip on any mouse click
+      handleSkip();
+    };
+
+    const handleTouch = (e: TouchEvent) => {
+      // Skip on any touch
+      handleSkip();
+    };
+
+    // Add event listeners
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('click', handleClick);
+    window.addEventListener('touchstart', handleTouch);
+
+    // Cleanup listeners on unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('click', handleClick);
+      window.removeEventListener('touchstart', handleTouch);
+    };
+  }, [prefersReducedMotion, isSkipped, handleSkip]);
+
   // Orchestrate the animation sequence
   useEffect(() => {
     // If reduced motion is preferred or animation is disabled, skip to final state
     if (prefersReducedMotion || !HERO_ANIMATION_CONFIG.enabled) {
       setPhase(5);
       handleComplete();
+      return;
+    }
+
+    // If animation was skipped, don't set up timers
+    if (isSkipped) {
       return;
     }
 
@@ -95,7 +151,7 @@ export function AnimatedHero({ onComplete }: AnimatedHeroProps) {
 
     // Cleanup timers on unmount
     return () => timers.forEach(clearTimeout);
-  }, [prefersReducedMotion, handleComplete]);
+  }, [prefersReducedMotion, handleComplete, isSkipped]);
 
   // If reduced motion or disabled, show static final state
   if (prefersReducedMotion || !HERO_ANIMATION_CONFIG.enabled) {

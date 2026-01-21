@@ -57,7 +57,7 @@ const GALLERY_COVER_MAPPINGS: GalleryCoverMapping[] = [
     filename: 'editorial_cover.jpg',
     categorySlug: 'editorial',
     displayTitle: 'Editorial',
-    displayOrder: 1,
+    displayOrder: 2,
     fileId: '1zPR5I5kLAv-MIq6ZcMYf2WndBHXA6iPy',
     width: 1920,
     height: 1280,
@@ -66,7 +66,7 @@ const GALLERY_COVER_MAPPINGS: GalleryCoverMapping[] = [
     filename: 'grad_cover.jpg',
     categorySlug: 'graduation',
     displayTitle: 'Graduation',
-    displayOrder: 2,
+    displayOrder: 1,
     fileId: '15AyXLwX-ktsogZ3ZdAFSEJtYIC5eb5fd',
     width: 1920,
     height: 1280,
@@ -271,7 +271,8 @@ async function main() {
     }
   }
 
-  // Save metadata JSON
+  // Sort by displayOrder and save metadata JSON
+  results.sort((a, b) => a.displayOrder - b.displayOrder);
   const metadataPath = path.join(generatedDir, 'cover-thumbnails.json');
   await writeFile(metadataPath, JSON.stringify(results, null, 2));
 

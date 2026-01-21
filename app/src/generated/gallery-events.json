@@ -3933,31 +3933,12 @@
     }
   },
   {
-    "id": "1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S",
-    "src": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1ISpMGDfn4jTlEEmab9eC5XMEI1ZAJt1S&sz=w64",
-    "alt": "RCR After Party (1)",
-    "title": "RCR After Party (1)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "28mm · f/4 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:36.825Z",
-      "fileSize": "2.2 MB"
-    }
-  },
-  {
     "id": "199CqFKMqreEQ34EFsw_ssL6jmtha8bRy",
     "src": "/api/google-drive/image?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&size=thumbnail",
     "blurDataURL": "https://drive.google.com/thumbnail?id=199CqFKMqreEQ34EFsw_ssL6jmtha8bRy&sz=w64",
-    "alt": "RCR After Party (2)",
-    "title": "RCR After Party (2)",
+    "alt": "RCR After Party (1)",
+    "title": "RCR After Party (1)",
     "description": "",
     "category": "Event",
     "width": 5184,
@@ -3971,31 +3952,12 @@
     }
   },
   {
-    "id": "1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ",
-    "src": "/api/google-drive/image?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1ruEu9_uAZir9KorFSduJxYvY-6IR0cmQ&sz=w64",
-    "alt": "RCR After Party (3)",
-    "title": "RCR After Party (3)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:41.260Z",
-      "fileSize": "2.8 MB"
-    }
-  },
-  {
     "id": "1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF",
     "src": "/api/google-drive/image?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&size=thumbnail",
     "blurDataURL": "https://drive.google.com/thumbnail?id=1YER5Rx2gR71EEPHKbQCPPv_bB6ku2_FF&sz=w64",
-    "alt": "RCR After Party (4)",
-    "title": "RCR After Party (4)",
+    "alt": "RCR After Party (2)",
+    "title": "RCR After Party (2)",
     "description": "",
     "category": "Event",
     "width": 5184,
@@ -4009,88 +3971,12 @@
     }
   },
   {
-    "id": "12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph",
-    "src": "/api/google-drive/image?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=12LzTj0dpkdv6DCXHuRwAwMYsYgxQ1aph&sz=w64",
-    "alt": "RCR After Party (5)",
-    "title": "RCR After Party (5)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:45.504Z",
-      "fileSize": "2.9 MB"
-    }
-  },
-  {
-    "id": "1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W",
-    "src": "/api/google-drive/image?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1f-sbP2Gz0G7PutfybwH5cYoFdRrCZc6W&sz=w64",
-    "alt": "RCR After Party (6)",
-    "title": "RCR After Party (6)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:47.695Z",
-      "fileSize": "3.0 MB"
-    }
-  },
-  {
-    "id": "1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs",
-    "src": "/api/google-drive/image?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1VcNwOJ7n-GpU0p3wYP62nbkMABSpEECs&sz=w64",
-    "alt": "RCR After Party (7)",
-    "title": "RCR After Party (7)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:49.576Z",
-      "fileSize": "2.6 MB"
-    }
-  },
-  {
-    "id": "1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk",
-    "src": "/api/google-drive/image?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1gdnu4Elin51Je78X6qHMp4KBG0CwOzfk&sz=w64",
-    "alt": "RCR After Party (8)",
-    "title": "RCR After Party (8)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "18mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:51.418Z",
-      "fileSize": "2.8 MB"
-    }
-  },
-  {
     "id": "1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W",
     "src": "/api/google-drive/image?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&size=full&format=webp",
     "thumbnail": "/api/google-drive/image?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&size=thumbnail",
     "blurDataURL": "https://drive.google.com/thumbnail?id=1Vlp831OX3mqQ03Zcl_eTdZIXt3FVFm1W&sz=w64",
-    "alt": "RCR After Party (9)",
-    "title": "RCR After Party (9)",
+    "alt": "RCR After Party (3)",
+    "title": "RCR After Party (3)",
     "description": "",
     "category": "Event",
     "width": 5184,
@@ -4101,25 +3987,6 @@
       "settings": "28mm · f/4 · 1/60 · ISO 1600",
       "date": "2026-01-06T02:30:53.745Z",
       "fileSize": "2.8 MB"
-    }
-  },
-  {
-    "id": "1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso",
-    "src": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=full&format=webp",
-    "thumbnail": "/api/google-drive/image?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&size=thumbnail",
-    "blurDataURL": "https://drive.google.com/thumbnail?id=1Q5fhXhcJ5556R2az-_NET0cIlJ_BXnso&sz=w64",
-    "alt": "RCR After Party (10)",
-    "title": "RCR After Party (10)",
-    "description": "",
-    "category": "Event",
-    "width": 5184,
-    "height": 3456,
-    "metadata": {
-      "camera": "Canon Canon EOS REBEL T5i",
-      "lens": "Canon EF-S18-55mm f/3.5-5.6 IS STMh",
-      "settings": "22mm · f/3.5 · 1/60 · ISO 1600",
-      "date": "2026-01-06T02:30:55.839Z",
-      "fileSize": "2.4 MB"
     }
   },
   {
