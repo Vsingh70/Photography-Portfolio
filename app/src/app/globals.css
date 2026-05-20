@@ -4,6 +4,11 @@
   .font-display {
     font-family: var(--font-canela), serif;
   }
+
+  @keyframes arrow-nudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(4px); }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

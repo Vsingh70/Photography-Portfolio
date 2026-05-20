@@ -1,76 +1,130 @@
 /**
- * HeroContent Component
+ * HeroContent — Kinetic Masthead
  *
- * Displays introductory paragraph with logo after AnimatedHero fades out.
- * - Lorem ipsum paragraph using Canela Light font
- * - Desktop: paragraph left, logo right
- * - Mobile: logo top, paragraph below
- * - Fades in sync with Navbar
- * - Theme-aware text colors
- * - Large text and logo sizes, positioned higher without scrollbar
+ * Single self-contained hero that handles the full letter cascade, tagline,
+ * and pill CTA. Replaces the old AnimatedHero + HeroContent split.
+ *
+ * Timing:
+ *   0.2s  "The Portfolio of" caption fades
+ *   0.2s+ VIRAJ SINGH letters cascade in (0.05s stagger)
+ *   0.9s  divider rule fades
+ *   1.1s  tagline rises
+ *   2.0s  fires onAnimationComplete (navbar can show)
+ *   2.4s  pill CTA rises
  */
 
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export function HeroContent() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+interface HeroContentProps {
+  onNavbarReady?: () => void;
+  skipAnimation?: boolean;
+}
+
+const LETTERS = 'VIRAJ SINGH'.split('');
+const LETTER_STAGGER = 0.05;
+const LETTER_BASE_DELAY = 0.2;
+const NAVBAR_READY_AT = 2000;
+const EASE_OUT: [number, number, number, number] = [0.4, 0, 0.2, 1];
+
+export function HeroContent({ onNavbarReady, skipAnimation = false }: HeroContentProps) {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const onChange = () => setPrefersReducedMotion(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  const animate = !skipAnimation && !prefersReducedMotion;
+
+  useEffect(() => {
+    if (!animate) {
+      onNavbarReady?.();
+      return;
+    }
+    const t = setTimeout(() => onNavbarReady?.(), NAVBAR_READY_AT);
+    return () => clearTimeout(t);
+  }, [animate, onNavbarReady]);
+
+  const initial = (state: Record<string, number | string>) => (animate ? state : false);
+
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="flex min-h-screen flex-col items-center justify-start px-4 pt-24 sm:px-6 sm:pt-40 md:px-8 md:pt-48 lg:px-10"
-    >
-      <div className="flex flex-col items-center gap-4 sm:gap-16 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-16 xl:gap-24">
-        {/* Paragraph - left on desktop, below logo on mobile */}
-        <p className="order-2 max-w-3xl text-center font-display font-light text-2xl leading-relaxed text-primary-900 dark:text-primary-100 sm:text-3xl md:order-1 md:text-left lg:text-4xl">
-          Viraj <span className="font-thin italic">(/vur-ahj/)</span> is a multidisciplinary photographer with a specialization in portraits, capturing the raw emotions behind every frame.
-        </p>
-
-        {/* Logo - right on desktop, top on mobile - smaller on mobile, larger on desktop */}
-        <div className="order-1 flex-shrink-0 md:order-2">
-          {!mounted ? (
-            <div className="h-[160px] w-[160px] animate-pulse rounded bg-primary-200 dark:bg-primary-700 sm:h-[240px] sm:w-[240px] md:h-[380px] md:w-[380px] lg:h-[560px] lg:w-[560px]" />
-          ) : (
-            <Image
-              src={resolvedTheme === 'dark' ? '/vs logo white.svg' : '/vs logo black.svg'}
-              alt="Viraj Singh Photography"
-              width={560}
-              height={560}
-              className="h-[160px] w-[160px] transition-opacity hover:opacity-80 sm:h-[240px] sm:w-[240px] md:h-[380px] md:w-[380px] lg:h-[560px] lg:w-[560px]"
-              priority
-            />
-          )}
-        </div>
-      </div>
-
-      {/* View Gallery Button */}
-      <motion.div
-        initial={{ opacity: 0 }}
+    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <motion.span
+        initial={initial({ opacity: 0 })}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className="mt-6 sm:mt-16 md:mt-20"
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-primary-700 opacity-60 dark:text-primary-400 md:mb-6 md:text-xs"
+      >
+        The Portfolio of
+      </motion.span>
+
+      <h1 className="flex flex-wrap justify-center gap-x-[2px] font-display text-5xl font-light italic leading-[0.95] tracking-[-0.015em] text-primary-900 dark:text-primary-100 md:text-7xl lg:text-8xl xl:text-[7rem]">
+        {LETTERS.map((letter, i) => (
+          <motion.span
+            key={i}
+            initial={initial({ opacity: 0, y: '0.3em' })}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.55,
+              delay: LETTER_BASE_DELAY + i * LETTER_STAGGER,
+              ease: EASE_OUT,
+            }}
+            className="inline-block"
+            style={{ minWidth: letter === ' ' ? '0.35em' : undefined }}
+          >
+            {letter === ' ' ? ' ' : letter}
+          </motion.span>
+        ))}
+      </h1>
+
+      <motion.div
+        initial={initial({ opacity: 0 })}
+        animate={{ opacity: 0.5 }}
+        transition={{ duration: 1, delay: 0.9, ease: EASE_OUT }}
+        className="my-5 h-px w-16 bg-primary-900 dark:bg-primary-100 md:my-7 md:w-20"
+      />
+
+      <motion.p
+        initial={initial({ opacity: 0, y: 12 })}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.1, ease: EASE_OUT }}
+        className="max-w-[260px] font-display text-base leading-[1.45] text-primary-700 dark:text-primary-300 md:max-w-md md:text-xl lg:text-2xl"
+      >
+        A multidisciplinary photographer<br />
+        specializing in portraits.
+      </motion.p>
+
+      <motion.div
+        initial={initial({ opacity: 0, y: 12 })}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 2.4, ease: EASE_OUT }}
+        className="mt-7 flex flex-col items-center gap-3 md:mt-10"
       >
         <Link
           href="/gallery"
-          prefetch={true}
-          className="group relative inline-block px-8 py-4 font-display font-thin italic text-2xl text-primary-900 underline decoration-2 transition-all duration-300 ease-in-out hover:text-primary-700 hover:[text-shadow:2px_2px_4px_rgba(0,0,0,0.3)] dark:text-primary-100 dark:hover:text-primary-300 dark:hover:[text-shadow:3px_3px_6px_rgba(0,0,0,0.8)] sm:text-3xl"
+          prefetch
+          data-no-skip
+          className="group inline-flex items-center gap-3 rounded-full border border-primary-900 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-primary-900 transition-colors duration-300 hover:bg-primary-900 hover:text-white dark:border-primary-100 dark:text-primary-100 dark:hover:bg-primary-100 dark:hover:text-primary-900 md:px-9 md:py-4 md:text-[13px]"
         >
-          View Gallery
+          View The Gallery
+          <span
+            aria-hidden
+            className="inline-block motion-safe:animate-[arrow-nudge_1.6s_ease-in-out_infinite] transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
         </Link>
+        <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-primary-700 opacity-50 dark:text-primary-400 md:text-[11px]">
+          05 chapters · portraits, editorial &amp; more
+        </span>
       </motion.div>
-    </motion.section>
+    </section>
   );
 }
