@@ -93,13 +93,16 @@ function useNeighborPreload(images: GalleryImage[], index: number, enabled: bool
     const id = schedule(() => {
       const seen = new Set<string>();
       targets.forEach((img) => {
-        if (!img || seen.has(img.src)) return;
-        seen.add(img.src);
-        if (document.querySelector(`link[rel="preload"][href="${img.src}"]`)) return;
+        if (!img) return;
+        // Prefer the lg webp variant — most lightbox views display this tier.
+        const href = img.webp?.lg || img.src;
+        if (seen.has(href)) return;
+        seen.add(href);
+        if (document.querySelector(`link[rel="preload"][href="${href}"]`)) return;
         const link = document.createElement('link');
         link.rel = 'preload';
         link.as = 'image';
-        link.href = img.src;
+        link.href = href;
         link.setAttribute('fetchpriority', 'low');
         document.head.appendChild(link);
         links.push(link);
@@ -341,26 +344,42 @@ const ImageStage = memo(
               }}
             />
           )}
-          <img
-            ref={imgRef}
-            src={image.src}
-            alt={image.alt}
-            onLoad={onLoad}
-            fetchPriority="high"
-            decoding="async"
-            loading="eager"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              display: 'block',
-              opacity: loaded ? 1 : 0,
-              transition: 'opacity 0.35s ease-out',
-              zIndex: 1,
-            }}
-          />
+          <picture>
+            {image.avif && (
+              <source
+                type="image/avif"
+                srcSet={`${image.avif.lg} 1280w, ${image.avif.xl} 2400w`}
+                sizes="100vw"
+              />
+            )}
+            {image.webp && (
+              <source
+                type="image/webp"
+                srcSet={`${image.webp.lg} 1280w, ${image.webp.xl} 2400w`}
+                sizes="100vw"
+              />
+            )}
+            <img
+              ref={imgRef}
+              src={image.webp?.xl || image.src}
+              alt={image.alt}
+              onLoad={onLoad}
+              fetchPriority="high"
+              decoding="async"
+              loading="eager"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block',
+                opacity: loaded ? 1 : 0,
+                transition: 'opacity 0.35s ease-out',
+                zIndex: 1,
+              }}
+            />
+          </picture>
         </div>
       </div>
     );

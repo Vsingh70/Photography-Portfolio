@@ -14,12 +14,24 @@ export interface ImageMetadata {
 }
 
 /**
+ * Responsive image variant manifest — one URL per size tier.
+ */
+export interface ImageVariants {
+  sm: string;  // 320w
+  md: string;  // 640w
+  lg: string;  // 1280w
+  xl: string;  // 2400w
+}
+
+/**
  * Gallery image data structure
  */
 export interface GalleryImage {
   id: string;
   src: string;
   thumbnail?: string;
+  avif?: ImageVariants;
+  webp?: ImageVariants;
   alt: string;
   title: string;
   description?: string;

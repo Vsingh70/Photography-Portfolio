@@ -1,296 +1,338 @@
 #!/usr/bin/env tsx
 /**
- * Generate Gallery Data Script
+ * Generate gallery data + prebuilt image variants.
  *
- * Pre-generates all gallery image metadata at build time for instant loading.
- * This eliminates Google Drive API calls at runtime and provides 50-60x faster page loads.
+ * For each image in each Google Drive gallery folder:
+ *   - Download the original
+ *   - Generate 4 size tiers (320, 640, 1280, 2400) × 2 formats (avif, webp)
+ *   - Generate a ~500B base64 webp blur for the LQIP
+ *   - Write all variants to /public/galleries/{slug}/{fileId}-{size}.{format}
+ *   - Write the metadata JSON to /src/generated/gallery-{slug}.json
  *
- * Usage:
- *   npm run generate-galleries
+ * Incremental: a .manifest.json sidecar per gallery stores the Drive
+ * modifiedTime per fileId. On subsequent runs, only files whose modifiedTime
+ * changed are reprocessed.
  *
- * Output:
- *   - JSON files saved to src/generated/gallery-{slug}.json
- *   - One file per gallery category with all image metadata
+ * Usage: npm run generate-galleries
  */
 
 import { google } from 'googleapis';
+import sharp from 'sharp';
 import { writeFile, mkdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
-// Load environment variables from .env.local
 async function loadEnv() {
   const envPath = path.join(process.cwd(), '.env.local');
-  if (existsSync(envPath)) {
-    const envContent = await readFile(envPath, 'utf-8');
-    envContent.split('\n').forEach((line) => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) return;
-
-      const match = trimmed.match(/^([^=]+)=(.*)$/);
-      if (match) {
-        const key = match[1].trim();
-        const value = match[2].trim();
-        // Remove quotes if present
-        const cleanValue = value.replace(/^["']|["']$/g, '');
-        process.env[key] = cleanValue;
-      }
-    });
-  }
+  if (!existsSync(envPath)) return;
+  const envContent = await readFile(envPath, 'utf-8');
+  envContent.split('\n').forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    const match = trimmed.match(/^([^=]+)=(.*)$/);
+    if (match) {
+      process.env[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
+    }
+  });
 }
 
-// Gallery configurations
 interface GalleryConfig {
   slug: string;
   name: string;
   folderIdEnvVar: string;
-  description?: string;
 }
 
 const GALLERIES: GalleryConfig[] = [
-  {
-    slug: 'editorial',
-    name: 'Editorial',
-    folderIdEnvVar: 'GOOGLE_DRIVE_EDITORIAL_FOLDER_ID',
-    description: 'Professional editorial photography',
-  },
-  {
-    slug: 'graduation',
-    name: 'Graduation',
-    folderIdEnvVar: 'GOOGLE_DRIVE_GRADUATION_FOLDER_ID',
-    description: 'Graduation ceremony photography',
-  },
-  {
-    slug: 'portraits',
-    name: 'Portrait',
-    folderIdEnvVar: 'GOOGLE_DRIVE_PORTRAITS_FOLDER_ID',
-    description: 'Professional portrait photography',
-  },
-  {
-    slug: 'engagement',
-    name: 'Engagement',
-    folderIdEnvVar: 'GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID',
-    description: 'Engagement and couples photography',
-  },
-  {
-    slug: 'events',
-    name: 'Event',
-    folderIdEnvVar: 'GOOGLE_DRIVE_EVENTS_FOLDER_ID',
-    description: 'Event and celebration photography',
-  },
+  { slug: 'editorial',  name: 'Editorial',  folderIdEnvVar: 'GOOGLE_DRIVE_EDITORIAL_FOLDER_ID' },
+  { slug: 'graduation', name: 'Graduation', folderIdEnvVar: 'GOOGLE_DRIVE_GRADUATION_FOLDER_ID' },
+  { slug: 'portraits',  name: 'Portrait',   folderIdEnvVar: 'GOOGLE_DRIVE_PORTRAITS_FOLDER_ID' },
+  { slug: 'engagement', name: 'Engagement', folderIdEnvVar: 'GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID' },
+  { slug: 'events',     name: 'Event',      folderIdEnvVar: 'GOOGLE_DRIVE_EVENTS_FOLDER_ID' },
 ];
+
+const SIZES = [
+  { name: 'sm', width: 320 },
+  { name: 'md', width: 640 },
+  { name: 'lg', width: 1280 },
+  { name: 'xl', width: 2400 },
+] as const;
+
+const FORMATS = ['avif', 'webp'] as const;
 
 const SUPPORTED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp',
-  'image/heic',
-  'image/heif',
+  'image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic', 'image/heif',
 ];
 
-/**
- * Initialize Google Drive API client
- */
+sharp.cache({ memory: 512, files: 0, items: 100 });
+sharp.concurrency(4);
+sharp.simd(true);
+
 function getDriveClient() {
   const clientEmail = process.env.GOOGLE_DRIVE_CLIENT_EMAIL;
   const privateKey = process.env.GOOGLE_DRIVE_PRIVATE_KEY;
-
   if (!clientEmail || !privateKey) {
     throw new Error(
-      'Google Drive credentials not found. Please set GOOGLE_DRIVE_CLIENT_EMAIL and GOOGLE_DRIVE_PRIVATE_KEY'
+      'Google Drive credentials not found. Set GOOGLE_DRIVE_CLIENT_EMAIL and GOOGLE_DRIVE_PRIVATE_KEY.'
     );
   }
-
-  // Use JWT constructor to avoid deprecation warning
   const auth = new google.auth.JWT({
     email: clientEmail,
     key: privateKey.replace(/\\n/g, '\n'),
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   });
-
   return google.drive({ version: 'v3', auth });
 }
 
-/**
- * Format camera settings for display
- */
-function formatCameraSettings(metadata: any): string | undefined {
-  if (!metadata) return undefined;
-
-  const parts = [];
-  if (metadata.focalLength) parts.push(`${metadata.focalLength}mm`);
-  if (metadata.aperture) parts.push(`f/${metadata.aperture}`);
-  if (metadata.exposureTime) {
-    const shutter = metadata.exposureTime < 1
-      ? `1/${Math.round(1 / metadata.exposureTime)}`
-      : `${metadata.exposureTime}s`;
-    parts.push(shutter);
-  }
-  if (metadata.isoSpeed) parts.push(`ISO ${metadata.isoSpeed}`);
-
-  return parts.length > 0 ? parts.join(' · ') : undefined;
-}
-
-/**
- * Format file size for display
- */
-function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-/**
- * Natural sort comparator for filenames with numbers
- * Sorts "alley (1)", "alley (2)", "alley (10)" correctly instead of alphabetically
- */
 function naturalSort(a: string, b: string): number {
   const regex = /(\d+)|(\D+)/g;
   const aParts = a.match(regex) || [];
   const bParts = b.match(regex) || [];
-
   for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
     const aPart = aParts[i] || '';
     const bPart = bParts[i] || '';
-
-    // If both parts are numbers, compare numerically
     const aNum = parseInt(aPart, 10);
     const bNum = parseInt(bPart, 10);
-
     if (!isNaN(aNum) && !isNaN(bNum)) {
       if (aNum !== bNum) return aNum - bNum;
     } else {
-      // Compare strings case-insensitively
-      const comparison = aPart.toLowerCase().localeCompare(bPart.toLowerCase());
-      if (comparison !== 0) return comparison;
+      const c = aPart.toLowerCase().localeCompare(bPart.toLowerCase());
+      if (c !== 0) return c;
     }
   }
-
   return 0;
 }
 
-/**
- * Fetch images from a Google Drive folder
- */
-async function fetchImagesFromDrive(folderId: string, category: string) {
+interface ImageMediaMetadata {
+  width?: number;
+  height?: number;
+  cameraMake?: string;
+  cameraModel?: string;
+  lens?: string;
+  focalLength?: number;
+  aperture?: number;
+  exposureTime?: number;
+  isoSpeed?: number;
+}
+
+function formatCameraSettings(m: ImageMediaMetadata | undefined): string | undefined {
+  if (!m) return undefined;
+  const parts: string[] = [];
+  if (m.focalLength) parts.push(`${m.focalLength}mm`);
+  if (m.aperture)    parts.push(`f/${m.aperture}`);
+  if (m.exposureTime) {
+    const s = m.exposureTime < 1 ? `1/${Math.round(1 / m.exposureTime)}` : `${m.exposureTime}s`;
+    parts.push(s);
+  }
+  if (m.isoSpeed) parts.push(`ISO ${m.isoSpeed}`);
+  return parts.length ? parts.join(' · ') : undefined;
+}
+
+async function buildImageVariants(opts: {
+  fileId: string;
+  buffer: Buffer;
+  outDir: string;
+}) {
+  const { fileId, buffer, outDir } = opts;
+
+  const source = sharp(buffer, { failOn: 'none' }).rotate();
+  const meta = await source.metadata();
+
+  await Promise.all(
+    SIZES.flatMap((size) =>
+      FORMATS.map(async (format) => {
+        const outPath = path.join(outDir, `${fileId}-${size.name}.${format}`);
+        const pipeline = source
+          .clone()
+          .resize(size.width, null, {
+            fit: 'inside',
+            withoutEnlargement: true,
+            kernel: 'lanczos3',
+            fastShrinkOnLoad: true,
+          });
+
+        if (format === 'avif') {
+          await pipeline
+            .avif({ quality: 75, effort: 6, chromaSubsampling: '4:4:4' })
+            .toFile(outPath);
+        } else {
+          await pipeline.webp({ quality: 88, effort: 5 }).toFile(outPath);
+        }
+      })
+    )
+  );
+
+  const blurBuffer = await source
+    .clone()
+    .resize(24, null, { fit: 'inside', kernel: 'lanczos3' })
+    .webp({ quality: 40, effort: 0 })
+    .toBuffer();
+  const blurDataURL = `data:image/webp;base64,${blurBuffer.toString('base64')}`;
+
+  return { width: meta.width || 1920, height: meta.height || 1080, blurDataURL };
+}
+
+interface GalleryImageOutput {
+  id: string;
+  avif: { sm: string; md: string; lg: string; xl: string };
+  webp: { sm: string; md: string; lg: string; xl: string };
+  src: string;
+  thumbnail: string;
+  blurDataURL: string;
+  alt: string;
+  title: string;
+  description: string;
+  category: string;
+  width: number;
+  height: number;
+  metadata: {
+    camera?: string;
+    lens?: string;
+    settings?: string;
+    date?: string;
+  };
+}
+
+async function buildGallery(gallery: GalleryConfig) {
+  const folderId = process.env[gallery.folderIdEnvVar];
+  if (!folderId) {
+    console.log(`  ⚠️  Skipping ${gallery.name}: no ${gallery.folderIdEnvVar}`);
+    return null;
+  }
+
   const drive = getDriveClient();
+  const outDir = path.join(process.cwd(), 'public', 'galleries', gallery.slug);
+  if (!existsSync(outDir)) await mkdir(outDir, { recursive: true });
 
-  console.log(`  Querying Google Drive folder...`);
+  const manifestPath = path.join(outDir, '.manifest.json');
+  const prior: Record<string, string> = existsSync(manifestPath)
+    ? JSON.parse(await readFile(manifestPath, 'utf-8'))
+    : {};
 
-  const response = await drive.files.list({
-    q: `'${folderId}' in parents and trashed = false and (${SUPPORTED_IMAGE_TYPES.map((type) => `mimeType='${type}'`).join(' or ')})`,
-    fields:
-      'files(id, name, mimeType, size, createdTime, modifiedTime, imageMediaMetadata, thumbnailLink, webContentLink, webViewLink)',
+  const listResp = await drive.files.list({
+    q: `'${folderId}' in parents and trashed = false and (${SUPPORTED_IMAGE_TYPES.map((t) => `mimeType='${t}'`).join(' or ')})`,
+    fields: 'files(id, name, mimeType, size, createdTime, modifiedTime, imageMediaMetadata)',
     orderBy: 'name',
     pageSize: 1000,
   });
-
-  const files = response.data.files || [];
+  const files = (listResp.data.files || []).sort((a, b) =>
+    naturalSort(a.name || '', b.name || '')
+  );
 
   console.log(`  Found ${files.length} images`);
 
-  // Sort files using natural sort (handles numbers in filenames correctly)
-  // This ensures "alley (1)", "alley (2)", "alley (10)" instead of "alley (1)", "alley (10)", "alley (2)"
-  files.sort((a, b) => naturalSort(a.name || '', b.name || ''));
+  const manifest: Record<string, string> = {};
+  const images: GalleryImageOutput[] = [];
+  let processed = 0;
+  let skipped = 0;
 
-  // Transform to gallery image format
-  const images = files.map((file, index) => {
-    const imageMetadata = file.imageMediaMetadata;
-    const title = file.name?.replace(/\.[^/.]+$/, '') || `Image ${index + 1}`;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const fileId = file.id!;
+    const stamp = file.modifiedTime || '';
+    manifest[fileId] = stamp;
 
-    return {
-      id: file.id || `image-${index}`,
-      src: `/api/google-drive/image?id=${file.id}&size=full&format=webp`,
-      thumbnail: `/api/google-drive/image?id=${file.id}&size=thumbnail`,
-      blurDataURL: `https://drive.google.com/thumbnail?id=${file.id}&sz=w64`,
-      alt: title,
-      title: title,
-      description: '',
-      category: category,
-      width: imageMetadata?.width || 1920,
-      height: imageMetadata?.height || 1080,
-      metadata: {
-        camera: imageMetadata?.cameraMake && imageMetadata?.cameraModel
-          ? `${imageMetadata.cameraMake} ${imageMetadata.cameraModel}`
-          : undefined,
-        lens: imageMetadata?.lens || undefined,
-        settings: formatCameraSettings(imageMetadata),
-        date: file.createdTime || undefined,
-        location: imageMetadata?.location
-          ? `${imageMetadata.location.latitude}, ${imageMetadata.location.longitude}`
-          : undefined,
-        fileSize: file.size ? formatFileSize(parseInt(file.size)) : undefined,
+    const title = file.name?.replace(/\.[^/.]+$/, '') || `Image ${i + 1}`;
+    const imgMeta = file.imageMediaMetadata as ImageMediaMetadata | undefined;
+
+    const needsBuild =
+      prior[fileId] !== stamp ||
+      !existsSync(path.join(outDir, `${fileId}-xl.avif`));
+
+    let dims = { width: imgMeta?.width || 1920, height: imgMeta?.height || 1080 };
+    let blurDataURL: string;
+
+    if (needsBuild) {
+      console.log(`  [${i + 1}/${files.length}] Building ${title}…`);
+      const resp = await drive.files.get(
+        { fileId, alt: 'media' },
+        { responseType: 'arraybuffer' }
+      );
+      const buffer = Buffer.from(resp.data as ArrayBuffer);
+      const result = await buildImageVariants({ fileId, buffer, outDir });
+      dims = { width: result.width, height: result.height };
+      blurDataURL = result.blurDataURL;
+      await writeFile(path.join(outDir, `${fileId}.blur.txt`), blurDataURL);
+      processed++;
+    } else {
+      const blurPath = path.join(outDir, `${fileId}.blur.txt`);
+      blurDataURL = existsSync(blurPath)
+        ? await readFile(blurPath, 'utf-8')
+        : '';
+      skipped++;
+    }
+
+    const base = `/galleries/${gallery.slug}/${fileId}`;
+    images.push({
+      id: fileId,
+      avif: {
+        sm: `${base}-sm.avif`,
+        md: `${base}-md.avif`,
+        lg: `${base}-lg.avif`,
+        xl: `${base}-xl.avif`,
       },
-    };
-  });
+      webp: {
+        sm: `${base}-sm.webp`,
+        md: `${base}-md.webp`,
+        lg: `${base}-lg.webp`,
+        xl: `${base}-xl.webp`,
+      },
+      src: `${base}-xl.webp`,
+      thumbnail: `${base}-md.webp`,
+      blurDataURL,
+      alt: title,
+      title,
+      description: '',
+      category: gallery.name,
+      width: dims.width,
+      height: dims.height,
+      metadata: {
+        camera:
+          imgMeta?.cameraMake && imgMeta?.cameraModel
+            ? `${imgMeta.cameraMake} ${imgMeta.cameraModel}`
+            : undefined,
+        lens: imgMeta?.lens || undefined,
+        settings: formatCameraSettings(imgMeta),
+        date: file.createdTime || undefined,
+      },
+    });
+  }
 
-  return images;
+  await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+  const jsonPath = path.join(
+    process.cwd(),
+    'src',
+    'generated',
+    `gallery-${gallery.slug}.json`
+  );
+  await writeFile(jsonPath, JSON.stringify(images, null, 2));
+
+  console.log(`  ✅ ${gallery.name}: ${processed} built · ${skipped} skipped\n`);
+  return images.length;
 }
 
-/**
- * Main execution
- */
 async function main() {
-  console.log('🎨 Gallery Data Generator\n');
-  console.log('Pre-generating all gallery image metadata for instant loading...\n');
-
-  // Load environment variables
+  console.log('🎨 Gallery prebuild pipeline\n');
   await loadEnv();
 
-  // Setup output directory
   const generatedDir = path.join(process.cwd(), 'src', 'generated');
+  if (!existsSync(generatedDir)) await mkdir(generatedDir, { recursive: true });
 
-  if (!existsSync(generatedDir)) {
-    await mkdir(generatedDir, { recursive: true });
-    console.log(`✅ Created directory: ${generatedDir}\n`);
-  }
-
-  const startTime = Date.now();
-  let totalImages = 0;
-
-  // Process each gallery
+  const start = Date.now();
+  let total = 0;
   for (const gallery of GALLERIES) {
-    console.log(`📸 Processing: ${gallery.name} (${gallery.slug})`);
-
+    console.log(`📸 ${gallery.name} (${gallery.slug})`);
     try {
-      // Get folder ID from environment
-      const folderId = process.env[gallery.folderIdEnvVar];
-
-      if (!folderId) {
-        console.log(`  ⚠️  Skipping: No folder ID found in ${gallery.folderIdEnvVar}\n`);
-        continue;
-      }
-
-      // Fetch images from Google Drive
-      const images = await fetchImagesFromDrive(folderId, gallery.name);
-
-      // Save to JSON file
-      const outputPath = path.join(generatedDir, `gallery-${gallery.slug}.json`);
-      await writeFile(outputPath, JSON.stringify(images, null, 2));
-
-      totalImages += images.length;
-
-      console.log(`  ✅ Saved ${images.length} images to gallery-${gallery.slug}.json\n`);
-    } catch (error) {
-      console.error(`  ❌ Error processing ${gallery.name}:`, error);
-      console.log('');
+      const count = await buildGallery(gallery);
+      if (count) total += count;
+    } catch (err) {
+      console.error(`  ❌ ${gallery.name}:`, err);
     }
   }
-
-  const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
-
-  console.log('\n✨ Generation Complete!\n');
-  console.log('📊 Summary:');
-  console.log(`   - Galleries processed: ${GALLERIES.length}`);
-  console.log(`   - Total images: ${totalImages}`);
-  console.log(`   - Generation time: ${totalTime}s`);
-  console.log(`   - Output directory: ${generatedDir}`);
-  console.log('\n🚀 Gallery pages will now load instantly!\n');
+  const secs = ((Date.now() - start) / 1000).toFixed(1);
+  console.log(`\n✨ Built ${total} images in ${secs}s\n`);
 }
 
-// Run the script
-main().catch((error) => {
-  console.error('❌ Fatal error:', error);
+main().catch((err) => {
+  console.error('❌ Fatal:', err);
   process.exit(1);
 });

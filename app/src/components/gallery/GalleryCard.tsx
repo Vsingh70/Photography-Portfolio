@@ -12,13 +12,22 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import type { GalleryImage } from '@/types/image';
+import type { GalleryImage, ImageVariants } from '@/types/image';
 
 interface GalleryCardProps {
   image: GalleryImage;
   index: number;
   onClick?: () => void;
   priority?: boolean;
+}
+
+// Browser picks the right width for the rendered slot.
+// Masonry: ~50vw on mobile (2 cols), ~33vw on tablet+ (3 cols).
+const CARD_SIZES = '(min-width: 768px) 33vw, 50vw';
+
+function srcset(v: ImageVariants | undefined): string | undefined {
+  if (!v) return undefined;
+  return `${v.sm} 320w, ${v.md} 640w, ${v.lg} 1280w, ${v.xl} 2400w`;
 }
 
 export function GalleryCard({
@@ -66,20 +75,29 @@ export function GalleryCard({
           backgroundPosition: 'center',
         }}
       >
-        <img
-          ref={ref}
-          src={image.thumbnail || image.src}
-          alt={image.alt}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          className="absolute inset-0 h-full w-full object-cover transition-[opacity,filter] duration-500 ease-out"
-          style={{
-            opacity: loaded ? 1 : 0,
-            filter: loaded ? 'blur(0)' : 'blur(18px)',
-            transform: loaded ? 'none' : 'scale(1.04)',
-          }}
-        />
+        <picture>
+          {image.avif && (
+            <source type="image/avif" srcSet={srcset(image.avif)} sizes={CARD_SIZES} />
+          )}
+          {image.webp && (
+            <source type="image/webp" srcSet={srcset(image.webp)} sizes={CARD_SIZES} />
+          )}
+          <img
+            ref={ref}
+            src={image.webp?.md || image.thumbnail || image.src}
+            alt={image.alt}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchPriority={priority ? 'high' : 'auto'}
+            onLoad={() => setLoaded(true)}
+            className="absolute inset-0 h-full w-full object-cover transition-[opacity,filter] duration-500 ease-out"
+            style={{
+              opacity: loaded ? 1 : 0,
+              filter: loaded ? 'blur(0)' : 'blur(18px)',
+              transform: loaded ? 'none' : 'scale(1.04)',
+            }}
+          />
+        </picture>
       </div>
 
       <div
