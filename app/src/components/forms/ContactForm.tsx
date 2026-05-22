@@ -1,9 +1,57 @@
+/**
+ * ContactForm — editorial treatment.
+ *
+ * Behaviorally identical to the previous form (react-hook-form validation,
+ * Turnstile, /api/contact submit). Visually rewritten to match the editorial
+ * vocabulary: mono small-caps labels, underline-only inputs, segmented chips,
+ * pill submit.
+ */
+
 'use client';
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { ContactFormData, ContactFormResponse } from '@/types/contact';
+
+const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <div className="flex items-baseline gap-2">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+        {children}
+      </span>
+      {required && (
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary-500 opacity-60">
+          · Required
+        </span>
+      )}
+    </div>
+  );
+}
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-red-700 dark:text-red-400">
+      {message}
+    </p>
+  );
+}
+
+function SectionHeader({ num, title }: { num: string; title: string }) {
+  return (
+    <div className="mt-7 mb-3 md:mt-10">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+        § {num}
+      </span>
+      <h2 className="mt-1.5 font-display text-2xl font-light italic leading-tight tracking-[-0.01em] text-primary-900 dark:text-primary-100 md:text-[32px]">
+        {title}
+      </h2>
+    </div>
+  );
+}
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,55 +67,45 @@ export default function ContactForm() {
     formState: { errors },
     reset,
     watch,
+    setValue,
   } = useForm<ContactFormData>({
-    defaultValues: {
-      preferredContactMethod: 'email',
-    },
+    defaultValues: { preferredContactMethod: 'email' },
   });
 
-  const preferredContactMethod = watch('preferredContactMethod');
+  const preferred = watch('preferredContactMethod');
 
   const onSubmit = async (data: ContactFormData) => {
-    // Check if Turnstile token exists
     if (!turnstileToken) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Please complete the security check.',
-      });
+      setSubmitStatus({ type: 'error', message: 'Please complete the security check.' });
       return;
     }
-
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          turnstileToken,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, turnstileToken }),
       });
-
       const result: ContactFormResponse = await response.json();
 
       if (result.success) {
         setSubmitStatus({
           type: 'success',
-          message: result.message || 'Thank you for your message! We\'ll get back to you soon.',
+          message:
+            result.message ||
+            "Thank you for your message — I'll get back to you within 24–48 hours.",
         });
         reset();
-        setTurnstileToken(''); // Reset token
+        setTurnstileToken('');
       } else {
         setSubmitStatus({
           type: 'error',
           message: result.error || 'Something went wrong. Please try again.',
         });
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus({
         type: 'error',
         message: 'Failed to send message. Please try again later.',
@@ -78,218 +116,163 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      {/* Name Field */}
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Name <span className="text-red-600 dark:text-red-400">*</span>
-        </label>
-        <input
-          type="text"
-          id="name"
-          {...register('name', {
-            required: 'Name is required',
-            minLength: { value: 2, message: 'Name must be at least 2 characters' },
-          })}
-          className={`w-full px-4 py-2.5 rounded-md border ${
-            errors.name
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-primary-200 dark:border-primary-700 focus:border-primary-900 dark:focus:border-white focus:ring-primary-900 dark:focus:ring-white'
-          } bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:ring-1 focus:ring-offset-0 transition-colors`}
-          placeholder="Your name"
-          disabled={isSubmitting}
-        />
-        {errors.name && (
-          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>
-        )}
-      </div>
-
-      {/* Email Field */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Email <span className="text-red-600 dark:text-red-400">*</span>
-        </label>
-        <input
-          type="email"
-          id="email"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Please enter a valid email address',
-            },
-          })}
-          className={`w-full px-4 py-2.5 rounded-md border ${
-            errors.email
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-primary-200 dark:border-primary-700 focus:border-primary-900 dark:focus:border-white focus:ring-primary-900 dark:focus:ring-white'
-          } bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:ring-1 focus:ring-offset-0 transition-colors`}
-          placeholder="your.email@example.com"
-          disabled={isSubmitting}
-        />
-        {errors.email && (
-          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
-        )}
-      </div>
-
-      {/* Phone Field (Required if preferred contact method is Phone) */}
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Phone {preferredContactMethod === 'phone' ? (
-            <span className="text-red-600 dark:text-red-400">*</span>
-          ) : (
-            <span className="text-primary-700 dark:text-primary-300 font-normal">(Optional)</span>
-          )}
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          {...register('phone', {
-            required: preferredContactMethod === 'phone' ? 'Phone is required when phone is your preferred contact method' : false,
-          })}
-          className={`w-full px-4 py-2.5 rounded-md border ${
-            errors.phone
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-primary-200 dark:border-primary-700 focus:border-primary-900 dark:focus:border-white focus:ring-primary-900 dark:focus:ring-white'
-          } bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:ring-1 focus:ring-offset-0 transition-colors`}
-          placeholder="+1 (555) 123-4567"
-          disabled={isSubmitting}
-        />
-        {errors.phone && (
-          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.phone.message}</p>
-        )}
-      </div>
-
-      {/* Preferred Contact Method */}
-      <div>
-        <label className="block text-sm font-medium text-primary-900 dark:text-white mb-3">
-          Preferred Contact Method <span className="text-red-600 dark:text-red-400">*</span>
-        </label>
-        <div className="flex gap-6">
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              value="email"
-              {...register('preferredContactMethod')}
-              className="w-4 h-4 text-primary-900 dark:text-white border-primary-300 dark:border-primary-600 focus:ring-primary-900 dark:focus:ring-white bg-white dark:bg-black"
-              disabled={isSubmitting}
-            />
-            <span className="text-primary-900 dark:text-white">Email</span>
-          </label>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              value="phone"
-              {...register('preferredContactMethod')}
-              className="w-4 h-4 text-primary-900 dark:text-white border-primary-300 dark:border-primary-600 focus:ring-primary-900 dark:focus:ring-white bg-white dark:bg-black"
-              disabled={isSubmitting}
-            />
-            <span className="text-primary-900 dark:text-white">Phone</span>
-          </label>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <SectionHeader num="01" title="Tell me who you are" />
+      <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <Label required>Name</Label>
+          <input
+            type="text"
+            placeholder="Your name"
+            disabled={isSubmitting}
+            {...register('name', {
+              required: 'Name is required',
+              minLength: { value: 2, message: 'At least 2 characters' },
+            })}
+            className={`editorial-field ${errors.name ? 'error' : ''}`}
+          />
+          <FieldError message={errors.name?.message} />
+        </div>
+        <div>
+          <Label required>Email</Label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            disabled={isSubmitting}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'Enter a valid email',
+              },
+            })}
+            className={`editorial-field ${errors.email ? 'error' : ''}`}
+          />
+          <FieldError message={errors.email?.message} />
         </div>
       </div>
 
-      {/* Subject Field (Optional) */}
-      <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Subject <span className="text-primary-700 dark:text-primary-300 font-normal">(Optional)</span>
-        </label>
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <Label required={preferred === 'phone'}>Phone</Label>
+          <input
+            type="tel"
+            placeholder={preferred === 'phone' ? 'Required' : 'Optional'}
+            disabled={isSubmitting}
+            {...register('phone', {
+              required:
+                preferred === 'phone'
+                  ? 'Phone is required when phone is your preferred contact method'
+                  : false,
+            })}
+            className={`editorial-field ${errors.phone ? 'error' : ''}`}
+          />
+          <FieldError message={errors.phone?.message} />
+        </div>
+        <div>
+          <Label>Best reply via</Label>
+          <div className="mt-2.5 flex gap-2">
+            {(['email', 'phone'] as const).map((opt) => {
+              const active = preferred === opt;
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  disabled={isSubmitting}
+                  aria-pressed={active}
+                  onClick={() => setValue('preferredContactMethod', opt)}
+                  className={`
+                    cursor-pointer rounded-full border px-[18px] py-2 font-mono text-[10px] uppercase tracking-[0.22em]
+                    transition-colors duration-300
+                    disabled:cursor-not-allowed disabled:opacity-50
+                    ${
+                      active
+                        ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
+                        : 'border-primary-300 bg-transparent text-primary-700 hover:border-primary-500 dark:border-primary-700 dark:text-primary-300 dark:hover:border-primary-500'
+                    }
+                  `}
+                  style={{ transitionTimingFunction: EASE }}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+          <input type="hidden" {...register('preferredContactMethod')} />
+        </div>
+      </div>
+
+      <SectionHeader num="02" title="Tell me what we'd make" />
+      <div className="mt-2">
+        <Label>Subject</Label>
         <input
           type="text"
-          id="subject"
-          {...register('subject')}
-          className="w-full px-4 py-2.5 rounded-md border border-primary-200 dark:border-primary-700 bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:border-primary-900 dark:focus:border-white focus:ring-1 focus:ring-primary-900 dark:focus:ring-white focus:ring-offset-0 transition-colors"
-          placeholder="What is this regarding?"
+          placeholder="One-line summary"
           disabled={isSubmitting}
+          {...register('subject')}
+          className="editorial-field"
         />
       </div>
 
-      {/* Message Field */}
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-primary-900 dark:text-white mb-2">
-          Message <span className="text-red-600 dark:text-red-400">*</span>
-        </label>
+      <div className="mt-6">
+        <Label required>The full thing</Label>
         <textarea
-          id="message"
           rows={6}
+          placeholder="When, where, who, what mood — anything that helps me picture it."
+          disabled={isSubmitting}
           {...register('message', {
             required: 'Message is required',
-            minLength: { value: 10, message: 'Message must be at least 10 characters' },
+            minLength: { value: 10, message: 'At least 10 characters' },
           })}
-          className={`w-full px-4 py-2.5 rounded-md border ${
-            errors.message
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-primary-200 dark:border-primary-700 focus:border-primary-900 dark:focus:border-white focus:ring-primary-900 dark:focus:ring-white'
-          } bg-white dark:bg-black text-primary-900 dark:text-white placeholder:text-primary-700 dark:placeholder:text-primary-300 focus:ring-1 focus:ring-offset-0 transition-colors resize-none`}
-          placeholder="Tell me about your photography needs..."
-          disabled={isSubmitting}
+          className={`editorial-field ${errors.message ? 'error' : ''}`}
         />
-        {errors.message && (
-          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.message.message}</p>
-        )}
+        <FieldError message={errors.message?.message} />
       </div>
 
-      {/* Cloudflare Turnstile */}
-      <div className="flex justify-center">
+      <div className="mt-8 flex justify-center md:justify-start">
         <Turnstile
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
           onSuccess={(token) => setTurnstileToken(token)}
           onError={() => setTurnstileToken('')}
           onExpire={() => setTurnstileToken('')}
-          options={{
-            theme: 'auto',
-            size: 'normal',
-          }}
+          options={{ theme: 'auto', size: 'normal' }}
         />
       </div>
 
-      {/* Status Message */}
       {submitStatus.type && (
-        <div
-          className={`p-4 rounded-md border ${
+        <p
+          role="status"
+          className={`mt-6 font-display italic ${
             submitStatus.type === 'success'
-              ? 'bg-primary-50 dark:bg-primary-900/10 text-primary-900 dark:text-white border-primary-200 dark:border-primary-700'
-              : 'bg-red-50 dark:bg-red-900/10 text-red-900 dark:text-red-400 border-red-200 dark:border-red-800'
+              ? 'text-primary-900 dark:text-primary-100'
+              : 'text-red-700 dark:text-red-400'
           }`}
         >
-          <p className="text-sm">{submitStatus.message}</p>
-        </div>
+          {submitStatus.message}
+        </p>
       )}
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full px-6 py-3 !bg-[#212529] dark:!bg-white !text-white dark:!text-[#212529] font-medium rounded-md hover:!bg-[#495057] dark:hover:!bg-primary-100 shadow-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? (
-          <span className="flex items-center justify-center">
-            <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            Sending...
-          </span>
-        ) : (
-          'Send Message'
-        )}
-      </button>
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3.5 border-t border-primary-200 pt-5 dark:border-primary-800 md:mt-11">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+          Reply within 24–48 hours · Protected by Turnstile
+        </span>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="
+            group inline-flex cursor-pointer items-center gap-3 rounded-full border border-primary-900 px-6 py-3
+            font-mono text-[11px] uppercase tracking-[0.22em] text-primary-900 transition-colors duration-300
+            hover:bg-primary-900 hover:text-white
+            disabled:cursor-not-allowed disabled:opacity-50
+            dark:border-primary-100 dark:text-primary-100
+            dark:hover:bg-primary-100 dark:hover:text-primary-900
+            md:px-7
+          "
+        >
+          {isSubmitting ? 'Sending…' : 'Send Inquiry'}
+          <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+        </button>
+      </div>
     </form>
   );
 }

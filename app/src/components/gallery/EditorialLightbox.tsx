@@ -38,6 +38,17 @@ const PANEL_DESKTOP_W = 360;
 const PANEL_MOBILE_H = 220;
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
+function formatHumanDate(raw: string | undefined): string {
+  if (!raw) return '';
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return raw;
+  return d.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
 function useStoredMode(): [Mode, (m: Mode) => void] {
   const [mode, setModeState] = useState<Mode>('minimal');
 
@@ -422,12 +433,13 @@ export function EditorialLightbox({
   };
 
   const img = images[index];
+  const humanDate = useMemo(() => formatHumanDate(img?.metadata?.date), [img]);
   const meta = useMemo<Array<[string, string]>>(
     () =>
       img
         ? ([
             ['Series', img.category],
-            ['Made', img.metadata?.date],
+            ['Made', humanDate],
             ['Where', img.metadata?.location],
             ['Camera', img.metadata?.camera],
             ['Lens', img.metadata?.lens],
@@ -497,7 +509,7 @@ export function EditorialLightbox({
       >
         <Caption className="opacity-60">
           {img.category}
-          {img.metadata?.date ? ` · ${img.metadata.date}` : ''}
+          {humanDate ? ` · ${humanDate}` : ''}
         </Caption>
         <h2
           className="font-display mt-1.5 italic font-light leading-tight tracking-[-0.01em] text-[#f5f3ee]"

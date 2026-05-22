@@ -1,10 +1,9 @@
 /**
- * ContactContent Component
+ * ContactContent — Editorial "Inquiry" treatment.
  *
- * Client component for the contact page with fade-in animations
- * - Matches HeroContent and AboutContent animation pattern
- * - Displays contact form and information sidebar
- * - Uses Canela font and theme-aware styling
+ * Centered narrow form, § numbered sections with italic prompts.
+ * No bordered card container. Underline-only fields. Segmented chip row
+ * replaces the radio group. Editorial pill submit matching the hero CTA.
  */
 
 'use client';
@@ -12,106 +11,52 @@
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/forms/ContactForm';
 
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay, ease: EASE },
+});
+
 export function ContactContent() {
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 lg:px-8 lg:pt-32 lg:pb-12"
-    >
-      {/* Header Section */}
-      <div className="mb-10 sm:mb-12 lg:mb-16 text-center">
-        <h1 className="font-display font-light italic text-primary-900 dark:text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
-          Let's Work Together
-        </h1>
-        <p className="text-base sm:text-lg text-primary-700 dark:text-primary-300 max-w-2xl mx-auto">
-          Have a photography project in mind? I'd love to hear from you!
-        </p>
-      </div>
+    <section className="mx-auto max-w-[720px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28 md:px-10 md:pt-32 md:pb-20">
+      <motion.div {...fadeUp(0)} className="flex items-baseline justify-between pb-3.5">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+          Inquiry
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+          File 03 / 04
+        </span>
+      </motion.div>
+      <motion.div
+        {...fadeUp(0.05)}
+        className="h-px w-full bg-primary-200 dark:bg-primary-800"
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-        {/* Contact Form - Takes 2 columns on large screens */}
-        <div className="lg:col-span-2">
-          <div className="bg-white dark:bg-black border border-primary-200 dark:border-primary-700 rounded-lg p-6 sm:p-8 lg:p-10">
-            <h2 className="font-display font-light text-primary-900 dark:text-white text-2xl sm:text-3xl mb-8">
-              Send a Message
-            </h2>
-            <ContactForm />
-          </div>
-        </div>
+      <motion.h1
+        {...fadeUp(0.1)}
+        className="mt-6 font-display text-[56px] font-light italic leading-[0.95] tracking-[-0.02em] text-primary-900 dark:text-primary-100 md:mt-9 md:text-[96px]"
+      >
+        Get in touch.
+      </motion.h1>
+      <motion.p
+        {...fadeUp(0.15)}
+        className="mt-4 max-w-[520px] font-display text-[15px] italic leading-[1.5] text-primary-700 dark:text-primary-300 md:text-lg"
+      >
+        The form below reaches me directly. Take as much room as you need —
+        there&apos;s no template to fit into.
+      </motion.p>
 
-        {/* Contact Information Sidebar */}
-        <div className="lg:col-span-1 space-y-8">
-          {/* Contact Details */}
-          <div>
-            <h3 className="font-display font-light text-primary-900 dark:text-white text-xl mb-6">
-              Contact
-            </h3>
-            <div className="space-y-4">
-              {/* Email */}
-              <div>
-                <p className="text-sm text-primary-700 dark:text-primary-300 mb-1">
-                  Email
-                </p>
-                <a
-                  href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
-                  className="text-primary-900 dark:text-white hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-                >
-                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
-                </a>
-              </div>
+      <motion.div
+        {...fadeUp(0.2)}
+        className="mt-7 h-px w-full bg-primary-200 dark:bg-primary-800 md:mt-10"
+      />
 
-              {/* Instagram */}
-              {process.env.NEXT_PUBLIC_INSTAGRAM_URL && (
-                <div>
-                  <p className="text-sm text-primary-700 dark:text-primary-300 mb-1">
-                    Instagram
-                  </p>
-                  <a
-                    href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-900 dark:text-white hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-                  >
-                    @vflics
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="border-t border-primary-200 dark:border-primary-700" />
-
-          {/* Services */}
-          <div>
-            <h3 className="font-display font-light text-primary-900 dark:text-white text-xl mb-6">
-              Services
-            </h3>
-            <ul className="space-y-2 text-primary-700 dark:text-primary-300">
-              <li>Portrait Photography</li>
-              <li>Event Photography</li>
-              <li>Wedding Photography</li>
-              <li>Graduation Photography</li>
-              <li>Dance Photography</li>
-            </ul>
-          </div>
-
-          {/* Divider */}
-          <div className="border-t border-primary-200 dark:border-primary-700" />
-
-          {/* Response Time */}
-          <div>
-            <h3 className="font-display font-light text-primary-900 dark:text-white text-xl mb-3">
-              Response Time
-            </h3>
-            <p className="text-sm text-primary-700 dark:text-primary-300">
-              I typically respond to all inquiries within 24-48 hours.
-            </p>
-          </div>
-        </div>
-      </div>
-    </motion.section>
+      <motion.div {...fadeUp(0.25)}>
+        <ContactForm />
+      </motion.div>
+    </section>
   );
 }

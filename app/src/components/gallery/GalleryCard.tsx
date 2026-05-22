@@ -49,7 +49,7 @@ export function GalleryCard({
           onClick();
         }
       }}
-      className="group relative m-0 mb-4 cursor-zoom-in overflow-hidden break-inside-avoid"
+      className="group relative m-0 mb-4 cursor-pointer overflow-hidden break-inside-avoid"
       style={{
         contentVisibility: 'auto',
         containIntrinsicSize: '0 600px',
@@ -73,8 +73,12 @@ export function GalleryCard({
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-out"
-          style={{ opacity: loaded ? 1 : 0 }}
+          className="absolute inset-0 h-full w-full object-cover transition-[opacity,filter] duration-500 ease-out"
+          style={{
+            opacity: loaded ? 1 : 0,
+            filter: loaded ? 'blur(0)' : 'blur(18px)',
+            transform: loaded ? 'none' : 'scale(1.04)',
+          }}
         />
       </div>
 
