@@ -18,6 +18,16 @@
   [data-state="open"] .menu-item {
     animation: menu-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
+
+  @keyframes lb-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes lb-image-in {
+    from { opacity: 0; transform: scale(0.985); }
+    to   { opacity: 1; transform: scale(1); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

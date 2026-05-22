@@ -6,4 +6,4 @@
 
 export { MasonryGrid, MasonryGridSkeleton } from './MasonryGrid';
 export { GalleryCard, GalleryCardSkeleton } from './GalleryCard';
-export { Lightbox, LightboxImage, LightboxStyles } from './Lightbox';
+export { EditorialLightbox } from './EditorialLightbox';
