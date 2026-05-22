@@ -30,13 +30,13 @@ export function GalleryView({ images }: GalleryViewProps) {
     <>
       <MasonryGrid images={images}>
         {(image: GalleryImage, index: number) => (
-          <div
+          <GalleryCard
             key={image.id}
+            image={image}
+            index={index}
             onClick={() => setOpenIndex(index)}
-            style={{ cursor: 'pointer' }}
-          >
-            <GalleryCard image={image} priority={index < 6} onClick={() => {}} />
-          </div>
+            priority={index < 6}
+          />
         )}
       </MasonryGrid>
 

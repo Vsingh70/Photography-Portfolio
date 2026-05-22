@@ -4,6 +4,6 @@
  * Export all gallery-related components for easy importing
  */
 
-export { MasonryGrid, MasonryGridSkeleton } from './MasonryGrid';
-export { GalleryCard, GalleryCardSkeleton } from './GalleryCard';
+export { MasonryGrid } from './MasonryGrid';
+export { GalleryCard } from './GalleryCard';
 export { EditorialLightbox } from './EditorialLightbox';

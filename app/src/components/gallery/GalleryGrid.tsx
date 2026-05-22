@@ -1,9 +1,8 @@
 /**
- * Gallery Grid Component
+ * GalleryGrid — refined editorial layout.
  *
- * Responsive grid layout for gallery cover images
- * Desktop: 3 columns (first row) + 2 columns (second row)
- * Mobile: 1 column
+ * First row: 3 covers. Second row: 2 covers, offset 8% inward on desktop
+ * for a more asymmetric, magazine-spread feel.
  */
 
 'use client';
@@ -16,22 +15,19 @@ interface GalleryGridProps {
 }
 
 export function GalleryGrid({ covers }: GalleryGridProps) {
-  // Split covers into two rows: first 3, then remaining 2
   const firstRow = covers.slice(0, 3);
   const secondRow = covers.slice(3, 5);
 
   return (
-    <div className="pt-24 pb-8 md:pb-12">
-      {/* First Row - 3 columns on tablet/desktop, 1 on mobile */}
-      <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+    <div className="pt-24 pb-12 md:pt-28 md:pb-16">
+      <div className="mb-7 grid grid-cols-1 gap-7 md:grid-cols-3 md:gap-7">
         {firstRow.map((cover, index) => (
           <GalleryCoverCard key={cover.id} cover={cover} index={index} />
         ))}
       </div>
 
-      {/* Second Row - 2 columns on tablet/desktop, 1 on mobile */}
       {secondRow.length > 0 && (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-7 md:mx-[8%]">
           {secondRow.map((cover, index) => (
             <GalleryCoverCard key={cover.id} cover={cover} index={index + 3} />
           ))}
