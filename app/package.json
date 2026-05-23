@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run generate-all && next build",
-    "build:skip-generation": "next build",
+    "build": "next build",
+    "build:with-generation": "npm run generate-all && next build",
     "start": "next start",
     "lint": "next lint",
     "generate-covers": "tsx scripts/generate-cover-thumbnails.ts",
@@ -14,6 +14,7 @@
     "generate-all": "npm run generate-covers && npm run generate-galleries && npm run generate-about"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1053.0",
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
     "@marsidev/react-turnstile": "^1.4.1",

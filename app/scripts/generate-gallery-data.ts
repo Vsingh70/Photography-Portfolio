@@ -1,17 +1,24 @@
 #!/usr/bin/env tsx
 /**
- * Generate gallery data + prebuilt image variants.
+ * Generate gallery data + upload prebuilt image variants to Cloudflare R2.
  *
  * For each image in each Google Drive gallery folder:
  *   - Download the original
  *   - Generate 4 size tiers (320, 640, 1280, 2400) × 2 formats (avif, webp)
- *   - Generate a ~500B base64 webp blur for the LQIP
- *   - Write all variants to /public/galleries/{slug}/{fileId}-{size}.{format}
- *   - Write the metadata JSON to /src/generated/gallery-{slug}.json
+ *   - Generate a tiny base64 webp blur for the LQIP
+ *   - Upload all variants to R2 under galleries/{slug}/{fileId}-{size}.{format}
+ *   - Write the metadata JSON to /src/generated/gallery-{slug}.json with
+ *     URLs pointing at NEXT_PUBLIC_GALLERY_CDN_BASE
  *
- * Incremental: a .manifest.json sidecar per gallery stores the Drive
- * modifiedTime per fileId. On subsequent runs, only files whose modifiedTime
- * changed are reprocessed.
+ * Incremental: a manifest at scripts/.manifests/gallery-{slug}.json stores the
+ * Drive modifiedTime per fileId. Files whose modifiedTime is unchanged AND
+ * which still have a blur sidecar are skipped (no re-download, no re-upload).
+ *
+ * Required env vars (.env.local):
+ *   GOOGLE_DRIVE_CLIENT_EMAIL, GOOGLE_DRIVE_PRIVATE_KEY
+ *   GOOGLE_DRIVE_{EDITORIAL,GRADUATION,PORTRAITS,ENGAGEMENT,EVENTS}_FOLDER_ID
+ *   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET
+ *   NEXT_PUBLIC_GALLERY_CDN_BASE (e.g. https://pub-xxxxxxxx.r2.dev)
  *
  * Usage: npm run generate-galleries
  */
@@ -21,6 +28,7 @@ import sharp from 'sharp';
 import { writeFile, mkdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 async function loadEnv() {
   const envPath = path.join(process.cwd(), '.env.local');
@@ -83,6 +91,22 @@ function getDriveClient() {
   return google.drive({ version: 'v3', auth });
 }
 
+function getR2Client() {
+  const accountId = process.env.R2_ACCOUNT_ID;
+  const accessKeyId = process.env.R2_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+  if (!accountId || !accessKeyId || !secretAccessKey) {
+    throw new Error(
+      'R2 credentials missing. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY.'
+    );
+  }
+  return new S3Client({
+    region: 'auto',
+    endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+    credentials: { accessKeyId, secretAccessKey },
+  });
+}
+
 function naturalSort(a: string, b: string): number {
   const regex = /(\d+)|(\D+)/g;
   const aParts = a.match(regex) || [];
@@ -127,12 +151,41 @@ function formatCameraSettings(m: ImageMediaMetadata | undefined): string | undef
   return parts.length ? parts.join(' · ') : undefined;
 }
 
-async function buildImageVariants(opts: {
+interface ManifestEntry {
+  modifiedTime: string;
+  blurDataURL: string;
+  width: number;
+  height: number;
+}
+type Manifest = Record<string, ManifestEntry>;
+
+async function uploadVariant(opts: {
+  r2: S3Client;
+  bucket: string;
+  key: string;
+  body: Buffer;
+  contentType: string;
+}) {
+  const { r2, bucket, key, body, contentType } = opts;
+  await r2.send(
+    new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      Body: body,
+      ContentType: contentType,
+      CacheControl: 'public, max-age=31536000, immutable',
+    })
+  );
+}
+
+async function buildAndUploadVariants(opts: {
+  r2: S3Client;
+  bucket: string;
+  slug: string;
   fileId: string;
   buffer: Buffer;
-  outDir: string;
 }) {
-  const { fileId, buffer, outDir } = opts;
+  const { r2, bucket, slug, fileId, buffer } = opts;
 
   const source = sharp(buffer, { failOn: 'none' }).rotate();
   const meta = await source.metadata();
@@ -140,7 +193,7 @@ async function buildImageVariants(opts: {
   await Promise.all(
     SIZES.flatMap((size) =>
       FORMATS.map(async (format) => {
-        const outPath = path.join(outDir, `${fileId}-${size.name}.${format}`);
+        const key = `galleries/${slug}/${fileId}-${size.name}.${format}`;
         const pipeline = source
           .clone()
           .resize(size.width, null, {
@@ -150,13 +203,20 @@ async function buildImageVariants(opts: {
             fastShrinkOnLoad: true,
           });
 
-        if (format === 'avif') {
-          await pipeline
-            .avif({ quality: 75, effort: 6, chromaSubsampling: '4:4:4' })
-            .toFile(outPath);
-        } else {
-          await pipeline.webp({ quality: 88, effort: 5 }).toFile(outPath);
-        }
+        const variantBuffer =
+          format === 'avif'
+            ? await pipeline
+                .avif({ quality: 75, effort: 6, chromaSubsampling: '4:4:4' })
+                .toBuffer()
+            : await pipeline.webp({ quality: 88, effort: 5 }).toBuffer();
+
+        await uploadVariant({
+          r2,
+          bucket,
+          key,
+          body: variantBuffer,
+          contentType: format === 'avif' ? 'image/avif' : 'image/webp',
+        });
       })
     )
   );
@@ -192,7 +252,7 @@ interface GalleryImageOutput {
   };
 }
 
-async function buildGallery(gallery: GalleryConfig) {
+async function buildGallery(gallery: GalleryConfig, cdnBase: string, bucket: string) {
   const folderId = process.env[gallery.folderIdEnvVar];
   if (!folderId) {
     console.log(`  ⚠️  Skipping ${gallery.name}: no ${gallery.folderIdEnvVar}`);
@@ -200,11 +260,12 @@ async function buildGallery(gallery: GalleryConfig) {
   }
 
   const drive = getDriveClient();
-  const outDir = path.join(process.cwd(), 'public', 'galleries', gallery.slug);
-  if (!existsSync(outDir)) await mkdir(outDir, { recursive: true });
+  const r2 = getR2Client();
 
-  const manifestPath = path.join(outDir, '.manifest.json');
-  const prior: Record<string, string> = existsSync(manifestPath)
+  const manifestDir = path.join(process.cwd(), 'scripts', '.manifests');
+  if (!existsSync(manifestDir)) await mkdir(manifestDir, { recursive: true });
+  const manifestPath = path.join(manifestDir, `gallery-${gallery.slug}.json`);
+  const prior: Manifest = existsSync(manifestPath)
     ? JSON.parse(await readFile(manifestPath, 'utf-8'))
     : {};
 
@@ -220,7 +281,7 @@ async function buildGallery(gallery: GalleryConfig) {
 
   console.log(`  Found ${files.length} images`);
 
-  const manifest: Record<string, string> = {};
+  const next: Manifest = {};
   const images: GalleryImageOutput[] = [];
   let processed = 0;
   let skipped = 0;
@@ -229,39 +290,48 @@ async function buildGallery(gallery: GalleryConfig) {
     const file = files[i];
     const fileId = file.id!;
     const stamp = file.modifiedTime || '';
-    manifest[fileId] = stamp;
-
     const title = file.name?.replace(/\.[^/.]+$/, '') || `Image ${i + 1}`;
     const imgMeta = file.imageMediaMetadata as ImageMediaMetadata | undefined;
 
-    const needsBuild =
-      prior[fileId] !== stamp ||
-      !existsSync(path.join(outDir, `${fileId}-xl.avif`));
+    const cached = prior[fileId];
+    const canSkip =
+      cached &&
+      cached.modifiedTime === stamp &&
+      cached.blurDataURL &&
+      cached.width &&
+      cached.height;
 
-    let dims = { width: imgMeta?.width || 1920, height: imgMeta?.height || 1080 };
-    let blurDataURL: string;
+    let entry: ManifestEntry;
 
-    if (needsBuild) {
-      console.log(`  [${i + 1}/${files.length}] Building ${title}…`);
+    if (canSkip) {
+      entry = cached;
+      skipped++;
+    } else {
+      console.log(`  [${i + 1}/${files.length}] Building + uploading ${title}…`);
       const resp = await drive.files.get(
         { fileId, alt: 'media' },
         { responseType: 'arraybuffer' }
       );
       const buffer = Buffer.from(resp.data as ArrayBuffer);
-      const result = await buildImageVariants({ fileId, buffer, outDir });
-      dims = { width: result.width, height: result.height };
-      blurDataURL = result.blurDataURL;
-      await writeFile(path.join(outDir, `${fileId}.blur.txt`), blurDataURL);
+      const result = await buildAndUploadVariants({
+        r2,
+        bucket,
+        slug: gallery.slug,
+        fileId,
+        buffer,
+      });
+      entry = {
+        modifiedTime: stamp,
+        blurDataURL: result.blurDataURL,
+        width: result.width,
+        height: result.height,
+      };
       processed++;
-    } else {
-      const blurPath = path.join(outDir, `${fileId}.blur.txt`);
-      blurDataURL = existsSync(blurPath)
-        ? await readFile(blurPath, 'utf-8')
-        : '';
-      skipped++;
     }
 
-    const base = `/galleries/${gallery.slug}/${fileId}`;
+    next[fileId] = entry;
+
+    const base = `${cdnBase}/galleries/${gallery.slug}/${fileId}`;
     images.push({
       id: fileId,
       avif: {
@@ -278,13 +348,13 @@ async function buildGallery(gallery: GalleryConfig) {
       },
       src: `${base}-xl.webp`,
       thumbnail: `${base}-md.webp`,
-      blurDataURL,
+      blurDataURL: entry.blurDataURL,
       alt: title,
       title,
       description: '',
       category: gallery.name,
-      width: dims.width,
-      height: dims.height,
+      width: entry.width,
+      height: entry.height,
       metadata: {
         camera:
           imgMeta?.cameraMake && imgMeta?.cameraModel
@@ -297,7 +367,7 @@ async function buildGallery(gallery: GalleryConfig) {
     });
   }
 
-  await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
+  await writeFile(manifestPath, JSON.stringify(next, null, 2));
   const jsonPath = path.join(
     process.cwd(),
     'src',
@@ -311,8 +381,13 @@ async function buildGallery(gallery: GalleryConfig) {
 }
 
 async function main() {
-  console.log('🎨 Gallery prebuild pipeline\n');
+  console.log('🎨 Gallery prebuild pipeline (R2)\n');
   await loadEnv();
+
+  const cdnBase = process.env.NEXT_PUBLIC_GALLERY_CDN_BASE?.replace(/\/$/, '');
+  const bucket = process.env.R2_BUCKET;
+  if (!cdnBase) throw new Error('NEXT_PUBLIC_GALLERY_CDN_BASE is required.');
+  if (!bucket) throw new Error('R2_BUCKET is required.');
 
   const generatedDir = path.join(process.cwd(), 'src', 'generated');
   if (!existsSync(generatedDir)) await mkdir(generatedDir, { recursive: true });
@@ -322,7 +397,7 @@ async function main() {
   for (const gallery of GALLERIES) {
     console.log(`📸 ${gallery.name} (${gallery.slug})`);
     try {
-      const count = await buildGallery(gallery);
+      const count = await buildGallery(gallery, cdnBase, bucket);
       if (count) total += count;
     } catch (err) {
       console.error(`  ❌ ${gallery.name}:`, err);
