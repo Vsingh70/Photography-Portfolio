@@ -12,8 +12,8 @@
     "generate-galleries": "tsx scripts/generate-gallery-data.ts",
     "generate-about": "tsx scripts/generate-about-image.ts",
     "generate-all": "npm run generate-covers && npm run generate-galleries && npm run generate-about",
-    "tauri:dev": "sh -c '. \"$HOME/.cargo/env\" && tauri dev'",
-    "tauri:build": "sh -c '. \"$HOME/.cargo/env\" && tauri build'"
+    "tauri:dev": "bash scripts/tauri-build.sh dev",
+    "tauri:build": "bash scripts/tauri-build.sh build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1053.0",

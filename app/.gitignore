@@ -44,6 +44,7 @@ next-env.d.ts
 /src-tauri/target/
 /src-tauri/gen/
 /src-tauri/icons/icon.iconset/
+/out/
 # Local-only Tauri config override — contains the auth token in the URL,
 # must never be committed. Copy `tauri.conf.json` to this filename and
 # replace REPLACE_WITH_STUDIO_UPLOAD_TOKEN with your real token.

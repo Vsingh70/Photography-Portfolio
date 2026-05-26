@@ -4,31 +4,28 @@ Tauri 2 wrapper around `https://vflics.com/studio`. Standalone — no local dev 
 
 ## One-time setup
 
-1. **Copy the config and add your real token** (this file is gitignored so the token never leaks):
+Copy the config and add your real token (this file is gitignored so the token never leaks to GitHub):
 
-   ```bash
-   cp src-tauri/tauri.conf.json src-tauri/tauri.conf.local.json
-   ```
+```bash
+cp src-tauri/tauri.conf.json src-tauri/tauri.conf.local.json
+```
 
-   Then open `src-tauri/tauri.conf.local.json` and replace **both** occurrences of `REPLACE_WITH_STUDIO_UPLOAD_TOKEN` with your real `STUDIO_UPLOAD_TOKEN` value (the one set in Vercel).
-
-2. **Tell Tauri to use the local config.** Tauri auto-discovers `tauri.conf.<env>.json` if you pass `--config`:
-
-   ```bash
-   npm run tauri:dev -- --config src-tauri/tauri.conf.local.json
-   ```
-
-   Or for the bundled `.app`:
-
-   ```bash
-   npm run tauri:build -- --config src-tauri/tauri.conf.local.json
-   ```
+Open `src-tauri/tauri.conf.local.json` and replace **both** occurrences of `REPLACE_WITH_STUDIO_UPLOAD_TOKEN` with your real `STUDIO_UPLOAD_TOKEN` value (the one set in Vercel).
 
 ## Building the .app
 
 ```bash
-npm run tauri:build -- --config src-tauri/tauri.conf.local.json
+npm run tauri:build
 ```
+
+The `scripts/tauri-build.sh` wrapper:
+1. Checks `tauri.conf.local.json` exists and doesn't still contain the placeholder
+2. Backs up the committed `tauri.conf.json`
+3. Swaps in `tauri.conf.local.json` for the build
+4. Runs `tauri build`
+5. **Always** restores the placeholder `tauri.conf.json` (via `trap`), so the token never sits on disk where you might `git add` it
+
+Tauri 2's `--config` overlay flag is unreliable, which is why we do the swap-restore dance instead.
 
 Outputs:
 - `src-tauri/target/release/bundle/dmg/vflics Studio_0.1.0_aarch64.dmg`
@@ -45,9 +42,15 @@ Drag the `.app` into `/Applications`. Double-click to launch — it opens the de
 
 ## Security caveats
 
-The token is embedded in the bundled `.app` URL config — anyone with that `.app` can use it to upload. Treat the built `.app` as you would the token itself: don't distribute it.
+**The token is embedded as a plain string inside the bundled binary.** Running `strings vflics\ Studio.app/Contents/MacOS/vflics-studio | grep vflics.com` will print it. This is fine for local personal use, but means:
 
-If the token ever leaks (or you suspect it has): rotate `STUDIO_UPLOAD_TOKEN` in Vercel, redeploy, then update your `tauri.conf.local.json` and rebuild the `.app`.
+- ⚠️ **Do not share the `.app` or `.dmg`** — treat them as containing your auth token.
+- ⚠️ **Do not upload to GitHub releases**, public file shares, or anywhere a third party could grab them.
+- ⚠️ If the build artifact ever leaves your machine, rotate `STUDIO_UPLOAD_TOKEN` immediately.
+
+For a distribution-ready version (sharing with someone else, App Store, etc.), the right design is: app starts with no token, prompts on first run, stores in macOS Keychain — similar to the iOS app's settings sheet. Not done here because it's overkill for a one-machine tool.
+
+If the token ever leaks (or you suspect it has): rotate `STUDIO_UPLOAD_TOKEN` in Vercel → redeploy → update `tauri.conf.local.json` → rebuild the `.app`.
 
 ## Updating the icon
 
