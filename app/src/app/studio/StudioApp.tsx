@@ -255,10 +255,20 @@ export function StudioApp() {
   const [dragActive, setDragActive] = useState(false);
   const [destEditing, setDestEditing] = useState(false);
 
+  // Propagate ?key=… from the page URL onto every API call so the same
+  // gate works in production (where the page itself is key-gated).
+  const apiKeySuffix =
+    typeof window !== 'undefined'
+      ? (() => {
+          const k = new URLSearchParams(window.location.search).get('key');
+          return k ? `?key=${encodeURIComponent(k)}` : '';
+        })()
+      : '';
+
   // ── Load destinations from server + restore draft on mount ──
   useEffect(() => {
     // Fetch resolved server destinations
-    fetch('/api/studio/destinations')
+    fetch(`/api/studio/destinations${apiKeySuffix}`)
       .then((r) => r.json())
       .then((data: { builtIn?: Destination[] }) => {
         const server: Destination[] = (data.builtIn || []).filter((d) => d.folderId);
@@ -451,7 +461,7 @@ export function StudioApp() {
           }
           form.append('files', f.blob, f.name);
         }
-        const res = await fetch('/api/studio/upload', { method: 'POST', body: form });
+        const res = await fetch(`/api/studio/upload${apiKeySuffix}`, { method: 'POST', body: form });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
           throw new Error(err.error || `Upload of "${set.name}" failed`);

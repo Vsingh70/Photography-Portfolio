@@ -1,53 +1,93 @@
 # vflics Studio — macOS desktop app
 
-Tauri 2 wrapper around the existing Next.js `/studio` route. Reads the same `.env.local`, calls the same `/api/studio/upload` endpoint. Just packages it as a native `.app` so you don't have to keep a terminal open.
+Tauri 2 wrapper around `https://vflics.com/studio`. Standalone — no local dev server required at runtime. The window loads the deployed Studio page directly, authenticated via a `?key=<STUDIO_UPLOAD_TOKEN>` query param matched against the same env var that gates `/api/studio/upload-remote`.
 
-## Run in dev
+## One-time setup
+
+1. **Copy the config and add your real token** (this file is gitignored so the token never leaks):
+
+   ```bash
+   cp src-tauri/tauri.conf.json src-tauri/tauri.conf.local.json
+   ```
+
+   Then open `src-tauri/tauri.conf.local.json` and replace **both** occurrences of `REPLACE_WITH_STUDIO_UPLOAD_TOKEN` with your real `STUDIO_UPLOAD_TOKEN` value (the one set in Vercel).
+
+2. **Tell Tauri to use the local config.** Tauri auto-discovers `tauri.conf.<env>.json` if you pass `--config`:
+
+   ```bash
+   npm run tauri:dev -- --config src-tauri/tauri.conf.local.json
+   ```
+
+   Or for the bundled `.app`:
+
+   ```bash
+   npm run tauri:build -- --config src-tauri/tauri.conf.local.json
+   ```
+
+## Building the .app
 
 ```bash
-npm run tauri:dev
-```
-
-This spawns `next dev` AND opens a Tauri window pointing at `http://localhost:3000/studio`. First run compiles the Rust dependencies (~3-5 min). Subsequent runs are near-instant.
-
-## Build a distributable .app
-
-```bash
-npm run tauri:build
+npm run tauri:build -- --config src-tauri/tauri.conf.local.json
 ```
 
 Outputs:
 - `src-tauri/target/release/bundle/dmg/vflics Studio_0.1.0_aarch64.dmg`
 - `src-tauri/target/release/bundle/macos/vflics Studio.app`
 
-Drag the `.app` into `/Applications`. Double-click to launch. The app still needs `npm run dev` running for the upload API to respond — see below.
+Drag the `.app` into `/Applications`. Double-click to launch — it opens the deployed Studio.
 
-## Important: this app is a *window*, not a server
+## Why this works
 
-Tauri renders the Next.js dev server in a native window. The Drive upload API runs in Node — Tauri does not bundle Node. So the workflow is still:
+- `/studio` page checks `?key=` against `STUDIO_UPLOAD_TOKEN`. Matching keys render the Studio; non-matching get 404.
+- `/api/studio/destinations` and `/api/studio/upload` use the same gate.
+- The Tauri window's URL carries the key. The Studio's fetch calls propagate it automatically (it reads `?key=` from `window.location` on mount).
+- The committed `tauri.conf.json` only has a placeholder, so accidentally pushing it leaks nothing.
 
-1. **Terminal A**: `npm run dev` (keeps the Next.js + API alive)
-2. **Terminal B** *or* Finder: launch `vflics Studio.app`
+## Security caveats
 
-If you want a truly self-contained `.app` that doesn't need a separate dev server, the right path is to spawn `next start` from Rust on app launch — that's a follow-up. For now the `.app` is a nicer-looking window for the workflow you already have.
+The token is embedded in the bundled `.app` URL config — anyone with that `.app` can use it to upload. Treat the built `.app` as you would the token itself: don't distribute it.
 
-## Icon
+If the token ever leaks (or you suspect it has): rotate `STUDIO_UPLOAD_TOKEN` in Vercel, redeploy, then update your `tauri.conf.local.json` and rebuild the `.app`.
 
-The app icon at `icons/icon.icns` is a placeholder generated from `public/about/about.webp`. To replace:
+## Updating the icon
 
-1. Make a 1024×1024 PNG of your icon.
-2. Run:
-   ```bash
-   mkdir -p icons/icon.iconset
-   for size in 16 32 64 128 256 512 1024; do
-     sips -s format png --resampleHeightWidth $size $size YOUR_ICON.png \
-       --out icons/icon.iconset/icon_${size}x${size}.png
-   done
-   iconutil -c icns icons/icon.iconset -o icons/icon.icns
-   ```
+The placeholder icon was generated from `public/about/about.webp`. To replace:
 
-## Config
+```bash
+node -e "
+const sharp = require('sharp');
+const path = require('path');
+const src = 'YOUR_SOURCE_ICON.png';
+const out = path.join(__dirname, 'src-tauri/icons');
+const sizes = [
+  ['icon.png', 512],
+  ['32x32.png', 32],
+  ['128x128.png', 128],
+  ['128x128@2x.png', 256],
+  ['icon-1024.png', 1024],
+];
+(async () => {
+  for (const [name, size] of sizes) {
+    await sharp(src).resize(size, size, { fit: 'cover' }).ensureAlpha().png().toFile(path.join(out, name));
+  }
+})();
+"
+# Then re-generate the .icns:
+mkdir -p src-tauri/icons/icon.iconset
+for size in 16 32 64 128 256 512 1024; do
+  sips -s format png --resampleHeightWidth $size $size YOUR_SOURCE_ICON.png \
+    --out src-tauri/icons/icon.iconset/icon_${size}x${size}.png
+done
+iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns
+```
 
-- [tauri.conf.json](tauri.conf.json) — window size, dev URL, bundle identifier
-- [src/main.rs](src/main.rs) — Tauri entry point
-- [Cargo.toml](Cargo.toml) — Rust dependencies
+## Files
+
+| File | Purpose |
+|---|---|
+| `tauri.conf.json` | Committed config — has placeholder, safe to push |
+| `tauri.conf.local.json` | **gitignored** — your real config with the token |
+| `Cargo.toml` | Rust dependencies |
+| `src/main.rs` | Tauri entry point |
+| `build.rs` | Tauri build script |
+| `icons/` | App icons (PNG + ICNS) |

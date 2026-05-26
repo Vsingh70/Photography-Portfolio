@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { studioKeyMatches } from '@/lib/studio-auth';
 
 const BUILT_IN = [
   { slug: 'editorial',  label: 'Editorial',  envVar: 'GOOGLE_DRIVE_EDITORIAL_FOLDER_ID' },
@@ -9,8 +10,9 @@ const BUILT_IN = [
   { slug: 'about',      label: 'About',      envVar: 'GOOGLE_DRIVE_ABOUT_FOLDER_ID' },
 ];
 
-export async function GET() {
-  if (process.env.NODE_ENV !== 'development') {
+export async function GET(req: NextRequest) {
+  const key = req.nextUrl.searchParams.get('key');
+  if (!studioKeyMatches(key)) {
     return NextResponse.json({ error: 'Not available' }, { status: 404 });
   }
   return NextResponse.json({

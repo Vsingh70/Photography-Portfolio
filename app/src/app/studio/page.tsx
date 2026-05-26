@@ -1,13 +1,19 @@
 import { notFound } from 'next/navigation';
 import { StudioApp } from './StudioApp';
+import { studioKeyMatches } from '@/lib/studio-auth';
 
 export const metadata = {
   title: 'Upload Studio',
   robots: { index: false, follow: false },
 };
 
-export default function StudioPage() {
-  if (process.env.NODE_ENV !== 'development') {
+interface PageProps {
+  searchParams: Promise<{ key?: string }>;
+}
+
+export default async function StudioPage({ searchParams }: PageProps) {
+  const { key } = await searchParams;
+  if (!studioKeyMatches(key)) {
     notFound();
   }
   return <StudioApp />;

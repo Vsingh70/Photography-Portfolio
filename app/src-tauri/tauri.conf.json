@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "identifier": "com.vflics.studio",
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:3000/studio",
+    "beforeDevCommand": "",
+    "devUrl": "https://vflics.com/studio?key=REPLACE_WITH_STUDIO_UPLOAD_TOKEN",
     "beforeBuildCommand": "",
     "frontendDist": "../out"
   },
@@ -21,7 +21,7 @@
         "fullscreen": false,
         "decorations": true,
         "transparent": false,
-        "url": "http://localhost:3000/studio"
+        "url": "https://vflics.com/studio?key=REPLACE_WITH_STUDIO_UPLOAD_TOKEN"
       }
     ],
     "security": {
@@ -32,6 +32,9 @@
     "active": true,
     "targets": ["dmg", "app"],
     "icon": [
+      "icons/icon.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
       "icons/icon.icns"
     ],
     "macOS": {
