@@ -793,6 +793,12 @@ function Workspace({
   onCreateSet,
 }: WorkspaceProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+
+  // Clear any pending-delete prompt when switching to a different set.
+  useEffect(() => {
+    setConfirmingDelete(false);
+  }, [activeSet?.id]);
 
   if (!activeSet) {
     return (
@@ -944,19 +950,26 @@ function Workspace({
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <Pill
-            kind="danger"
-            onClick={() => {
-              if (
-                window.confirm(`Delete set "${activeSet.name || 'Untitled'}"?`)
-              ) {
-                onRemove(activeSet.id);
-              }
-            }}
-          >
-            Delete set
-          </Pill>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {confirmingDelete ? (
+            <>
+              <Cap style={{ color: '#e74c3c' }}>Delete &ldquo;{activeSet.name || 'Untitled'}&rdquo;?</Cap>
+              <Pill
+                kind="danger"
+                onClick={() => {
+                  onRemove(activeSet.id);
+                  setConfirmingDelete(false);
+                }}
+              >
+                Yes, delete
+              </Pill>
+              <Pill onClick={() => setConfirmingDelete(false)}>Cancel</Pill>
+            </>
+          ) : (
+            <Pill kind="danger" onClick={() => setConfirmingDelete(true)}>
+              Delete set
+            </Pill>
+          )}
         </div>
       </div>
 
