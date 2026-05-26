@@ -28,7 +28,7 @@ import sharp from 'sharp';
 import { writeFile, mkdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectsCommand } from '@aws-sdk/client-s3';
 
 async function loadEnv() {
   const envPath = path.join(process.cwd(), '.env.local');
@@ -278,8 +278,34 @@ async function buildGallery(gallery: GalleryConfig, cdnBase: string, bucket: str
   const files = (listResp.data.files || []).sort((a, b) =>
     naturalSort(a.name || '', b.name || '')
   );
+  const driveIds = new Set(files.map((f) => f.id!));
 
   console.log(`  Found ${files.length} images`);
+
+  // Deletion sweep: file IDs present in the prior manifest but absent from
+  // Drive are stale. Remove their 8 R2 variants in a single batched call.
+  const staleIds = Object.keys(prior).filter((id) => !driveIds.has(id));
+  let deleted = 0;
+  if (staleIds.length > 0) {
+    console.log(`  Deleting ${staleIds.length} stale images from R2…`);
+    const objects = staleIds.flatMap((id) =>
+      SIZES.flatMap((size) =>
+        FORMATS.map((fmt) => ({
+          Key: `galleries/${gallery.slug}/${id}-${size.name}.${fmt}`,
+        }))
+      )
+    );
+    // R2 accepts up to 1000 keys per DeleteObjects call; chunk defensively.
+    for (let i = 0; i < objects.length; i += 1000) {
+      await r2.send(
+        new DeleteObjectsCommand({
+          Bucket: bucket,
+          Delete: { Objects: objects.slice(i, i + 1000), Quiet: true },
+        })
+      );
+    }
+    deleted = staleIds.length;
+  }
 
   const next: Manifest = {};
   const images: GalleryImageOutput[] = [];
@@ -376,7 +402,9 @@ async function buildGallery(gallery: GalleryConfig, cdnBase: string, bucket: str
   );
   await writeFile(jsonPath, JSON.stringify(images, null, 2));
 
-  console.log(`  ✅ ${gallery.name}: ${processed} built · ${skipped} skipped\n`);
+  console.log(
+    `  ✅ ${gallery.name}: ${processed} built · ${skipped} skipped · ${deleted} deleted\n`
+  );
   return images.length;
 }
 

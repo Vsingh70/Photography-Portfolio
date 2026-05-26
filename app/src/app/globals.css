@@ -29,6 +29,12 @@
     to   { opacity: 1; transform: scale(1); }
   }
 
+  @keyframes pushBar {
+    0%   { transform: translateX(-100%); }
+    50%  { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+
   .editorial-field {
     width: 100%;
     background: transparent;

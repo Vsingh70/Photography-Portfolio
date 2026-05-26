@@ -40,6 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Tauri build artifacts
+/src-tauri/target/
+/src-tauri/gen/
+/src-tauri/icons/icon.iconset/
+
 # Gallery variants live on Cloudflare R2 (see scripts/generate-gallery-data.ts).
 # The local public/galleries/ folder is leftover from a previous strategy and
 # should never be committed.
