@@ -6,25 +6,46 @@ struct SettingsSheet: View {
     let initial: Bool
     let onSaved: () -> Void
 
-    @State private var endpoint: String = ""
     @State private var token: String = ""
 
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("https://your-site.vercel.app/api/studio/upload-remote", text: $endpoint)
+                    TextField("Bearer token", text: $token)
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
-                        .keyboardType(.URL)
-                    SecureField("Bearer token", text: $token)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
+                        .submitLabel(.done)
+                        .onSubmit(save)
                 } header: {
-                    Text("Vercel endpoint")
+                    Text("Auth token")
                 } footer: {
-                    Text("Set STUDIO_UPLOAD_TOKEN in your Vercel project env vars to the same value as this token.")
+                    Text("Paste the STUDIO_UPLOAD_TOKEN from your Vercel project env vars. Stored in iOS Keychain; you only enter this once.")
                         .font(.caption)
+                }
+
+                Section {
+                    Cap(text: "Endpoint", color: Theme.Colors.fgDim)
+                    Text(Config.endpointURL)
+                        .font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(Theme.Colors.fgDim)
+                        .textSelection(.enabled)
+                } header: {
+                    Text("Server")
+                }
+
+                Section {
+                    Button(action: save) {
+                        HStack {
+                            Spacer()
+                            Text("Save")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .listRowBackground(Color.accentColor)
                 }
             }
             .navigationTitle(initial ? "Welcome" : "Settings")
@@ -36,20 +57,20 @@ struct SettingsSheet: View {
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        store.saveConfig(endpoint: endpoint.trimmingCharacters(in: .whitespaces),
-                                         token: token.trimmingCharacters(in: .whitespaces))
-                        onSaved()
-                        if !initial { dismiss() }
-                    }
-                    .disabled(endpoint.trimmingCharacters(in: .whitespaces).isEmpty ||
-                              token.trimmingCharacters(in: .whitespaces).isEmpty)
+                    Button("Save", action: save)
                 }
             }
             .onAppear {
-                endpoint = store.endpointURL
                 token = store.authToken
             }
         }
+    }
+
+    private func save() {
+        let clean = token.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clean.isEmpty else { return }
+        store.saveToken(clean)
+        onSaved()
+        dismiss()
     }
 }

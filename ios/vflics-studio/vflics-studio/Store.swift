@@ -7,7 +7,9 @@ import Observation
 @Observable
 final class Store {
     // ── Config ──
-    var endpointURL: String = KeychainStorage.read(.endpointURL) ?? ""
+    /// Endpoint is baked in at build time (see Config.endpointURL). Only the
+    /// auth token is per-install and lives in the keychain.
+    var endpointURL: String { Config.endpointURL }
     var authToken: String = KeychainStorage.read(.authToken) ?? ""
     var isConfigured: Bool { !endpointURL.isEmpty && !authToken.isEmpty }
 
@@ -32,10 +34,8 @@ final class Store {
 
     // MARK: Config
 
-    func saveConfig(endpoint: String, token: String) {
-        endpointURL = endpoint
+    func saveToken(_ token: String) {
         authToken = token
-        KeychainStorage.write(endpoint, for: .endpointURL)
         KeychainStorage.write(token, for: .authToken)
     }
 

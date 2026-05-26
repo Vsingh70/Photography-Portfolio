@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import CryptoKit
 
 struct SetEditorView: View {
     @Environment(Store.self) private var store
@@ -188,8 +189,6 @@ struct SetEditorView: View {
         pickerItems.removeAll()
     }
 }
-
-import CryptoKit
 
 func sha256Hex(_ data: Data) -> String {
     SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()

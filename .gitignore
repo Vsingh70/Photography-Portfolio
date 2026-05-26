@@ -6,3 +6,18 @@ ARCHITECTURE.md
 DEVELOPMENT.md
 TEST-RESULTS.md
 TESTING-README.md
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Xcode / iOS build artifacts
+ios/.derived-data-*
+ios/**/*.xcuserstate
+ios/**/xcuserdata/
+ios/**/DerivedData/
+ios/**/build/
+ios/**/.build/
+# Xcode breakpoints, schemes-per-user, etc — keep shared schemes only
+ios/**/*.xcodeproj/xcuserdata/
+ios/**/*.xcworkspace/xcuserdata/

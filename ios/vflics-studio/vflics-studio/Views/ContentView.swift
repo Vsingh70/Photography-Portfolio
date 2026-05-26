@@ -5,9 +5,11 @@ struct ContentView: View {
     @State private var showingSettings = false
 
     var body: some View {
+        // Read stored properties directly so @Observable tracks them.
+        let configured = !store.endpointURL.isEmpty && !store.authToken.isEmpty
         ZStack {
             Theme.Colors.bg.ignoresSafeArea()
-            if store.isConfigured {
+            if configured {
                 MainView(showSettings: { showingSettings = true })
             } else {
                 SettingsSheet(initial: true) {
