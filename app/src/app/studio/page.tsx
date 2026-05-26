@@ -1,9 +1,5 @@
 import { notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
-
-const StudioApp = dynamic(() => import('./StudioApp').then((m) => m.StudioApp), {
-  ssr: false,
-});
+import { StudioApp } from './StudioApp';
 
 export const metadata = {
   title: 'Upload Studio',
