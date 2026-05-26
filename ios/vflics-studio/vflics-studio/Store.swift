@@ -94,6 +94,20 @@ final class Store {
         updateSet(setId) { $0.files.move(fromOffsets: from, toOffset: offset) }
     }
 
+    /// Reorder for drag-and-drop: move one file to the position currently
+    /// occupied by another. Used by the grid view's .draggable / .dropDestination.
+    func moveFile(_ id: UUID, before targetId: UUID, in setId: UUID) {
+        guard id != targetId else { return }
+        updateSet(setId) { set in
+            guard let from = set.files.firstIndex(where: { $0.id == id }),
+                  let to = set.files.firstIndex(where: { $0.id == targetId }) else { return }
+            let item = set.files.remove(at: from)
+            // After removal, indices ≥ from shift down by 1.
+            let insertAt = to <= from ? to : to - 1
+            set.files.insert(item, at: insertAt)
+        }
+    }
+
     // MARK: Destinations
 
     func addCustomDestination(label: String, folderId: String) -> Destination? {

@@ -163,6 +163,25 @@ struct SetEditorView: View {
                         }
                     }
                 )
+                // Long-press to lift, drag onto another tile to reorder.
+                .draggable(file.id.uuidString) {
+                    // Preview shown while dragging
+                    ThumbView(
+                        file: file,
+                        index: idx,
+                        setName: set.name,
+                        selected: false,
+                        onTap: {}
+                    )
+                    .frame(width: 110)
+                    .opacity(0.9)
+                }
+                .dropDestination(for: String.self) { items, _ in
+                    guard let draggedIdStr = items.first,
+                          let draggedId = UUID(uuidString: draggedIdStr) else { return false }
+                    store.moveFile(draggedId, before: file.id, in: setId)
+                    return true
+                }
             }
         }
     }
