@@ -22,6 +22,13 @@ import {
   type MouseEvent as ReactMouseEvent,
   type DragEvent as ReactDragEvent,
 } from 'react';
+import {
+  isTauri,
+  startOAuth,
+  signedInEmail,
+  signOut as tauriSignOut,
+  uploadToDrive as tauriUploadToDrive,
+} from '@/lib/tauri-oauth';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -255,6 +262,18 @@ export function StudioApp() {
   const [dragActive, setDragActive] = useState(false);
   const [destEditing, setDestEditing] = useState(false);
 
+  // OAuth (Tauri only). When signed in, push goes directly to Drive from the
+  // desktop binary, bypassing Vercel's 4.5MB function body limit. In the web
+  // browser context, isTauri() returns false and the old /api/studio/upload
+  // path is used (which has the body-size limit; suitable for small photos).
+  const inTauri = useMemo(() => isTauri(), []);
+  const [oauthEmail, setOauthEmail] = useState<string | null>(null);
+  const [oauthBusy, setOauthBusy] = useState(false);
+  useEffect(() => {
+    if (!inTauri) return;
+    signedInEmail().then(setOauthEmail).catch(() => {});
+  }, [inTauri]);
+
   // Propagate ?key=… from the page URL onto every API call so the same
   // gate works in production (where the page itself is key-gated).
   const apiKeySuffix =
@@ -452,6 +471,29 @@ export function StudioApp() {
         if (!dest?.folderId) {
           throw new Error(`No folder ID for "${set.name}" → ${set.destination}`);
         }
+
+        // Tauri path: upload one file at a time directly to Drive via the
+        // user's OAuth token. Bypasses Vercel's 4.5MB body limit completely.
+        if (inTauri && oauthEmail) {
+          for (let i = 0; i < set.files.length; i++) {
+            const f = set.files[i];
+            if (!f.blob) {
+              throw new Error(`"${set.name}" has photos to re-attach`);
+            }
+            const ext = (f.name.match(/\.[^.]+$/)?.[0] || '.jpg').toLowerCase();
+            const renamed = `${set.name} (${i + 1})${ext}`;
+            const bytes = new Uint8Array(await f.blob.arrayBuffer());
+            await tauriUploadToDrive({
+              folderId: dest.folderId,
+              filename: renamed,
+              bytes,
+              mimeType: f.type,
+            });
+          }
+          continue;
+        }
+
+        // Browser/legacy path: single multipart POST through Vercel.
         const form = new FormData();
         form.append('setName', set.name);
         form.append('folderId', dest.folderId);
@@ -503,6 +545,25 @@ export function StudioApp() {
         totalPhotos={totalPhotos}
         canPush={canPush}
         onPush={() => setPushOpen(true)}
+        inTauri={inTauri}
+        oauthEmail={oauthEmail}
+        oauthBusy={oauthBusy}
+        onSignIn={async () => {
+          setOauthBusy(true);
+          try {
+            const email = await startOAuth();
+            setOauthEmail(email);
+          } catch (e) {
+            console.error('OAuth failed:', e);
+            alert(`Sign-in failed: ${e}`);
+          } finally {
+            setOauthBusy(false);
+          }
+        }}
+        onSignOut={async () => {
+          await tauriSignOut();
+          setOauthEmail(null);
+        }}
       />
 
       <Sidebar
@@ -582,11 +643,21 @@ function TopBar({
   totalPhotos,
   canPush,
   onPush,
+  inTauri,
+  oauthEmail,
+  oauthBusy,
+  onSignIn,
+  onSignOut,
 }: {
   sets: UploadSet[];
   totalPhotos: number;
   canPush: boolean;
   onPush: () => void;
+  inTauri: boolean;
+  oauthEmail: string | null;
+  oauthBusy: boolean;
+  onSignIn: () => void;
+  onSignOut: () => void;
 }) {
   return (
     <div
@@ -615,6 +686,18 @@ function TopBar({
         <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Upload Studio · local</Cap>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        {inTauri && (
+          oauthEmail ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{oauthEmail}</Cap>
+              <Pill onClick={onSignOut}>Sign out</Pill>
+            </div>
+          ) : (
+            <Pill onClick={onSignIn} disabled={oauthBusy}>
+              {oauthBusy ? 'Signing in…' : 'Sign in with Google'}
+            </Pill>
+          )
+        )}
         <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
           {sets.length} set{sets.length === 1 ? '' : 's'} · {totalPhotos} photos
         </Cap>

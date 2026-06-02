@@ -6,9 +6,17 @@
 
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod oauth;
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
+        .invoke_handler(tauri::generate_handler![
+            oauth::start_oauth,
+            oauth::signed_in_email,
+            oauth::sign_out,
+            oauth::upload_to_drive,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
