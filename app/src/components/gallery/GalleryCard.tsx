@@ -65,16 +65,24 @@ export function GalleryCard({
       }}
     >
       <div
-        className="relative w-full overflow-hidden"
-        style={{
-          aspectRatio,
-          backgroundImage: image.blurDataURL
-            ? `url("${image.blurDataURL}")`
-            : undefined,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="relative w-full overflow-hidden bg-[#1a1a1a]"
+        style={{ aspectRatio }}
       >
+        {image.blurDataURL && (
+          <div
+            aria-hidden
+            className="absolute inset-0 transition-opacity duration-500 ease-out"
+            style={{
+              backgroundImage: `url("${image.blurDataURL}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'blur(18px) saturate(1.05)',
+              transform: 'scale(1.08)',
+              opacity: loaded ? 0 : 1,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
         <picture>
           {image.avif && (
             <source type="image/avif" srcSet={srcset(image.avif)} sizes={CARD_SIZES} />
@@ -90,12 +98,8 @@ export function GalleryCard({
             decoding="async"
             fetchPriority={priority ? 'high' : 'auto'}
             onLoad={() => setLoaded(true)}
-            className="absolute inset-0 h-full w-full object-cover transition-[opacity,filter] duration-500 ease-out"
-            style={{
-              opacity: loaded ? 1 : 0,
-              filter: loaded ? 'blur(0)' : 'blur(18px)',
-              transform: loaded ? 'none' : 'scale(1.04)',
-            }}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-out"
+            style={{ opacity: loaded ? 1 : 0 }}
           />
         </picture>
       </div>
