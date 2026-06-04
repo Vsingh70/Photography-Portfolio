@@ -75,24 +75,33 @@ sharp.cache({ memory: 512, files: 0, items: 100 });
 sharp.concurrency(4);
 sharp.simd(true);
 
+/// Defensive normalization of env values pulled from any source.
+/// - .env.local lines: the in-house loader strips surrounding "..." pairs,
+///   but unbalanced quotes (one " on one end) survive
+/// - GitHub Actions Secrets: stored absolutely verbatim, no expansion
+/// - Vercel env vars: stored verbatim
+/// Strips any leading/trailing single or double quotes, then expands literal
+/// \n escape sequences. Safe to call on any string env var.
+function normalizeEnv(raw: string | undefined): string {
+  if (!raw) return '';
+  return raw
+    .trim()
+    .replace(/^["']+/, '')
+    .replace(/["']+$/, '')
+    .replace(/\\n/g, '\n');
+}
+
 function getDriveClient() {
-  const clientEmail = process.env.GOOGLE_DRIVE_CLIENT_EMAIL;
-  const privateKey = process.env.GOOGLE_DRIVE_PRIVATE_KEY;
+  const clientEmail = normalizeEnv(process.env.GOOGLE_DRIVE_CLIENT_EMAIL);
+  const privateKey = normalizeEnv(process.env.GOOGLE_DRIVE_PRIVATE_KEY);
   if (!clientEmail || !privateKey) {
     throw new Error(
       'Google Drive credentials not found. Set GOOGLE_DRIVE_CLIENT_EMAIL and GOOGLE_DRIVE_PRIVATE_KEY.'
     );
   }
-  // dotenv strips surrounding quotes and expands \n escapes when reading
-  // .env files. GitHub Actions Secrets does neither — values stored there
-  // arrive verbatim. To work with both sources, strip wrapping quotes and
-  // expand literal \n sequences here.
-  const normalizedKey = privateKey
-    .replace(/^["']|["']$/g, '')
-    .replace(/\\n/g, '\n');
   const auth = new google.auth.JWT({
     email: clientEmail,
-    key: normalizedKey,
+    key: privateKey,
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   });
   return google.drive({ version: 'v3', auth });
