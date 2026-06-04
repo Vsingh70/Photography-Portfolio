@@ -83,9 +83,16 @@ function getDriveClient() {
       'Google Drive credentials not found. Set GOOGLE_DRIVE_CLIENT_EMAIL and GOOGLE_DRIVE_PRIVATE_KEY.'
     );
   }
+  // dotenv strips surrounding quotes and expands \n escapes when reading
+  // .env files. GitHub Actions Secrets does neither — values stored there
+  // arrive verbatim. To work with both sources, strip wrapping quotes and
+  // expand literal \n sequences here.
+  const normalizedKey = privateKey
+    .replace(/^["']|["']$/g, '')
+    .replace(/\\n/g, '\n');
   const auth = new google.auth.JWT({
     email: clientEmail,
-    key: privateKey.replace(/\\n/g, '\n'),
+    key: normalizedKey,
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   });
   return google.drive({ version: 'v3', auth });
@@ -422,6 +429,7 @@ async function main() {
 
   const start = Date.now();
   let total = 0;
+  const failures: { slug: string; err: unknown }[] = [];
   for (const gallery of GALLERIES) {
     console.log(`📸 ${gallery.name} (${gallery.slug})`);
     try {
@@ -429,10 +437,21 @@ async function main() {
       if (count) total += count;
     } catch (err) {
       console.error(`  ❌ ${gallery.name}:`, err);
+      failures.push({ slug: gallery.slug, err });
     }
   }
   const secs = ((Date.now() - start) / 1000).toFixed(1);
   console.log(`\n✨ Built ${total} images in ${secs}s\n`);
+
+  // Fail the process if any gallery errored. Locally this surfaces the bug;
+  // in CI it turns the GitHub Actions run red instead of green-with-no-work,
+  // so failures are visible.
+  if (failures.length > 0) {
+    console.error(
+      `\n❌ ${failures.length}/${GALLERIES.length} galleries failed: ${failures.map((f) => f.slug).join(', ')}`
+    );
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
