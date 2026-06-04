@@ -1,0 +1,86 @@
+name: Generate Galleries
+
+# Runs the variant pipeline (Drive → Sharp → R2 → JSON) and commits the
+# resulting src/generated/gallery-*.json + scripts/.manifests/* back to
+# main if anything actually changed.
+#
+# Triggered:
+#   - On manual click in the GitHub UI (workflow_dispatch)
+#   - On a repository_dispatch with event_type "studio-publish",
+#     fired by the Vercel /api/studio/publish endpoint after Studio
+#     finishes pushing photos to Drive
+on:
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [studio-publish]
+
+# Prevent multiple instances from racing each other writing to the same
+# manifest / R2 keys. If a new dispatch arrives while one is mid-run, it
+# queues until the current one finishes (NOT cancel-in-progress — we don't
+# want to abort a partial upload halfway).
+concurrency:
+  group: generate-galleries
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    name: Build variants + commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      # Required to push the commit back to main.
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          # Need write token so the auto-commit can push.
+          token: ${{ secrets.GH_DISPATCH_PAT || secrets.GITHUB_TOKEN }}
+          # Full history so the commit graph stays clean.
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci
+
+      - name: Run generate-galleries
+        working-directory: app
+        env:
+          GOOGLE_DRIVE_CLIENT_EMAIL: ${{ secrets.GOOGLE_DRIVE_CLIENT_EMAIL }}
+          GOOGLE_DRIVE_PRIVATE_KEY: ${{ secrets.GOOGLE_DRIVE_PRIVATE_KEY }}
+          GOOGLE_DRIVE_EDITORIAL_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_EDITORIAL_FOLDER_ID }}
+          GOOGLE_DRIVE_PORTRAITS_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_PORTRAITS_FOLDER_ID }}
+          GOOGLE_DRIVE_GRADUATION_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_GRADUATION_FOLDER_ID }}
+          GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID }}
+          GOOGLE_DRIVE_EVENTS_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_EVENTS_FOLDER_ID }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          NEXT_PUBLIC_GALLERY_CDN_BASE: ${{ secrets.NEXT_PUBLIC_GALLERY_CDN_BASE }}
+        run: npm run generate-galleries
+
+      - name: Commit + push generated JSON / manifests if anything changed
+        run: |
+          git config user.name "vflics-bot"
+          git config user.email "bot@vflics.com"
+          # Stage only what the script writes — avoids picking up stray edits.
+          git add app/src/generated/gallery-*.json
+          git add app/scripts/.manifests/
+          # If nothing changed, the commit step exits 0 silently.
+          if git diff --cached --quiet; then
+            echo "No changes — nothing to commit."
+            exit 0
+          fi
+          # Construct a short summary of which galleries changed.
+          changed=$(git diff --cached --name-only | grep "gallery-" | xargs -n1 -I{} basename {} .json | sed 's/gallery-//' | paste -sd ", " -)
+          msg="chore(galleries): auto-update from generate-galleries (${changed})"
+          git commit -m "$msg" -m "Triggered by ${{ github.event_name }} on $(date -u +%Y-%m-%dT%H:%M:%SZ)."
+          git push origin HEAD:main

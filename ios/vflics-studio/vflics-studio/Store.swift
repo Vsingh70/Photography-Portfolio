@@ -27,8 +27,10 @@ final class Store {
 
     // ── Push state ──
     var pushing: Bool = false
+    var publishing: Bool = false
     var pushedOk: Bool = false
     var pushError: String?
+    var publishError: String?
     /// (current set index, total sets, current file in set, total files in set).
     var pushProgress: (setIdx: Int, setTotal: Int, fileIdx: Int, fileTotal: Int)?
 
@@ -203,10 +205,11 @@ final class Store {
     func push() async {
         pushing = true
         pushError = nil
-        defer { pushing = false }
+        publishError = nil
 
         guard isSignedIn else {
             pushError = UploadError.notSignedIn.errorDescription
+            pushing = false
             return
         }
 
@@ -215,6 +218,7 @@ final class Store {
                 let dest = destinations.first(where: { $0.slug == set.destinationSlug })
                 guard let folderId = dest?.folderId else {
                     pushError = UploadError.missingFolderId(set.destinationSlug).errorDescription
+                    pushing = false
                     return
                 }
 
@@ -242,15 +246,54 @@ final class Store {
                 }
             }
 
+            // Drive uploads done. Trigger the variant rebuild + deploy via
+            // the Vercel publish proxy. Non-fatal — if it fails the user
+            // can rerun generate-galleries locally.
+            pushing = false
+            pushProgress = nil
+            publishing = true
+            await triggerPublish()
+            publishing = false
+
             pushedOk = true
-            try? await Task.sleep(nanoseconds: 2_200_000_000)
+            try? await Task.sleep(nanoseconds: 3_500_000_000)
             sets.removeAll()
             activeSetId = nil
             pushedOk = false
-            pushProgress = nil
+            publishError = nil
             saveDraft()
         } catch {
             pushError = error.localizedDescription
+            pushing = false
+            pushProgress = nil
+        }
+    }
+
+    /// POST to https://vflics.com/api/studio/publish to kick off the
+    /// GitHub Actions workflow that runs generate-galleries + commits.
+    /// Sets `publishError` on failure; the upload itself is unaffected.
+    private func triggerPublish() async {
+        let destinationSlugs = Array(Set(sets.map(\.destinationSlug).filter { !$0.isEmpty }))
+        var req = URLRequest(url: URL(string: "https://vflics.com/api/studio/publish")!)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: Any] = [
+            "client": "ios",
+            "destinations": destinationSlugs,
+            "note": "\(sets.count) set\(sets.count == 1 ? "" : "s") pushed",
+        ]
+        req.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        req.timeoutInterval = 30
+        do {
+            let (data, response) = try await URLSession.shared.data(for: req)
+            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+                let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let bodyText = String(data: data, encoding: .utf8) ?? ""
+                publishError = "Publish trigger HTTP \(status): \(bodyText.prefix(180))"
+                return
+            }
+        } catch {
+            publishError = "Publish trigger failed: \(error.localizedDescription)"
         }
     }
 

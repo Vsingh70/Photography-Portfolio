@@ -12,11 +12,17 @@ No secrets are embedded in the binary; nothing needs to be set up before buildin
 
 ## Building the .app
 
+The OAuth client secret for the Desktop client must be passed at build time:
+
 ```bash
-npm run tauri:build
+OAUTH_CLIENT_SECRET="GOCSPX-..." npm run tauri:build
 ```
 
+Get the secret from Google Cloud Console → Credentials → the Desktop OAuth client → "+ Add Secret". Google now treats secrets as create-once / hidden-after; if you don't have the value saved, generate a new one and disable the old.
+
 The wrapper at `scripts/tauri-build.sh` just sources `$HOME/.cargo/env` and runs `tauri build`. First build downloads ~200 Rust crates and takes ~10-15 min; subsequent builds are ~30-60 seconds.
+
+Why an env var: the secret gets baked into the binary regardless (anyone with the `.app` can extract it via `strings`), but reading it from `option_env!` at build time keeps it out of source control.
 
 Outputs:
 - `src-tauri/target/release/bundle/macos/vflics Studio.app`

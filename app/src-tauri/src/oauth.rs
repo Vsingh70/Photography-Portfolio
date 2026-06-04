@@ -19,9 +19,20 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 const CLIENT_ID: &str =
     "545350887333-cicbneumq1aud1qej9la8c465nmi16oj.apps.googleusercontent.com";
-// Desktop OAuth clients don't have a real secret — Google still requires the
-// field, but accepts an empty string for installed-app clients. (Public clients.)
-const CLIENT_SECRET: &str = "";
+// Desktop OAuth client secret. Per Google's docs, this secret CANNOT be kept
+// secret in a desktop binary — anyone with the .app can extract it via
+// `strings`. It's effectively a second identifier alongside the client ID.
+//
+// We read it from the OAUTH_CLIENT_SECRET env var at COMPILE TIME (not
+// runtime — Tauri binaries can't read user env), so it stays out of git.
+// To build: `OAUTH_CLIENT_SECRET=GOCSPX-... npm run tauri:build`.
+//
+// When unset (e.g. CI builds for testing), it falls back to an empty string
+// and the token-exchange request will fail with a clear error.
+const CLIENT_SECRET: &str = match option_env!("OAUTH_CLIENT_SECRET") {
+    Some(s) => s,
+    None => "",
+};
 const REDIRECT_URI: &str = "http://127.0.0.1:8765/callback";
 const SCOPE: &str = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email";
 

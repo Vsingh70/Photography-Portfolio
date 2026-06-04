@@ -463,6 +463,12 @@ export function StudioApp() {
     fileTotal: number;
   } | null>(null);
 
+  /// Set when the per-file Drive uploads are done and we're waiting on the
+  /// publish trigger (GitHub Actions kick-off). The "Publishing…" UI shows
+  /// during this window.
+  const [publishing, setPublishing] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+
   const performPush = async () => {
     if (!inTauri) {
       setPushError('Push is only available in the desktop app.');
@@ -505,6 +511,36 @@ export function StudioApp() {
           });
         }
       }
+      // Drive uploads done — kick off the variant pipeline + site deploy
+      // on GitHub Actions via the Vercel publish proxy. Non-fatal: if the
+      // trigger fails we still surface the upload success but log the
+      // publish error so the user knows to manually rebuild.
+      setPushProgress(null);
+      setPushing(false);
+      setPublishing(true);
+      try {
+        const destinationSlugs = Array.from(
+          new Set(sets.map((s) => s.destination).filter(Boolean))
+        );
+        const res = await fetch('/api/studio/publish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client: 'tauri',
+            destinations: destinationSlugs,
+            note: `${sets.length} set${sets.length === 1 ? '' : 's'} pushed`,
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          setPublishError(err?.error ?? `Publish trigger HTTP ${res.status}`);
+        }
+      } catch (e) {
+        setPublishError(e instanceof Error ? e.message : 'Publish trigger failed');
+      } finally {
+        setPublishing(false);
+      }
+
       setPushedOk(true);
       setTimeout(() => {
         setSets([]);
@@ -512,10 +548,9 @@ export function StudioApp() {
         setSelectedFileIds(new Set());
         setPushOpen(false);
         setPushedOk(false);
-        setPushing(false);
-        setPushProgress(null);
+        setPublishError(null);
         localStorage.removeItem(STORAGE_KEY);
-      }, 2200);
+      }, 3500);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Upload failed';
       setPushError(message);
@@ -673,10 +708,13 @@ export function StudioApp() {
           pushedOk={pushedOk}
           pushError={pushError}
           pushProgress={pushProgress}
+          publishing={publishing}
+          publishError={publishError}
           onClose={() => {
-            if (!pushing) {
+            if (!pushing && !publishing) {
               setPushOpen(false);
               setPushError(null);
+              setPublishError(null);
             }
           }}
           onConfirm={performPush}
@@ -1686,6 +1724,8 @@ function PushModal({
   pushedOk,
   pushError,
   pushProgress,
+  publishing,
+  publishError,
   onClose,
   onConfirm,
 }: {
@@ -1701,6 +1741,8 @@ function PushModal({
     fileIdx: number;
     fileTotal: number;
   } | null;
+  publishing: boolean;
+  publishError: string | null;
   onClose: () => void;
   onConfirm: () => void;
 }) {
@@ -1719,7 +1761,7 @@ function PushModal({
         padding: 28,
       }}
       onClick={(e) => {
-        if (e.target === e.currentTarget && !pushing) onClose();
+        if (e.target === e.currentTarget && !pushing && !publishing) onClose();
       }}
     >
       <div
@@ -1735,7 +1777,9 @@ function PushModal({
       >
         {pushedOk ? (
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-            <Cap style={{ color: '#76c893' }}>Pushed</Cap>
+            <Cap style={{ color: '#76c893' }}>
+              {publishError ? 'Pushed (publish failed)' : 'Pushed'}
+            </Cap>
             <h2
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
@@ -1757,8 +1801,59 @@ function PushModal({
                 lineHeight: 1.5,
               }}
             >
-              The studio will reset in a moment.
+              {publishError
+                ? 'Photos are in Drive, but the publish trigger failed. Run `npm run generate-galleries` manually to refresh the site.'
+                : 'The site will rebuild in 2–6 minutes.'}
             </p>
+            {publishError && (
+              <p
+                style={{
+                  marginTop: 14,
+                  fontFamily: 'DM Mono, monospace',
+                  fontSize: 11,
+                  color: 'rgba(231,76,60,0.85)',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {publishError}
+              </p>
+            )}
+          </div>
+        ) : publishing ? (
+          <div style={{ textAlign: 'center', padding: '80px 20px' }}>
+            <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Publishing…</Cap>
+            <p
+              style={{
+                marginTop: 12,
+                fontFamily: 'Cormorant Garamond, serif',
+                fontStyle: 'italic',
+                fontSize: 22,
+                color: 'rgba(245,243,238,0.7)',
+              }}
+            >
+              Triggering the gallery rebuild.
+            </p>
+            <div
+              style={{
+                width: 80,
+                height: 2,
+                background: 'rgba(245,243,238,0.18)',
+                margin: '24px auto',
+                overflow: 'hidden',
+                position: 'relative',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: '#f5f3ee',
+                  transform: 'translateX(-100%)',
+                  animation: 'pushBar 1.2s ease-in-out infinite',
+                }}
+              />
+            </div>
           </div>
         ) : pushing ? (
           <div style={{ textAlign: 'center', padding: '80px 20px' }}>

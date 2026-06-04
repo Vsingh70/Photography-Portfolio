@@ -11,6 +11,7 @@ Each file in this directory documents a discrete piece of the refactor that took
 | 03  | [03-ios-oauth.md](03-ios-oauth.md)               | **Completed** ✅ — iOS rebuilt for OAuth + direct Drive upload | 04     |
 | 04  | [04-delete-vercel-upload.md](04-delete-vercel-upload.md) | **Code-complete** ✅ — env var deletion still needs you in Vercel dashboard | —      |
 | 05  | [05-polish.md](05-polish.md)                     | **Partial** — items A, B, E, G, H done; C, D, F open | —      |
+| 06  | [06-autopublish-setup.md](06-autopublish-setup.md) | **Code complete**; awaiting manual setup (GitHub PAT + GH Secrets + Vercel env vars) | end-to-end auto-publish |
 
 ## What's actually been done (in execution order, latest first)
 

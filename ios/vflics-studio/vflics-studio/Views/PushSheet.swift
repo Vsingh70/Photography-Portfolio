@@ -10,6 +10,8 @@ struct PushSheet: View {
                 Theme.Colors.bg.ignoresSafeArea()
                 if store.pushedOk {
                     success
+                } else if store.publishing {
+                    publishingView
                 } else if store.pushing {
                     uploading
                 } else {
@@ -18,13 +20,24 @@ struct PushSheet: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                if !store.pushing {
+                if !store.pushing && !store.publishing {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Cancel") { visible = false }
                     }
                 }
             }
         }
+    }
+
+    private var publishingView: some View {
+        VStack(spacing: 14) {
+            Cap(text: "Publishing…")
+            Text("Triggering the gallery rebuild.")
+                .font(.system(size: 16, design: .serif).italic())
+                .foregroundStyle(Theme.Colors.fgDim)
+            ProgressView().tint(Theme.Colors.fg)
+        }
+        .padding()
     }
 
     private var confirm: some View {
@@ -101,14 +114,28 @@ struct PushSheet: View {
 
     private var success: some View {
         VStack(spacing: 18) {
-            Cap(text: "Pushed", color: Theme.Colors.success)
+            Cap(text: store.publishError == nil ? "Pushed" : "Pushed (publish failed)",
+                color: Theme.Colors.success)
             Text("All sets are on their way.")
                 .font(Theme.Fonts.displayFallback(36))
                 .foregroundStyle(Theme.Colors.fg)
                 .multilineTextAlignment(.center)
-            Text("The studio will reset in a moment.")
-                .font(.system(size: 15, design: .serif).italic())
-                .foregroundStyle(Theme.Colors.fgDim)
+            if let err = store.publishError {
+                Text("Photos are in Drive, but the publish trigger failed. Run `npm run generate-galleries` manually to refresh the site.")
+                    .font(.system(size: 14, design: .serif).italic())
+                    .foregroundStyle(Theme.Colors.fgDim)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+                Text(err)
+                    .font(Theme.Fonts.mono(10))
+                    .foregroundStyle(Theme.Colors.danger)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+            } else {
+                Text("The site will rebuild in 2–6 minutes.")
+                    .font(.system(size: 15, design: .serif).italic())
+                    .foregroundStyle(Theme.Colors.fgDim)
+            }
         }
         .padding()
     }
