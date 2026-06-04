@@ -108,9 +108,9 @@ function getDriveClient() {
 }
 
 function getR2Client() {
-  const accountId = process.env.R2_ACCOUNT_ID;
-  const accessKeyId = process.env.R2_ACCESS_KEY_ID;
-  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+  const accountId = normalizeEnv(process.env.R2_ACCOUNT_ID);
+  const accessKeyId = normalizeEnv(process.env.R2_ACCESS_KEY_ID);
+  const secretAccessKey = normalizeEnv(process.env.R2_SECRET_ACCESS_KEY);
   if (!accountId || !accessKeyId || !secretAccessKey) {
     throw new Error(
       'R2 credentials missing. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY.'
@@ -269,7 +269,7 @@ interface GalleryImageOutput {
 }
 
 async function buildGallery(gallery: GalleryConfig, cdnBase: string, bucket: string) {
-  const folderId = process.env[gallery.folderIdEnvVar];
+  const folderId = normalizeEnv(process.env[gallery.folderIdEnvVar]);
   if (!folderId) {
     console.log(`  ⚠️  Skipping ${gallery.name}: no ${gallery.folderIdEnvVar}`);
     return null;
@@ -428,8 +428,8 @@ async function main() {
   console.log('🎨 Gallery prebuild pipeline (R2)\n');
   await loadEnv();
 
-  const cdnBase = process.env.NEXT_PUBLIC_GALLERY_CDN_BASE?.replace(/\/$/, '');
-  const bucket = process.env.R2_BUCKET;
+  const cdnBase = normalizeEnv(process.env.NEXT_PUBLIC_GALLERY_CDN_BASE).replace(/\/$/, '');
+  const bucket = normalizeEnv(process.env.R2_BUCKET);
   if (!cdnBase) throw new Error('NEXT_PUBLIC_GALLERY_CDN_BASE is required.');
   if (!bucket) throw new Error('R2_BUCKET is required.');
 
