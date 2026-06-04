@@ -1,24 +1,26 @@
-# Task 06 — Auto-publish: manual setup for the Studio → GitHub Actions pipeline
+# Task 06 — Auto-publish: setup for the Studio → GitHub Actions pipeline
 
-**Depends on**: nothing committed yet
-**Blocks**: end-to-end testing of automatic publishing
-**Estimated effort**: 20–30 min (mostly clicking through dashboards)
+**Status**: the pipeline is live and verified end-to-end (bot commit `db7de20` was its first successful auto-publish after a real Studio push). This document is preserved as the canonical reference for re-doing the setup — e.g. when rotating the GitHub PAT, recreating the Action's secrets in a new repo fork, or onboarding a second admin.
 
-## What this connects
+**Estimated effort to (re)apply**: 20–30 min (mostly clicking through dashboards).
 
-The code is already shipped (commits land in this same session):
+## What's already done
 
-- [.github/workflows/generate-galleries.yml](../../.github/workflows/generate-galleries.yml) — Action that runs `npm run generate-galleries`, then commits + pushes the resulting JSON / manifests
-- [app/src/app/api/studio/publish/route.ts](../../app/src/app/api/studio/publish/route.ts) — Vercel function that forwards a `repository_dispatch` to GitHub when called
-- Studio clients (Tauri + iOS) both POST to `/api/studio/publish` after Drive uploads complete
+- [.github/workflows/generate-galleries.yml](../../.github/workflows/generate-galleries.yml) — Action that runs `npm run generate-galleries`, then commits + pushes the resulting JSON / manifests. Already on `main`.
+- [app/src/app/api/studio/publish/route.ts](../../app/src/app/api/studio/publish/route.ts) — Vercel function that forwards a `repository_dispatch` to GitHub. Already deployed.
+- Studio clients (Tauri + iOS) both POST to `/api/studio/publish` after Drive uploads complete. Already shipped.
+- Vercel env vars `GH_DISPATCH_PAT` and `GH_DISPATCH_REPO` are set; production redeploy was done so the function picks them up.
+- All 12 GitHub Actions repository secrets are populated.
 
-What the code can't do without your help:
+If you ever lose any of the above, the steps below are how to re-establish them.
 
-- It can't create the GitHub PAT (that requires your account)
+## What the code can't do without you
+
+- It can't create or rotate the GitHub PAT (that requires your account)
 - It can't paste the Drive/R2 credentials into GitHub Actions secrets
 - It can't set `GH_DISPATCH_PAT` on Vercel
 
-Without these three setups, the publish endpoint will return a 503 ("Server not configured") and the Studio will show "Pushed (publish failed)" while still successfully uploading to Drive.
+Symptom if any of these are missing: publish endpoint returns 503 ("Server not configured") and the Studio modal shows "Pushed (publish failed)" while still successfully uploading to Drive.
 
 ## Step 1 — Create a GitHub PAT
 
