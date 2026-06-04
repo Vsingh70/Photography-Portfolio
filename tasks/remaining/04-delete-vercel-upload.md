@@ -78,13 +78,11 @@ Open the Vercel dashboard → vflics-photography project → Settings → Enviro
 
 Trigger a redeploy from the Deployments tab so the env-var removal takes effect.
 
-### tauri.conf.local.json
+### tauri.conf.json (already updated)
 
-The local Tauri config currently has `?key=<token>` in its URL. After this task:
+The committed `tauri.conf.json` URL has already been changed to `https://vflics.com/studio` (no `?key=` suffix). If a local override `tauri.conf.local.json` exists, it can be deleted.
 
-- Update `tauri.conf.json` and `tauri.conf.local.json` so the window URL is `https://vflics.com/studio` (no `?key=` suffix)
-- Re-build the Tauri app
-- Re-install
+After confirming everything's clean, rebuild the `.app` and re-install.
 
 ## Verification
 

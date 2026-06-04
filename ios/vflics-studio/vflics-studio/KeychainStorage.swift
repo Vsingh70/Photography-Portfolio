@@ -1,14 +1,17 @@
 import Foundation
 import Security
 
-/// Tiny keychain wrapper for the two pieces of config we need to persist
-/// securely: the Vercel endpoint URL and the bearer token.
+/// Tiny keychain wrapper. Stores OAuth tokens + signed-in email under the
+/// `com.vflics.studio` service.
 enum KeychainStorage {
     private static let service = "com.vflics.studio"
 
     enum Key: String {
-        case endpointURL
-        case authToken
+        // OAuth state — current.
+        case oauthAccessToken
+        case oauthRefreshToken
+        case oauthEmail
+        case oauthExpiresAt
     }
 
     static func read(_ key: Key) -> String? {
@@ -52,5 +55,18 @@ enum KeychainStorage {
             kSecAttrAccount as String: key.rawValue,
         ]
         SecItemDelete(query as CFDictionary)
+    }
+
+    /// Clears any pre-OAuth keychain entries (`endpointURL`, `authToken`) that
+    /// might remain from older builds. Idempotent.
+    static func cleanLegacyKeys() {
+        for raw in ["endpointURL", "authToken"] {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: service,
+                kSecAttrAccount as String: raw,
+            ]
+            SecItemDelete(query as CFDictionary)
+        }
     }
 }

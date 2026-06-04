@@ -26,16 +26,11 @@ Commits `a9ecddb` (drag-drop fix) and `7043e5e` (OAuth scaffolding) added all th
 
 ## Execution steps
 
-### 1. Re-create the local Tauri config
+### 1. Build the new `.app` (no config setup required post-task-04)
 
-```bash
-cd app
-cp src-tauri/tauri.conf.json src-tauri/tauri.conf.local.json
-```
+After task 04 (Vercel cleanup), `tauri.conf.json` already points the window at `https://vflics.com/studio` with no `?key=`. Authentication is handled by the in-binary OAuth flow on first launch — no tokens to embed.
 
-Open `src-tauri/tauri.conf.local.json` in your editor and replace **both** occurrences of `REPLACE_WITH_STUDIO_UPLOAD_TOKEN` with the value of the `STUDIO_UPLOAD_TOKEN` env var as currently set on Vercel.
-
-(This file is gitignored, never committed.)
+If a `src-tauri/tauri.conf.local.json` exists from a previous build, you can delete it — it's no longer needed.
 
 ### 2. Build the new `.app`
 

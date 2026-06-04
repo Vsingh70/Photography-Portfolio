@@ -45,9 +45,9 @@ next-env.d.ts
 /src-tauri/gen/
 /src-tauri/icons/icon.iconset/
 /out/
-# Local-only Tauri config override — contains the auth token in the URL,
-# must never be committed. Copy `tauri.conf.json` to this filename and
-# replace REPLACE_WITH_STUDIO_UPLOAD_TOKEN with your real token.
+# Local-only Tauri config override (if you ever need to point the window at
+# a different URL — e.g. localhost — during development). Not required for
+# normal builds since OAuth handles auth in the binary itself.
 /src-tauri/tauri.conf.local.json
 
 # Gallery variants live on Cloudflare R2 (see scripts/generate-gallery-data.ts).

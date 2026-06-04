@@ -5,7 +5,7 @@
   "identifier": "com.vflics.studio",
   "build": {
     "beforeDevCommand": "",
-    "devUrl": "https://vflics.com/studio?key=REPLACE_WITH_STUDIO_UPLOAD_TOKEN",
+    "devUrl": "https://vflics.com/studio",
     "beforeBuildCommand": "",
     "frontendDist": "../out"
   },
@@ -21,7 +21,7 @@
         "fullscreen": false,
         "decorations": true,
         "transparent": false,
-        "url": "https://vflics.com/studio?key=REPLACE_WITH_STUDIO_UPLOAD_TOKEN",
+        "url": "https://vflics.com/studio",
         "dragDropEnabled": false
       }
     ],

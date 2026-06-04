@@ -2,16 +2,23 @@ import Foundation
 import SwiftUI
 import Observation
 
-/// Single source of truth for the Studio. Mirrors the React `useState` cluster
-/// in StudioApp.tsx: sets list, active set selection, destinations, push state.
+/// Single source of truth for the Studio. Mirrors the React `useState`
+/// cluster in StudioApp.tsx: sets list, active set selection, destinations,
+/// push state. Auth state is OAuth-only — see Config + KeychainStorage.
 @Observable
 final class Store {
-    // ── Config ──
-    /// Endpoint is baked in at build time (see Config.endpointURL). Only the
-    /// auth token is per-install and lives in the keychain.
-    var endpointURL: String { Config.endpointURL }
-    var authToken: String = KeychainStorage.read(.authToken) ?? ""
-    var isConfigured: Bool { !endpointURL.isEmpty && !authToken.isEmpty }
+    // ── OAuth state (read from keychain at init) ──
+    var oauthAccessToken: String = KeychainStorage.read(.oauthAccessToken) ?? ""
+    var oauthRefreshToken: String = KeychainStorage.read(.oauthRefreshToken) ?? ""
+    var oauthEmail: String = KeychainStorage.read(.oauthEmail) ?? ""
+    var oauthExpiresAt: Date = {
+        if let raw = KeychainStorage.read(.oauthExpiresAt), let n = Double(raw) {
+            return Date(timeIntervalSince1970: n)
+        }
+        return Date.distantPast
+    }()
+
+    var isSignedIn: Bool { !oauthAccessToken.isEmpty && !oauthRefreshToken.isEmpty }
 
     // ── Data ──
     var sets: [UploadSet] = []
@@ -22,21 +29,60 @@ final class Store {
     var pushing: Bool = false
     var pushedOk: Bool = false
     var pushError: String?
-    var pushProgress: (setIdx: Int, total: Int)?
+    /// (current set index, total sets, current file in set, total files in set).
+    var pushProgress: (setIdx: Int, setTotal: Int, fileIdx: Int, fileTotal: Int)?
 
     // ── Persistence keys ──
     private let setsKey = "vflics.studio.sets"
     private let customDestKey = "vflics.studio.customDestinations"
 
     init() {
+        // Sweep any pre-OAuth keychain entries from older builds.
+        KeychainStorage.cleanLegacyKeys()
         loadDraft()
     }
 
-    // MARK: Config
+    // MARK: OAuth tokens
 
-    func saveToken(_ token: String) {
-        authToken = token
-        KeychainStorage.write(token, for: .authToken)
+    func saveTokens(access: String, refresh: String, expiresAt: Date, email: String) {
+        oauthAccessToken = access
+        oauthRefreshToken = refresh
+        oauthExpiresAt = expiresAt
+        oauthEmail = email
+        KeychainStorage.write(access, for: .oauthAccessToken)
+        KeychainStorage.write(refresh, for: .oauthRefreshToken)
+        KeychainStorage.write(String(expiresAt.timeIntervalSince1970), for: .oauthExpiresAt)
+        KeychainStorage.write(email, for: .oauthEmail)
+    }
+
+    func signOut() {
+        oauthAccessToken = ""
+        oauthRefreshToken = ""
+        oauthEmail = ""
+        oauthExpiresAt = .distantPast
+        KeychainStorage.delete(.oauthAccessToken)
+        KeychainStorage.delete(.oauthRefreshToken)
+        KeychainStorage.delete(.oauthEmail)
+        KeychainStorage.delete(.oauthExpiresAt)
+    }
+
+    /// Refresh if needed; returns a valid access token or throws.
+    func validAccessToken() async throws -> String {
+        if Date() < oauthExpiresAt, !oauthAccessToken.isEmpty {
+            return oauthAccessToken
+        }
+        guard !oauthRefreshToken.isEmpty else {
+            throw UploadError.notSignedIn
+        }
+        let oauth = await MainActor.run { GoogleOAuth() }
+        let result = try await oauth.refresh(refreshToken: oauthRefreshToken)
+        await MainActor.run {
+            self.oauthAccessToken = result.accessToken
+            self.oauthExpiresAt = result.expiresAt
+            KeychainStorage.write(result.accessToken, for: .oauthAccessToken)
+            KeychainStorage.write(String(result.expiresAt.timeIntervalSince1970), for: .oauthExpiresAt)
+        }
+        return result.accessToken
     }
 
     // MARK: Sets
@@ -77,7 +123,6 @@ final class Store {
 
     func appendFiles(_ files: [UploadFile], to setId: UUID) {
         updateSet(setId) { set in
-            // Mark duplicates against existing hashes.
             let existing = Set(set.files.map(\.hash))
             for var f in files {
                 if existing.contains(f.hash) { f.duplicate = true }
@@ -102,7 +147,6 @@ final class Store {
             guard let from = set.files.firstIndex(where: { $0.id == id }),
                   let to = set.files.firstIndex(where: { $0.id == targetId }) else { return }
             let item = set.files.remove(at: from)
-            // After removal, indices ≥ from shift down by 1.
             let insertAt = to <= from ? to : to - 1
             set.files.insert(item, at: insertAt)
         }
@@ -124,7 +168,6 @@ final class Store {
 
     func removeDestination(_ slug: String) {
         destinations.removeAll { $0.slug == slug }
-        // Detach any sets referencing it.
         for i in sets.indices where sets[i].destinationSlug == slug {
             sets[i].destinationSlug = ""
         }
@@ -132,23 +175,10 @@ final class Store {
         saveDraft()
     }
 
-    func applyServerDestinations(_ server: [ServerDestination]) {
-        // Update built-in destinations with server-resolved folderIds.
-        // Keep custom destinations untouched.
-        let serverMap = Dictionary(uniqueKeysWithValues: server.map { ($0.slug, $0.folderId) })
-        destinations = destinations.map { dest in
-            var d = dest
-            if !d.custom, let folder = serverMap[d.slug] {
-                d.folderId = folder
-            }
-            return d
-        }
-    }
-
     // MARK: Push
 
     var canPush: Bool {
-        !sets.isEmpty && sets.allSatisfy { s in
+        isSignedIn && !sets.isEmpty && sets.allSatisfy { s in
             !s.name.trimmingCharacters(in: .whitespaces).isEmpty &&
             !s.destinationSlug.isEmpty &&
             !s.files.isEmpty &&
@@ -158,6 +188,7 @@ final class Store {
 
     var pushBlockers: [String] {
         var issues: [String] = []
+        if !isSignedIn { issues.append("Sign in with Google in Settings") }
         for s in sets {
             let label = s.name.isEmpty ? "(unnamed)" : s.name
             if s.name.trimmingCharacters(in: .whitespaces).isEmpty { issues.append("Set \"\(label)\" needs a name") }
@@ -170,37 +201,66 @@ final class Store {
     }
 
     func push() async {
-        guard let client = UploadClient(endpointString: endpointURL, token: authToken) else {
-            pushError = "Endpoint or token missing — open Settings."
-            return
-        }
         pushing = true
         pushError = nil
         defer { pushing = false }
 
-        for (i, set) in sets.enumerated() {
-            pushProgress = (setIdx: i, total: sets.count)
-            let dest = destinations.first(where: { $0.slug == set.destinationSlug })
-            do {
-                _ = try await client.uploadSet(
-                    setName: set.name,
-                    destinationSlug: dest?.custom == false ? dest?.slug : nil,
-                    folderId: dest?.custom == true ? dest?.folderId : nil,
-                    files: set.files
-                )
-            } catch {
-                pushError = error.localizedDescription
-                return
-            }
+        guard isSignedIn else {
+            pushError = UploadError.notSignedIn.errorDescription
+            return
         }
 
-        pushedOk = true
-        try? await Task.sleep(nanoseconds: 2_200_000_000)
-        sets.removeAll()
-        activeSetId = nil
-        pushedOk = false
-        pushProgress = nil
-        saveDraft()
+        do {
+            for (setIdx, set) in sets.enumerated() {
+                let dest = destinations.first(where: { $0.slug == set.destinationSlug })
+                guard let folderId = dest?.folderId else {
+                    pushError = UploadError.missingFolderId(set.destinationSlug).errorDescription
+                    return
+                }
+
+                // Upload each file individually (avoids serverless body limits;
+                // we talk straight to Drive).
+                for (fileIdx, file) in set.files.enumerated() {
+                    pushProgress = (
+                        setIdx: setIdx,
+                        setTotal: sets.count,
+                        fileIdx: fileIdx,
+                        fileTotal: set.files.count
+                    )
+                    guard let imageData = file.imageData else {
+                        throw UploadError.fileNotAttached(file.name)
+                    }
+                    let renamedName = renameForUpload(setName: set.name, index: fileIdx, originalName: file.name)
+                    let token = try await validAccessToken()
+                    _ = try await UploadClient.uploadFile(
+                        accessToken: token,
+                        folderId: folderId,
+                        filename: renamedName,
+                        bytes: imageData,
+                        mimeType: "image/jpeg"
+                    )
+                }
+            }
+
+            pushedOk = true
+            try? await Task.sleep(nanoseconds: 2_200_000_000)
+            sets.removeAll()
+            activeSetId = nil
+            pushedOk = false
+            pushProgress = nil
+            saveDraft()
+        } catch {
+            pushError = error.localizedDescription
+        }
+    }
+
+    private func renameForUpload(setName: String, index: Int, originalName: String) -> String {
+        let ext: String = {
+            let ns = originalName as NSString
+            let pathExt = ns.pathExtension
+            return pathExt.isEmpty ? "jpg" : pathExt.lowercased()
+        }()
+        return "\(setName) (\(index + 1)).\(ext)"
     }
 
     // MARK: Persistence

@@ -1,89 +1,74 @@
 import Foundation
-import UIKit
 
-/// Talks to /api/studio/upload-remote on the Vercel backend.
+/// Direct Google Drive REST API client. Each call uploads ONE file via the
+/// multipart `uploadType=multipart` endpoint. Streaming/resumable uploads
+/// could replace this for very large files; multipart is fine for photos.
 struct UploadClient {
-    let endpoint: URL
-    let token: String
-
-    init?(endpointString: String, token: String) {
-        guard let url = URL(string: endpointString),
-              !token.isEmpty else { return nil }
-        self.endpoint = url
-        self.token = token
-    }
-
-    /// Fetch which built-in destinations are configured on the server.
-    func fetchDestinations() async throws -> [ServerDestination] {
-        var req = URLRequest(url: endpoint)
-        req.httpMethod = "GET"
-        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let (data, response) = try await URLSession.shared.data(for: req)
-        try Self.expectOK(response, data: data)
-        let decoded = try JSONDecoder().decode(ServerDestinationsResponse.self, from: data)
-        return decoded.destinations
-    }
-
-    /// Upload one set as a multipart POST. Server renames files to
-    /// "<setName> (n).<ext>" in order.
-    func uploadSet(setName: String, destinationSlug: String?, folderId: String?, files: [UploadFile]) async throws -> UploadResponse {
+    /// Upload a single file to a Drive folder. Returns the new file's Drive ID.
+    /// - Parameters:
+    ///   - accessToken: A valid OAuth access token with `drive.file` scope.
+    ///   - folderId: Drive folder ID to drop the file into.
+    ///   - filename: Display filename (e.g. "Set Name (1).jpg").
+    ///   - bytes: File bytes.
+    ///   - mimeType: MIME type (defaults to image/jpeg).
+    static func uploadFile(
+        accessToken: String,
+        folderId: String,
+        filename: String,
+        bytes: Data,
+        mimeType: String = "image/jpeg"
+    ) async throws -> String {
         let boundary = "----vflics-\(UUID().uuidString)"
-        var req = URLRequest(url: endpoint)
-        req.httpMethod = "POST"
-        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        req.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        req.timeoutInterval = 600 // 10 min upload window
+
+        let metadata: [String: Any] = [
+            "name": filename,
+            "parents": [folderId],
+        ]
+        let metadataJSON = try JSONSerialization.data(withJSONObject: metadata)
 
         var body = Data()
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Type: application/json; charset=UTF-8\r\n\r\n".data(using: .utf8)!)
+        body.append(metadataJSON)
+        body.append("\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
+        body.append(bytes)
+        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
-        func appendField(_ name: String, _ value: String) {
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: .utf8)!)
-            body.append("\(value)\r\n".data(using: .utf8)!)
+        var req = URLRequest(url: URL(string: Config.driveUploadURL)!)
+        req.httpMethod = "POST"
+        req.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        req.setValue("multipart/related; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        req.timeoutInterval = 600 // 10 min per file
+
+        let (responseData, response) = try await URLSession.shared.upload(for: req, from: body)
+        guard let http = response as? HTTPURLResponse, http.statusCode < 300 else {
+            let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
+            let body = String(data: responseData, encoding: .utf8) ?? "<no body>"
+            throw UploadError.driveError(status: httpStatus, message: body)
         }
-
-        appendField("setName", setName)
-        if let destinationSlug { appendField("destination", destinationSlug) }
-        if let folderId { appendField("folderId", folderId) }
-
-        for f in files {
-            guard let data = f.imageData else {
-                throw UploadError.fileNotAttached(f.name)
-            }
-            body.append("--\(boundary)\r\n".data(using: .utf8)!)
-            body.append("Content-Disposition: form-data; name=\"files\"; filename=\"\(f.name)\"\r\n".data(using: .utf8)!)
-            body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
-            body.append(data)
-            body.append("\r\n".data(using: .utf8)!)
-        }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-
-        let (data, response) = try await URLSession.shared.upload(for: req, from: body)
-        try Self.expectOK(response, data: data)
-        return try JSONDecoder().decode(UploadResponse.self, from: data)
-    }
-
-    private static func expectOK(_ response: URLResponse, data: Data) throws {
-        guard let http = response as? HTTPURLResponse else { throw UploadError.notHTTP }
-        if (200..<300).contains(http.statusCode) { return }
-        let serverMessage = (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.error
-        throw UploadError.server(status: http.statusCode, message: serverMessage)
+        struct Resp: Decodable { let id: String }
+        return try JSONDecoder().decode(Resp.self, from: responseData).id
     }
 }
 
 enum UploadError: LocalizedError {
-    case notHTTP
-    case server(status: Int, message: String?)
+    case driveError(status: Int, message: String)
     case fileNotAttached(String)
+    case notSignedIn
+    case missingFolderId(String)
 
     var errorDescription: String? {
         switch self {
-        case .notHTTP: return "Server returned a non-HTTP response."
-        case .server(let code, let msg):
-            if let msg, !msg.isEmpty { return "[\(code)] \(msg)" }
-            return "Server returned HTTP \(code)."
+        case .driveError(let code, let msg):
+            return "Drive upload failed [\(code)]: \(msg)"
         case .fileNotAttached(let name):
             return "Photo \"\(name)\" is no longer attached. Re-add it before pushing."
+        case .notSignedIn:
+            return "Not signed in. Open Settings and sign in with Google."
+        case .missingFolderId(let slug):
+            return "No Drive folder configured for destination \"\(slug)\". Add it in Config or use a custom destination."
         }
     }
 }

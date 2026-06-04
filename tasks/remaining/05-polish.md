@@ -5,9 +5,22 @@
 **Estimated effort**: variable per item — each is ~30 min
 **Risk**: Low
 
+## Status
+
+| Item | Title | Done? |
+|------|-------|-------|
+| A | Visual drag-from-OS indicator (Tauri) | ✅ |
+| B | OAuth error UX (both Tauri + iOS) | ✅ |
+| C | Custom launch screen (iOS) | ⏳ |
+| D | Custom fonts in iOS | ⏳ |
+| E | Reorder feedback (Tauri) | ✅ |
+| F | README updates | ✅ |
+| G | Empty-state for non-signed-in users (web/Tauri) | ✅ |
+| H | Progress indicator for multi-photo push (both platforms) | ✅ |
+
 ## When to use this task
 
-After the core OAuth + direct-Drive flow is shipping, work through the items here. None are blockers; each is its own small improvement. Skip any that don't matter to you.
+After the core OAuth + direct-Drive flow is shipping, work through any remaining items. None are blockers; each is its own small improvement.
 
 Each item below can be lifted out and handed to Claude individually.
 

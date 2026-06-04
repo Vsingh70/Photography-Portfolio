@@ -1,12 +1,16 @@
 /**
- * vflics Upload Studio — local-only staging tool for renaming, reordering,
- * and pushing sets of photos to Google Drive folders.
+ * vflics Upload Studio — staging tool for renaming, reordering, and pushing
+ * sets of photos to Google Drive folders.
  *
- * Port of the upload-studio.jsx mockup with real wiring:
- *   - Destinations resolved from /api/studio/destinations (env-mapped folder IDs)
- *   - Push uploads via /api/studio/upload, one FormData per set
+ * Tauri-only push pipeline (post task-04):
+ *   - Built-in destinations hardcoded below (Drive folder IDs are not secrets)
+ *   - Sign in with Google via Tauri's loopback OAuth (start_oauth Rust cmd)
+ *   - Each file uploaded directly to Drive via the Tauri upload_to_drive
+ *     command — bypasses Vercel serverless body limits entirely
+ *   - In a regular browser the page renders but Push is disabled with an
+ *     explanatory empty-state ("Use the desktop app")
  *   - Custom destinations require a folder ID at creation
- *   - Original File blobs are kept in memory for re-upload; only metadata
+ *   - Original File blobs kept in memory for re-upload; only metadata
  *     persists to localStorage (files surface as `missing` after refresh)
  */
 
@@ -65,6 +69,18 @@ interface UploadSet {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const STORAGE_KEY = 'vflics-upload-studio';
+
+/// Built-in destinations: Drive folder IDs are not secrets (visible in
+/// share URLs). Match the iOS Config.destinationFolderIDs. Custom
+/// destinations get added via the UI with manual folder ID entry.
+const BUILTIN_DESTINATIONS: Destination[] = [
+  { slug: 'editorial',  label: 'Editorial',  folderId: '11TrJbaLVZh3MtbN-gdhpPq6Nt2O5QPOU' },
+  { slug: 'portraits',  label: 'Portraits',  folderId: '1CF7yYOl4Y-uWkzqvmw_0-3HFbShKiRkB' },
+  { slug: 'graduation', label: 'Graduation', folderId: '18zpHRcTsOArgjppcJWgBI7kp6DB1lf2v' },
+  { slug: 'engagement', label: 'Engagement', folderId: '1J0e4zP7aMlKgzjNmx0MU-m3_lfA_J6Gf' },
+  { slug: 'events',     label: 'Events',     folderId: '1uZEgnzPehDnNIesaRC-Mk1n3yFINEx9p' },
+  { slug: 'about',      label: 'About',      folderId: '1Xi_xptW_j9-BDqREjFHWfDProFfrFgNF' },
+];
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
@@ -248,7 +264,7 @@ function saveDraft(sets: UploadSet[], destinations: Destination[]) {
 
 export function StudioApp() {
   const [sets, setSets] = useState<UploadSet[]>([]);
-  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [destinations, setDestinations] = useState<Destination[]>(BUILTIN_DESTINATIONS);
   const [activeSetId, setActiveSetId] = useState<string | null>(null);
   const [selectedFileIds, setSelectedFileIds] = useState<Set<string>>(new Set());
   const [thumbSize, setThumbSize] = useState(140);
@@ -262,44 +278,20 @@ export function StudioApp() {
   const [dragActive, setDragActive] = useState(false);
   const [destEditing, setDestEditing] = useState(false);
 
-  // OAuth (Tauri only). When signed in, push goes directly to Drive from the
-  // desktop binary, bypassing Vercel's 4.5MB function body limit. In the web
-  // browser context, isTauri() returns false and the old /api/studio/upload
-  // path is used (which has the body-size limit; suitable for small photos).
+  // OAuth state (Tauri-only). When signed in, push uploads directly to
+  // Drive via the Tauri-bundled OAuth flow. In a regular browser
+  // isTauri() returns false; push is disabled with an explanatory CTA.
   const inTauri = useMemo(() => isTauri(), []);
   const [oauthEmail, setOauthEmail] = useState<string | null>(null);
   const [oauthBusy, setOauthBusy] = useState(false);
+  const [oauthError, setOauthError] = useState<string | null>(null);
   useEffect(() => {
     if (!inTauri) return;
     signedInEmail().then(setOauthEmail).catch(() => {});
   }, [inTauri]);
 
-  // Propagate ?key=… from the page URL onto every API call so the same
-  // gate works in production (where the page itself is key-gated).
-  const apiKeySuffix =
-    typeof window !== 'undefined'
-      ? (() => {
-          const k = new URLSearchParams(window.location.search).get('key');
-          return k ? `?key=${encodeURIComponent(k)}` : '';
-        })()
-      : '';
-
-  // ── Load destinations from server + restore draft on mount ──
+  // ── Restore draft on mount ──
   useEffect(() => {
-    // Fetch resolved server destinations
-    fetch(`/api/studio/destinations${apiKeySuffix}`)
-      .then((r) => r.json())
-      .then((data: { builtIn?: Destination[] }) => {
-        const server: Destination[] = (data.builtIn || []).filter((d) => d.folderId);
-        setDestinations((prev) => {
-          const custom = prev.filter((d) => d.custom);
-          return [...server, ...custom];
-        });
-      })
-      .catch(() => {
-        // fall back to whatever was restored from localStorage
-      });
-
     const data = loadDraft();
     if (data?.sets?.length) {
       setSets(
@@ -309,7 +301,7 @@ export function StudioApp() {
         }))
       );
       if (data.destinations) {
-        // merge custom destinations from draft; server's built-ins arrive separately above
+        // merge custom destinations from draft; built-ins are hardcoded above
         const customFromDraft = data.destinations.filter((d) => d.custom);
         setDestinations((prev) => {
           const seen = new Set(prev.map((d) => d.slug));
@@ -462,51 +454,55 @@ export function StudioApp() {
     return issues;
   }, [sets]);
 
+  /// Per-file upload progress: (setIdx, setTotal, fileIdx, fileTotal). Null
+  /// when not in a push. Updated before each file goes up the wire.
+  const [pushProgress, setPushProgress] = useState<{
+    setIdx: number;
+    setTotal: number;
+    fileIdx: number;
+    fileTotal: number;
+  } | null>(null);
+
   const performPush = async () => {
+    if (!inTauri) {
+      setPushError('Push is only available in the desktop app.');
+      return;
+    }
+    if (!oauthEmail) {
+      setPushError('Sign in with Google before pushing.');
+      return;
+    }
     setPushing(true);
     setPushError(null);
+    setPushProgress(null);
     try {
-      for (const set of sets) {
+      for (let setIdx = 0; setIdx < sets.length; setIdx++) {
+        const set = sets[setIdx];
         const dest = destinations.find((d) => d.slug === set.destination);
         if (!dest?.folderId) {
           throw new Error(`No folder ID for "${set.name}" → ${set.destination}`);
         }
 
-        // Tauri path: upload one file at a time directly to Drive via the
-        // user's OAuth token. Bypasses Vercel's 4.5MB body limit completely.
-        if (inTauri && oauthEmail) {
-          for (let i = 0; i < set.files.length; i++) {
-            const f = set.files[i];
-            if (!f.blob) {
-              throw new Error(`"${set.name}" has photos to re-attach`);
-            }
-            const ext = (f.name.match(/\.[^.]+$/)?.[0] || '.jpg').toLowerCase();
-            const renamed = `${set.name} (${i + 1})${ext}`;
-            const bytes = new Uint8Array(await f.blob.arrayBuffer());
-            await tauriUploadToDrive({
-              folderId: dest.folderId,
-              filename: renamed,
-              bytes,
-              mimeType: f.type,
-            });
-          }
-          continue;
-        }
-
-        // Browser/legacy path: single multipart POST through Vercel.
-        const form = new FormData();
-        form.append('setName', set.name);
-        form.append('folderId', dest.folderId);
-        for (const f of set.files) {
+        for (let i = 0; i < set.files.length; i++) {
+          setPushProgress({
+            setIdx,
+            setTotal: sets.length,
+            fileIdx: i,
+            fileTotal: set.files.length,
+          });
+          const f = set.files[i];
           if (!f.blob) {
             throw new Error(`"${set.name}" has photos to re-attach`);
           }
-          form.append('files', f.blob, f.name);
-        }
-        const res = await fetch(`/api/studio/upload${apiKeySuffix}`, { method: 'POST', body: form });
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          throw new Error(err.error || `Upload of "${set.name}" failed`);
+          const ext = (f.name.match(/\.[^.]+$/)?.[0] || '.jpg').toLowerCase();
+          const renamed = `${set.name} (${i + 1})${ext}`;
+          const bytes = new Uint8Array(await f.blob.arrayBuffer());
+          await tauriUploadToDrive({
+            folderId: dest.folderId,
+            filename: renamed,
+            bytes,
+            mimeType: f.type,
+          });
         }
       }
       setPushedOk(true);
@@ -517,22 +513,74 @@ export function StudioApp() {
         setPushOpen(false);
         setPushedOk(false);
         setPushing(false);
+        setPushProgress(null);
         localStorage.removeItem(STORAGE_KEY);
       }, 2200);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Upload failed';
       setPushError(message);
       setPushing(false);
+      setPushProgress(null);
     }
   };
 
   // ── Render ──
+
+  // Browser context: this page is only useful inside the Tauri desktop app
+  // (only Tauri can authenticate to Drive). Show an explanatory empty state
+  // instead of a dead UI.
+  if (!inTauri) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          background: '#0a0a0a',
+          color: '#f5f3ee',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 40,
+        }}
+      >
+        <div style={{ maxWidth: 540, textAlign: 'center' }}>
+          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>vflics Upload Studio</Cap>
+          <h1
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 60,
+              letterSpacing: '-0.02em',
+              margin: '20px 0 18px',
+              color: '#f5f3ee',
+            }}
+          >
+            Use the desktop app.
+          </h1>
+          <p
+            style={{
+              fontStyle: 'italic',
+              fontSize: 16,
+              lineHeight: 1.55,
+              color: 'rgba(245,243,238,0.7)',
+              margin: 0,
+            }}
+          >
+            Upload Studio runs in the vflics Studio desktop app, where it can
+            sign you in to Google Drive and push photos directly. The browser
+            page is preview-only.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
         display: 'grid',
         gridTemplateColumns: '260px 1fr',
-        gridTemplateRows: '54px 1fr',
+        gridTemplateRows: 'auto 1fr',
         height: '100vh',
         background: '#0a0a0a',
         color: '#f5f3ee',
@@ -543,19 +591,22 @@ export function StudioApp() {
       <TopBar
         sets={sets}
         totalPhotos={totalPhotos}
-        canPush={canPush}
+        canPush={canPush && inTauri && !!oauthEmail}
         onPush={() => setPushOpen(true)}
         inTauri={inTauri}
         oauthEmail={oauthEmail}
         oauthBusy={oauthBusy}
+        oauthError={oauthError}
+        onDismissOauthError={() => setOauthError(null)}
         onSignIn={async () => {
           setOauthBusy(true);
+          setOauthError(null);
           try {
             const email = await startOAuth();
             setOauthEmail(email);
           } catch (e) {
             console.error('OAuth failed:', e);
-            alert(`Sign-in failed: ${e}`);
+            setOauthError(e instanceof Error ? e.message : String(e));
           } finally {
             setOauthBusy(false);
           }
@@ -621,6 +672,7 @@ export function StudioApp() {
           pushing={pushing}
           pushedOk={pushedOk}
           pushError={pushError}
+          pushProgress={pushProgress}
           onClose={() => {
             if (!pushing) {
               setPushOpen(false);
@@ -646,6 +698,8 @@ function TopBar({
   inTauri,
   oauthEmail,
   oauthBusy,
+  oauthError,
+  onDismissOauthError,
   onSignIn,
   onSignOut,
 }: {
@@ -656,6 +710,8 @@ function TopBar({
   inTauri: boolean;
   oauthEmail: string | null;
   oauthBusy: boolean;
+  oauthError: string | null;
+  onDismissOauthError: () => void;
   onSignIn: () => void;
   onSignOut: () => void;
 }) {
@@ -664,47 +720,84 @@ function TopBar({
       style={{
         gridColumn: '1 / 3',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 20px',
+        flexDirection: 'column',
         borderBottom: '1px solid rgba(245,243,238,0.08)',
         background: '#0a0a0a',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
-        <span
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 20px',
+          flex: 1,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
+          <span
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: 22,
+              letterSpacing: '-0.01em',
+            }}
+          >
+            vflics
+          </span>
+          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Upload Studio · local</Cap>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          {inTauri && (
+            oauthEmail ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{oauthEmail}</Cap>
+                <Pill onClick={onSignOut}>Sign out</Pill>
+              </div>
+            ) : (
+              <Pill onClick={onSignIn} disabled={oauthBusy}>
+                {oauthBusy ? 'Signing in…' : 'Sign in with Google'}
+              </Pill>
+            )
+          )}
+          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
+            {sets.length} set{sets.length === 1 ? '' : 's'} · {totalPhotos} photos
+          </Cap>
+          <Pill kind="primary" onClick={onPush} disabled={!canPush || totalPhotos === 0}>
+            Push to Drive →
+          </Pill>
+        </div>
+      </div>
+      {oauthError && (
+        <div
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: 22,
-            letterSpacing: '-0.01em',
+            padding: '6px 20px 8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: 'rgba(231,76,60,0.08)',
+            borderTop: '1px solid rgba(231,76,60,0.3)',
           }}
         >
-          vflics
-        </span>
-        <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Upload Studio · local</Cap>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-        {inTauri && (
-          oauthEmail ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{oauthEmail}</Cap>
-              <Pill onClick={onSignOut}>Sign out</Pill>
-            </div>
-          ) : (
-            <Pill onClick={onSignIn} disabled={oauthBusy}>
-              {oauthBusy ? 'Signing in…' : 'Sign in with Google'}
-            </Pill>
-          )
-        )}
-        <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-          {sets.length} set{sets.length === 1 ? '' : 's'} · {totalPhotos} photos
-        </Cap>
-        <Pill kind="primary" onClick={onPush} disabled={!canPush || totalPhotos === 0}>
-          Push to Drive →
-        </Pill>
-      </div>
+          <Cap style={{ color: 'rgb(231,76,60)' }}>Sign-in failed · {oauthError}</Cap>
+          <button
+            onClick={onDismissOauthError}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'rgb(231,76,60)',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 10,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+            }}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1472,15 +1565,16 @@ function Thumb({
         position: 'relative',
         cursor: file.missing ? 'not-allowed' : 'grab',
         opacity: isDragged ? 0.4 : 1,
-        outline: selected
+        // Reorder feedback: solid 3px cream outline on the drop target.
+        outline: isDragOver
+          ? '3px solid #f5f3ee'
+          : selected
           ? '2px solid #f5f3ee'
-          : isDragOver
-          ? '2px dashed #f5f3ee'
           : '1px solid rgba(245,243,238,0.08)',
         outlineOffset: 0,
         background: '#1a1a1a',
         userSelect: 'none',
-        transition: 'opacity 0.15s',
+        transition: 'opacity 0.15s, outline-color 0.15s, outline-width 0.15s',
       }}
     >
       <div
@@ -1591,6 +1685,7 @@ function PushModal({
   pushing,
   pushedOk,
   pushError,
+  pushProgress,
   onClose,
   onConfirm,
 }: {
@@ -1600,6 +1695,12 @@ function PushModal({
   pushing: boolean;
   pushedOk: boolean;
   pushError: string | null;
+  pushProgress: {
+    setIdx: number;
+    setTotal: number;
+    fileIdx: number;
+    fileTotal: number;
+  } | null;
   onClose: () => void;
   onConfirm: () => void;
 }) {
@@ -1662,6 +1763,24 @@ function PushModal({
         ) : pushing ? (
           <div style={{ textAlign: 'center', padding: '80px 20px' }}>
             <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Uploading…</Cap>
+            {pushProgress && (
+              <div
+                style={{
+                  marginTop: 14,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                  alignItems: 'center',
+                }}
+              >
+                <Cap style={{ color: 'rgba(245,243,238,0.5)' }}>
+                  Set {pushProgress.setIdx + 1} of {pushProgress.setTotal}
+                </Cap>
+                <Cap style={{ color: 'rgba(245,243,238,0.4)' }}>
+                  Photo {pushProgress.fileIdx + 1} of {pushProgress.fileTotal}
+                </Cap>
+              </div>
+            )}
             <div
               style={{
                 width: 80,

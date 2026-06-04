@@ -1,9 +1,9 @@
 import Foundation
 import UIKit
 
-/// A photo staged for upload. `image` is loaded from PHPicker into memory only
-/// when needed; metadata (name, size, hash) persists across launches via the
-/// draft system, but the actual pixel data does not.
+/// A photo staged for upload. Pixel data lives in memory only; metadata
+/// (name, size, hash) persists across launches via the draft system but the
+/// bytes do not.
 struct UploadFile: Identifiable, Hashable, Codable {
     let id: UUID
     var name: String
@@ -11,7 +11,7 @@ struct UploadFile: Identifiable, Hashable, Codable {
     var hash: String        // sha256 of original bytes — used for dedup
     var duplicate: Bool = false
 
-    // Runtime-only — not encoded
+    // Runtime-only — not encoded.
     var imageData: Data? = nil
 
     enum CodingKeys: String, CodingKey {
@@ -37,8 +37,9 @@ struct UploadSet: Identifiable, Codable {
     }
 }
 
-/// A Drive folder we can push into. Built-ins come from the Vercel endpoint;
-/// custom destinations are added on-device with a manually-typed folder ID.
+/// A Drive folder we can push into. Built-ins come from
+/// `Config.destinationFolderIDs`; custom destinations are added on-device
+/// with a manually-typed folder ID.
 struct Destination: Identifiable, Hashable, Codable {
     var id: String { slug }
     var slug: String
@@ -46,41 +47,24 @@ struct Destination: Identifiable, Hashable, Codable {
     var folderId: String?
     var custom: Bool
 
-    static let defaults: [Destination] = [
-        .init(slug: "editorial",  label: "Editorial",  folderId: nil, custom: false),
-        .init(slug: "portraits",  label: "Portraits",  folderId: nil, custom: false),
-        .init(slug: "graduation", label: "Graduation", folderId: nil, custom: false),
-        .init(slug: "engagement", label: "Engagement", folderId: nil, custom: false),
-        .init(slug: "events",     label: "Events",     folderId: nil, custom: false),
-        .init(slug: "about",      label: "About",      folderId: nil, custom: false),
-    ]
-}
+    /// Built-in destinations pre-populated with folder IDs from Config.
+    static var defaults: [Destination] {
+        [
+            destination(slug: "editorial",  label: "Editorial"),
+            destination(slug: "portraits",  label: "Portraits"),
+            destination(slug: "graduation", label: "Graduation"),
+            destination(slug: "engagement", label: "Engagement"),
+            destination(slug: "events",     label: "Events"),
+            destination(slug: "about",      label: "About"),
+        ]
+    }
 
-/// Server's destinations response — which built-in slugs have folder IDs
-/// configured in Vercel env.
-struct ServerDestinationsResponse: Decodable {
-    let destinations: [ServerDestination]
-}
-
-struct ServerDestination: Decodable {
-    let slug: String
-    let folderId: String
-}
-
-/// Successful upload response from /api/studio/upload-remote.
-struct UploadResponse: Decodable {
-    let ok: Bool
-    let uploaded: [UploadedFile]
-}
-
-struct UploadedFile: Decodable {
-    let index: Int
-    let renamed: String
-    let id: String
-    let name: String
-}
-
-/// Error envelope for non-2xx responses.
-struct ErrorResponse: Decodable {
-    let error: String?
+    private static func destination(slug: String, label: String) -> Destination {
+        Destination(
+            slug: slug,
+            label: label,
+            folderId: Config.destinationFolderIDs[slug],
+            custom: false
+        )
+    }
 }

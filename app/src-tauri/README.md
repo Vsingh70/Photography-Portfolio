@@ -1,16 +1,14 @@
 # vflics Studio — macOS desktop app
 
-Tauri 2 wrapper around `https://vflics.com/studio`. Standalone — no local dev server required at runtime. The window loads the deployed Studio page directly, authenticated via a `?key=<STUDIO_UPLOAD_TOKEN>` query param matched against the same env var that gates `/api/studio/upload-remote`.
+Tauri 2 wrapper around `https://vflics.com/studio`. The window loads the deployed Studio page. The Tauri Rust side hosts the OAuth + direct-Drive-upload pipeline:
 
-## One-time setup
+- **Sign in with Google** opens the user's default browser to Google's consent screen
+- Tauri listens on `127.0.0.1:8765` for the OAuth redirect
+- Tokens persist to `~/Library/Application Support/vflics-studio/tokens.json`
+- Each photo uploads straight from the binary to `https://www.googleapis.com/upload/drive/v3/files` — no Vercel hop, no 4.5 MB body limit
+- The `drive.file` scope means the app can only see/edit files it creates (sufficient for upload-only)
 
-Copy the config and add your real token (this file is gitignored so the token never leaks to GitHub):
-
-```bash
-cp src-tauri/tauri.conf.json src-tauri/tauri.conf.local.json
-```
-
-Open `src-tauri/tauri.conf.local.json` and replace **both** occurrences of `REPLACE_WITH_STUDIO_UPLOAD_TOKEN` with your real `STUDIO_UPLOAD_TOKEN` value (the one set in Vercel).
+No secrets are embedded in the binary; nothing needs to be set up before building.
 
 ## Building the .app
 
@@ -18,50 +16,50 @@ Open `src-tauri/tauri.conf.local.json` and replace **both** occurrences of `REPL
 npm run tauri:build
 ```
 
-The `scripts/tauri-build.sh` wrapper:
-1. Checks `tauri.conf.local.json` exists and doesn't still contain the placeholder
-2. Backs up the committed `tauri.conf.json`
-3. Swaps in `tauri.conf.local.json` for the build
-4. Runs `tauri build`
-5. **Always** restores the placeholder `tauri.conf.json` (via `trap`), so the token never sits on disk where you might `git add` it
-
-Tauri 2's `--config` overlay flag is unreliable, which is why we do the swap-restore dance instead.
+The wrapper at `scripts/tauri-build.sh` just sources `$HOME/.cargo/env` and runs `tauri build`. First build downloads ~200 Rust crates and takes ~10-15 min; subsequent builds are ~30-60 seconds.
 
 Outputs:
-- `src-tauri/target/release/bundle/dmg/vflics Studio_0.1.0_aarch64.dmg`
 - `src-tauri/target/release/bundle/macos/vflics Studio.app`
+- `src-tauri/target/release/bundle/dmg/vflics Studio_0.1.0_aarch64.dmg`
 
-Drag the `.app` into `/Applications`. Double-click to launch — it opens the deployed Studio.
+Drag the `.app` into `/Applications`. First launch: right-click → Open (Gatekeeper bypass, only needed once because the app isn't notarized).
+
+## First-run flow
+
+1. App opens, loads `vflics.com/studio` in its WKWebView
+2. Click **Sign in with Google** in the top bar
+3. Browser opens to `accounts.google.com` requesting `drive.file` + `userinfo.email`
+4. Approve → browser redirects to `http://127.0.0.1:8765/callback?code=...` → shows a confirmation page
+5. Tauri exchanges the code for tokens, fetches your email, persists everything to disk
+6. Top bar updates to show your signed-in email
+
+Subsequent launches: no re-auth (refresh tokens last indefinitely until you sign out or revoke at [myaccount.google.com/permissions](https://myaccount.google.com/permissions)).
+
+## Push flow
+
+1. Create a set (name + destination + photos)
+2. Click **Push to Drive →**
+3. Each photo uploads one at a time, with progress shown in the modal
+4. On success, the studio resets
+
+The destinations + their Drive folder IDs are hardcoded in [src/app/studio/StudioApp.tsx](../src/app/studio/StudioApp.tsx) (`BUILTIN_DESTINATIONS`). Custom destinations can be added via the UI with a manually-typed folder ID.
 
 ## Why this works
 
-- `/studio` page checks `?key=` against `STUDIO_UPLOAD_TOKEN`. Matching keys render the Studio; non-matching get 404.
-- `/api/studio/destinations` and `/api/studio/upload` use the same gate.
-- The Tauri window's URL carries the key. The Studio's fetch calls propagate it automatically (it reads `?key=` from `window.location` on mount).
-- The committed `tauri.conf.json` only has a placeholder, so accidentally pushing it leaks nothing.
-
-## Security caveats
-
-**The token is embedded as a plain string inside the bundled binary.** Running `strings vflics\ Studio.app/Contents/MacOS/vflics-studio | grep vflics.com` will print it. This is fine for local personal use, but means:
-
-- ⚠️ **Do not share the `.app` or `.dmg`** — treat them as containing your auth token.
-- ⚠️ **Do not upload to GitHub releases**, public file shares, or anywhere a third party could grab them.
-- ⚠️ If the build artifact ever leaves your machine, rotate `STUDIO_UPLOAD_TOKEN` immediately.
-
-For a distribution-ready version (sharing with someone else, App Store, etc.), the right design is: app starts with no token, prompts on first run, stores in macOS Keychain — similar to the iOS app's settings sheet. Not done here because it's overkill for a one-machine tool.
-
-If the token ever leaks (or you suspect it has): rotate `STUDIO_UPLOAD_TOKEN` in Vercel → redeploy → update `tauri.conf.local.json` → rebuild the `.app`.
+- OAuth `drive.file` lets the signed-in account upload to any folder they own (the destination folders are in your own My Drive)
+- Multipart upload directly to Drive avoids Vercel's serverless function body limits
+- Token refresh is handled in Rust; once signed in, you stay signed in across app restarts
 
 ## Updating the icon
 
-The placeholder icon was generated from `public/about/about.webp`. To replace:
+Icons live in `src-tauri/icons/`. The current set (cream-tile VS logo) was generated from `app/public/vs logo black.svg`:
 
 ```bash
 node -e "
 const sharp = require('sharp');
 const path = require('path');
-const src = 'YOUR_SOURCE_ICON.png';
-const out = path.join(__dirname, 'src-tauri/icons');
+const src = 'app/public/vs logo black.svg';
+const out = path.join(process.cwd(), 'app/src-tauri/icons');
 const sizes = [
   ['icon.png', 512],
   ['32x32.png', 32],
@@ -75,10 +73,14 @@ const sizes = [
   }
 })();
 "
-# Then re-generate the .icns:
+```
+
+Then re-bundle the `.icns`:
+
+```bash
 mkdir -p src-tauri/icons/icon.iconset
 for size in 16 32 64 128 256 512 1024; do
-  sips -s format png --resampleHeightWidth $size $size YOUR_SOURCE_ICON.png \
+  sips -s format png --resampleHeightWidth $size $size YOUR_ICON.png \
     --out src-tauri/icons/icon.iconset/icon_${size}x${size}.png
 done
 iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns
@@ -88,9 +90,9 @@ iconutil -c icns src-tauri/icons/icon.iconset -o src-tauri/icons/icon.icns
 
 | File | Purpose |
 |---|---|
-| `tauri.conf.json` | Committed config — has placeholder, safe to push |
-| `tauri.conf.local.json` | **gitignored** — your real config with the token |
-| `Cargo.toml` | Rust dependencies |
-| `src/main.rs` | Tauri entry point |
+| `Cargo.toml` | Rust deps (tauri, reqwest, tokio, tiny_http, etc.) |
+| `src/main.rs` | Tauri entry point; registers OAuth commands |
+| `src/oauth.rs` | OAuth + Drive upload commands invoked from JS |
+| `tauri.conf.json` | Window config, points at https://vflics.com/studio |
 | `build.rs` | Tauri build script |
 | `icons/` | App icons (PNG + ICNS) |

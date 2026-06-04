@@ -6,31 +6,17 @@ struct ContentView: View {
 
     var body: some View {
         // Read stored properties directly so @Observable tracks them.
-        let configured = !store.endpointURL.isEmpty && !store.authToken.isEmpty
+        let signedIn = store.isSignedIn
         ZStack {
             Theme.Colors.bg.ignoresSafeArea()
-            if configured {
+            if signedIn {
                 MainView(showSettings: { showingSettings = true })
             } else {
-                SettingsSheet(initial: true) {
-                    Task { await fetchDestinations() }
-                }
+                SettingsSheet(initial: true) { /* nothing — sheet closes on sign-in */ }
             }
         }
         .sheet(isPresented: $showingSettings) {
-            SettingsSheet(initial: false) {
-                Task { await fetchDestinations() }
-            }
-        }
-        .task {
-            await fetchDestinations()
-        }
-    }
-
-    private func fetchDestinations() async {
-        guard let client = UploadClient(endpointString: store.endpointURL, token: store.authToken) else { return }
-        if let server = try? await client.fetchDestinations() {
-            store.applyServerDestinations(server)
+            SettingsSheet(initial: false) { }
         }
     }
 }

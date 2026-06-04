@@ -34,7 +34,7 @@ struct PushSheet: View {
                 Text("Ready to push?")
                     .font(Theme.Fonts.displayFallback(36))
                     .foregroundStyle(Theme.Colors.fg)
-                Text("Each set's photos will be renamed and uploaded to its destination's Drive folder.")
+                Text("Each set's photos will be renamed and uploaded to its destination's Drive folder directly from your phone.")
                     .font(.system(size: 14, design: .serif).italic())
                     .foregroundStyle(Theme.Colors.fgDim)
 
@@ -89,7 +89,10 @@ struct PushSheet: View {
         VStack(spacing: 18) {
             Cap(text: "Uploading…")
             if let progress = store.pushProgress {
-                Cap(text: "Set \(progress.setIdx + 1) of \(progress.total)", color: Theme.Colors.fgDim)
+                VStack(spacing: 6) {
+                    Cap(text: "Set \(progress.setIdx + 1) of \(progress.setTotal)", color: Theme.Colors.fgDim)
+                    Cap(text: "Photo \(progress.fileIdx + 1) of \(progress.fileTotal)", color: Theme.Colors.fgDim)
+                }
             }
             ProgressView()
                 .tint(Theme.Colors.fg)
