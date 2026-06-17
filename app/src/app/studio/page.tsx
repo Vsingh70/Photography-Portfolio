@@ -20,6 +20,6 @@ export const metadata: Metadata = {
 export default function StudioPage() {
   // Single authenticated web/PWA Project composer (Supabase-backed). The
   // StudioApp gates itself behind a Supabase session: unauthenticated visitors
-  // see a magic-link login screen, not the composer.
+  // see the passkey / password sign-in screen, not the composer.
   return <StudioApp />;
 }

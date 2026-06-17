@@ -7,7 +7,8 @@
  * and projects/images rows are written, then the existing GitHub rebuild is
  * triggered. The R2 serving path + static public site are untouched.
  *
- * Auth: Supabase magic link. The admin allowlist + RLS are the real gate.
+ * Auth: Supabase passkey (WebAuthn) primary, password fallback. The admin
+ * allowlist + RLS are the real gate.
  * Persistence: localStorage stores draft *metadata* only — blobs are lost on
  * refresh and resurface as `missing` until re-attached.
  */
@@ -35,10 +36,11 @@ import { Cap, Pill, Rule, Heading, INK, CREAM, DIM } from './components/ui';
 import { LoginScreen } from './components/LoginScreen';
 import { ImageTile } from './components/ImageTile';
 import { SettingsPanel } from './components/SettingsPanel';
+import { SecurityPanel } from './components/SecurityPanel';
 import { ReorderPanel } from './components/ReorderPanel';
 
 type Client = SupabaseClient<Database>;
-type Tab = 'compose' | 'reorder' | 'settings';
+type Tab = 'compose' | 'reorder' | 'settings' | 'security';
 
 const SERIF = 'Cormorant Garamond, serif';
 
@@ -64,6 +66,9 @@ export function StudioApp() {
   // ── Auth ──
   const [session, setSession] = useState<Session | null>(null);
   const [authReady, setAuthReady] = useState(false);
+  // Set when this session began via the password fallback, so the composer can
+  // surface a one-time "add a passkey" nudge (only if zero passkeys exist).
+  const [cameFromPassword, setCameFromPassword] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -111,16 +116,26 @@ export function StudioApp() {
     );
   }
 
-  if (!session) return <LoginScreen supabase={supabase} />;
+  if (!session) {
+    return <LoginScreen supabase={supabase} onPasswordSignedIn={() => setCameFromPassword(true)} />;
+  }
 
-  return <Composer supabase={supabase} session={session} />;
+  return <Composer supabase={supabase} session={session} cameFromPassword={cameFromPassword} />;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Authenticated composer
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Composer({ supabase, session }: { supabase: Client; session: Session }) {
+function Composer({
+  supabase,
+  session,
+  cameFromPassword,
+}: {
+  supabase: Client;
+  session: Session;
+  cameFromPassword: boolean;
+}) {
   const [projects, setProjects] = useState<StudioProject[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>('compose');
@@ -132,6 +147,23 @@ function Composer({ supabase, session }: { supabase: Client; session: Session })
   const [restoreBanner, setRestoreBanner] = useState<{ count: number } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [reorderSaving, setReorderSaving] = useState(false);
+
+  // ── One-time "add a passkey" nudge after a password sign-in ──
+  // Only shows when the session began via password AND the account has zero
+  // passkeys (don't nag once at least one is registered).
+  const [showPasskeyNudge, setShowPasskeyNudge] = useState(false);
+  useEffect(() => {
+    if (!cameFromPassword) return;
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase.auth.passkey.list();
+      if (cancelled || error) return;
+      if ((data ?? []).length === 0) setShowPasskeyNudge(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [cameFromPassword, supabase]);
 
   // ── Load drafts + remote projects on mount ──
   const loadedRef = useRef(false);
@@ -392,6 +424,16 @@ function Composer({ supabase, session }: { supabase: Client; session: Session })
         onSignOut={() => supabase.auth.signOut()}
       />
 
+      {showPasskeyNudge && (
+        <PasskeyNudge
+          onAdd={() => {
+            setShowPasskeyNudge(false);
+            setTab('security');
+          }}
+          onDismiss={() => setShowPasskeyNudge(false)}
+        />
+      )}
+
       <Sidebar
         projects={projects}
         activeId={activeId}
@@ -413,6 +455,10 @@ function Composer({ supabase, session }: { supabase: Client; session: Session })
         ) : tab === 'settings' ? (
           <div style={{ padding: '32px 36px' }}>
             <SettingsPanel supabase={supabase} />
+          </div>
+        ) : tab === 'security' ? (
+          <div style={{ padding: '32px 36px' }}>
+            <SecurityPanel supabase={supabase} />
           </div>
         ) : (
           <ProjectWorkspace
@@ -538,6 +584,43 @@ function TopBar({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Passkey nudge (after a password sign-in with zero passkeys)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function PasskeyNudge({ onAdd, onDismiss }: { onAdd: () => void; onDismiss: () => void }) {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 72,
+        right: 20,
+        zIndex: 80,
+        maxWidth: 360,
+        border: '1px solid rgba(118,200,147,0.4)',
+        background: 'rgba(118,200,147,0.08)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        padding: '16px 18px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
+      <Cap style={{ color: 'rgba(118,200,147,0.95)' }}>Skip the password next time</Cap>
+      <p style={{ margin: 0, fontFamily: SERIF, fontStyle: 'italic', fontSize: 17, color: CREAM, lineHeight: 1.4 }}>
+        Add a passkey so you can sign in with Face ID, Touch ID, or a security key.
+      </p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Pill kind="primary" onClick={onAdd}>
+          Add a passkey
+        </Pill>
+        <Pill onClick={onDismiss}>Not now</Pill>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Sidebar
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -596,6 +679,7 @@ function Sidebar({
         {tabBtn('compose', 'Projects')}
         {tabBtn('reorder', 'Order')}
         {tabBtn('settings', 'Site')}
+        {tabBtn('security', 'Security')}
       </div>
 
       <div style={{ padding: '8px 0', flex: 1 }}>

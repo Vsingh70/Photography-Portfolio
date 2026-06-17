@@ -3,9 +3,9 @@
  *
  * Public site pages NEVER import this — they are a static export served from
  * the R2 CDN and make no runtime Supabase calls. Only the authenticated
- * `/studio` route uses this client (magic-link auth + projects/images writes +
- * Storage uploads). Uses the public URL + publishable (anon) key; RLS + the
- * admin allowlist enforce that only the photographer can read/write.
+ * `/studio` route uses this client (passkey / password auth + projects/images
+ * writes + Storage uploads). Uses the public URL + publishable (anon) key; RLS
+ * + the admin allowlist enforce that only the photographer can read/write.
  */
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/supabase';
@@ -27,8 +27,13 @@ export function getSupabaseBrowserClient(): SupabaseClient<Database> {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
-        detectSessionInUrl: true, // resolve the magic-link token on redirect
+        detectSessionInUrl: true,
         flowType: 'pkce',
+        // Opt into passkey (WebAuthn) auth — primary Studio sign-in via
+        // signInWithPasskey()/registerPasskey()/auth.passkey.*. Without this
+        // flag those methods throw at call time. (Typed in supabase-js ≥2.105;
+        // this build exposes auth.experimental.passkey, so no cast is needed.)
+        experimental: { passkey: true },
       },
     });
   }
