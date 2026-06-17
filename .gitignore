@@ -1,4 +1,6 @@
-.claude
+# Ignore local Claude settings but keep shared project subagents tracked
+.claude/*
+!.claude/agents/
 docs
 .env.local
 .env.example
