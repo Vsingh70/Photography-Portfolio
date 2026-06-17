@@ -5,7 +5,9 @@
 // image JSON to the browser.
 import type { GalleryImage } from '@/types/image';
 import p_jeffery from './project-jeffery.json';
+import p_tk from './project-tk.json';
 
 export const PROJECT_IMAGES: Record<string, GalleryImage[]> = {
   "jeffery": p_jeffery as GalleryImage[],
+  "tk": p_tk as GalleryImage[],
 };
