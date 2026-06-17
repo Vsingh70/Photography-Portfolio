@@ -211,13 +211,16 @@ const ProgressTicks = memo(function ProgressTicks({
   }, [total]);
 
   // Page-style sliding window: the active bar moves through the row, and the
-  // row only advances once a full page has been crossed. Wraps circularly.
+  // row advances a full page at a time. The FINAL page shrinks to the number of
+  // images left (no circular wrap), so the ticks always line up with the real
+  // total at the end instead of showing wrapped-around early frames.
   const slots = useMemo<number[]>(() => {
     if (total === 0) return [];
     const n = Math.min(capacity, total);
     const page = Math.floor(index / n);
-    const start = (page * n) % total;
-    return Array.from({ length: n }, (_, i) => (start + i) % total);
+    const start = page * n;
+    const count = Math.min(n, total - start);
+    return Array.from({ length: count }, (_, i) => start + i);
   }, [capacity, index, total]);
 
   return (
@@ -460,6 +463,11 @@ export function EditorialLightbox({
       touchStart.current = null;
       return;
     }
+    // Don't hijack a scroll/drag that begins inside the scrollable info panel.
+    if ((e.target as HTMLElement).closest?.('[data-lb-noswipe]')) {
+      touchStart.current = null;
+      return;
+    }
     const t = e.touches[0];
     touchStart.current = { x: t.clientX, y: t.clientY, t: e.timeStamp };
   };
@@ -598,6 +606,7 @@ export function EditorialLightbox({
 
       <aside
         aria-hidden={mode !== 'spread'}
+        data-lb-noswipe
         className="absolute z-[15] flex flex-col gap-1 overflow-auto md:gap-3.5"
         style={{
           ...(isDesktop
