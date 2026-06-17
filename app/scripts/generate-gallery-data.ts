@@ -663,14 +663,38 @@ async function main() {
   let hero: HeroOutput | null = null;
   const heroId = settings?.hero_image_id ?? null;
   if (heroId) {
-    const built = allBuilt.get(heroId);
+    let built = allBuilt.get(heroId);
+
+    // A dedicated hero (uploaded straight to site settings) lives in the hidden
+    // unpublished `site-assets` project, so it wasn't built with the published
+    // projects above. Build just that one image's R2 variants here so the home
+    // page can still serve it from the CDN. (about is handled separately below
+    // via a direct original download, so it needs no equivalent.)
+    if (!built) {
+      const { data: heroImg } = await supabase
+        .from('images')
+        .select('id, storage_path, project_id')
+        .eq('id', heroId)
+        .maybeSingle();
+      if (heroImg) {
+        const { data: heroProj } = await supabase
+          .from('projects')
+          .select('slug')
+          .eq('id', heroImg.project_id)
+          .maybeSingle();
+        const slug = heroProj?.slug ?? 'site-assets';
+        console.log(`  Building dedicated hero image (${slug})…`);
+        const buffer = await downloadOriginal(supabase, heroImg.storage_path);
+        const result = await buildAndUploadVariants({ r2, bucket, slug, fileId: heroId, buffer });
+        built = { id: heroId, slug, blurDataURL: result.blurDataURL, width: result.width, height: result.height };
+      }
+    }
+
     if (built) {
-      // Look up the hero image's row for alt text.
       const { data: heroRow } = await supabase
         .from('images')
         .select('alt, title')
         .eq('id', heroId)
-        .limit(1)
         .maybeSingle();
       hero = {
         path: `${cdnBase}/galleries/${built.slug}/${built.id}-xl.webp`,
@@ -680,10 +704,7 @@ async function main() {
         alt: heroRow?.alt || heroRow?.title || 'Editorial portrait — Viraj Singh',
       };
     } else {
-      // hero_image_id points at an image whose project isn't published/built.
-      console.log(
-        '  ⚠️  hero_image_id is set but its image is not in a published project — writing null hero.'
-      );
+      console.log('  ⚠️  hero_image_id is set but the image was not found — writing null hero.');
     }
   }
   await writeFile(path.join(GENERATED_DIR(), 'hero.json'), JSON.stringify(hero, null, 2));

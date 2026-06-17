@@ -12,6 +12,13 @@ import type { StudioProject } from './types';
 const BUCKET = 'originals';
 type Client = SupabaseClient<Database>;
 
+/**
+ * Reserved slug for the hidden, unpublished project that holds dedicated
+ * hero/about images (see lib/studio/siteImages.ts). Excluded from the project
+ * list + the public gallery; its images can still be picked in site settings.
+ */
+export const SITE_ASSETS_SLUG = 'site-assets';
+
 /** Lightweight catalog entry for the cross-project image picker. */
 export interface CatalogImage {
   id: string;
@@ -28,6 +35,7 @@ export async function loadRemoteProjects(supabase: Client): Promise<StudioProjec
     // Disambiguate: there are two FKs between projects/images (images.project_id
     // and projects.cover_image_id), so name the project_id relationship explicitly.
     .select('id, slug, title, category, blurb, location, shot_date, sort_order, cover_image_id, images!images_project_id_fkey(count)')
+    .neq('slug', SITE_ASSETS_SLUG) // hide the reserved hero/about-assets project
     .order('sort_order', { ascending: true });
   if (error) throw new Error(error.message);
 

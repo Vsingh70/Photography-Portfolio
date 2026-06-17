@@ -7,7 +7,7 @@
  * signed-URL thumbnails with a swap action.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/supabase';
 import {
@@ -17,9 +17,11 @@ import {
   signedThumb,
   type CatalogImage,
 } from '@/lib/studio/remote';
+import { uploadSiteImage } from '@/lib/studio/siteImages';
 import { Cap, Pill, Rule, Heading, DIM } from './ui';
 
 type Client = SupabaseClient<Database>;
+type SiteField = 'hero_image_id' | 'about_image_id';
 
 function ThumbPreview({ url, label }: { url: string | null; label: string }) {
   return (
@@ -125,8 +127,11 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
   const [thumbUrls, setThumbUrls] = useState<Record<string, string>>({});
   const [heroId, setHeroId] = useState<string | null>(null);
   const [aboutId, setAboutId] = useState<string | null>(null);
-  const [picking, setPicking] = useState<'hero_image_id' | 'about_image_id' | null>(null);
+  const [picking, setPicking] = useState<SiteField | null>(null);
+  const [uploading, setUploading] = useState<SiteField | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadFieldRef = useRef<SiteField | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -171,6 +176,33 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
     }
   };
 
+  const triggerUpload = (field: SiteField) => {
+    if (uploading) return;
+    uploadFieldRef.current = field;
+    setError(null);
+    fileInputRef.current?.click();
+  };
+
+  const onFileChosen = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = ''; // allow re-picking the same file
+    const field = uploadFieldRef.current;
+    if (!file || !field) return;
+    setUploading(field);
+    setError(null);
+    try {
+      const { id, dataURL } = await uploadSiteImage(supabase, file, field);
+      setThumbUrls((prev) => ({ ...prev, [id]: dataURL }));
+      if (field === 'hero_image_id') setHeroId(id);
+      else setAboutId(id);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Upload failed.');
+    } finally {
+      setUploading(null);
+      uploadFieldRef.current = null;
+    }
+  };
+
   const heroUrl = heroId ? thumbUrls[heroId] ?? null : null;
   const aboutUrl = aboutId ? thumbUrls[aboutId] ?? null : null;
 
@@ -181,9 +213,18 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
         Hero &amp; about.
       </Heading>
       <p style={{ fontStyle: 'italic', color: DIM, fontSize: 15, marginTop: 10, maxWidth: 560 }}>
-        Pick any published image as the home hero or the about portrait. These feed the pipeline
-        on the next rebuild.
+        Choose any project image as the home hero or the about portrait, or upload a brand-new one
+        — no project required. These feed the pipeline on the next rebuild.
       </p>
+
+      {/* Shared hidden input for the hero/about "upload new" buttons. */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={onFileChosen}
+      />
 
       {error && (
         <Cap style={{ color: 'rgb(231,76,60)', display: 'block', marginTop: 14 }}>{error}</Cap>
@@ -193,18 +234,24 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
         <div>
           <Cap style={{ color: DIM, display: 'block', marginBottom: 10 }}>Home hero</Cap>
           <ThumbPreview url={heroUrl} label="None" />
-          <div style={{ marginTop: 12 }}>
-            <Pill onClick={() => setPicking('hero_image_id')}>
-              {heroId ? 'Swap hero' : 'Set hero'}
+          <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Pill onClick={() => setPicking('hero_image_id')} disabled={uploading !== null}>
+              {heroId ? 'Swap' : 'Choose'}
+            </Pill>
+            <Pill onClick={() => triggerUpload('hero_image_id')} disabled={uploading !== null}>
+              {uploading === 'hero_image_id' ? 'Uploading…' : 'Upload new'}
             </Pill>
           </div>
         </div>
         <div>
           <Cap style={{ color: DIM, display: 'block', marginBottom: 10 }}>About image</Cap>
           <ThumbPreview url={aboutUrl} label="None" />
-          <div style={{ marginTop: 12 }}>
-            <Pill onClick={() => setPicking('about_image_id')}>
-              {aboutId ? 'Swap about' : 'Set about'}
+          <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Pill onClick={() => setPicking('about_image_id')} disabled={uploading !== null}>
+              {aboutId ? 'Swap' : 'Choose'}
+            </Pill>
+            <Pill onClick={() => triggerUpload('about_image_id')} disabled={uploading !== null}>
+              {uploading === 'about_image_id' ? 'Uploading…' : 'Upload new'}
             </Pill>
           </div>
         </div>
