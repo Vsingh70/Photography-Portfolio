@@ -24,12 +24,13 @@
  * Reduced-motion safe via the shared Select (forwards `reducedMotion`).
  */
 
-import { Cap, Select } from './ui';
+import { Cap, Combobox, Select } from './ui';
 import {
   aperturesForLens,
   formatAperture,
   hasFocalGuard,
   isPrime,
+  normalizeShutter,
   STANDARD_ISOS,
   STANDARD_SHUTTERS,
   type ExposureFields,
@@ -74,16 +75,6 @@ export interface SettingsEditorProps {
 export function SettingsEditor({ fields, lensSpec, reducedMotion, onChange }: SettingsEditorProps) {
   const apertureStops = aperturesForLens(lensSpec);
   const apertureOptions = apertureStops.map((f) => ({ value: formatAperture(f), label: `f/${formatAperture(f)}` }));
-  const shutterOptions = STANDARD_SHUTTERS.map((s) => ({ value: s, label: s }));
-
-  // ISO: standard list, plus the current value if it's a non-standard typed one.
-  const isoValues: number[] = [...STANDARD_ISOS];
-  const isoNum = Number(fields.iso);
-  if (fields.iso.trim() && Number.isFinite(isoNum) && !isoValues.includes(isoNum)) {
-    isoValues.push(isoNum);
-    isoValues.sort((a, b) => a - b);
-  }
-  const isoOptions = isoValues.map((v) => ({ value: String(v), label: `ISO ${v}` }));
 
   const primeLens = lensSpec && isPrime(lensSpec);
   const zoomLens = lensSpec && hasFocalGuard(lensSpec) && !primeLens;
@@ -124,25 +115,25 @@ export function SettingsEditor({ fields, lensSpec, reducedMotion, onChange }: Se
         />
       </Field>
 
-      {/* Shutter */}
+      {/* Shutter — free entry (e.g. 1/160) with standard speeds as suggestions. */}
       <Field label="Shutter">
-        <Select
+        <Combobox
           value={fields.shutter}
-          options={shutterOptions}
-          placeholder="1/—"
+          options={[...STANDARD_SHUTTERS]}
+          placeholder="1/200"
           reducedMotion={reducedMotion}
-          onChange={(v) => onChange({ shutter: v })}
+          onCommit={(v) => onChange({ shutter: normalizeShutter(v) })}
         />
       </Field>
 
-      {/* ISO */}
+      {/* ISO — free entry (any value, e.g. 500) with standard ISOs as suggestions. */}
       <Field label="ISO">
-        <Select
+        <Combobox
           value={fields.iso}
-          options={isoOptions}
-          placeholder="ISO —"
+          options={STANDARD_ISOS.map(String)}
+          placeholder="500"
           reducedMotion={reducedMotion}
-          onChange={(v) => onChange({ iso: v })}
+          onCommit={(v) => onChange({ iso: v.trim() })}
         />
       </Field>
 
