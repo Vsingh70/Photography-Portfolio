@@ -15,7 +15,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database, TablesInsert } from '@/types/supabase';
 import { fileExt } from './ingest';
-import type { ImageExif, PublishProgress, StudioProject } from './types';
+import { persistProjectMeta } from './remote';
+import type { ImageExif, PublishProgress, StudioImage, StudioProject } from './types';
 
 const BUCKET = 'originals';
 
@@ -162,6 +163,125 @@ export async function publishProjects(
   }
 
   return { publishedIds, slugs };
+}
+
+/**
+ * Upload one staged original to Storage at `originals/{slug}/{imageId}.{ext}`
+ * and insert its `images` row at `sortOrder`. Shared by publishProjects (above,
+ * inline) and publishProjectChanges (below). Throws on the first failure.
+ */
+async function uploadAndInsertImage(
+  supabase: Client,
+  slug: string,
+  projectId: string,
+  image: StudioImage,
+  sortOrder: number
+): Promise<void> {
+  if (!image.blob) {
+    throw new Error(`"${image.name}" needs to be re-attached before publishing.`);
+  }
+  const ext = fileExt(image.name, image.type);
+  const path = `${slug}/${image.id}${ext}`;
+  const contentType = image.type || 'application/octet-stream';
+
+  const { error: uploadErr } = await supabase.storage
+    .from(BUCKET)
+    .upload(path, image.blob, { upsert: true, contentType });
+  if (uploadErr) {
+    throw new Error(`${image.name}: upload failed — ${uploadErr.message}`);
+  }
+
+  const imageRow: TablesInsert<'images'> = {
+    id: image.id,
+    project_id: projectId,
+    storage_path: path,
+    alt: image.alt ?? '',
+    title: image.name,
+    width: image.width ?? null,
+    height: image.height ?? null,
+    exif: exifToJson(image.exif),
+    sort_order: sortOrder,
+  };
+  const { error: imgErr } = await supabase.from('images').upsert(imageRow, { onConflict: 'id' });
+  if (imgErr) {
+    throw new Error(`${image.name}: row insert failed — ${imgErr.message}`);
+  }
+}
+
+/**
+ * Publish pending changes for an already-saved (remote) project. Reorders and
+ * deletes have already been persisted to Supabase live; this only needs to:
+ *   1. persist edited text fields (title/slug/category/blurb/location/shot_date);
+ *   2. upload any appended local originals (not `remoteImage`) to Storage + insert
+ *      their `images` rows, then persist the full final ordering (existing +
+ *      appended) by the project's current image-list index so the site order
+ *      matches the grid exactly, regardless of interleaving;
+ *   3. set the cover if the chosen cover changed.
+ * The caller triggers the rebuild afterward. Throws on the first hard failure.
+ */
+export async function publishProjectChanges(
+  supabase: Client,
+  project: StudioProject,
+  onProgress: (p: PublishProgress) => void
+): Promise<void> {
+  const pending = project.images.filter((img) => !img.remoteImage);
+  const fileTotal = pending.length;
+
+  // ── 1. Persist text edits ──
+  onProgress({
+    projectIdx: 0,
+    projectTotal: 1,
+    projectTitle: project.title,
+    fileIdx: 0,
+    fileTotal,
+    phase: 'rows',
+  });
+  await persistProjectMeta(supabase, project);
+
+  // ── 2. Upload appended originals, then persist the full ordering ──
+  // Live reorder saves only persist the relative order of the *remote* images,
+  // so appended originals can sit interleaved in the grid. Uploading each
+  // appended image at its full-list index and then re-stamping every existing
+  // image's sort_order to its full-list index makes the persisted order match
+  // the grid exactly (the pipeline orders images by sort_order).
+  for (let i = 0; i < project.images.length; i++) {
+    const image = project.images[i];
+    if (image.remoteImage) {
+      // Existing row: just re-stamp its sort_order to its current grid index.
+      const { error } = await supabase.from('images').update({ sort_order: i }).eq('id', image.id);
+      if (error) throw new Error(`"${project.title}" reorder failed — ${error.message}`);
+      continue;
+    }
+    onProgress({
+      projectIdx: 0,
+      projectTotal: 1,
+      projectTitle: project.title,
+      fileIdx: pending.indexOf(image),
+      fileTotal,
+      phase: 'upload',
+    });
+    await uploadAndInsertImage(supabase, project.slug, project.id, image, i);
+  }
+
+  // ── 3. Cover (may now point at a freshly appended image) ──
+  const coverId = project.coverImageId ?? project.images[0]?.id ?? null;
+  if (coverId) {
+    onProgress({
+      projectIdx: 0,
+      projectTotal: 1,
+      projectTitle: project.title,
+      fileIdx: fileTotal,
+      fileTotal,
+      phase: 'cover',
+    });
+    const { error: coverErr } = await supabase
+      .from('projects')
+      .update({ cover_image_id: coverId })
+      .eq('id', project.id);
+    if (coverErr) {
+      throw new Error(`"${project.title}": cover update failed — ${coverErr.message}`);
+    }
+  }
 }
 
 /** Trigger the GitHub rebuild via the existing publish proxy. */

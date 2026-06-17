@@ -87,15 +87,23 @@ export async function persistProjectMeta(
 }
 
 /**
- * Load a published project's existing images (ordered by sort_order), each with
- * a short-lived signed thumbnail URL for in-grid display. The blob itself is
- * never downloaded — the grid renders straight from the signed Storage URL, so
- * these images stay `remoteImage: true` and are managed (reorder/delete) against
+ * Load a published project's existing images (ordered by sort_order). Each tile
+ * renders from the lightweight R2 webp variant the pipeline already built
+ * (`{cdn}/galleries/{slug}/{id}-sm.webp`, a few KB on the public CDN) — that's
+ * the fast path and removes the reorder lag the full-size signed original caused.
+ * A short-lived signed Storage URL is still attached as `signedThumb`, used only
+ * as the tile's `onError` fallback for the rare case a variant isn't built yet.
+ * Images stay `remoteImage: true` and are managed (reorder/delete) against
  * Supabase directly rather than re-uploaded on publish.
+ *
+ * `slug` + `cdnBase` (process.env.NEXT_PUBLIC_GALLERY_CDN_BASE) are passed in by
+ * the caller so this stays a pure data helper.
  */
 export async function loadProjectImages(
   supabase: Client,
-  projectId: string
+  projectId: string,
+  slug: string,
+  cdnBase: string
 ): Promise<StudioImage[]> {
   const { data, error } = await supabase
     .from('images')
@@ -109,6 +117,7 @@ export async function loadProjectImages(
   const signed = await Promise.all(
     rows.map((row) => signedThumb(supabase, row.storage_path))
   );
+  const base = cdnBase.replace(/\/$/, '');
 
   return rows.map((row, i) => ({
     id: row.id,
@@ -122,6 +131,7 @@ export async function loadProjectImages(
     exif: (row.exif ?? {}) as ImageExif,
     remoteImage: true,
     storagePath: row.storage_path,
+    remoteThumb: base ? `${base}/galleries/${slug}/${row.id}-sm.webp` : undefined,
     signedThumb: signed[i] ?? undefined,
   }));
 }

@@ -36,7 +36,11 @@ export interface StudioImage {
   remoteImage?: boolean;
   /** Storage path of the original (`{slug}/{id}.{ext}`) for remote images. */
   storagePath?: string;
-  /** Short-lived signed URL to the original, for remote-image grid display. */
+  /** Public R2 webp thumbnail (`{cdn}/galleries/{slug}/{id}-sm.webp`) — a few KB,
+   * the primary fast source for a remote tile. */
+  remoteThumb?: string;
+  /** Short-lived signed URL to the original — heavy; only the `onError` fallback
+   * for a remote tile when the R2 variant isn't built yet. */
   signedThumb?: string;
   /** Optional caption / alt text. */
   alt?: string;
@@ -71,6 +75,11 @@ export interface StudioProject {
   images: StudioImage[];
   /** For remote projects loaded by reference: image count from Supabase. */
   remoteImageCount?: number;
+  /** For a saved (remote) project: true once an unpublished change has been made
+   * (text edit, reorder, delete, or an appended original) that needs a rebuild.
+   * Reorders/deletes save to Supabase instantly, but a site rebuild is still
+   * required for them to appear — so they mark the project dirty too. */
+  dirty?: boolean;
 }
 
 /** Per-image / per-project upload progress surfaced in the publish UI. */

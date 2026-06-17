@@ -7,14 +7,17 @@
  * per-image delete.
  *
  * Motion: the card is a `motion.div` with `layout` so reorder/add/remove animate
- * to their new slots; hover/press use GPU transforms only (scale), never
- * width/height. The image itself is rendered from a lightweight thumbnail
- * (`thumbDataURL` for staged files, `signedThumb` for published ones) so the
- * grid never paints multi-MB originals — this is the fix for the scroll jank.
+ * to their new slots, on a tight spring; hover/press use GPU transforms only
+ * (scale), never width/height. While a drag is actively in progress `layout` is
+ * disabled so the native drag ghost / drop targeting isn't fought by FLIP. The
+ * image is rendered from a lightweight thumbnail: `thumbDataURL` for staged
+ * files, and for published ones the small R2 webp variant (`remoteThumb`, a few
+ * KB on the public CDN) with the heavier signed Storage URL kept only as an
+ * `onError` fallback — this is the fix for the scroll/reorder jank.
  * Honors prefers-reduced-motion via the `reducedMotion` prop.
  */
 
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import type { DragEvent as ReactDragEvent } from 'react';
 import { motion } from 'framer-motion';
 import { formatBytes } from '@/lib/studio/ingest';
@@ -65,18 +68,33 @@ function ImageTileBase({
   const anyDragging = draggedId !== null;
   const ratioHeight = thumbSize * 1.25;
   const dims = image.width && image.height ? `${image.width}×${image.height}` : '';
-  const src = image.thumbDataURL || image.signedThumb || image.dataURL || '';
+  // Staged files render the in-memory thumbnail; published images render the
+  // lightweight R2 webp variant, falling back (via onError below) to the signed
+  // Storage original only if the variant 404s.
+  const [variantFailed, setVariantFailed] = useState(false);
+  const primarySrc = image.thumbDataURL
+    || (variantFailed ? undefined : image.remoteThumb)
+    || image.signedThumb
+    || image.dataURL
+    || '';
   // Suppress gesture transforms during an active HTML5 drag so the scale
   // doesn't fight the native drag ghost / drop targeting.
   const gesturesOn = !reducedMotion && !image.missing && !anyDragging;
 
   return (
     <motion.div
-      layout={!reducedMotion}
+      // Disable FLIP layout animation while a drag is actively in progress so it
+      // doesn't fight the native drag ghost / drop targeting; otherwise a tight
+      // spring snaps tiles to their reordered slots.
+      layout={!reducedMotion && !anyDragging}
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
       animate={reducedMotion ? { opacity: 1 } : { opacity: isDragged ? 0.4 : 1, scale: 1 }}
       exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
-      transition={{ duration: reducedMotion ? 0 : 0.25, ease: EASE }}
+      transition={
+        reducedMotion
+          ? { duration: 0 }
+          : { layout: { type: 'spring', stiffness: 700, damping: 42 }, duration: 0.22, ease: EASE }
+      }
       whileHover={gesturesOn ? { scale: 1.03 } : undefined}
       whileTap={gesturesOn ? { scale: 0.98 } : undefined}
       draggable={!image.missing}
@@ -104,10 +122,34 @@ function ImageTileBase({
           width: '100%',
           height: ratioHeight,
           cursor: image.missing ? 'not-allowed' : 'grab',
-          background: src ? `url("${src}") center/cover no-repeat #1a1a1a` : '#1a1a1a',
+          background: '#1a1a1a',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        {primarySrc && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={primarySrc}
+            alt=""
+            draggable={false}
+            // If the R2 variant 404s (rare — not yet built), fall back to the
+            // signed Storage original by dropping remoteThumb from the source list.
+            onError={() => {
+              if (!variantFailed && image.remoteThumb && primarySrc === image.remoteThumb) {
+                setVariantFailed(true);
+              }
+            }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
         {image.missing && (
           <div
             style={{

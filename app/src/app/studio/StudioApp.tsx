@@ -27,10 +27,10 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/types/supabase';
-import { ingestFile, uid } from '@/lib/studio/ingest';
+import { ingestFile, fileExt, uid } from '@/lib/studio/ingest';
 import { slugify, uniqueSlug } from '@/lib/studio/slug';
 import { loadDraft, saveDraft, clearDraftProjects } from '@/lib/studio/draft';
-import { publishProjects, triggerRebuild } from '@/lib/studio/publish';
+import { publishProjects, publishProjectChanges, triggerRebuild } from '@/lib/studio/publish';
 import {
   loadRemoteProjects,
   persistProjectOrder,
@@ -43,6 +43,7 @@ import type { PublishProgress, StudioImage, StudioProject } from '@/lib/studio/t
 import { Cap, Pill, Rule, Heading, INK, CREAM, DIM } from './components/ui';
 import { LoginScreen } from './components/LoginScreen';
 import { ImageTile } from './components/ImageTile';
+import { DateField } from './components/DateField';
 import { SettingsPanel } from './components/SettingsPanel';
 import { SecurityPanel } from './components/SecurityPanel';
 import { ReorderPanel } from './components/ReorderPanel';
@@ -52,6 +53,10 @@ type Tab = 'compose' | 'reorder' | 'settings' | 'security';
 
 const SERIF = 'Cormorant Garamond, serif';
 const PANEL_EASE = [0.16, 1, 0.3, 1] as const;
+// Public R2 CDN base — used to build the lightweight webp thumbnail URLs that
+// remote (published) project tiles render from. NEXT_PUBLIC_* so it's inlined
+// client-side; '' if unset (tiles then fall back to the signed Storage URL).
+const CDN_BASE = process.env.NEXT_PUBLIC_GALLERY_CDN_BASE ?? '';
 
 function newProject(sortOrder: number): StudioProject {
   return {
@@ -219,6 +224,7 @@ function Composer({
   // they can be viewed, reordered, and deleted directly against Supabase.
   const activeProjectId = active?.id ?? null;
   const activeIsRemote = active?.remote ?? false;
+  const activeSlug = active?.slug ?? '';
   useEffect(() => {
     if (!activeProjectId || !activeIsRemote || tab !== 'compose') return;
     if (loadedRemoteImagesRef.current.has(activeProjectId)) return;
@@ -229,7 +235,7 @@ function Composer({
     setImageError(null);
     (async () => {
       try {
-        const remoteImages = await loadProjectImages(supabase, projectId);
+        const remoteImages = await loadProjectImages(supabase, projectId, activeSlug, CDN_BASE);
         if (cancelled) return;
         setProjects((prev) =>
           prev.map((p) =>
@@ -254,7 +260,7 @@ function Composer({
     return () => {
       cancelled = true;
     };
-  }, [activeProjectId, activeIsRemote, tab, supabase]);
+  }, [activeProjectId, activeIsRemote, activeSlug, tab, supabase]);
 
   const takenSlugs = useCallback(
     (exceptId: string) =>
@@ -270,9 +276,19 @@ function Composer({
     setTab('compose');
   };
 
+  // Patch a project. For a saved (remote) project, any user edit routed through
+  // here (text fields, slug, title, reorder) also marks it dirty so Publish
+  // enables and a rebuild can be triggered. Pass `{ dirty }` explicitly to
+  // override (e.g. clearing it after publish).
   const updateProject = useCallback(
     (id: string, patch: Partial<StudioProject>) =>
-      setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p))),
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === id
+            ? { ...p, ...patch, dirty: patch.dirty ?? (p.remote ? true : p.dirty) }
+            : p
+        )
+      ),
     []
   );
 
@@ -317,7 +333,16 @@ function Composer({
         }
       }
       setProjects((prev) =>
-        prev.map((p) => (p.id === active.id ? { ...p, images: [...p.images, ...processed] } : p))
+        prev.map((p) =>
+          p.id === active.id
+            ? {
+                ...p,
+                images: [...p.images, ...processed],
+                // Appending new originals to a saved project makes it dirty.
+                dirty: p.remote ? true : p.dirty,
+              }
+            : p
+        )
       );
     },
     [active]
@@ -371,6 +396,9 @@ function Composer({
                   p.remote && image.remoteImage
                     ? Math.max(0, (p.remoteImageCount ?? 0) - 1)
                     : p.remoteImageCount,
+                // The DB row is deleted immediately, but the live site still
+                // needs a rebuild to drop the image → mark dirty.
+                dirty: p.remote ? true : p.dirty,
               }
             : p
         )
@@ -444,7 +472,11 @@ function Composer({
   const setCover = useCallback(
     (imageId: string) => {
       setProjects((prev) =>
-        prev.map((p) => (p.id === activeId ? { ...p, coverImageId: imageId } : p))
+        prev.map((p) =>
+          p.id === activeId
+            ? { ...p, coverImageId: imageId, dirty: p.remote ? true : p.dirty }
+            : p
+        )
       );
     },
     [activeId]
@@ -489,6 +521,8 @@ function Composer({
 
   // ── Publish ──
   const [publishOpen, setPublishOpen] = useState(false);
+  // Separate flag for the single saved-project "Publish changes" progress modal.
+  const [publishChangesOpen, setPublishChangesOpen] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [progress, setProgress] = useState<PublishProgress | null>(null);
   const [triggering, setTriggering] = useState(false);
@@ -512,7 +546,90 @@ function Composer({
     return Array.from(new Set(issues));
   }, [localProjects]);
 
-  const canPublish = localProjects.length > 0 && publishBlockers.length === 0;
+  const canPublishDrafts = localProjects.length > 0 && publishBlockers.length === 0;
+
+  // ── Saved-project "Publish changes" ──
+  // The active project is publishable-as-changes when it's a saved (remote)
+  // project with a pending dirty change (text edit, reorder, delete, append).
+  // The brand-new-draft publish flow (modal) is unchanged; this is a separate,
+  // single-project rebuild trigger that also flushes text edits + appended
+  // originals to Supabase.
+  const dirtyActiveRemote = active?.remote && active.dirty ? active : null;
+  // Surfacing rule: if the active project is a dirty saved project, the top-bar
+  // button publishes *that project's* changes; otherwise it falls back to the
+  // brand-new-drafts publish modal.
+  const publishMode: 'changes' | 'drafts' = dirtyActiveRemote ? 'changes' : 'drafts';
+  const canPublish = publishMode === 'changes' ? true : canPublishDrafts;
+
+  const onTopBarPublish = () => {
+    if (publishMode === 'changes' && dirtyActiveRemote) {
+      performPublishChanges(dirtyActiveRemote);
+    } else {
+      setPublishOpen(true);
+    }
+  };
+
+  // Publish pending changes for one saved project: flush text edits + appended
+  // originals to Supabase (reorders/deletes already saved live), then trigger
+  // the rebuild. Reuses the publishing/triggering/progress state + the existing
+  // "rebuild in 2–6 min" success surface (via a small inline modal below).
+  const performPublishChanges = async (project: StudioProject) => {
+    setPublishChangesOpen(true);
+    setPublishing(true);
+    setPublishError(null);
+    setTriggerError(null);
+    setProgress(null);
+    try {
+      await publishProjectChanges(supabase, project, setProgress);
+      setProgress(null);
+      setPublishing(false);
+
+      setTriggering(true);
+      const trigErr = await triggerRebuild([project.slug], 'Project changes published');
+      setTriggerError(trigErr);
+      setTriggering(false);
+
+      // Clear the dirty flag and mark any appended originals as remote now that
+      // they're saved (so they aren't re-uploaded on a subsequent publish). Keep
+      // their in-memory `thumbDataURL` so the tile stays visible until the next
+      // reload pulls the real R2 variant; set `storagePath` so a delete-before-
+      // reload still removes the Storage original. Drop the heavy blob/dataURL.
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === project.id
+            ? {
+                ...p,
+                dirty: false,
+                images: p.images.map((img) =>
+                  img.remoteImage
+                    ? img
+                    : {
+                        ...img,
+                        remoteImage: true,
+                        storagePath: `${p.slug}/${img.id}${fileExt(img.name, img.type)}`,
+                        blob: undefined,
+                        dataURL: undefined,
+                      }
+                ),
+                remoteImageCount: p.images.length,
+              }
+            : p
+        )
+      );
+
+      setPublishedOk(true);
+      setTimeout(() => {
+        setPublishChangesOpen(false);
+        setPublishedOk(false);
+        setPublishError(null);
+        setTriggerError(null);
+      }, 3500);
+    } catch (err) {
+      setPublishError(err instanceof Error ? err.message : 'Publish failed');
+      setPublishing(false);
+      setProgress(null);
+    }
+  };
 
   const performPublish = async () => {
     setPublishing(true);
@@ -580,7 +697,8 @@ function Composer({
         localCount={localProjects.length}
         totalPhotos={totalPhotos}
         canPublish={canPublish}
-        onPublish={() => setPublishOpen(true)}
+        publishLabel={publishMode === 'changes' ? 'Publish changes →' : 'Publish →'}
+        onPublish={onTopBarPublish}
         onSignOut={() => supabase.auth.signOut()}
       />
 
@@ -699,6 +817,125 @@ function Composer({
           onConfirm={performPublish}
         />
       )}
+
+      {publishChangesOpen && (
+        <PublishChangesModal
+          publishing={publishing}
+          progress={progress}
+          triggering={triggering}
+          publishedOk={publishedOk}
+          publishError={publishError}
+          triggerError={triggerError}
+          onClose={() => {
+            if (!publishing && !triggering) {
+              setPublishChangesOpen(false);
+              setPublishError(null);
+              setTriggerError(null);
+            }
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Publish-changes modal (single saved project) — progress + success only.
+// No confirm step: clicking "Publish changes" is the confirmation, and
+// reorders/deletes are already saved live. Reuses ProgressBlock + the existing
+// "rebuild in 2–6 min" success copy.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function PublishChangesModal({
+  publishing,
+  progress,
+  triggering,
+  publishedOk,
+  publishError,
+  triggerError,
+  onClose,
+}: {
+  publishing: boolean;
+  progress: PublishProgress | null;
+  triggering: boolean;
+  publishedOk: boolean;
+  publishError: string | null;
+  triggerError: string | null;
+  onClose: () => void;
+}) {
+  const busy = publishing || triggering;
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 100,
+        padding: 28,
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !busy) onClose();
+      }}
+    >
+      <div
+        style={{
+          background: INK,
+          border: '1px solid rgba(245,243,238,0.12)',
+          maxWidth: 620,
+          width: '100%',
+          padding: 32,
+        }}
+      >
+        {publishedOk ? (
+          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+            <Cap style={{ color: '#76c893' }}>{triggerError ? 'Saved (rebuild failed)' : 'Changes published'}</Cap>
+            <Heading size={52} style={{ margin: '14px 0 16px' }}>
+              On their way.
+            </Heading>
+            <p style={{ fontStyle: 'italic', color: 'rgba(245,243,238,0.65)', fontSize: 18, lineHeight: 1.5 }}>
+              {triggerError
+                ? 'Changes are saved to Supabase, but the rebuild trigger failed. Run the generate-galleries workflow manually to refresh the site.'
+                : 'Changes are saved. The site will rebuild in 2–6 minutes.'}
+            </p>
+            {triggerError && (
+              <p style={{ marginTop: 14, fontFamily: 'DM Mono, monospace', fontSize: 11, color: 'rgba(231,76,60,0.85)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                {triggerError}
+              </p>
+            )}
+          </div>
+        ) : publishError ? (
+          <div style={{ padding: '20px 8px' }}>
+            <Cap style={{ color: '#e74c3c' }}>Publish failed</Cap>
+            <p style={{ marginTop: 12, fontFamily: 'DM Mono, monospace', fontSize: 12, color: 'rgba(231,76,60,0.9)', lineHeight: 1.6 }}>
+              {publishError}
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 24 }}>
+              <Pill onClick={onClose}>Close</Pill>
+            </div>
+          </div>
+        ) : triggering ? (
+          <ProgressBlock title="Triggering the gallery rebuild." label="Publishing…" />
+        ) : (
+          <ProgressBlock
+            title="Saving changes to Supabase."
+            label="Publishing…"
+            detail={
+              progress
+                ? progress.phase === 'upload'
+                  ? `Uploading new image ${progress.fileIdx + 1} of ${progress.fileTotal}`
+                  : progress.phase === 'cover'
+                    ? 'setting cover'
+                    : 'saving text edits'
+                : undefined
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -712,6 +949,7 @@ function TopBar({
   localCount,
   totalPhotos,
   canPublish,
+  publishLabel,
   onPublish,
   onSignOut,
 }: {
@@ -719,6 +957,7 @@ function TopBar({
   localCount: number;
   totalPhotos: number;
   canPublish: boolean;
+  publishLabel: string;
   onPublish: () => void;
   onSignOut: () => void;
 }) {
@@ -750,7 +989,7 @@ function TopBar({
           <Pill onClick={onSignOut}>Sign out</Pill>
         </div>
         <Pill kind="primary" onClick={onPublish} disabled={!canPublish}>
-          Publish →
+          {publishLabel}
         </Pill>
       </div>
     </div>
@@ -1076,10 +1315,17 @@ function ProjectWorkspace(props: WorkspaceProps) {
       {project.remote && (
         <div style={{ marginBottom: 18 }}>
           <Cap style={{ color: 'rgba(118,200,147,0.85)' }}>
-            Published project · view, reorder &amp; delete its images, or edit text below. Image
-            deletes &amp; reorders save to Supabase immediately and appear on the site after the next
-            rebuild. Add new originals below to append, then re-publish.
+            Published project · reorders &amp; deletes save instantly; edit text or append new
+            originals below, then click {project.dirty ? '“Publish changes”' : 'Publish'} to rebuild
+            the live site.
           </Cap>
+          {project.dirty && (
+            <div style={{ marginTop: 8 }}>
+              <Cap style={{ color: '#d4a93e' }}>
+                Unpublished changes — click “Publish changes” to rebuild the site (2–6 min).
+              </Cap>
+            </div>
+          )}
           {props.imageError && (
             <div style={{ marginTop: 8 }}>
               <Cap style={{ color: '#e74c3c' }}>{props.imageError}</Cap>
@@ -1164,11 +1410,9 @@ function ProjectWorkspace(props: WorkspaceProps) {
           />
         </Field>
         <Field label="Shot date">
-          <input
-            type="date"
+          <DateField
             value={project.shotDate}
-            onChange={(e) => props.onUpdate(project.id, { shotDate: e.target.value })}
-            style={{ ...metaInputStyle, colorScheme: 'dark' }}
+            onChange={(next) => props.onUpdate(project.id, { shotDate: next })}
           />
         </Field>
       </div>
@@ -1229,7 +1473,8 @@ function ProjectWorkspace(props: WorkspaceProps) {
           </>
         ) : (
           <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
-            Click to select · drag to reorder · ☆ to set cover{project.remote ? ' · Delete saves to Supabase' : ''}
+            Click to select · drag to reorder · ☆ to set cover
+            {project.remote ? ' · Reorders & deletes save instantly; click Publish to rebuild the live site' : ''}
           </Cap>
         )}
         {props.loadingImages && <Cap style={{ color: 'rgba(118,200,147,0.8)' }}>Loading images…</Cap>}
