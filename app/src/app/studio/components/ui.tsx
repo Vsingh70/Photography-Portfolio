@@ -307,6 +307,189 @@ export function Combobox({
   );
 }
 
+/**
+ * Editorial select: a pick-from-options dropdown built the same way as the
+ * Combobox (`AnimatePresence` open/close on the MENU_EASE curve, reduced-motion
+ * safe, keyboard-navigable, closes on outside-click) but without free-text entry
+ * — the trigger shows the chosen label and the menu offers a fixed option list.
+ *
+ * Used for the constrained exposure fields (aperture / shutter / ISO, and a
+ * zoom's focal length) in the structured Settings editor, where the allowed
+ * values are physically bounded by the lens. An optional leading blank option
+ * ("—" → '') lets the user clear the field. Theme: cream-on-near-black.
+ */
+export function Select({
+  value,
+  options,
+  placeholder = '—',
+  emptyLabel = '—',
+  onChange,
+  reducedMotion: reducedMotionProp,
+  disabled,
+  style,
+}: {
+  /** Committed value (must equal one of `options` to show as chosen, else placeholder). */
+  value: string;
+  options: { value: string; label: string }[];
+  placeholder?: string;
+  /** Label for the leading clear/blank option (set to null to omit it). */
+  emptyLabel?: string | null;
+  onChange: (next: string) => void;
+  reducedMotion?: boolean;
+  disabled?: boolean;
+  style?: CSSProperties;
+}) {
+  const sysReduced = useReducedMotion() ?? false;
+  const reduced = reducedMotionProp ?? sysReduced;
+  const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listId = useId();
+
+  // The full option list, with an optional leading blank/clear entry.
+  const full: { value: string; label: string }[] =
+    emptyLabel === null ? options : [{ value: '', label: emptyLabel }, ...options];
+
+  const current = options.find((o) => o.value === value);
+  const triggerLabel = current ? current.label : placeholder;
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [open]);
+
+  const choose = (next: string) => {
+    if (next !== value) onChange(next);
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!open) setOpen(true);
+      setActiveIdx((i) => (full.length ? (i + 1) % full.length : -1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!open) setOpen(true);
+      setActiveIdx((i) => (full.length ? (i <= 0 ? full.length - 1 : i - 1) : -1));
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (open && activeIdx >= 0 && full[activeIdx]) choose(full[activeIdx].value);
+      else setOpen((v) => !v);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setOpen(false);
+    }
+  };
+
+  return (
+    <div ref={rootRef} style={{ position: 'relative', ...style }}>
+      <button
+        ref={triggerRef}
+        type="button"
+        role="combobox"
+        aria-expanded={open}
+        aria-controls={open ? listId : undefined}
+        aria-haspopup="listbox"
+        disabled={disabled}
+        onClick={() => !disabled && setOpen((v) => !v)}
+        onKeyDown={onKeyDown}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 8,
+          background: 'transparent',
+          border: 'none',
+          borderBottom: `1px solid ${open ? CREAM : 'rgba(245,243,238,0.18)'}`,
+          padding: '5px 0 7px',
+          fontFamily: SERIF,
+          fontSize: 16,
+          color: current ? CREAM : DIM,
+          textAlign: 'left',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          opacity: disabled ? 0.4 : 1,
+          outline: 'none',
+          transition: 'border-color 0.2s',
+        }}
+      >
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {triggerLabel}
+        </span>
+        <span style={{ fontSize: 10, color: DIM, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.18s' }}>
+          ▾
+        </span>
+      </button>
+      <AnimatePresence>
+        {open && full.length > 0 && (
+          <motion.ul
+            id={listId}
+            role="listbox"
+            initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: -4 }}
+            animate={reduced ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+            exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: -4 }}
+            transition={{ duration: reduced ? 0 : 0.16, ease: MENU_EASE }}
+            style={{
+              position: 'absolute',
+              top: 'calc(100% + 4px)',
+              left: 0,
+              right: 0,
+              zIndex: 70,
+              margin: 0,
+              padding: '4px 0',
+              listStyle: 'none',
+              maxHeight: 220,
+              overflowY: 'auto',
+              background: '#0a0a0a',
+              border: '1px solid rgba(245,243,238,0.18)',
+              boxShadow: '0 18px 50px rgba(0,0,0,0.6)',
+              transformOrigin: 'top',
+            }}
+          >
+            {full.map((option, i) => {
+              const isActive = i === activeIdx;
+              const isCurrent = option.value === value;
+              return (
+                <li
+                  key={option.value || '__empty__'}
+                  role="option"
+                  aria-selected={isCurrent}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    choose(option.value);
+                  }}
+                  onMouseEnter={() => setActiveIdx(i)}
+                  style={{
+                    padding: '7px 12px',
+                    cursor: 'pointer',
+                    background: isActive ? 'rgba(245,243,238,0.1)' : 'transparent',
+                    fontFamily: SERIF,
+                    fontSize: 15,
+                    color: isCurrent ? '#d4a93e' : CREAM,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: 8,
+                  }}
+                >
+                  <span>{option.label}</span>
+                  {isCurrent && <span style={{ fontSize: 12 }}>✓</span>}
+                </li>
+              );
+            })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 const serif = 'Cormorant Garamond, serif';
 
 /** Big serif-italic heading used throughout the dark editorial UI. */

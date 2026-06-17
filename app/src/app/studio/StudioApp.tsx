@@ -44,9 +44,16 @@ import {
   type GearLists,
 } from '@/lib/studio/remote';
 import type { ImageExif, PublishProgress, StudioImage, StudioProject } from '@/lib/studio/types';
+import {
+  composeSettings,
+  parseLensSpec,
+  reconcileWithLens,
+  type ExposureFields,
+} from '@/lib/studio/lens';
 import { Cap, Pill, Rule, Heading, Combobox, INK, CREAM, DIM } from './components/ui';
 import { LoginScreen } from './components/LoginScreen';
 import { ImageTile } from './components/ImageTile';
+import { SettingsEditor } from './components/SettingsEditor';
 import { DateField } from './components/DateField';
 import { SettingsPanel } from './components/SettingsPanel';
 import { SecurityPanel } from './components/SecurityPanel';
@@ -577,14 +584,17 @@ function Composer({
     [activeId, rememberGear]
   );
 
-  // Project-level convenience: stamp every image's exif.camera / exif.lens with
-  // the chosen gear (one shoot is usually one kit). Empty values are skipped so
-  // you can apply just a camera or just a lens. Autosaves the gear too.
+  // Project-level convenience: stamp every image's exif.camera / exif.lens —
+  // and, for a controlled shoot, the composed exposure settings — with the
+  // chosen kit (one shoot is usually one kit). Each blank value is skipped so
+  // you can apply just a camera, just a lens, just the settings, or any mix.
+  // Autosaves the gear too.
   const applyKitToAll = useCallback(
-    (camera: string, lens: string) => {
+    (camera: string, lens: string, settings?: string) => {
       const cam = camera.trim();
       const len = lens.trim();
-      if (!cam && !len) return;
+      const set = settings?.trim() ?? '';
+      if (!cam && !len && !set) return;
       if (cam) rememberGear('camera', cam);
       if (len) rememberGear('lens', len);
       setProjects((prev) =>
@@ -598,6 +608,7 @@ function Composer({
                     ...f.exif,
                     ...(cam ? { camera: cam } : {}),
                     ...(len ? { lens: len } : {}),
+                    ...(set ? { settings: set } : {}),
                   },
                 })),
                 dirty: p.remote ? true : p.dirty,
@@ -1329,7 +1340,7 @@ interface WorkspaceProps {
   onSetCover: (id: string) => void;
   onSetAlt: (id: string, alt: string) => void;
   onSetExif: (id: string, patch: Partial<ImageExif>) => void;
-  onApplyKitToAll: (camera: string, lens: string) => void;
+  onApplyKitToAll: (camera: string, lens: string, settings?: string) => void;
   cameras: string[];
   lenses: string[];
   onThumbSize: (n: number) => void;
@@ -1773,9 +1784,13 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Apply-kit-to-all control: one shoot is usually one kit, so let the user stamp
-// a camera + lens onto every image in the project at once. Expands inline from
-// a pill into two gear comboboxes + an "Apply" action.
+// a camera + lens — and, optionally, the exposure settings — onto every image
+// in the project at once. Expands inline from a pill into two gear comboboxes +
+// an optional structured (lens-aware) Settings editor + an "Apply" action.
+// Applying just camera/lens stays possible (the Settings section is opt-in).
 // ─────────────────────────────────────────────────────────────────────────────
+
+const EMPTY_FIELDS: ExposureFields = { focal: '', aperture: '', shutter: '', iso: '' };
 
 function ApplyKitControl({
   cameras,
@@ -1786,14 +1801,37 @@ function ApplyKitControl({
   cameras: string[];
   lenses: string[];
   reducedMotion: boolean;
-  onApply: (camera: string, lens: string) => void;
+  onApply: (camera: string, lens: string, settings?: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [camera, setCamera] = useState('');
   const [lens, setLens] = useState('');
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [fields, setFields] = useState<ExposureFields>(EMPTY_FIELDS);
+
+  // The structured editor's guardrails come from the chosen lens here too.
+  const lensSpec = parseLensSpec(lens);
+
+  // Re-validate the fields against the lens whenever it changes (prime snap,
+  // aperture floor, zoom clamp) — mirrors the per-image behavior.
+  const commitLens = (next: string) => {
+    setLens(next);
+    setFields((prev) => reconcileWithLens(prev, parseLensSpec(next)));
+  };
+
+  const composed = composeSettings(fields);
+  const canApply = !!(camera.trim() || lens.trim() || composed);
+
+  const reset = () => {
+    setCamera('');
+    setLens('');
+    setFields(EMPTY_FIELDS);
+    setSettingsOpen(false);
+    setOpen(false);
+  };
 
   if (!open) {
-    return <Pill onClick={() => setOpen(true)}>Apply camera &amp; lens to all</Pill>;
+    return <Pill onClick={() => setOpen(true)}>Apply camera, lens &amp; settings to all</Pill>;
   }
 
   return (
@@ -1804,45 +1842,89 @@ function ApplyKitControl({
         transition={{ duration: reducedMotion ? 0 : 0.18, ease: PANEL_EASE }}
         style={{
           display: 'flex',
-          alignItems: 'flex-end',
+          flexDirection: 'column',
           gap: 14,
-          flexWrap: 'wrap',
-          padding: '10px 14px',
+          padding: '12px 14px',
           border: '1px solid rgba(245,243,238,0.14)',
           background: 'rgba(245,243,238,0.03)',
         }}
       >
-        <div style={{ minWidth: 150 }}>
-          <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Camera</Cap>
-          <Combobox
-            value={camera}
-            options={cameras}
-            placeholder="e.g. Sony A7 IV"
-            reducedMotion={reducedMotion}
-            onCommit={setCamera}
-          />
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 14, flexWrap: 'wrap' }}>
+          <div style={{ minWidth: 150 }}>
+            <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Camera</Cap>
+            <Combobox
+              value={camera}
+              options={cameras}
+              placeholder="e.g. Sony A7 IV"
+              reducedMotion={reducedMotion}
+              onCommit={setCamera}
+            />
+          </div>
+          <div style={{ minWidth: 150 }}>
+            <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Lens</Cap>
+            <Combobox
+              value={lens}
+              options={lenses}
+              placeholder="e.g. 50mm f/1.4 GM"
+              reducedMotion={reducedMotion}
+              onCommit={commitLens}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={() => setSettingsOpen((v) => !v)}
+            aria-expanded={settingsOpen}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: settingsOpen ? '#f5f3ee' : 'rgba(245,243,238,0.5)',
+              cursor: 'pointer',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 9,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: '6px 0',
+            }}
+          >
+            {settingsOpen ? 'Settings ▲' : '+ Settings ▾'}
+          </button>
         </div>
-        <div style={{ minWidth: 150 }}>
-          <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Lens</Cap>
-          <Combobox
-            value={lens}
-            options={lenses}
-            placeholder="e.g. 50mm f/1.4 GM"
-            reducedMotion={reducedMotion}
-            onCommit={setLens}
-          />
+
+        <AnimatePresence initial={false}>
+          {settingsOpen && (
+            <motion.div
+              key="kit-settings"
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              animate={reducedMotion ? { opacity: 1 } : { opacity: 1, height: 'auto' }}
+              exit={reducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.2, ease: PANEL_EASE }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ maxWidth: 280, paddingTop: 2 }}>
+                <SettingsEditor
+                  fields={fields}
+                  lensSpec={lensSpec}
+                  reducedMotion={reducedMotion}
+                  onChange={(patch) => setFields((prev) => ({ ...prev, ...patch }))}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <Pill
+            kind="primary"
+            disabled={!canApply}
+            onClick={() => {
+              onApply(camera, lens, composed || undefined);
+              reset();
+            }}
+          >
+            Apply to all
+          </Pill>
+          <Pill onClick={reset}>Cancel</Pill>
         </div>
-        <Pill
-          kind="primary"
-          disabled={!camera.trim() && !lens.trim()}
-          onClick={() => {
-            onApply(camera, lens);
-            setOpen(false);
-          }}
-        >
-          Apply to all
-        </Pill>
-        <Pill onClick={() => setOpen(false)}>Cancel</Pill>
       </motion.div>
     </AnimatePresence>
   );

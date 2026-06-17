@@ -19,12 +19,20 @@
  * Honors prefers-reduced-motion via the `reducedMotion` prop.
  */
 
-import { memo, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import type { DragEvent as ReactDragEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatBytes } from '@/lib/studio/ingest';
+import {
+  composeSettings,
+  parseLensSpec,
+  parseSettings,
+  reconcileWithLens,
+  type ExposureFields,
+} from '@/lib/studio/lens';
 import type { ImageExif, StudioImage } from '@/lib/studio/types';
 import { Cap, Combobox } from './ui';
+import { SettingsEditor } from './SettingsEditor';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -77,6 +85,53 @@ function ImageTileBase({
 }: ImageTileProps) {
   // Inline metadata editor expansion (caption + camera/lens/settings).
   const [editing, setEditing] = useState(false);
+
+  // ── Structured exposure fields, derived from exif.settings + lens. ──
+  const settingsStr = image.exif?.settings ?? '';
+  const lensLabel = image.exif?.lens ?? '';
+  const lensSpec = parseLensSpec(lensLabel);
+  const [fields, setFields] = useState<ExposureFields>(() => parseSettings(settingsStr));
+
+  // Re-parse when the committed settings string changes externally (apply-to-all,
+  // EXIF pre-fill) while the editor isn't the one writing it.
+  const lastComposedRef = useRef(settingsStr);
+  useEffect(() => {
+    if (settingsStr !== lastComposedRef.current) {
+      setFields(parseSettings(settingsStr));
+      lastComposedRef.current = settingsStr;
+    }
+  }, [settingsStr]);
+
+  // When the selected lens changes, reconcile the fields to the new guardrails
+  // (prime → snap focal; aperture too wide → bump up; zoom focal → clamp) and,
+  // if anything actually changed, persist the recomposed settings string.
+  const prevLensRef = useRef(lensLabel);
+  useEffect(() => {
+    if (lensLabel === prevLensRef.current) return;
+    prevLensRef.current = lensLabel;
+    setFields((prev) => {
+      const next = reconcileWithLens(prev, parseLensSpec(lensLabel));
+      const composed = composeSettings(next);
+      if (composed !== (image.exif?.settings ?? '')) {
+        lastComposedRef.current = composed;
+        onExifChange(image.id, { settings: composed });
+      }
+      return next;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lensLabel]);
+
+  // Apply a field patch, compose, and push the canonical settings string up.
+  const patchFields = (patch: Partial<ExposureFields>) => {
+    setFields((prev) => {
+      const next = { ...prev, ...patch };
+      const composed = composeSettings(next);
+      lastComposedRef.current = composed;
+      onExifChange(image.id, { settings: composed });
+      return next;
+    });
+  };
+
   const isDragged = draggedId === image.id;
   const isDragOver = dragOverId === image.id && draggedId !== image.id;
   const anyDragging = draggedId !== null;
@@ -386,11 +441,11 @@ function ImageTileBase({
                   />
                 </MetaField>
                 <MetaField label="Settings">
-                  <input
-                    value={image.exif?.settings ?? ''}
-                    placeholder="50mm · f/1.4 · 1/1000"
-                    onChange={(e) => onExifChange(image.id, { settings: e.target.value })}
-                    style={metaInput}
+                  <SettingsEditor
+                    fields={fields}
+                    lensSpec={lensSpec}
+                    reducedMotion={reducedMotion}
+                    onChange={patchFields}
                   />
                 </MetaField>
               </div>
