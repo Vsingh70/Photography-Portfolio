@@ -2,9 +2,12 @@
 
 /**
  * Magic-link login gate for the Studio. Same dark editorial style as the app.
- * `shouldCreateUser` is left default (true) — the admin allowlist + RLS are the
- * real authorization gate, so a non-allowlisted account simply can't read or
- * write anything once signed in.
+ *
+ * Single-admin tool: there is NO open email field. The sign-in link only ever
+ * goes to the configured owner address (NEXT_PUBLIC_STUDIO_EMAIL), and
+ * `shouldCreateUser: false` means no new accounts are ever created from here —
+ * a visitor can't request a link to an arbitrary inbox or self-register.
+ * (RLS + the admin allowlist remain the authorization gate regardless.)
  */
 
 import { useState } from 'react';
@@ -12,26 +15,40 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/supabase';
 import { Cap, Pill, CREAM, DIM, INK } from './ui';
 
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_STUDIO_EMAIL ?? '';
+
+function maskEmail(addr: string): string {
+  const [user, domain] = addr.split('@');
+  if (!user || !domain) return addr;
+  const head = user.slice(0, 1);
+  return `${head}${'•'.repeat(Math.max(1, user.length - 1))}@${domain}`;
+}
+
 export function LoginScreen({ supabase }: { supabase: SupabaseClient<Database> }) {
-  const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const send = async () => {
-    const trimmed = email.trim();
-    if (!trimmed) return;
+    if (!ADMIN_EMAIL) {
+      setError('Studio email is not configured — set NEXT_PUBLIC_STUDIO_EMAIL.');
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
       const { error: otpErr } = await supabase.auth.signInWithOtp({
-        email: trimmed,
-        options: { emailRedirectTo: `${window.location.origin}/studio` },
+        email: ADMIN_EMAIL,
+        options: {
+          emailRedirectTo: `${window.location.origin}/studio`,
+          // Single-admin: never create a new account from the login screen.
+          shouldCreateUser: false,
+        },
       });
       if (otpErr) throw otpErr;
       setSent(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not send the magic link.');
+      setError(e instanceof Error ? e.message : 'Could not send the sign-in link.');
     } finally {
       setBusy(false);
     }
@@ -67,8 +84,9 @@ export function LoginScreen({ supabase }: { supabase: SupabaseClient<Database> }
 
         {sent ? (
           <p style={{ fontStyle: 'italic', fontSize: 16, lineHeight: 1.55, color: 'rgba(245,243,238,0.7)', margin: 0 }}>
-            A magic link is on its way to <span style={{ color: CREAM }}>{email.trim()}</span>. Open
-            it on this device to enter the Studio.
+            A one-time sign-in link is on its way to{' '}
+            <span style={{ color: CREAM }}>{maskEmail(ADMIN_EMAIL)}</span>. Open it on this device to
+            enter the Studio.
           </p>
         ) : (
           <>
@@ -81,38 +99,10 @@ export function LoginScreen({ supabase }: { supabase: SupabaseClient<Database> }
                 margin: '0 0 28px',
               }}
             >
-              Enter your email and we&apos;ll send a one-time sign-in link.
+              Private studio. A one-time sign-in link will be sent to the owner&apos;s inbox.
             </p>
-            <input
-              type="email"
-              value={email}
-              autoFocus
-              placeholder="you@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !busy) send();
-              }}
-              style={{
-                display: 'block',
-                width: '100%',
-                background: 'transparent',
-                border: 'none',
-                borderBottom: '1px solid rgba(245,243,238,0.25)',
-                padding: '10px 0 12px',
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: 28,
-                color: CREAM,
-                outline: 'none',
-                textAlign: 'center',
-                marginBottom: 24,
-              }}
-              onFocus={(e) => (e.currentTarget.style.borderBottomColor = CREAM)}
-              onBlur={(e) => (e.currentTarget.style.borderBottomColor = 'rgba(245,243,238,0.25)')}
-            />
-            <Pill kind="primary" onClick={send} disabled={busy || !email.trim()}>
-              {busy ? 'Sending…' : 'Send magic link'}
+            <Pill kind="primary" onClick={send} disabled={busy}>
+              {busy ? 'Sending…' : 'Email me a sign-in link'}
             </Pill>
           </>
         )}
