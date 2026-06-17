@@ -24,11 +24,21 @@
  *   - about-image.json       (existing shape) + public/about/about.webp
  *
  * Incremental: a manifest at scripts/.manifests/project-{slug}.json stores
- * { updatedAt, blurDataURL, width, height } per image.id. Images whose
- * images.updated_at is unchanged AND which still have a cached blur+dims are
- * skipped (no re-download, no re-upload). Deletion sweeps remove stale R2
- * variants for removed images and for projects that no longer exist / aren't
- * published.
+ * { storageToken, blurDataURL, width, height } per image.id. The expensive
+ * variant build (download + Sharp + R2 upload) is keyed on the ORIGINAL FILE's
+ * change token in Storage — NOT on images.updated_at. A metadata-only edit
+ * (caption/alt/exif/sort_order) bumps images.updated_at via a DB trigger but
+ * leaves the bytes untouched, so it must NOT trigger a rebuild. The token is
+ * the Storage object's eTag (changes when bytes change on an `upsert`
+ * re-upload), falling back to the object's updated_at / id. An image is skipped
+ * (no re-download, no re-upload) only when its cached token matches the current
+ * one AND a cached blur+dims exist. Regardless of build/skip, the per-project
+ * JSON is ALWAYS re-emitted from the current DB rows, so metadata edits are
+ * reflected with zero variant work. Deletion sweeps remove stale R2 variants
+ * for removed images and for projects that no longer exist / aren't published.
+ *
+ * NOTE: the FIRST run after introducing storageToken migrates the manifest with
+ * one full rebuild (old entries have no token → treated as a cache-miss).
  *
  * Required env vars (.env.local / CI secrets):
  *   NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
@@ -145,7 +155,11 @@ function readExif(raw: ImageRow['exif']): ExifShape {
 }
 
 interface ManifestEntry {
-  updatedAt: string;
+  // Change token for the ORIGINAL file in Storage (eTag ?? updated_at ?? id).
+  // Replaces the old `updatedAt` (which tracked images.updated_at and so
+  // mis-fired on metadata-only edits). Old-format entries lack this field →
+  // treated as a cache-miss → rebuilt once to migrate the manifest.
+  storageToken: string;
   blurDataURL: string;
   width: number;
   height: number;
@@ -292,6 +306,41 @@ const MANIFEST_DIR = () => path.join(process.cwd(), 'scripts', '.manifests');
 const GENERATED_DIR = () => path.join(process.cwd(), 'src', 'generated');
 
 /**
+ * List a project's originals once and build a map: object name → change token.
+ * The token is `metadata.eTag ?? updated_at ?? id` — the eTag changes whenever
+ * the bytes change on an `upsert` re-upload, so it's the cheapest reliable
+ * signal that the source file (not just its DB metadata) actually changed.
+ *
+ * NOTE: capped at 1000 objects per project. A project with >1000 originals
+ * would need pagination (offset/range over repeated list() calls); we log a
+ * warning and proceed with the first 1000 if a project ever hits the cap.
+ */
+async function listStorageTokens(
+  supabase: SupabaseClient<Database>,
+  slug: string,
+  log: (msg: string) => void
+): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  const { data, error } = await supabase.storage.from('originals').list(slug, { limit: 1000 });
+  if (error) {
+    log(`  ⚠️  Could not list originals/${slug} (${error.message}) — every image will rebuild.`);
+    return map;
+  }
+  const objects = data ?? [];
+  if (objects.length >= 1000) {
+    log(
+      `  ⚠️  originals/${slug} hit the 1000-object list cap — pagination needed; ` +
+        `originals beyond the first 1000 will rebuild every run.`
+    );
+  }
+  for (const obj of objects) {
+    const token = obj.metadata?.eTag ?? obj.updated_at ?? obj.id;
+    if (obj.name && token) map.set(obj.name, String(token));
+  }
+  return map;
+}
+
+/**
  * Build one published project: download + Sharp + R2 upload (incremental),
  * write project-{slug}.json, and return the built-image lookup for covers/hero.
  */
@@ -310,6 +359,10 @@ async function buildProject(opts: {
   const prior: Manifest = existsSync(manifestPath)
     ? JSON.parse(await readFile(manifestPath, 'utf-8'))
     : {};
+
+  // List the originals once → object name → change token. Used to decide,
+  // per image, whether the source bytes actually changed.
+  const tokenByName = await listStorageTokens(supabase, slug, console.log);
 
   const currentIds = new Set(images.map((img) => img.id));
 
@@ -344,15 +397,24 @@ async function buildProject(opts: {
   for (let i = 0; i < images.length; i++) {
     const img = images[i];
     const id = img.id;
-    const stamp = img.updated_at || '';
     const title = img.title || img.alt || `Image ${i + 1}`;
     const alt = img.alt || img.title || title;
     const exif = readExif(img.exif);
 
+    // Resolve the original's change token by the basename of storage_path
+    // (storage_path is "{slug}/{imageId}.{ext}"; the listing keys on that name).
+    const objectName = path.posix.basename(img.storage_path);
+    const token = tokenByName.get(objectName) ?? '';
+
     const cached = prior[id];
+    // Skip the expensive variant build ONLY when the source bytes are unchanged
+    // (token matches) and we have a usable cached blur+dims. A missing token or
+    // an old-format entry (no storageToken) is a cache-miss → rebuild. Metadata
+    // edits don't move the token, so they never force a rebuild here.
     const canSkip =
       !!cached &&
-      cached.updatedAt === stamp &&
+      !!token &&
+      cached.storageToken === token &&
       !!cached.blurDataURL &&
       !!cached.width &&
       !!cached.height;
@@ -366,7 +428,9 @@ async function buildProject(opts: {
       const buffer = await downloadOriginal(supabase, img.storage_path);
       const result = await buildAndUploadVariants({ r2, bucket, slug, fileId: id, buffer });
       entry = {
-        updatedAt: stamp,
+        // Persist the token used for this build. If the listing failed to
+        // resolve one, store '' — next run sees a falsy token and rebuilds.
+        storageToken: token,
         blurDataURL: result.blurDataURL,
         // Prefer the DB-recorded dims when present; fall back to Sharp's.
         width: img.width || result.width,
@@ -415,7 +479,7 @@ async function buildProject(opts: {
   );
 
   console.log(
-    `  ✅ ${project.title} (${slug}): ${processed} built · ${skipped} skipped · ${deleted} deleted\n`
+    `  ✅ ${project.title} (${slug}): ${processed} built · ${skipped} skipped (cached) · ${deleted} deleted · JSON re-emitted\n`
   );
   return { count: out.length, built };
 }
