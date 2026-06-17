@@ -3,29 +3,27 @@
 /**
  * A single image card in the project composer grid. Click to select; drag to
  * reorder. Adds (vs. the legacy Thumb): a "Set as cover" toggle, an inline
- * alt/caption field, and a dimensions/EXIF readout.
+ * alt/caption field, a dimensions/EXIF readout, and (for published images) a
+ * per-image delete.
+ *
+ * Motion: the card is a `motion.div` with `layout` so reorder/add/remove animate
+ * to their new slots; hover/press use GPU transforms only (scale), never
+ * width/height. The image itself is rendered from a lightweight thumbnail
+ * (`thumbDataURL` for staged files, `signedThumb` for published ones) so the
+ * grid never paints multi-MB originals — this is the fix for the scroll jank.
+ * Honors prefers-reduced-motion via the `reducedMotion` prop.
  */
 
+import { memo } from 'react';
 import type { DragEvent as ReactDragEvent } from 'react';
+import { motion } from 'framer-motion';
 import { formatBytes } from '@/lib/studio/ingest';
 import type { StudioImage } from '@/lib/studio/types';
 import { Cap } from './ui';
 
-export function ImageTile({
-  image,
-  index,
-  selected,
-  isCover,
-  draggedId,
-  dragOverId,
-  thumbSize,
-  onToggleSelect,
-  onSetCover,
-  onAltChange,
-  onDragStart,
-  onDragOver,
-  onDragEnd,
-}: {
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+export interface ImageTileProps {
   image: StudioImage;
   index: number;
   selected: boolean;
@@ -33,27 +31,61 @@ export function ImageTile({
   draggedId: string | null;
   dragOverId: string | null;
   thumbSize: number;
-  onToggleSelect: () => void;
-  onSetCover: () => void;
-  onAltChange: (alt: string) => void;
-  onDragStart: () => void;
-  onDragOver: (e: ReactDragEvent) => void;
+  reducedMotion: boolean;
+  /** id-parameterized callbacks so the parent can pass stable refs and let
+   * `memo` skip tiles that didn't change between renders. */
+  onToggleSelect: (id: string) => void;
+  onSetCover: (id: string) => void;
+  onAltChange: (id: string, alt: string) => void;
+  onDelete: (id: string) => void;
+  onDragStart: (id: string) => void;
+  onDragOver: (id: string, e: ReactDragEvent) => void;
   onDragEnd: () => void;
-}) {
+}
+
+function ImageTileBase({
+  image,
+  index,
+  selected,
+  isCover,
+  draggedId,
+  dragOverId,
+  thumbSize,
+  reducedMotion,
+  onToggleSelect,
+  onSetCover,
+  onAltChange,
+  onDelete,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
+}: ImageTileProps) {
   const isDragged = draggedId === image.id;
   const isDragOver = dragOverId === image.id && draggedId !== image.id;
+  const anyDragging = draggedId !== null;
   const ratioHeight = thumbSize * 1.25;
   const dims = image.width && image.height ? `${image.width}×${image.height}` : '';
+  const src = image.thumbDataURL || image.signedThumb || image.dataURL || '';
+  // Suppress gesture transforms during an active HTML5 drag so the scale
+  // doesn't fight the native drag ghost / drop targeting.
+  const gesturesOn = !reducedMotion && !image.missing && !anyDragging;
 
   return (
-    <div
+    <motion.div
+      layout={!reducedMotion}
+      initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+      animate={reducedMotion ? { opacity: 1 } : { opacity: isDragged ? 0.4 : 1, scale: 1 }}
+      exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+      transition={{ duration: reducedMotion ? 0 : 0.25, ease: EASE }}
+      whileHover={gesturesOn ? { scale: 1.03 } : undefined}
+      whileTap={gesturesOn ? { scale: 0.98 } : undefined}
       draggable={!image.missing}
-      onDragStart={onDragStart}
-      onDragOver={onDragOver}
+      onDragStart={() => onDragStart(image.id)}
+      onDragOver={(e) => onDragOver(image.id, e)}
       onDragEnd={onDragEnd}
       style={{
         position: 'relative',
-        opacity: isDragged ? 0.4 : 1,
+        willChange: 'transform',
         outline: isDragOver
           ? '3px solid #f5f3ee'
           : isCover
@@ -64,18 +96,15 @@ export function ImageTile({
         outlineOffset: 0,
         background: '#1a1a1a',
         userSelect: 'none',
-        transition: 'opacity 0.15s, outline-color 0.15s, outline-width 0.15s',
       }}
     >
       <div
-        onClick={onToggleSelect}
+        onClick={() => onToggleSelect(image.id)}
         style={{
           width: '100%',
           height: ratioHeight,
           cursor: image.missing ? 'not-allowed' : 'grab',
-          background: image.dataURL
-            ? `url("${image.dataURL}") center/cover no-repeat #1a1a1a`
-            : '#1a1a1a',
+          background: src ? `url("${src}") center/cover no-repeat #1a1a1a` : '#1a1a1a',
           position: 'relative',
         }}
       >
@@ -184,7 +213,7 @@ export function ImageTile({
         <input
           value={image.alt ?? ''}
           placeholder="caption / alt…"
-          onChange={(e) => onAltChange(e.target.value)}
+          onChange={(e) => onAltChange(image.id, e.target.value)}
           onClick={(e) => e.stopPropagation()}
           style={{
             marginTop: 6,
@@ -201,28 +230,52 @@ export function ImageTile({
           }}
         />
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onSetCover();
-          }}
-          disabled={isCover}
-          style={{
-            marginTop: 6,
-            background: 'transparent',
-            border: 'none',
-            color: isCover ? '#d4a93e' : 'rgba(245,243,238,0.45)',
-            cursor: isCover ? 'default' : 'pointer',
-            fontFamily: 'DM Mono, monospace',
-            fontSize: 9,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            padding: 0,
-          }}
-        >
-          {isCover ? '★ Cover' : '☆ Set cover'}
-        </button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onSetCover(image.id);
+            }}
+            disabled={isCover}
+            style={{
+              marginTop: 6,
+              background: 'transparent',
+              border: 'none',
+              color: isCover ? '#d4a93e' : 'rgba(245,243,238,0.45)',
+              cursor: isCover ? 'default' : 'pointer',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 9,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: 0,
+            }}
+          >
+            {isCover ? '★ Cover' : '☆ Set cover'}
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(image.id);
+            }}
+            style={{
+              marginTop: 6,
+              background: 'transparent',
+              border: 'none',
+              color: 'rgba(231,76,60,0.7)',
+              cursor: 'pointer',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 9,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: 0,
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
+export const ImageTile = memo(ImageTileBase);

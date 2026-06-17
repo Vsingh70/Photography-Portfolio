@@ -24,10 +24,20 @@ export interface StudioImage {
   type: string;
   /** SHA-256 of the file bytes — used for dedup within a project. */
   hash: string;
-  /** In-memory thumbnail; lost on refresh. */
+  /** In-memory full-resolution dataURL; lost on refresh. Kept for completeness;
+   * the grid renders from the lighter `thumbDataURL` to avoid decode jank. */
   dataURL?: string;
+  /** Small (~512px) downscaled dataURL used for fast, low-jank grid display. */
+  thumbDataURL?: string;
   /** In-memory original blob; lost on refresh → `missing`. */
   blob?: File;
+  /** True when this image already lives in Supabase (loaded from a published
+   * project). Managed directly against the DB/Storage, not re-uploaded. */
+  remoteImage?: boolean;
+  /** Storage path of the original (`{slug}/{id}.{ext}`) for remote images. */
+  storagePath?: string;
+  /** Short-lived signed URL to the original, for remote-image grid display. */
+  signedThumb?: string;
   /** Optional caption / alt text. */
   alt?: string;
   /** Intrinsic pixel dimensions (decoded at ingest). */

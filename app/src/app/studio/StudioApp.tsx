@@ -23,6 +23,7 @@ import {
   useCallback,
   type DragEvent as ReactDragEvent,
 } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/types/supabase';
@@ -30,7 +31,14 @@ import { ingestFile, uid } from '@/lib/studio/ingest';
 import { slugify, uniqueSlug } from '@/lib/studio/slug';
 import { loadDraft, saveDraft, clearDraftProjects } from '@/lib/studio/draft';
 import { publishProjects, triggerRebuild } from '@/lib/studio/publish';
-import { loadRemoteProjects, persistProjectOrder } from '@/lib/studio/remote';
+import {
+  loadRemoteProjects,
+  persistProjectOrder,
+  loadProjectImages,
+  persistImageOrder,
+  deleteImage,
+  deleteProject,
+} from '@/lib/studio/remote';
 import type { PublishProgress, StudioImage, StudioProject } from '@/lib/studio/types';
 import { Cap, Pill, Rule, Heading, INK, CREAM, DIM } from './components/ui';
 import { LoginScreen } from './components/LoginScreen';
@@ -43,6 +51,7 @@ type Client = SupabaseClient<Database>;
 type Tab = 'compose' | 'reorder' | 'settings' | 'security';
 
 const SERIF = 'Cormorant Garamond, serif';
+const PANEL_EASE = [0.16, 1, 0.3, 1] as const;
 
 function newProject(sortOrder: number): StudioProject {
   return {
@@ -136,6 +145,8 @@ function Composer({
   session: Session;
   cameFromPassword: boolean;
 }) {
+  const reducedMotion = useReducedMotion() ?? false;
+
   const [projects, setProjects] = useState<StudioProject[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>('compose');
@@ -147,6 +158,10 @@ function Composer({
   const [restoreBanner, setRestoreBanner] = useState<{ count: number } | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [reorderSaving, setReorderSaving] = useState(false);
+  // Remote projects whose existing images we've already lazily fetched.
+  const loadedRemoteImagesRef = useRef<Set<string>>(new Set());
+  const [loadingImagesId, setLoadingImagesId] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   // ── One-time "add a passkey" nudge after a password sign-in ──
   // Only shows when the session began via password AND the account has zero
@@ -197,6 +212,49 @@ function Composer({
   const active = projects.find((p) => p.id === activeId) ?? null;
   const localProjects = projects.filter((p) => !p.remote);
   const totalPhotos = localProjects.reduce((n, p) => n + p.images.length, 0);
+
+  // ── Lazily load a published project's existing images when it's opened ──
+  // Remote projects load with `images: []` + a count; the first time one is
+  // selected we fetch its images (with signed thumbnail URLs) into the grid so
+  // they can be viewed, reordered, and deleted directly against Supabase.
+  const activeProjectId = active?.id ?? null;
+  const activeIsRemote = active?.remote ?? false;
+  useEffect(() => {
+    if (!activeProjectId || !activeIsRemote || tab !== 'compose') return;
+    if (loadedRemoteImagesRef.current.has(activeProjectId)) return;
+    const projectId = activeProjectId;
+    loadedRemoteImagesRef.current.add(projectId);
+    let cancelled = false;
+    setLoadingImagesId(projectId);
+    setImageError(null);
+    (async () => {
+      try {
+        const remoteImages = await loadProjectImages(supabase, projectId);
+        if (cancelled) return;
+        setProjects((prev) =>
+          prev.map((p) =>
+            p.id === projectId
+              ? {
+                  // Prepend the just-loaded remote images; keep any locally
+                  // appended (not-yet-published) originals after them.
+                  ...p,
+                  images: [...remoteImages, ...p.images.filter((f) => !f.remoteImage)],
+                }
+              : p
+          )
+        );
+      } catch (e) {
+        if (cancelled) return;
+        loadedRemoteImagesRef.current.delete(projectId); // allow a retry
+        setImageError(e instanceof Error ? e.message : 'Could not load this project’s images.');
+      } finally {
+        if (!cancelled) setLoadingImagesId((id) => (id === projectId ? null : id));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeProjectId, activeIsRemote, tab, supabase]);
 
   const takenSlugs = useCallback(
     (exceptId: string) =>
@@ -266,6 +324,9 @@ function Composer({
   );
 
   // ── Image reorder ──
+  // For remote projects the new order of the *existing* (remote) images is
+  // persisted to Supabase immediately; locally-appended originals keep their
+  // in-memory order until publish.
   const onTileDragEnd = () => {
     if (draggedImageId && dragOverImageId && draggedImageId !== dragOverImageId && active) {
       const images = [...active.images];
@@ -275,36 +336,135 @@ function Composer({
         const [moved] = images.splice(from, 1);
         images.splice(to, 0, moved);
         updateProject(active.id, { images });
+        if (active.remote) {
+          const remoteOrder = images.filter((f) => f.remoteImage).map((f) => f.id);
+          if (remoteOrder.length > 0) {
+            persistImageOrder(supabase, remoteOrder).catch((e) =>
+              setImageError(e instanceof Error ? e.message : 'Could not save image order.')
+            );
+          }
+        }
       }
     }
     setDraggedImageId(null);
     setDragOverImageId(null);
   };
 
+  // ── Per-image delete ──
+  // Remote images are removed from Supabase (Storage + row) immediately; staged
+  // (local) images are just dropped from the in-memory project.
+  const deleteOneImage = useCallback(
+    async (imageId: string) => {
+      if (!active) return;
+      const image = active.images.find((f) => f.id === imageId);
+      if (!image) return;
+      // Optimistically remove from the grid.
+      const projectId = active.id;
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === projectId
+            ? {
+                ...p,
+                images: p.images.filter((f) => f.id !== imageId),
+                coverImageId: p.coverImageId === imageId ? null : p.coverImageId,
+                remoteImageCount:
+                  p.remote && image.remoteImage
+                    ? Math.max(0, (p.remoteImageCount ?? 0) - 1)
+                    : p.remoteImageCount,
+              }
+            : p
+        )
+      );
+      setSelectedImageIds((prev) => {
+        if (!prev.has(imageId)) return prev;
+        const next = new Set(prev);
+        next.delete(imageId);
+        return next;
+      });
+      if (image.remoteImage) {
+        try {
+          await deleteImage(supabase, image);
+        } catch (e) {
+          setImageError(e instanceof Error ? e.message : 'Could not delete image from Supabase.');
+        }
+      }
+    },
+    [active, supabase]
+  );
+
+  // ── Delete a whole published project (Storage folder + DB row) ──
+  const [projectDeleting, setProjectDeleting] = useState(false);
+  const removeRemoteProject = useCallback(
+    async (project: StudioProject) => {
+      setProjectDeleting(true);
+      setImageError(null);
+      try {
+        await deleteProject(supabase, project);
+        loadedRemoteImagesRef.current.delete(project.id);
+        setProjects((prev) => prev.filter((p) => p.id !== project.id));
+        setActiveId((curr) => {
+          if (curr !== project.id) return curr;
+          const remaining = projects.filter((p) => p.id !== project.id);
+          return remaining[0]?.id ?? null;
+        });
+      } catch (e) {
+        setImageError(e instanceof Error ? e.message : 'Could not delete project.');
+      } finally {
+        setProjectDeleting(false);
+      }
+    },
+    [supabase, projects]
+  );
+
   // ── Image selection ──
-  const toggleSelect = (imageId: string) =>
-    setSelectedImageIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(imageId)) next.delete(imageId);
-      else next.add(imageId);
-      return next;
-    });
-  const clearSelection = () => setSelectedImageIds(new Set());
-  const deleteSelected = () => {
+  // These handlers are wrapped in useCallback (and key off the functional
+  // setters / activeId rather than `active`) so the memoized ImageTiles aren't
+  // forced to re-render on every drag-over tick.
+  const toggleSelect = useCallback(
+    (imageId: string) =>
+      setSelectedImageIds((prev) => {
+        const next = new Set(prev);
+        if (next.has(imageId)) next.delete(imageId);
+        else next.add(imageId);
+        return next;
+      }),
+    []
+  );
+  const clearSelection = useCallback(() => setSelectedImageIds(new Set()), []);
+  const deleteSelected = async () => {
     if (!active) return;
-    updateProject(active.id, { images: active.images.filter((f) => !selectedImageIds.has(f.id)) });
+    const ids = active.images.filter((f) => selectedImageIds.has(f.id)).map((f) => f.id);
     clearSelection();
+    // deleteOneImage handles both local drops and remote Supabase deletes.
+    for (const id of ids) {
+      await deleteOneImage(id);
+    }
   };
 
-  const setCover = (imageId: string) => {
-    if (active) updateProject(active.id, { coverImageId: imageId });
-  };
-  const setAlt = (imageId: string, alt: string) => {
-    if (!active) return;
-    updateProject(active.id, {
-      images: active.images.map((f) => (f.id === imageId ? { ...f, alt } : f)),
-    });
-  };
+  const setCover = useCallback(
+    (imageId: string) => {
+      setProjects((prev) =>
+        prev.map((p) => (p.id === activeId ? { ...p, coverImageId: imageId } : p))
+      );
+    },
+    [activeId]
+  );
+  const setAlt = useCallback(
+    (imageId: string, alt: string) => {
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === activeId
+            ? { ...p, images: p.images.map((f) => (f.id === imageId ? { ...f, alt } : f)) }
+            : p
+        )
+      );
+    },
+    [activeId]
+  );
+  const handleTileDragOver = useCallback((id: string, e: ReactDragEvent) => {
+    e.preventDefault();
+    setDragOverImageId(id);
+  }, []);
 
   // ── Reorder persistence ──
   const commitOrder = async (orderedIds: string[]) => {
@@ -439,6 +599,7 @@ function Composer({
         activeId={activeId}
         tab={tab}
         loadError={loadError}
+        reducedMotion={reducedMotion}
         onSelect={(id) => {
           setActiveId(id);
           setTab('compose');
@@ -448,21 +609,33 @@ function Composer({
       />
 
       <main style={{ overflowY: 'auto', background: INK }}>
-        {tab === 'reorder' ? (
-          <div style={{ padding: '32px 36px' }}>
-            <ReorderPanel projects={projects} onCommitOrder={commitOrder} saving={reorderSaving} />
-          </div>
-        ) : tab === 'settings' ? (
-          <div style={{ padding: '32px 36px' }}>
-            <SettingsPanel supabase={supabase} />
-          </div>
-        ) : tab === 'security' ? (
-          <div style={{ padding: '32px 36px' }}>
-            <SecurityPanel supabase={supabase} />
-          </div>
-        ) : (
-          <ProjectWorkspace
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={tab}
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+            animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+            transition={{ duration: reducedMotion ? 0 : 0.25, ease: PANEL_EASE }}
+          >
+            {tab === 'reorder' ? (
+              <div style={{ padding: '32px 36px' }}>
+                <ReorderPanel projects={projects} onCommitOrder={commitOrder} saving={reorderSaving} />
+              </div>
+            ) : tab === 'settings' ? (
+              <div style={{ padding: '32px 36px' }}>
+                <SettingsPanel supabase={supabase} />
+              </div>
+            ) : tab === 'security' ? (
+              <div style={{ padding: '32px 36px' }}>
+                <SecurityPanel supabase={supabase} />
+              </div>
+            ) : (
+              <ProjectWorkspace
             project={active}
+            reducedMotion={reducedMotion}
+            loadingImages={loadingImagesId === active?.id}
+            imageError={imageError}
+            projectDeleting={projectDeleting}
             takenSlugs={active ? takenSlugs(active.id) : new Set()}
             selectedImageIds={selectedImageIds}
             thumbSize={thumbSize}
@@ -475,6 +648,8 @@ function Composer({
             onSlugChange={onSlugChange}
             onUpdate={updateProject}
             onRemove={removeProject}
+            onDeleteRemoteProject={removeRemoteProject}
+            onDeleteImage={deleteOneImage}
             onIngest={ingest}
             onCreate={createProject}
             onDragOver={(e) => {
@@ -496,13 +671,12 @@ function Composer({
             onSetAlt={setAlt}
             onThumbSize={setThumbSize}
             onTileDragStart={setDraggedImageId}
-            onTileDragOver={(id, e) => {
-              e.preventDefault();
-              setDragOverImageId(id);
-            }}
+            onTileDragOver={handleTileDragOver}
             onTileDragEnd={onTileDragEnd}
           />
-        )}
+            )}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {publishOpen && (
@@ -629,6 +803,7 @@ function Sidebar({
   activeId,
   tab,
   loadError,
+  reducedMotion,
   onSelect,
   onSetTab,
   onCreate,
@@ -637,6 +812,7 @@ function Sidebar({
   activeId: string | null;
   tab: Tab;
   loadError: string | null;
+  reducedMotion: boolean;
   onSelect: (id: string) => void;
   onSetTab: (t: Tab) => void;
   onCreate: () => void;
@@ -693,54 +869,61 @@ function Sidebar({
             No projects yet. Create one to get started.
           </div>
         ) : (
-          projects.map((p) => {
-            const isActive = p.id === activeId && tab === 'compose';
-            const count = p.remote ? (p.remoteImageCount ?? 0) : p.images.length;
-            return (
-              <button
-                key={p.id}
-                onClick={() => onSelect(p.id)}
-                style={{
-                  width: '100%',
-                  textAlign: 'left',
-                  padding: '14px 18px',
-                  background: isActive ? 'rgba(245,243,238,0.05)' : 'transparent',
-                  borderLeft: isActive ? '2px solid #f5f3ee' : '2px solid transparent',
-                  borderTop: 'none',
-                  borderRight: 'none',
-                  borderBottom: '1px solid rgba(245,243,238,0.06)',
-                  color: CREAM,
-                  cursor: 'pointer',
-                  display: 'block',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) e.currentTarget.style.background = 'rgba(245,243,238,0.03)';
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) e.currentTarget.style.background = 'transparent';
-                }}
-              >
-                <div
+          <AnimatePresence initial={false}>
+            {projects.map((p) => {
+              const isActive = p.id === activeId && tab === 'compose';
+              const count = p.remote ? (p.remoteImageCount ?? 0) : p.images.length;
+              return (
+                <motion.button
+                  key={p.id}
+                  layout={!reducedMotion}
+                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
+                  animate={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                  exit={reducedMotion ? { opacity: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.28, ease: PANEL_EASE }}
+                  onClick={() => onSelect(p.id)}
                   style={{
-                    fontFamily: SERIF,
-                    fontStyle: 'italic',
-                    fontWeight: 300,
-                    fontSize: 19,
-                    lineHeight: 1.15,
-                    color: p.title ? CREAM : 'rgba(245,243,238,0.4)',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '14px 18px',
+                    background: isActive ? 'rgba(245,243,238,0.05)' : 'transparent',
+                    borderLeft: isActive ? '2px solid #f5f3ee' : '2px solid transparent',
+                    borderTop: 'none',
+                    borderRight: 'none',
+                    borderBottom: '1px solid rgba(245,243,238,0.06)',
+                    color: CREAM,
+                    cursor: 'pointer',
+                    display: 'block',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.background = 'rgba(245,243,238,0.03)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  {p.title || 'Untitled project'}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
-                  <Cap style={{ color: p.remote ? 'rgba(118,200,147,0.8)' : '#d4a93e' }}>
-                    {p.remote ? 'Published' : 'Draft'}
-                  </Cap>
-                  <Cap style={{ color: DIM }}>{count} img</Cap>
-                </div>
-              </button>
-            );
-          })
+                  <div
+                    style={{
+                      fontFamily: SERIF,
+                      fontStyle: 'italic',
+                      fontWeight: 300,
+                      fontSize: 19,
+                      lineHeight: 1.15,
+                      color: p.title ? CREAM : 'rgba(245,243,238,0.4)',
+                    }}
+                  >
+                    {p.title || 'Untitled project'}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
+                    <Cap style={{ color: p.remote ? 'rgba(118,200,147,0.8)' : '#d4a93e' }}>
+                      {p.remote ? 'Published' : 'Draft'}
+                    </Cap>
+                    <Cap style={{ color: DIM }}>{count} img</Cap>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </AnimatePresence>
         )}
       </div>
 
@@ -759,6 +942,10 @@ function Sidebar({
 
 interface WorkspaceProps {
   project: StudioProject | null;
+  reducedMotion: boolean;
+  loadingImages: boolean;
+  imageError: string | null;
+  projectDeleting: boolean;
   takenSlugs: Set<string>;
   selectedImageIds: Set<string>;
   thumbSize: number;
@@ -771,6 +958,8 @@ interface WorkspaceProps {
   onSlugChange: (id: string, slug: string) => void;
   onUpdate: (id: string, patch: Partial<StudioProject>) => void;
   onRemove: (id: string) => void;
+  onDeleteRemoteProject: (project: StudioProject) => void;
+  onDeleteImage: (id: string) => void;
   onIngest: (files: FileList | File[]) => void;
   onCreate: () => void;
   onDragOver: (e: ReactDragEvent) => void;
@@ -788,13 +977,30 @@ interface WorkspaceProps {
 }
 
 function ProjectWorkspace(props: WorkspaceProps) {
-  const { project } = props;
+  const { project, onDeleteImage } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  // Two-step per-image delete confirm (only meaningful for published images).
+  const [confirmingImageId, setConfirmingImageId] = useState<string | null>(null);
 
   useEffect(() => {
     setConfirmingDelete(false);
+    setConfirmingImageId(null);
   }, [project?.id]);
+
+  // Stable so memoized ImageTiles don't re-render every drag tick: staged
+  // (local) images delete immediately; published images require a confirm
+  // before the Supabase delete fires.
+  const imagesRef = useRef(project?.images);
+  imagesRef.current = project?.images;
+  const handleTileDelete = useCallback(
+    (id: string) => {
+      const img = imagesRef.current?.find((f) => f.id === id);
+      if (img?.remoteImage) setConfirmingImageId(id);
+      else onDeleteImage(id);
+    },
+    [onDeleteImage]
+  );
 
   if (!project) {
     return (
@@ -830,7 +1036,13 @@ function ProjectWorkspace(props: WorkspaceProps) {
   const effectiveCover = project.coverImageId ?? project.images[0]?.id ?? null;
 
   return (
-    <div
+    <motion.div
+      // Re-key on the project id so selecting/creating a project fades the
+      // composer body in (rather than popping). Reduced motion → opacity only.
+      key={project.id}
+      initial={props.reducedMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+      animate={props.reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      transition={{ duration: props.reducedMotion ? 0 : 0.28, ease: PANEL_EASE }}
       onDragOver={props.onDragOver}
       onDragLeave={props.onDragLeave}
       onDrop={props.onDrop}
@@ -864,9 +1076,15 @@ function ProjectWorkspace(props: WorkspaceProps) {
       {project.remote && (
         <div style={{ marginBottom: 18 }}>
           <Cap style={{ color: 'rgba(118,200,147,0.85)' }}>
-            Published project · edit text, then re-publish to apply. Images load from Supabase on
-            rebuild; add new originals below to append.
+            Published project · view, reorder &amp; delete its images, or edit text below. Image
+            deletes &amp; reorders save to Supabase immediately and appear on the site after the next
+            rebuild. Add new originals below to append, then re-publish.
           </Cap>
+          {props.imageError && (
+            <div style={{ marginTop: 8 }}>
+              <Cap style={{ color: '#e74c3c' }}>{props.imageError}</Cap>
+            </div>
+          )}
         </div>
       )}
 
@@ -886,15 +1104,34 @@ function ProjectWorkspace(props: WorkspaceProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           {confirmingDelete ? (
             <>
-              <Cap style={{ color: '#e74c3c' }}>Remove from Studio?</Cap>
-              <Pill kind="danger" onClick={() => { props.onRemove(project.id); setConfirmingDelete(false); }}>
-                Yes
+              <Cap style={{ color: '#e74c3c' }}>
+                {project.remote
+                  ? props.projectDeleting
+                    ? 'Deleting…'
+                    : 'Delete from Supabase? This cannot be undone.'
+                  : 'Remove from Studio?'}
+              </Cap>
+              <Pill
+                kind="danger"
+                disabled={props.projectDeleting}
+                onClick={() => {
+                  if (project.remote) {
+                    props.onDeleteRemoteProject(project);
+                  } else {
+                    props.onRemove(project.id);
+                  }
+                  setConfirmingDelete(false);
+                }}
+              >
+                Yes, delete
               </Pill>
-              <Pill onClick={() => setConfirmingDelete(false)}>Cancel</Pill>
+              <Pill onClick={() => setConfirmingDelete(false)} disabled={props.projectDeleting}>
+                Cancel
+              </Pill>
             </>
           ) : (
             <Pill kind="danger" onClick={() => setConfirmingDelete(true)}>
-              {project.remote ? 'Close' : 'Delete project'}
+              Delete project
             </Pill>
           )}
         </div>
@@ -992,9 +1229,10 @@ function ProjectWorkspace(props: WorkspaceProps) {
           </>
         ) : (
           <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
-            Click to select · drag to reorder · ☆ to set cover
+            Click to select · drag to reorder · ☆ to set cover{project.remote ? ' · Delete saves to Supabase' : ''}
           </Cap>
         )}
+        {props.loadingImages && <Cap style={{ color: 'rgba(118,200,147,0.8)' }}>Loading images…</Cap>}
         <div style={{ flex: 1 }} />
         <Cap style={{ color: DIM }}>Thumb size</Cap>
         <input
@@ -1007,9 +1245,49 @@ function ProjectWorkspace(props: WorkspaceProps) {
         />
       </div>
 
+      {/* Per-image delete confirm (published images delete from Supabase) */}
+      {confirmingImageId && (
+        <div
+          style={{
+            marginTop: 16,
+            padding: '12px 16px',
+            border: '1px solid rgba(231,76,60,0.4)',
+            background: 'rgba(231,76,60,0.08)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+            flexWrap: 'wrap',
+          }}
+        >
+          <Cap style={{ color: '#e74c3c' }}>
+            Delete this image from Supabase? The original is removed now; the site updates on the
+            next rebuild.
+          </Cap>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Pill
+              kind="danger"
+              onClick={() => {
+                props.onDeleteImage(confirmingImageId);
+                setConfirmingImageId(null);
+              }}
+            >
+              Yes, delete
+            </Pill>
+            <Pill onClick={() => setConfirmingImageId(null)}>Cancel</Pill>
+          </div>
+        </div>
+      )}
+
       {/* Grid */}
       {project.images.length === 0 ? (
-        <EmptyDropZone onClickAdd={() => fileInputRef.current?.click()} dragActive={props.dragActive} />
+        props.loadingImages ? (
+          <div style={{ marginTop: 32, padding: '60px 20px', textAlign: 'center' }}>
+            <Cap style={{ color: DIM }}>Loading images…</Cap>
+          </div>
+        ) : (
+          <EmptyDropZone onClickAdd={() => fileInputRef.current?.click()} dragActive={props.dragActive} />
+        )
       ) : (
         <div
           style={{
@@ -1019,24 +1297,28 @@ function ProjectWorkspace(props: WorkspaceProps) {
             gap: 14,
           }}
         >
-          {project.images.map((image, i) => (
-            <ImageTile
-              key={image.id}
-              image={image}
-              index={i}
-              selected={props.selectedImageIds.has(image.id)}
-              isCover={effectiveCover === image.id}
-              draggedId={props.draggedImageId}
-              dragOverId={props.dragOverImageId}
-              thumbSize={props.thumbSize}
-              onToggleSelect={() => props.onToggleSelect(image.id)}
-              onSetCover={() => props.onSetCover(image.id)}
-              onAltChange={(alt) => props.onSetAlt(image.id, alt)}
-              onDragStart={() => props.onTileDragStart(image.id)}
-              onDragOver={(e) => props.onTileDragOver(image.id, e)}
-              onDragEnd={props.onTileDragEnd}
-            />
-          ))}
+          <AnimatePresence initial={false}>
+            {project.images.map((image, i) => (
+              <ImageTile
+                key={image.id}
+                image={image}
+                index={i}
+                reducedMotion={props.reducedMotion}
+                selected={props.selectedImageIds.has(image.id)}
+                isCover={effectiveCover === image.id}
+                draggedId={props.draggedImageId}
+                dragOverId={props.dragOverImageId}
+                thumbSize={props.thumbSize}
+                onToggleSelect={props.onToggleSelect}
+                onSetCover={props.onSetCover}
+                onAltChange={props.onSetAlt}
+                onDelete={handleTileDelete}
+                onDragStart={props.onTileDragStart}
+                onDragOver={props.onTileDragOver}
+                onDragEnd={props.onTileDragEnd}
+              />
+            ))}
+          </AnimatePresence>
         </div>
       )}
 
@@ -1063,7 +1345,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 

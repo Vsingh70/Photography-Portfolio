@@ -67,6 +67,47 @@ async function readDimensions(
   });
 }
 
+/**
+ * Produce a small downscaled JPEG dataURL (~max edge `maxEdge`px) for fast,
+ * low-jank grid display. The multi-MB original is never painted into the grid —
+ * only this lightweight thumbnail is — which removes the decode/scroll jank the
+ * full-resolution dataURL caused. Falls back to the full dataURL if the canvas
+ * path is unavailable (e.g. exotic format / no createImageBitmap).
+ */
+export async function makeThumbnail(
+  file: File,
+  fallbackDataURL: string,
+  maxEdge = 512
+): Promise<string> {
+  if (typeof createImageBitmap !== 'function' || typeof document === 'undefined') {
+    return fallbackDataURL;
+  }
+  try {
+    const bitmap = await createImageBitmap(file);
+    const { width, height } = bitmap;
+    if (!width || !height) {
+      bitmap.close();
+      return fallbackDataURL;
+    }
+    const scale = Math.min(1, maxEdge / Math.max(width, height));
+    const w = Math.max(1, Math.round(width * scale));
+    const h = Math.max(1, Math.round(height * scale));
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      bitmap.close();
+      return fallbackDataURL;
+    }
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    bitmap.close();
+    return canvas.toDataURL('image/jpeg', 0.72);
+  } catch {
+    return fallbackDataURL;
+  }
+}
+
 /** Compose a human "settings" string from the usual exposure fields. */
 function composeSettings(tags: Record<string, unknown>): string | undefined {
   const parts: string[] = [];
@@ -146,9 +187,10 @@ export async function ingestFile(file: File, existingHashes: Set<string>): Promi
   const duplicate = existingHashes.has(hash);
   existingHashes.add(hash);
 
-  const [{ width, height }, exif] = await Promise.all([
+  const [{ width, height }, exif, thumbDataURL] = await Promise.all([
     readDimensions(file, dataURL),
     extractExif(file),
+    makeThumbnail(file, dataURL),
   ]);
 
   return {
@@ -158,6 +200,7 @@ export async function ingestFile(file: File, existingHashes: Set<string>): Promi
     type: file.type,
     hash,
     dataURL,
+    thumbDataURL,
     blob: file,
     width,
     height,

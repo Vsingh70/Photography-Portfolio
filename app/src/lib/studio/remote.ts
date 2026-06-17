@@ -7,7 +7,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database, TablesInsert } from '@/types/supabase';
-import type { StudioProject } from './types';
+import type { ImageExif, StudioImage, StudioProject } from './types';
 
 const BUCKET = 'originals';
 type Client = SupabaseClient<Database>;
@@ -83,6 +83,95 @@ export async function persistProjectMeta(
       shot_date: project.shotDate || null,
     })
     .eq('id', project.id);
+  if (error) throw new Error(error.message);
+}
+
+/**
+ * Load a published project's existing images (ordered by sort_order), each with
+ * a short-lived signed thumbnail URL for in-grid display. The blob itself is
+ * never downloaded — the grid renders straight from the signed Storage URL, so
+ * these images stay `remoteImage: true` and are managed (reorder/delete) against
+ * Supabase directly rather than re-uploaded on publish.
+ */
+export async function loadProjectImages(
+  supabase: Client,
+  projectId: string
+): Promise<StudioImage[]> {
+  const { data, error } = await supabase
+    .from('images')
+    // Two FKs exist between projects/images — disambiguate to images.project_id.
+    .select('id, storage_path, alt, title, width, height, exif, sort_order')
+    .eq('project_id', projectId)
+    .order('sort_order', { ascending: true });
+  if (error) throw new Error(error.message);
+
+  const rows = data ?? [];
+  const signed = await Promise.all(
+    rows.map((row) => signedThumb(supabase, row.storage_path))
+  );
+
+  return rows.map((row, i) => ({
+    id: row.id,
+    name: row.title || row.storage_path.split('/').pop() || 'image',
+    size: 0,
+    type: '',
+    hash: '',
+    alt: row.alt ?? '',
+    width: row.width ?? undefined,
+    height: row.height ?? undefined,
+    exif: (row.exif ?? {}) as ImageExif,
+    remoteImage: true,
+    storagePath: row.storage_path,
+    signedThumb: signed[i] ?? undefined,
+  }));
+}
+
+/** Persist a new ordering of a project's images to `images.sort_order`. */
+export async function persistImageOrder(
+  supabase: Client,
+  orderedImageIds: string[]
+): Promise<void> {
+  await Promise.all(
+    orderedImageIds.map((id, index) =>
+      supabase.from('images').update({ sort_order: index }).eq('id', id)
+    )
+  );
+}
+
+/**
+ * Delete a single published image: remove the Storage original first, then the
+ * `images` row. R2 variant cleanup is the pipeline's job on the next rebuild.
+ */
+export async function deleteImage(supabase: Client, image: StudioImage): Promise<void> {
+  if (image.storagePath) {
+    const { error: storageErr } = await supabase.storage.from(BUCKET).remove([image.storagePath]);
+    if (storageErr) throw new Error(storageErr.message);
+  }
+  const { error } = await supabase.from('images').delete().eq('id', image.id);
+  if (error) throw new Error(error.message);
+}
+
+/**
+ * Delete a whole published project: list + remove every Storage object under
+ * `{slug}/`, then delete the `projects` row (DB cascade removes its images
+ * rows). R2 variant cleanup is the pipeline's job on the next rebuild.
+ */
+export async function deleteProject(supabase: Client, project: StudioProject): Promise<void> {
+  // List originals under this project's slug folder and remove them in bulk.
+  const { data: listed, error: listErr } = await supabase.storage
+    .from(BUCKET)
+    .list(project.slug, { limit: 1000 });
+  if (listErr) throw new Error(listErr.message);
+
+  const paths = (listed ?? [])
+    .filter((obj) => obj.name) // skip folder placeholders
+    .map((obj) => `${project.slug}/${obj.name}`);
+  if (paths.length > 0) {
+    const { error: removeErr } = await supabase.storage.from(BUCKET).remove(paths);
+    if (removeErr) throw new Error(removeErr.message);
+  }
+
+  const { error } = await supabase.from('projects').delete().eq('id', project.id);
   if (error) throw new Error(error.message);
 }
 
