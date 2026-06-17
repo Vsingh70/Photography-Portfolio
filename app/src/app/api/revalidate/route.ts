@@ -2,7 +2,7 @@
  * Revalidation API Route
  *
  * Endpoint: POST /api/revalidate
- * Triggers on-demand revalidation of gallery pages when new images are added to Google Drive
+ * Triggers on-demand ISR revalidation of project pages (e.g. after a Studio publish + rebuild).
  *
  * Usage:
  * curl -X POST https://yoursite.com/api/revalidate \
@@ -13,7 +13,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { getAllGallerySlugs } from '@/config/galleries';
+import { getWorkIndex } from '@/lib/projects';
 
 /**
  * POST handler - Revalidate specified paths
@@ -63,8 +63,8 @@ export async function POST(request: NextRequest) {
       revalidatePath('/gallery');
       revalidatedPaths.push('/gallery');
 
-      // Revalidate all category pages
-      const slugs = getAllGallerySlugs();
+      // Revalidate every published project page (from the generated index).
+      const slugs = getWorkIndex().map((w) => w.slug);
       for (const slug of slugs) {
         const path = `/gallery/${slug}`;
         revalidatePath(path);
