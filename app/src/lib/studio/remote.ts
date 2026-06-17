@@ -236,6 +236,48 @@ export async function setSiteImage(
   if (error) throw new Error(error.message);
 }
 
+/** Gear kind discriminator (matches the `gear` table CHECK). */
+export type GearKind = 'camera' | 'lens';
+
+/** Saved gear, split by kind, label-only and ordered. */
+export interface GearLists {
+  cameras: string[];
+  lenses: string[];
+}
+
+/**
+ * Load all saved gear, split into camera + lens label lists (ordered by label).
+ * Used to seed the Camera/Lens combobox dropdowns when the Studio mounts.
+ */
+export async function loadGear(supabase: Client): Promise<GearLists> {
+  const { data, error } = await supabase
+    .from('gear')
+    .select('kind, label')
+    .order('label', { ascending: true });
+  if (error) throw new Error(error.message);
+
+  const cameras: string[] = [];
+  const lenses: string[] = [];
+  for (const row of data ?? []) {
+    if (row.kind === 'camera') cameras.push(row.label);
+    else if (row.kind === 'lens') lenses.push(row.label);
+  }
+  return { cameras, lenses };
+}
+
+/**
+ * Upsert a gear label (no-op on empty). Dupes are ignored via the
+ * `unique(kind,label)` constraint (`onConflict: 'kind,label'`, ignoreDuplicates).
+ * Tolerant: returns silently on error so an autosave never blocks an edit.
+ */
+export async function saveGear(supabase: Client, kind: GearKind, label: string): Promise<void> {
+  const trimmed = label.trim();
+  if (!trimmed) return;
+  await supabase
+    .from('gear')
+    .upsert({ kind, label: trimmed }, { onConflict: 'kind,label', ignoreDuplicates: true });
+}
+
 /** Short-lived signed URL for a private original (thumbnail display). */
 export async function signedThumb(
   supabase: Client,

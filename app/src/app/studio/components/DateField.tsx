@@ -6,10 +6,13 @@
  * A field-style trigger (showing the current value or "Add date") opens a
  * month-grid popover. Hand-rolled (no dependency) to match the Studio's
  * cream-on-near-black aesthetic — Cormorant serif month heading, DM Mono `Cap`
- * weekday labels, `Pill` button vocabulary for nav/clear. Keyboard-accessible
- * (arrow keys move the focused day, Enter/Space selects, Escape closes) and
- * closes on outside-click. The value is the same `YYYY-MM-DD` string the rest of
- * the code uses for `shot_date` (empty string = no date; shot_date is optional).
+ * weekday labels, `Pill` button vocabulary for nav/clear. Year traversal: « / »
+ * chevrons jump a whole year, and clicking the month/year heading swaps the day
+ * grid for a 12-year picker (the inner ‹ / › then step the year window).
+ * Keyboard-accessible (arrow keys move the focused day, Enter/Space selects,
+ * Escape closes) and closes on outside-click. The value is the same
+ * `YYYY-MM-DD` string the rest of the code uses for `shot_date` (empty string =
+ * no date; shot_date is optional).
  */
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
@@ -68,6 +71,8 @@ export function DateField({
     return new Date(base.getFullYear(), base.getMonth(), 1);
   });
   const [focusDay, setFocusDay] = useState<Date>(() => selected ?? today);
+  // Clicking the header swaps the day grid for a 12-year picker grid.
+  const [yearView, setYearView] = useState(false);
 
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -80,6 +85,7 @@ export function DateField({
     const base = selected ?? today;
     setViewMonth(new Date(base.getFullYear(), base.getMonth(), 1));
     setFocusDay(base);
+    setYearView(false);
     // Focus the grid so arrow keys work immediately.
     const t = window.setTimeout(() => gridRef.current?.focus(), 0);
     return () => window.clearTimeout(t);
@@ -149,6 +155,15 @@ export function DateField({
   const stepMonth = (delta: number) =>
     setViewMonth((m) => new Date(m.getFullYear(), m.getMonth() + delta, 1));
 
+  const stepYear = (delta: number) =>
+    setViewMonth((m) => new Date(m.getFullYear() + delta, m.getMonth(), 1));
+
+  // The 12-year window shown in the year-grid view (aligned to multiples of 12).
+  const yearWindowStart = useMemo(
+    () => Math.floor(viewMonth.getFullYear() / 12) * 12,
+    [viewMonth]
+  );
+
   return (
     <div ref={rootRef} style={{ position: 'relative' }}>
       <button
@@ -203,69 +218,163 @@ export function DateField({
               padding: 16,
             }}
           >
-            {/* Month nav */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-              <NavBtn label="Previous month" onClick={() => stepMonth(-1)}>‹</NavBtn>
-              <span style={{ fontFamily: SERIF, fontStyle: 'italic', fontWeight: 300, fontSize: 22, color: CREAM, letterSpacing: '-0.01em' }}>
-                {MONTH_NAMES[viewMonth.getMonth()]} {viewMonth.getFullYear()}
-              </span>
-              <NavBtn label="Next month" onClick={() => stepMonth(1)}>›</NavBtn>
+            {/* Header nav: year chevrons + month chevrons flank a clickable
+                month/year heading (click → year-grid). In year view the inner
+                chevrons step the 12-year window instead of the month. */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, gap: 6 }}>
+              <div style={{ display: 'flex', gap: 4 }}>
+                <NavBtn label="Previous year" onClick={() => stepYear(-1)}>«</NavBtn>
+                <NavBtn
+                  label={yearView ? 'Previous years' : 'Previous month'}
+                  onClick={() => (yearView ? stepYear(-12) : stepMonth(-1))}
+                >
+                  ‹
+                </NavBtn>
+              </div>
+              <button
+                type="button"
+                onClick={() => setYearView((v) => !v)}
+                aria-label={yearView ? 'Back to days' : 'Choose a year'}
+                aria-expanded={yearView}
+                style={{
+                  flex: 1,
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: SERIF,
+                  fontStyle: 'italic',
+                  fontWeight: 300,
+                  fontSize: 22,
+                  color: CREAM,
+                  letterSpacing: '-0.01em',
+                  padding: '2px 0',
+                  borderRadius: 2,
+                  transition: 'background 0.2s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(245,243,238,0.06)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                {yearView
+                  ? `${yearWindowStart} – ${yearWindowStart + 11}`
+                  : `${MONTH_NAMES[viewMonth.getMonth()]} ${viewMonth.getFullYear()}`}
+              </button>
+              <div style={{ display: 'flex', gap: 4 }}>
+                <NavBtn
+                  label={yearView ? 'Next years' : 'Next month'}
+                  onClick={() => (yearView ? stepYear(12) : stepMonth(1))}
+                >
+                  ›
+                </NavBtn>
+                <NavBtn label="Next year" onClick={() => stepYear(1)}>»</NavBtn>
+              </div>
             </div>
 
-            {/* Weekday labels */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, marginBottom: 4 }}>
-              {WEEKDAYS.map((w, i) => (
-                <div key={i} style={{ textAlign: 'center', padding: '4px 0' }}>
-                  <Cap style={{ color: DIM, fontSize: 9 }}>{w}</Cap>
+            {yearView ? (
+              /* Year grid: pick a year, then drop back to the day grid. */
+              <div
+                role="grid"
+                aria-label="Years"
+                style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}
+              >
+                {Array.from({ length: 12 }, (_, i) => yearWindowStart + i).map((yr) => {
+                  const isCurrent = yr === viewMonth.getFullYear();
+                  const isSelYear = selected ? selected.getFullYear() === yr : false;
+                  return (
+                    <button
+                      key={yr}
+                      type="button"
+                      role="gridcell"
+                      aria-selected={isSelYear}
+                      onClick={() => {
+                        setViewMonth(new Date(yr, viewMonth.getMonth(), 1));
+                        setYearView(false);
+                        window.setTimeout(() => gridRef.current?.focus(), 0);
+                      }}
+                      style={{
+                        padding: '10px 0',
+                        background: isSelYear ? CREAM : 'transparent',
+                        color: isSelYear ? '#0a0a0a' : CREAM,
+                        border:
+                          isCurrent && !isSelYear
+                            ? '1px solid rgba(212,169,62,0.6)'
+                            : '1px solid rgba(245,243,238,0.14)',
+                        borderRadius: 2,
+                        cursor: 'pointer',
+                        fontFamily: SERIF,
+                        fontSize: 16,
+                        lineHeight: 1,
+                        transition: 'background 0.12s, color 0.12s',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelYear) e.currentTarget.style.background = 'rgba(245,243,238,0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelYear) e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      {yr}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <>
+                {/* Weekday labels */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, marginBottom: 4 }}>
+                  {WEEKDAYS.map((w, i) => (
+                    <div key={i} style={{ textAlign: 'center', padding: '4px 0' }}>
+                      <Cap style={{ color: DIM, fontSize: 9 }}>{w}</Cap>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {/* Day grid */}
-            <div
-              ref={gridRef}
-              tabIndex={0}
-              role="grid"
-              aria-label="Days"
-              onKeyDown={onGridKeyDown}
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, outline: 'none' }}
-            >
-              {days.map((d, i) => {
-                if (!d) return <div key={`b${i}`} />;
-                const isSel = selected ? sameDay(d, selected) : false;
-                const isFocus = sameDay(d, focusDay);
-                const isToday = sameDay(d, today);
-                return (
-                  <button
-                    key={toISO(d)}
-                    type="button"
-                    role="gridcell"
-                    aria-selected={isSel}
-                    tabIndex={-1}
-                    onClick={() => commit(d)}
-                    onMouseEnter={() => setFocusDay(d)}
-                    style={{
-                      aspectRatio: '1 / 1',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: isSel ? CREAM : isFocus ? 'rgba(245,243,238,0.1)' : 'transparent',
-                      color: isSel ? '#0a0a0a' : CREAM,
-                      border: isToday && !isSel ? '1px solid rgba(212,169,62,0.6)' : '1px solid transparent',
-                      borderRadius: 2,
-                      cursor: 'pointer',
-                      fontFamily: SERIF,
-                      fontSize: 16,
-                      lineHeight: 1,
-                      padding: 0,
-                      transition: 'background 0.12s, color 0.12s',
-                    }}
-                  >
-                    {d.getDate()}
-                  </button>
-                );
-              })}
-            </div>
+                {/* Day grid */}
+                <div
+                  ref={gridRef}
+                  tabIndex={0}
+                  role="grid"
+                  aria-label="Days"
+                  onKeyDown={onGridKeyDown}
+                  style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, outline: 'none' }}
+                >
+                  {days.map((d, i) => {
+                    if (!d) return <div key={`b${i}`} />;
+                    const isSel = selected ? sameDay(d, selected) : false;
+                    const isFocus = sameDay(d, focusDay);
+                    const isToday = sameDay(d, today);
+                    return (
+                      <button
+                        key={toISO(d)}
+                        type="button"
+                        role="gridcell"
+                        aria-selected={isSel}
+                        tabIndex={-1}
+                        onClick={() => commit(d)}
+                        onMouseEnter={() => setFocusDay(d)}
+                        style={{
+                          aspectRatio: '1 / 1',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          background: isSel ? CREAM : isFocus ? 'rgba(245,243,238,0.1)' : 'transparent',
+                          color: isSel ? '#0a0a0a' : CREAM,
+                          border: isToday && !isSel ? '1px solid rgba(212,169,62,0.6)' : '1px solid transparent',
+                          borderRadius: 2,
+                          cursor: 'pointer',
+                          fontFamily: SERIF,
+                          fontSize: 16,
+                          lineHeight: 1,
+                          padding: 0,
+                          transition: 'background 0.12s, color 0.12s',
+                        }}
+                      >
+                        {d.getDate()}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
 
             {/* Footer: today + clear */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, marginTop: 14 }}>

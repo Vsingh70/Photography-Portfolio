@@ -2,9 +2,11 @@
 
 /**
  * A single image card in the project composer grid. Click to select; drag to
- * reorder. Adds (vs. the legacy Thumb): a "Set as cover" toggle, an inline
- * alt/caption field, a dimensions/EXIF readout, and (for published images) a
- * per-image delete.
+ * reorder. Adds (vs. the legacy Thumb): a "Set as cover" toggle, a "Details"
+ * toggle that expands an inline metadata editor (Caption→alt, Camera/Lens gear
+ * comboboxes→exif, Settings free text→exif), a dimensions readout, and (for
+ * published images) a per-image delete. The label is a clean derived title
+ * ("{Project} ({n})") — the raw camera filename is never surfaced.
  *
  * Motion: the card is a `motion.div` with `layout` so reorder/add/remove animate
  * to their new slots, on a tight spring; hover/press use GPU transforms only
@@ -19,27 +21,34 @@
 
 import { memo, useState } from 'react';
 import type { DragEvent as ReactDragEvent } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { formatBytes } from '@/lib/studio/ingest';
-import type { StudioImage } from '@/lib/studio/types';
-import { Cap } from './ui';
+import type { ImageExif, StudioImage } from '@/lib/studio/types';
+import { Cap, Combobox } from './ui';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export interface ImageTileProps {
   image: StudioImage;
-  index: number;
+  /** Clean, human label ("{Project title} ({index+1})") — never the raw filename. */
+  cleanTitle: string;
   selected: boolean;
   isCover: boolean;
   draggedId: string | null;
   dragOverId: string | null;
   thumbSize: number;
   reducedMotion: boolean;
+  /** Saved camera / lens labels for the metadata comboboxes. */
+  cameras: string[];
+  lenses: string[];
   /** id-parameterized callbacks so the parent can pass stable refs and let
    * `memo` skip tiles that didn't change between renders. */
   onToggleSelect: (id: string) => void;
   onSetCover: (id: string) => void;
   onAltChange: (id: string, alt: string) => void;
+  /** Patch the image's exif (camera/lens/settings). Caller merges + autosaves
+   * brand-new camera/lens labels into the gear list. */
+  onExifChange: (id: string, patch: Partial<ImageExif>) => void;
   onDelete: (id: string) => void;
   onDragStart: (id: string) => void;
   onDragOver: (id: string, e: ReactDragEvent) => void;
@@ -48,21 +57,26 @@ export interface ImageTileProps {
 
 function ImageTileBase({
   image,
-  index,
+  cleanTitle,
   selected,
   isCover,
   draggedId,
   dragOverId,
   thumbSize,
   reducedMotion,
+  cameras,
+  lenses,
   onToggleSelect,
   onSetCover,
   onAltChange,
+  onExifChange,
   onDelete,
   onDragStart,
   onDragOver,
   onDragEnd,
 }: ImageTileProps) {
+  // Inline metadata editor expansion (caption + camera/lens/settings).
+  const [editing, setEditing] = useState(false);
   const isDragged = draggedId === image.id;
   const isDragOver = dragOverId === image.id && draggedId !== image.id;
   const anyDragging = draggedId !== null;
@@ -236,41 +250,36 @@ function ImageTileBase({
               whiteSpace: 'nowrap',
             }}
           >
-            {index + 1}. {image.name}
+            {cleanTitle}
           </span>
           <Cap style={{ color: 'rgba(245,243,238,0.4)', fontSize: 8 }}>
             {image.size ? formatBytes(image.size) : ''}
           </Cap>
         </div>
 
-        {(dims || image.exif?.settings) && (
-          <div style={{ marginTop: 4, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            {dims && <Cap style={{ color: 'rgba(245,243,238,0.35)', fontSize: 8 }}>{dims}</Cap>}
-            {image.exif?.settings && (
-              <Cap style={{ color: 'rgba(245,243,238,0.35)', fontSize: 8 }}>{image.exif.settings}</Cap>
-            )}
+        {dims && (
+          <div style={{ marginTop: 4 }}>
+            <Cap style={{ color: 'rgba(245,243,238,0.35)', fontSize: 8 }}>{dims}</Cap>
           </div>
         )}
 
-        <input
-          value={image.alt ?? ''}
-          placeholder="caption / alt…"
-          onChange={(e) => onAltChange(image.id, e.target.value)}
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            marginTop: 6,
-            width: '100%',
-            background: 'transparent',
-            border: 'none',
-            borderBottom: '1px solid rgba(245,243,238,0.12)',
-            padding: '2px 0 4px',
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontSize: 12,
-            color: 'rgba(245,243,238,0.8)',
-            outline: 'none',
-          }}
-        />
+        {/* Caption preview (alt) — read-only summary; edit inside the panel. */}
+        {image.alt && !editing && (
+          <div
+            style={{
+              marginTop: 5,
+              fontFamily: 'Cormorant Garamond, serif',
+              fontStyle: 'italic',
+              fontSize: 12,
+              color: 'rgba(245,243,238,0.7)',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {image.alt}
+          </div>
+        )}
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
           <button
@@ -297,6 +306,27 @@ function ImageTileBase({
           <button
             onClick={(e) => {
               e.stopPropagation();
+              setEditing((v) => !v);
+            }}
+            aria-expanded={editing}
+            style={{
+              marginTop: 6,
+              background: 'transparent',
+              border: 'none',
+              color: editing ? '#f5f3ee' : 'rgba(245,243,238,0.45)',
+              cursor: 'pointer',
+              fontFamily: 'DM Mono, monospace',
+              fontSize: 9,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              padding: 0,
+            }}
+          >
+            {editing ? 'Done ▲' : 'Details ▾'}
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
               onDelete(image.id);
             }}
             style={{
@@ -315,8 +345,81 @@ function ImageTileBase({
             Delete
           </button>
         </div>
+
+        {/* Inline metadata editor */}
+        <AnimatePresence initial={false}>
+          {editing && (
+            <motion.div
+              key="meta"
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              animate={reducedMotion ? { opacity: 1 } : { opacity: 1, height: 'auto' }}
+              exit={reducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.2, ease: EASE }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <MetaField label="Caption">
+                  <input
+                    value={image.alt ?? ''}
+                    placeholder="A descriptive line (alt text + caption)…"
+                    onChange={(e) => onAltChange(image.id, e.target.value)}
+                    style={metaInput}
+                  />
+                </MetaField>
+                <MetaField label="Camera">
+                  <Combobox
+                    value={image.exif?.camera ?? ''}
+                    options={cameras}
+                    placeholder="e.g. Sony A7 IV"
+                    reducedMotion={reducedMotion}
+                    onCommit={(next) => onExifChange(image.id, { camera: next })}
+                  />
+                </MetaField>
+                <MetaField label="Lens">
+                  <Combobox
+                    value={image.exif?.lens ?? ''}
+                    options={lenses}
+                    placeholder="e.g. 50mm f/1.4 GM"
+                    reducedMotion={reducedMotion}
+                    onCommit={(next) => onExifChange(image.id, { lens: next })}
+                  />
+                </MetaField>
+                <MetaField label="Settings">
+                  <input
+                    value={image.exif?.settings ?? ''}
+                    placeholder="50mm · f/1.4 · 1/1000"
+                    onChange={(e) => onExifChange(image.id, { settings: e.target.value })}
+                    style={metaInput}
+                  />
+                </MetaField>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
+  );
+}
+
+const metaInput: React.CSSProperties = {
+  width: '100%',
+  background: 'transparent',
+  border: 'none',
+  borderBottom: '1px solid rgba(245,243,238,0.18)',
+  padding: '5px 0 7px',
+  fontFamily: 'Cormorant Garamond, serif',
+  fontSize: 15,
+  color: '#f5f3ee',
+  outline: 'none',
+};
+
+function MetaField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>{label}</Cap>
+      <div style={{ marginTop: 2 }}>{children}</div>
+    </div>
   );
 }
 

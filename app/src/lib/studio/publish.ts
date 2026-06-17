@@ -32,6 +32,16 @@ function exifToJson(exif: ImageExif | undefined): Database['public']['Tables']['
 }
 
 /**
+ * Clean, human image title — "{Project title} ({index+1})" — written to
+ * `images.title` and surfaced on the public site. Never the raw camera
+ * filename (e.g. "20260414-DSC07650.jpg"). Storage paths use the image UUID,
+ * so this is purely cosmetic/metadata. Mirrors cleanImageTitle in StudioApp.
+ */
+function cleanImageTitle(projectTitle: string, index: number): string {
+  return `${projectTitle.trim() || 'Untitled'} (${index + 1})`;
+}
+
+/**
  * Publish a list of (validated) projects. Throws on the first hard failure
  * so the caller can surface it; partial progress is reported via onProgress.
  */
@@ -122,7 +132,8 @@ export async function publishProjects(
         project_id: projectId,
         storage_path: path,
         alt: image.alt ?? '',
-        title: image.name,
+        // Clean indexed title — never the raw camera filename.
+        title: cleanImageTitle(project.title, i),
         width: image.width ?? null,
         height: image.height ?? null,
         exif: exifToJson(image.exif),
@@ -173,6 +184,7 @@ export async function publishProjects(
 async function uploadAndInsertImage(
   supabase: Client,
   slug: string,
+  projectTitle: string,
   projectId: string,
   image: StudioImage,
   sortOrder: number
@@ -196,7 +208,8 @@ async function uploadAndInsertImage(
     project_id: projectId,
     storage_path: path,
     alt: image.alt ?? '',
-    title: image.name,
+    // Clean indexed title — never the raw camera filename.
+    title: cleanImageTitle(projectTitle, sortOrder),
     width: image.width ?? null,
     height: image.height ?? null,
     exif: exifToJson(image.exif),
@@ -247,9 +260,19 @@ export async function publishProjectChanges(
   for (let i = 0; i < project.images.length; i++) {
     const image = project.images[i];
     if (image.remoteImage) {
-      // Existing row: just re-stamp its sort_order to its current grid index.
-      const { error } = await supabase.from('images').update({ sort_order: i }).eq('id', image.id);
-      if (error) throw new Error(`"${project.title}" reorder failed — ${error.message}`);
+      // Existing row: persist the per-image metadata edits (alt / exif / clean
+      // indexed title) along with the re-stamped sort_order, so caption + gear
+      // edits made on a saved project actually save on Publish.
+      const { error } = await supabase
+        .from('images')
+        .update({
+          sort_order: i,
+          alt: image.alt ?? '',
+          title: cleanImageTitle(project.title, i),
+          exif: exifToJson(image.exif),
+        })
+        .eq('id', image.id);
+      if (error) throw new Error(`"${project.title}" image update failed — ${error.message}`);
       continue;
     }
     onProgress({
@@ -260,7 +283,7 @@ export async function publishProjectChanges(
       fileTotal,
       phase: 'upload',
     });
-    await uploadAndInsertImage(supabase, project.slug, project.id, image, i);
+    await uploadAndInsertImage(supabase, project.slug, project.title, project.id, image, i);
   }
 
   // ── 3. Cover (may now point at a freshly appended image) ──

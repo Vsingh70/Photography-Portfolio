@@ -38,9 +38,13 @@ import {
   persistImageOrder,
   deleteImage,
   deleteProject,
+  loadGear,
+  saveGear,
+  type GearKind,
+  type GearLists,
 } from '@/lib/studio/remote';
-import type { PublishProgress, StudioImage, StudioProject } from '@/lib/studio/types';
-import { Cap, Pill, Rule, Heading, INK, CREAM, DIM } from './components/ui';
+import type { ImageExif, PublishProgress, StudioImage, StudioProject } from '@/lib/studio/types';
+import { Cap, Pill, Rule, Heading, Combobox, INK, CREAM, DIM } from './components/ui';
 import { LoginScreen } from './components/LoginScreen';
 import { ImageTile } from './components/ImageTile';
 import { DateField } from './components/DateField';
@@ -57,6 +61,15 @@ const PANEL_EASE = [0.16, 1, 0.3, 1] as const;
 // remote (published) project tiles render from. NEXT_PUBLIC_* so it's inlined
 // client-side; '' if unset (tiles then fall back to the signed Storage URL).
 const CDN_BASE = process.env.NEXT_PUBLIC_GALLERY_CDN_BASE ?? '';
+
+/**
+ * Clean, human image title — "{Project title} ({index+1})" — used as the tile
+ * label and the published `images.title`. Never the raw camera filename. Falls
+ * back to "Untitled" while a project has no title yet.
+ */
+function cleanImageTitle(projectTitle: string, index: number): string {
+  return `${projectTitle.trim() || 'Untitled'} (${index + 1})`;
+}
 
 function newProject(sortOrder: number): StudioProject {
   return {
@@ -167,6 +180,42 @@ function Composer({
   const loadedRemoteImagesRef = useRef<Set<string>>(new Set());
   const [loadingImagesId, setLoadingImagesId] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
+
+  // ── Gear (cameras + lenses) ──
+  // Loaded once on mount; new values (typed in a combobox or seen in EXIF on
+  // ingest) are appended in-memory and persisted via saveGear so the dropdowns
+  // grow from real shots without a reload.
+  const [gear, setGear] = useState<GearLists>({ cameras: [], lenses: [] });
+  useEffect(() => {
+    let cancelled = false;
+    loadGear(supabase)
+      .then((g) => {
+        if (!cancelled) setGear(g);
+      })
+      .catch(() => {
+        /* non-fatal — dropdowns just start empty */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [supabase]);
+
+  // Append a gear label to the in-memory list (deduped, sorted) and persist it.
+  // No-op on empty / already-present. Tolerant: a failed save never blocks edits.
+  const rememberGear = useCallback(
+    (kind: GearKind, label: string) => {
+      const trimmed = label.trim();
+      if (!trimmed) return;
+      setGear((prev) => {
+        const list = kind === 'camera' ? prev.cameras : prev.lenses;
+        if (list.some((l) => l.toLowerCase() === trimmed.toLowerCase())) return prev;
+        const nextList = [...list, trimmed].sort((a, b) => a.localeCompare(b));
+        return kind === 'camera' ? { ...prev, cameras: nextList } : { ...prev, lenses: nextList };
+      });
+      saveGear(supabase, kind, trimmed).catch(() => {});
+    },
+    [supabase]
+  );
 
   // ── One-time "add a passkey" nudge after a password sign-in ──
   // Only shows when the session began via password AND the account has zero
@@ -332,6 +381,12 @@ function Composer({
           // skip unreadable
         }
       }
+      // Autosave any camera/lens carried in EXIF so the kit list grows from real
+      // shots (deduped + persisted by rememberGear).
+      for (const img of processed) {
+        if (img.exif?.camera) rememberGear('camera', img.exif.camera);
+        if (img.exif?.lens) rememberGear('lens', img.exif.lens);
+      }
       setProjects((prev) =>
         prev.map((p) =>
           p.id === active.id
@@ -345,7 +400,7 @@ function Composer({
         )
       );
     },
-    [active]
+    [active, rememberGear]
   );
 
   // ── Image reorder ──
@@ -486,12 +541,72 @@ function Composer({
       setProjects((prev) =>
         prev.map((p) =>
           p.id === activeId
-            ? { ...p, images: p.images.map((f) => (f.id === imageId ? { ...f, alt } : f)) }
+            ? {
+                ...p,
+                images: p.images.map((f) => (f.id === imageId ? { ...f, alt } : f)),
+                // A metadata edit on a saved project needs a rebuild → dirty.
+                dirty: p.remote ? true : p.dirty,
+              }
             : p
         )
       );
     },
     [activeId]
+  );
+
+  // Patch one image's EXIF (camera/lens/settings). Autosaves brand-new
+  // camera/lens labels to the gear list so the dropdowns update immediately.
+  const setExif = useCallback(
+    (imageId: string, patch: Partial<ImageExif>) => {
+      if (patch.camera) rememberGear('camera', patch.camera);
+      if (patch.lens) rememberGear('lens', patch.lens);
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === activeId
+            ? {
+                ...p,
+                images: p.images.map((f) =>
+                  f.id === imageId ? { ...f, exif: { ...f.exif, ...patch } } : f
+                ),
+                dirty: p.remote ? true : p.dirty,
+              }
+            : p
+        )
+      );
+    },
+    [activeId, rememberGear]
+  );
+
+  // Project-level convenience: stamp every image's exif.camera / exif.lens with
+  // the chosen gear (one shoot is usually one kit). Empty values are skipped so
+  // you can apply just a camera or just a lens. Autosaves the gear too.
+  const applyKitToAll = useCallback(
+    (camera: string, lens: string) => {
+      const cam = camera.trim();
+      const len = lens.trim();
+      if (!cam && !len) return;
+      if (cam) rememberGear('camera', cam);
+      if (len) rememberGear('lens', len);
+      setProjects((prev) =>
+        prev.map((p) =>
+          p.id === activeId
+            ? {
+                ...p,
+                images: p.images.map((f) => ({
+                  ...f,
+                  exif: {
+                    ...f.exif,
+                    ...(cam ? { camera: cam } : {}),
+                    ...(len ? { lens: len } : {}),
+                  },
+                })),
+                dirty: p.remote ? true : p.dirty,
+              }
+            : p
+        )
+      );
+    },
+    [activeId, rememberGear]
   );
   const handleTileDragOver = useCallback((id: string, e: ReactDragEvent) => {
     e.preventDefault();
@@ -787,6 +902,10 @@ function Composer({
             onDeleteSelected={deleteSelected}
             onSetCover={setCover}
             onSetAlt={setAlt}
+            onSetExif={setExif}
+            onApplyKitToAll={applyKitToAll}
+            cameras={gear.cameras}
+            lenses={gear.lenses}
             onThumbSize={setThumbSize}
             onTileDragStart={setDraggedImageId}
             onTileDragOver={handleTileDragOver}
@@ -1209,6 +1328,10 @@ interface WorkspaceProps {
   onDeleteSelected: () => void;
   onSetCover: (id: string) => void;
   onSetAlt: (id: string, alt: string) => void;
+  onSetExif: (id: string, patch: Partial<ImageExif>) => void;
+  onApplyKitToAll: (camera: string, lens: string) => void;
+  cameras: string[];
+  lenses: string[];
   onThumbSize: (n: number) => void;
   onTileDragStart: (id: string) => void;
   onTileDragOver: (id: string, e: ReactDragEvent) => void;
@@ -1490,6 +1613,18 @@ function ProjectWorkspace(props: WorkspaceProps) {
         />
       </div>
 
+      {/* Project-level kit: one shoot is usually one kit */}
+      {project.images.length > 0 && (
+        <div style={{ marginTop: 16 }}>
+          <ApplyKitControl
+            cameras={props.cameras}
+            lenses={props.lenses}
+            reducedMotion={props.reducedMotion}
+            onApply={props.onApplyKitToAll}
+          />
+        </div>
+      )}
+
       {/* Per-image delete confirm (published images delete from Supabase) */}
       {confirmingImageId && (
         <div
@@ -1547,16 +1682,19 @@ function ProjectWorkspace(props: WorkspaceProps) {
               <ImageTile
                 key={image.id}
                 image={image}
-                index={i}
+                cleanTitle={cleanImageTitle(project.title, i)}
                 reducedMotion={props.reducedMotion}
                 selected={props.selectedImageIds.has(image.id)}
                 isCover={effectiveCover === image.id}
                 draggedId={props.draggedImageId}
                 dragOverId={props.dragOverImageId}
                 thumbSize={props.thumbSize}
+                cameras={props.cameras}
+                lenses={props.lenses}
                 onToggleSelect={props.onToggleSelect}
                 onSetCover={props.onSetCover}
                 onAltChange={props.onSetAlt}
+                onExifChange={props.onSetExif}
                 onDelete={handleTileDelete}
                 onDragStart={props.onTileDragStart}
                 onDragOver={props.onTileDragOver}
@@ -1630,6 +1768,83 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <Cap style={{ color: DIM }}>{label}</Cap>
       <div style={{ marginTop: 4 }}>{children}</div>
     </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Apply-kit-to-all control: one shoot is usually one kit, so let the user stamp
+// a camera + lens onto every image in the project at once. Expands inline from
+// a pill into two gear comboboxes + an "Apply" action.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function ApplyKitControl({
+  cameras,
+  lenses,
+  reducedMotion,
+  onApply,
+}: {
+  cameras: string[];
+  lenses: string[];
+  reducedMotion: boolean;
+  onApply: (camera: string, lens: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [camera, setCamera] = useState('');
+  const [lens, setLens] = useState('');
+
+  if (!open) {
+    return <Pill onClick={() => setOpen(true)}>Apply camera &amp; lens to all</Pill>;
+  }
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+        animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        transition={{ duration: reducedMotion ? 0 : 0.18, ease: PANEL_EASE }}
+        style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          gap: 14,
+          flexWrap: 'wrap',
+          padding: '10px 14px',
+          border: '1px solid rgba(245,243,238,0.14)',
+          background: 'rgba(245,243,238,0.03)',
+        }}
+      >
+        <div style={{ minWidth: 150 }}>
+          <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Camera</Cap>
+          <Combobox
+            value={camera}
+            options={cameras}
+            placeholder="e.g. Sony A7 IV"
+            reducedMotion={reducedMotion}
+            onCommit={setCamera}
+          />
+        </div>
+        <div style={{ minWidth: 150 }}>
+          <Cap style={{ color: 'rgba(245,243,238,0.5)', fontSize: 8 }}>Lens</Cap>
+          <Combobox
+            value={lens}
+            options={lenses}
+            placeholder="e.g. 50mm f/1.4 GM"
+            reducedMotion={reducedMotion}
+            onCommit={setLens}
+          />
+        </div>
+        <Pill
+          kind="primary"
+          disabled={!camera.trim() && !lens.trim()}
+          onClick={() => {
+            onApply(camera, lens);
+            setOpen(false);
+          }}
+        >
+          Apply to all
+        </Pill>
+        <Pill onClick={() => setOpen(false)}>Cancel</Pill>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
