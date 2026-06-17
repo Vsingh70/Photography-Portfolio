@@ -442,15 +442,49 @@ export function EditorialLightbox({
 
   useNeighborPreload(images, index, open);
 
-  const startX = useRef<number | null>(null);
+  // Touch navigation — distance OR flick on the dominant axis.
+  //   Horizontal: swipe right → prev, swipe left → next (unchanged).
+  //   Vertical:   swipe up    → next, swipe down → prev.
+  // A swipe registers if it crosses SWIPE_DIST (mirrors the prior 50px gate)
+  // or is a fast flick (SWIPE_VELOCITY px/ms over a short distance), so a small
+  // drag snaps back. Pinch gestures (2+ touches) are ignored so a zoom never
+  // navigates. The dialog has no swipe-to-dismiss, so vertical can't conflict
+  // with close — dismissal stays on the × button and Escape.
+  const SWIPE_DIST = 50;
+  const SWIPE_FLICK_DIST = 24;
+  const SWIPE_VELOCITY = 0.5; // px per ms
+  const touchStart = useRef<{ x: number; y: number; t: number } | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
-    startX.current = e.touches[0].clientX;
+    if (e.touches.length !== 1) {
+      // Multi-touch (pinch/zoom) — bail so it never reads as a swipe.
+      touchStart.current = null;
+      return;
+    }
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY, t: e.timeStamp };
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (startX.current == null) return;
-    const dx = e.changedTouches[0].clientX - startX.current;
-    if (Math.abs(dx) > 50) (dx > 0 ? prev : next)();
-    startX.current = null;
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (start == null) return;
+    // If the gesture ended as a multi-touch (pinch), don't navigate.
+    if (e.touches.length > 0) return;
+    const end = e.changedTouches[0];
+    const dx = end.clientX - start.x;
+    const dy = end.clientY - start.y;
+    const adx = Math.abs(dx);
+    const ady = Math.abs(dy);
+    const dt = Math.max(1, e.timeStamp - start.t);
+    const horizontal = adx >= ady;
+    const travel = horizontal ? adx : ady;
+    const flick = travel >= SWIPE_FLICK_DIST && travel / dt >= SWIPE_VELOCITY;
+    if (travel <= SWIPE_DIST && !flick) return; // small drag — snap back (no-op)
+    if (horizontal) {
+      (dx > 0 ? prev : next)();
+    } else {
+      // up (dy < 0) → next, down (dy > 0) → prev
+      (dy < 0 ? next : prev)();
+    }
   };
 
   const img = images[index];
