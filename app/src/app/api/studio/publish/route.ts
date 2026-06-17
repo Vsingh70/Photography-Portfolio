@@ -1,19 +1,19 @@
 /**
  * Studio publish trigger.
  *
- * After Tauri or iOS Studio finishes pushing photos to Drive, it POSTs here
- * to kick off the variant-rebuild + site-deploy pipeline.
+ * After the web Studio uploads originals to Supabase Storage and writes the
+ * projects/images rows, it POSTs here to kick off the variant-rebuild +
+ * site-deploy pipeline.
  *
  * Flow:
  *   Studio → POST /api/studio/publish
  *          → this endpoint forwards a repository_dispatch to GitHub
- *          → GitHub Actions runs generate-galleries (Sharp + Drive + R2)
+ *          → GitHub Actions runs generate-galleries (Sharp + Supabase + R2)
  *          → Action commits the new JSON / manifests to main
  *          → Vercel auto-deploys
  *
- * The GitHub PAT lives only in Vercel env (`GH_DISPATCH_PAT`). Studio
- * clients never carry it, so rotating it doesn't require rebuilding either
- * binary.
+ * The GitHub PAT lives only in Vercel env (`GH_DISPATCH_PAT`). The Studio
+ * client never carries it, so rotating it doesn't require redeploying the app.
  *
  * Rate-limited to a few publishes per minute per IP — the dispatch itself
  * is cheap but a runaway loop would burn GitHub Actions minutes.
@@ -27,8 +27,13 @@ export const maxDuration = 30;
 
 interface PublishBody {
   /**
-   * Which destination(s) had new photos. Used for the dispatch payload so
+   * Which project slug(s) were published. Used for the dispatch payload so
    * the workflow log shows what changed. Not auth-relevant.
+   */
+  projectSlugs?: string[];
+  /**
+   * Legacy field name (Tauri/iOS Drive clients). Accepted as a fallback so
+   * an older client can't suddenly fail to trigger a rebuild.
    */
   destinations?: string[];
   /**
@@ -80,6 +85,9 @@ export async function POST(req: NextRequest) {
     body = {};
   }
 
+  // Prefer the new `projectSlugs`; fall back to the legacy `destinations`.
+  const projectSlugs = body.projectSlugs ?? body.destinations ?? [];
+
   // Vercel env config.
   const pat = process.env.GH_DISPATCH_PAT;
   const repo = process.env.GH_DISPATCH_REPO; // e.g. "Vsingh70/Photography-Portfolio"
@@ -107,7 +115,7 @@ export async function POST(req: NextRequest) {
       event_type: 'studio-publish',
       client_payload: {
         client: body.client ?? 'unknown',
-        destinations: body.destinations ?? [],
+        projectSlugs,
         note: body.note ?? '',
         triggeredAt: new Date().toISOString(),
       },

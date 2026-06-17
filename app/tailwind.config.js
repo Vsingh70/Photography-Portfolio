@@ -20,10 +20,21 @@ module.exports = {
           900: '#212529',
         },
         accent: {
+          DEFAULT: 'var(--accent)',
           400: '#94a3b8',
           500: '#64748b',
           600: '#475569',
-        }
+        },
+        // Editorial semantic tokens — var-backed, adapt light/dark automatically.
+        paper: 'var(--paper)',
+        'paper-2': 'var(--paper-2)',
+        ink: {
+          DEFAULT: 'var(--ink)',
+          soft: 'var(--ink-soft)',
+        },
+        muted: 'var(--muted)',
+        hair: 'var(--hair)',
+        cream: 'var(--cream)',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],

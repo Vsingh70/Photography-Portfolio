@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>vflics — Home (design mockup)</title>
+<!-- Production uses Canela (loaded locally). Cormorant Garamond stands in here as a close editorial serif. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f8f9fa; --paper-2:#f1f3f5; --ink:#16181b; --ink-soft:#495057;
+    --muted:#adb5bd; --hair:#e4e7ea; --accent:#64748b; --cream:#f5f3ee;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --meta:ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",sans-serif;
+    --pad:clamp(20px,6vw,96px);
+  }
+  html[data-theme="dark"]{
+    --paper:#0e0d0c; --paper-2:#141312; --ink:#f5f3ee; --ink-soft:#cfcabf;
+    --muted:#5c6066; --hair:#211f1d; --accent:#9aa7b5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);
+    -webkit-font-smoothing:antialiased;line-height:1.5;transition:background .4s,color .4s}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  .meta{font-family:var(--meta);text-transform:uppercase;letter-spacing:.22em;font-size:10.5px;color:var(--muted);font-weight:500}
+
+  /* top bar */
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;
+    padding:22px var(--pad);background:color-mix(in srgb,var(--paper) 86%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .wordmark{font-size:21px;letter-spacing:.16em;text-transform:lowercase}
+  nav{display:flex;align-items:center;gap:30px}
+  nav a{font-family:var(--meta);text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--ink-soft);transition:color .2s}
+  nav a:hover{color:var(--ink)}
+  .toggle{font-family:var(--meta);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    border:1px solid var(--hair);background:transparent;color:var(--ink-soft);padding:7px 11px;border-radius:2px;cursor:pointer}
+  .toggle:hover{border-color:var(--muted)}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,80px);align-items:center;
+    padding:clamp(48px,10vw,120px) var(--pad) clamp(60px,9vw,110px)}
+  .hero-text{max-width:30ch}
+  .hero h1{font-weight:300;font-size:clamp(46px,7vw,92px);line-height:.98;letter-spacing:-.01em}
+  .hero .lede{font-style:italic;font-weight:300;font-size:clamp(19px,2.4vw,27px);color:var(--ink-soft);margin-top:22px;line-height:1.35}
+  .hero .sub{font-size:clamp(15px,1.5vw,17px);color:var(--ink-soft);margin-top:26px;line-height:1.7;max-width:38ch}
+  .hero .cta{display:inline-flex;align-items:center;gap:10px;margin-top:34px;font-family:var(--meta);
+    text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:6px}
+  .hero .cta span{transition:transform .25s}
+  .hero .cta:hover span{transform:translateX(5px)}
+  .hero-image{aspect-ratio:4/5;overflow:hidden;background:var(--paper-2)}
+  .hero-image img{transition:transform 1.4s ease}
+  .hero-image:hover img{transform:scale(1.03)}
+
+  /* selected work */
+  .work{padding:clamp(20px,3vw,40px) var(--pad) clamp(70px,10vw,130px)}
+  .work-head{display:flex;align-items:baseline;justify-content:space-between;
+    border-top:1px solid var(--hair);padding-top:26px;margin-bottom:clamp(34px,5vw,60px)}
+  .work-head h2{font-weight:400;font-style:italic;font-size:clamp(22px,3vw,34px)}
+  .projects{display:flex;flex-direction:column;gap:clamp(46px,7vw,96px)}
+  .project{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,5vw,70px);align-items:center}
+  .project:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+  .project:nth-child(even) .p-cover{order:2}
+  .p-cover{aspect-ratio:3/4;overflow:hidden;background:var(--paper-2)}
+  .p-cover img{transition:transform 1.2s ease}
+  .project:hover .p-cover img{transform:scale(1.035)}
+  .p-info .idx{font-family:var(--meta);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+  .p-info h3{font-weight:300;font-size:clamp(34px,5vw,62px);line-height:1.02;margin:14px 0 0;letter-spacing:-.01em}
+  .p-info .p-meta{margin-top:18px}
+  .p-info p{font-size:16px;color:var(--ink-soft);margin-top:20px;line-height:1.65;max-width:42ch}
+  .p-info .view{display:inline-block;margin-top:24px;font-family:var(--meta);text-transform:uppercase;
+    letter-spacing:.2em;font-size:11px;border-bottom:1px solid var(--muted);padding-bottom:5px;color:var(--ink-soft)}
+
+  footer{border-top:1px solid var(--hair);padding:48px var(--pad);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer .fl{font-style:italic;font-size:20px}
+  footer .fr{display:flex;gap:26px;align-items:center}
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;gap:36px}
+    .hero-image{aspect-ratio:4/5;order:-1}
+    .project,.project:nth-child(even){grid-template-columns:1fr;gap:18px}
+    .project:nth-child(even) .p-cover{order:0}
+    nav{gap:18px}
+    nav a:not(.toggle){display:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="wordmark" href="#">vflics</a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <button class="toggle" id="toggle">Dark</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Viraj<br>Singh</h1>
+    <p class="lede">Editorial photography — fashion, portraiture &amp; brand.</p>
+    <p class="sub">Unhurried portraits, styled stories shot with a documentary eye, and brand work that reads like editorial rather than advertising.</p>
+    <a class="cta" href="#work">View Work <span>→</span></a>
+  </div>
+  <div class="hero-image">
+    <img loading="eager" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/18uK-PF5w6kx7wk8suBVOv59aa2gtHe_O-lg.webp" alt="Editorial portrait" />
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="work-head">
+    <h2>Selected Work</h2>
+    <span class="meta">Four projects</span>
+  </div>
+  <div class="projects">
+
+    <a class="project" href="project.html">
+      <div class="p-cover"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1IMP_JZp02XGYTThiqt1KfBjGGqfY0OQr-lg.webp" alt=""></div>
+      <div class="p-info">
+        <span class="idx">01</span>
+        <h3>Denim</h3>
+        <div class="p-meta meta">2026 · Studio · 12 frames</div>
+        <p>A styled denim story — texture, posture, and the quiet confidence of a single light.</p>
+        <span class="view">View project</span>
+      </div>
+    </a>
+
+    <a class="project" href="project.html">
+      <div class="p-cover"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1999vE8kluq4cbMj6iaYKR4_3K5CDDjKW-lg.webp" alt=""></div>
+      <div class="p-info">
+        <span class="idx">02</span>
+        <h3>Party</h3>
+        <div class="p-meta meta">2026 · On location · 9 frames</div>
+        <p>Movement, low light, and the in-between moments — reportage energy carried into portraiture.</p>
+        <span class="view">View project</span>
+      </div>
+    </a>
+
+    <a class="project" href="project.html">
+      <div class="p-cover"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1u1OyqhCRD_Gwd_4nSCTMaZtjtCtz8fGa-lg.webp" alt=""></div>
+      <div class="p-info">
+        <span class="idx">03</span>
+        <h3>Alley</h3>
+        <div class="p-meta meta">2026 · Street · 6 frames</div>
+        <p>City surfaces and hard shadow — a study in place as much as subject.</p>
+        <span class="view">View project</span>
+      </div>
+    </a>
+
+    <a class="project" href="project.html">
+      <div class="p-cover"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1nTyt7mcTiFUIwhdukQnwhR7ink7tqZvv-lg.webp" alt=""></div>
+      <div class="p-info">
+        <span class="idx">04</span>
+        <h3>Out of the Office</h3>
+        <div class="p-meta meta">2026 · Snow · 7 frames</div>
+        <p>Cold air, soft palette — a brand story built on restraint and white space.</p>
+        <span class="view">View project</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <span class="fl">vflics</span>
+  <div class="fr meta">
+    <a href="#">Instagram</a><a href="#">Email</a><span>© 2026</span>
+  </div>
+</footer>
+
+<script>
+  var t=document.getElementById('toggle'), root=document.documentElement;
+  if(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches){root.dataset.theme='dark';}
+  function sync(){var d=root.dataset.theme==='dark';t.textContent=d?'Light':'Dark';}
+  sync();
+  t.addEventListener('click',function(){root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();});
+</script>
+</body>
+</html>

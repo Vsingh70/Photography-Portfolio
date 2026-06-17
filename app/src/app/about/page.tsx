@@ -29,7 +29,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar visible={true} />
-      <main className="min-h-screen bg-white dark:bg-black">
+      <main className="min-h-screen bg-paper">
         <Container size="xl">
           <AboutContent imageData={aboutImageData} />
         </Container>

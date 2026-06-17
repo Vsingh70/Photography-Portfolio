@@ -21,6 +21,7 @@ import {
   memo,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { GalleryImage } from '@/types/image';
 
 interface EditorialLightboxProps {
@@ -35,7 +36,7 @@ type Mode = 'minimal' | 'spread';
 
 const LB_MODE_KEY = 'vflics:lightbox-mode';
 const PANEL_DESKTOP_W = 360;
-const PANEL_MOBILE_H = 220;
+const PANEL_MOBILE_H = 262;
 const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 function formatHumanDate(raw: string | undefined): string {
@@ -163,7 +164,7 @@ const ModeToggle = memo(function ModeToggle({
             onClick={() => onChange(m)}
             className={`
               rounded-full font-mono uppercase tracking-[0.22em] transition-colors duration-300
-              ${active ? 'bg-[#f5f3ee] text-[#0a0a0a]' : 'bg-transparent text-white/75'}
+              ${active ? 'cursor-default bg-[#f5f3ee] text-[#0a0a0a]' : 'cursor-pointer bg-transparent text-white/75 hover:text-white'}
               ${isDesktop ? 'px-3.5 py-1.5 text-[10px]' : 'px-2.5 py-1 text-[9px]'}
             `}
           >
@@ -400,6 +401,7 @@ export function EditorialLightbox({
   const [mounted, setMounted] = useState(false);
   const [mode, setMode] = useStoredMode();
   const [isDesktop, setIsDesktop] = useState(true);
+  const reduce = useReducedMotion();
 
   useEffect(() => setMounted(true), []);
 
@@ -468,18 +470,25 @@ export function EditorialLightbox({
     [img]
   );
 
-  if (!mounted || !open || !img) return null;
+  if (!mounted) return null;
 
   return createPortal(
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={`Image ${index + 1} of ${total}: ${img.title}`}
-      data-mode={mode}
-      className="fixed inset-0 z-[100] overflow-hidden bg-[#0a0a0a] text-[#f5f3ee] animate-[lb-fade_0.35s_ease-out_both]"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
+    <AnimatePresence>
+      {open && img && (
+        <motion.div
+          key="vflics-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Image ${index + 1} of ${total}: ${img.title}`}
+          data-mode={mode}
+          className="fixed inset-0 z-[100] overflow-hidden bg-[#0a0a0a] text-[#f5f3ee]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.985 }}
+          transition={{ duration: reduce ? 0 : 0.32, ease: [0.16, 1, 0.3, 1] }}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
       <ImageStage image={img} mode={mode} isDesktop={isDesktop} />
 
       <div
@@ -497,10 +506,17 @@ export function EditorialLightbox({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.22em] text-white"
+            className="group flex cursor-pointer items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.22em] text-white"
           >
-            {isDesktop && <span className="opacity-70">Close</span>}
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/35 text-sm leading-none">
+            {isDesktop && (
+              <span className="opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+                Close
+              </span>
+            )}
+            <span
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/35 bg-black/40 text-sm leading-none backdrop-blur-md transition-all duration-500 group-hover:border-white/60 group-hover:bg-white/10"
+              style={{ transitionTimingFunction: EASE }}
+            >
               ×
             </span>
           </button>
@@ -531,7 +547,7 @@ export function EditorialLightbox({
           {humanDate ? ` · ${humanDate}` : ''}
         </Caption>
         <h2
-          className="font-display mt-1.5 italic font-light leading-tight tracking-[-0.01em] text-[#f5f3ee]"
+          className="font-display mt-1 italic font-light leading-tight tracking-[-0.01em] text-[#f5f3ee] md:mt-1.5"
           style={{ fontSize: isDesktop ? 32 : 24 }}
         >
           {img.title}
@@ -548,7 +564,7 @@ export function EditorialLightbox({
 
       <aside
         aria-hidden={mode !== 'spread'}
-        className="absolute z-[15] flex flex-col gap-3.5 overflow-auto"
+        className="absolute z-[15] flex flex-col gap-1 overflow-auto md:gap-3.5"
         style={{
           ...(isDesktop
             ? {
@@ -567,7 +583,7 @@ export function EditorialLightbox({
                 right: 0,
                 bottom: 0,
                 height: PANEL_MOBILE_H,
-                padding: '20px 22px 22px',
+                padding: '12px 22px 16px',
                 borderTop: '1px solid rgba(245,243,238,0.08)',
                 background: '#0a0a0a',
                 transform: mode === 'spread' ? 'translateY(0)' : 'translateY(100%)',
@@ -579,7 +595,7 @@ export function EditorialLightbox({
         <Caption>{img.category}</Caption>
         <h2
           className="font-display italic font-light leading-tight tracking-[-0.015em] text-[#f5f3ee] m-0"
-          style={{ fontSize: isDesktop ? 32 : 24 }}
+          style={{ fontSize: isDesktop ? 32 : 22 }}
         >
           {img.title}
         </h2>
@@ -598,8 +614,8 @@ export function EditorialLightbox({
               className="grid items-baseline"
               style={{
                 gridTemplateColumns: isDesktop ? '80px 1fr' : '1fr',
-                gap: isDesktop ? 12 : 2,
-                padding: isDesktop ? '9px 0' : '6px 0',
+                gap: isDesktop ? 12 : 1,
+                padding: isDesktop ? '9px 0' : '2px 0',
                 borderBottom:
                   isDesktop && i < arr.length - 1
                     ? '1px solid rgba(245,243,238,0.08)'
@@ -613,7 +629,7 @@ export function EditorialLightbox({
               </dt>
               <dd
                 className="font-display italic m-0 leading-snug text-[#f5f3ee]"
-                style={{ fontSize: isDesktop ? 15 : 13 }}
+                style={{ fontSize: isDesktop ? 15 : 12 }}
               >
                 {v}
               </dd>
@@ -626,7 +642,7 @@ export function EditorialLightbox({
         type="button"
         onClick={prev}
         aria-label="Previous image"
-        className="absolute top-1/2 left-6 z-20 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/40 font-mono text-lg text-white backdrop-blur-md transition-all duration-500 hover:border-white/50 hover:bg-white/10 md:flex"
+        className="absolute top-1/2 left-6 z-20 hidden h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-black/40 font-mono text-lg text-white backdrop-blur-md transition-all duration-500 hover:border-white/50 hover:bg-white/10 md:flex"
         style={{ transitionTimingFunction: EASE }}
       >
         ←
@@ -635,7 +651,7 @@ export function EditorialLightbox({
         type="button"
         onClick={next}
         aria-label="Next image"
-        className="absolute top-1/2 z-20 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/40 font-mono text-lg text-white backdrop-blur-md transition-all duration-500 hover:border-white/50 hover:bg-white/10 md:flex"
+        className="absolute top-1/2 z-20 hidden h-14 w-14 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-black/40 font-mono text-lg text-white backdrop-blur-md transition-all duration-500 hover:border-white/50 hover:bg-white/10 md:flex"
         style={{
           right: mode === 'spread' ? PANEL_DESKTOP_W + 56 : 24,
           transitionTimingFunction: EASE,
@@ -643,7 +659,9 @@ export function EditorialLightbox({
       >
         →
       </button>
-    </div>,
+        </motion.div>
+      )}
+    </AnimatePresence>,
     document.body
   );
 }

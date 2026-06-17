@@ -12,7 +12,7 @@ export default function ContactPage() {
   return (
     <>
       <Navbar visible={true} />
-      <main className="min-h-screen bg-white dark:bg-black">
+      <main className="min-h-screen bg-paper">
         <ContactContent />
       </main>
       <Footer />

@@ -29,6 +29,9 @@ interface AboutContentProps {
   imageData: AboutImageData;
 }
 
+// Hidden for now — no editorial clientele worth featuring yet. Flip to re-enable.
+const SHOW_CLIENTS = false;
+
 const EASE_OUT: [number, number, number, number] = [0.4, 0, 0.2, 1];
 
 const fadeUp = (delay: number) => ({
@@ -45,24 +48,24 @@ export function AboutContent({ imageData }: AboutContentProps) {
           {...fadeUp(0)}
           className="flex flex-col items-start gap-2 pb-4 md:flex-row md:items-end md:justify-between md:gap-8 md:pb-6"
         >
-          <h1 className="font-display text-[76px] font-light italic leading-[0.88] tracking-[-0.025em] text-primary-900 dark:text-primary-100 md:text-[120px] lg:text-[140px]">
+          <h1 className="font-display text-[76px] font-light italic leading-[0.88] tracking-[-0.025em] text-ink md:text-[120px] lg:text-[140px]">
             Viraj
           </h1>
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400 md:text-right md:pb-4">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted md:text-right md:pb-4">
             /vur-ahj/
           </span>
         </motion.div>
 
         <motion.div
           {...fadeUp(0.1)}
-          className="h-px w-full bg-primary-200 dark:bg-primary-800"
+          className="h-px w-full bg-hair"
         />
 
         <div className="grid gap-8 pt-7 md:grid-cols-[1.2fr_1fr] md:gap-12 md:pt-10 lg:gap-16">
           <motion.div {...fadeUp(0.3)} className="order-2 md:order-1">
-            <p className="font-display text-[18px] leading-[1.5] text-primary-900 dark:text-primary-100 md:text-[20px] lg:text-[22px]">
+            <p className="font-display text-[18px] leading-[1.5] text-ink md:text-[20px] lg:text-[22px]">
               <span
-                className="float-left mr-[10px] mt-1 -mb-1 font-display italic font-light leading-[0.85] text-primary-900 dark:text-primary-100"
+                className="float-left mr-[10px] mt-1 -mb-1 font-display italic font-light leading-[0.85] text-ink"
                 style={{ fontSize: '4em' }}
                 aria-hidden
               >
@@ -73,7 +76,7 @@ export function AboutContent({ imageData }: AboutContentProps) {
               college.
             </p>
 
-            <p className="mt-4 font-display text-[15px] leading-[1.55] text-primary-700 dark:text-primary-300 md:text-[16px] lg:text-[17px]">
+            <p className="mt-4 font-display text-[15px] leading-[1.55] text-ink-soft md:text-[16px] lg:text-[17px]">
               Off camera, I study computer science at Virginia Tech and yes, I
               built this site myself. I also lift, brew espresso, care more
               about clothes than I should, and am always chasing the next
@@ -81,12 +84,12 @@ export function AboutContent({ imageData }: AboutContentProps) {
             </p>
 
             <div className="my-8 border-y border-primary-200 py-5 dark:border-primary-800 md:my-10 md:py-6">
-              <p className="font-display text-[26px] font-light italic leading-[1.15] tracking-[-0.01em] text-primary-900 dark:text-primary-100 md:text-[32px] lg:text-[36px]">
+              <p className="font-display text-[26px] font-light italic leading-[1.15] tracking-[-0.01em] text-ink md:text-[32px] lg:text-[36px]">
                 &ldquo;I have a fascination with creating.&rdquo;
               </p>
             </div>
 
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
               On the Record
             </p>
             <dl className="mt-3.5">
@@ -99,19 +102,49 @@ export function AboutContent({ imageData }: AboutContentProps) {
                   key={k}
                   className={`grid grid-cols-[70px_1fr] items-baseline gap-4 py-3.5 ${
                     i < arr.length - 1
-                      ? 'border-b border-primary-200 dark:border-primary-800'
+                      ? 'border-b border-hair'
                       : ''
                   }`}
                 >
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
                     {k}
                   </dt>
-                  <dd className="font-display text-[16px] italic font-light leading-[1.4] text-primary-900 dark:text-primary-100 md:text-[18px]">
+                  <dd className="font-display text-[16px] italic font-light leading-[1.4] text-ink md:text-[18px]">
                     {v}
                   </dd>
                 </div>
               ))}
             </dl>
+
+            {SHOW_CLIENTS && (
+              <>
+                <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted md:mt-12">
+                  Selected Clients &amp; Press
+                </p>
+                <ul className="mt-4 columns-2 gap-10 [font-size:clamp(16px,1.7vw,19px)]">
+                  {[
+                    'Virginia Tech',
+                    'Collegiate Times',
+                    'VT Fashion Society',
+                    'Richmond Mag',
+                    'Heirloom Denim Co.',
+                    'Northside Studio',
+                    'Verdigris Salon',
+                    'Field Notes Coffee',
+                  ].map((c) => (
+                    <li
+                      key={c}
+                      className="break-inside-avoid border-b border-hair py-2.5 font-display font-light leading-none text-ink"
+                    >
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted">
+                  Selected editorial &amp; brand collaborations · 2023—2026
+                </p>
+              </>
+            )}
           </motion.div>
 
           <motion.figure
@@ -131,10 +164,10 @@ export function AboutContent({ imageData }: AboutContentProps) {
               />
             </div>
             <figcaption className="mt-2.5 flex items-baseline justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
                 Fig. 01
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
                 Self portrait
               </span>
             </figcaption>

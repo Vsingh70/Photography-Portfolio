@@ -1,51 +1,50 @@
 'use client';
 
-import { useState } from 'react';
-import { MasonryGrid } from '@/components/gallery/MasonryGrid';
-import { GalleryCard } from '@/components/gallery/GalleryCard';
+import { useCallback, useState } from 'react';
+import { ProjectSequence } from '@/components/gallery/ProjectSequence';
 import { EditorialLightbox } from '@/components/gallery/EditorialLightbox';
 import type { GalleryImage } from '@/types/image';
 
 interface GalleryViewProps {
   images: GalleryImage[];
+  seriesLabel?: string;
 }
 
-export function GalleryView({ images }: GalleryViewProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export function GalleryView({ images, seriesLabel }: GalleryViewProps) {
+  // `index` + `open` are kept separate (not `index | null`) so the viewed
+  // frame stays put while the lightbox plays its exit animation.
+  const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  const openAt = useCallback((i: number) => {
+    setIndex(i);
+    setOpen(true);
+  }, []);
 
   if (images.length === 0) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-        <p className="text-lg text-primary-700 dark:text-primary-300">
+        <p className="font-display text-lg italic text-ink-soft">
           No images found in this gallery.
         </p>
-        <p className="mt-2 text-sm text-primary-500 dark:text-primary-500">
-          Check back soon for new additions.
-        </p>
+        <p className="meta mt-2 text-[10px]">Check back soon for new additions.</p>
       </div>
     );
   }
 
   return (
     <>
-      <MasonryGrid images={images}>
-        {(image: GalleryImage, index: number) => (
-          <GalleryCard
-            key={image.id}
-            image={image}
-            index={index}
-            onClick={() => setOpenIndex(index)}
-            priority={index < 6}
-          />
-        )}
-      </MasonryGrid>
+      <ProjectSequence
+        images={images}
+        seriesLabel={seriesLabel}
+        onOpen={openAt}
+      />
 
       <EditorialLightbox
         images={images}
-        index={openIndex ?? 0}
-        open={openIndex !== null}
-        onChange={setOpenIndex}
-        onClose={() => setOpenIndex(null)}
+        index={index}
+        open={open}
+        onChange={setIndex}
+        onClose={() => setOpen(false)}
       />
     </>
   );

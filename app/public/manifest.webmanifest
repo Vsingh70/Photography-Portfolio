@@ -1,0 +1,19 @@
+{
+  "name": "vflics Studio",
+  "short_name": "vflics Studio",
+  "description": "Project composer for the vflics editorial photography portfolio.",
+  "start_url": "/studio",
+  "scope": "/studio",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

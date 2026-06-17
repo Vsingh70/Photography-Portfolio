@@ -1,17 +1,15 @@
 /**
- * vflics Upload Studio — staging tool for renaming, reordering, and pushing
- * sets of photos to Google Drive folders.
+ * vflics Studio — single authenticated web/PWA Project composer.
  *
- * Tauri-only push pipeline (post task-04):
- *   - Built-in destinations hardcoded below (Drive folder IDs are not secrets)
- *   - Sign in with Google via Tauri's loopback OAuth (start_oauth Rust cmd)
- *   - Each file uploaded directly to Drive via the Tauri upload_to_drive
- *     command — bypasses Vercel serverless body limits entirely
- *   - In a regular browser the page renders but Push is disabled with an
- *     explanatory empty-state ("Use the desktop app")
- *   - Custom destinations require a folder ID at creation
- *   - Original File blobs kept in memory for re-upload; only metadata
- *     persists to localStorage (files surface as `missing` after refresh)
+ * Supabase-backed (Track B). A composer unit is a Project: title, slug,
+ * category (kicker), blurb, optional location/shot_date, an ordered list of
+ * images, and a chosen cover. On publish, originals upload to Supabase Storage
+ * and projects/images rows are written, then the existing GitHub rebuild is
+ * triggered. The R2 serving path + static public site are untouched.
+ *
+ * Auth: Supabase magic link. The admin allowlist + RLS are the real gate.
+ * Persistence: localStorage stores draft *metadata* only — blobs are lost on
+ * refresh and resurface as `missing` until re-attached.
  */
 
 'use client';
@@ -21,594 +19,356 @@ import {
   useEffect,
   useRef,
   useMemo,
-  type CSSProperties,
-  type ReactNode,
-  type MouseEvent as ReactMouseEvent,
+  useCallback,
   type DragEvent as ReactDragEvent,
 } from 'react';
-import {
-  isTauri,
-  startOAuth,
-  signedInEmail,
-  signOut as tauriSignOut,
-  uploadToDrive as tauriUploadToDrive,
-} from '@/lib/tauri-oauth';
+import type { Session, SupabaseClient } from '@supabase/supabase-js';
+import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import type { Database } from '@/types/supabase';
+import { ingestFile, uid } from '@/lib/studio/ingest';
+import { slugify, uniqueSlug } from '@/lib/studio/slug';
+import { loadDraft, saveDraft, clearDraftProjects } from '@/lib/studio/draft';
+import { publishProjects, triggerRebuild } from '@/lib/studio/publish';
+import { loadRemoteProjects, persistProjectOrder } from '@/lib/studio/remote';
+import type { PublishProgress, StudioImage, StudioProject } from '@/lib/studio/types';
+import { Cap, Pill, Rule, Heading, INK, CREAM, DIM } from './components/ui';
+import { LoginScreen } from './components/LoginScreen';
+import { ImageTile } from './components/ImageTile';
+import { SettingsPanel } from './components/SettingsPanel';
+import { ReorderPanel } from './components/ReorderPanel';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
+type Client = SupabaseClient<Database>;
+type Tab = 'compose' | 'reorder' | 'settings';
 
-interface Destination {
-  slug: string;
-  label: string;
-  folderId?: string | null;
-  custom?: boolean;
+const SERIF = 'Cormorant Garamond, serif';
+
+function newProject(sortOrder: number): StudioProject {
+  return {
+    id: uid(),
+    remote: false,
+    title: '',
+    slug: '',
+    category: '',
+    blurb: '',
+    location: '',
+    shotDate: '',
+    sortOrder,
+    coverImageId: null,
+    images: [],
+  };
 }
-
-interface UploadFile {
-  id: string;
-  name: string;
-  size: number;
-  type: string;
-  hash: string;
-  dataURL?: string;
-  blob?: File;
-  duplicate?: boolean;
-  missing?: boolean;
-}
-
-interface UploadSet {
-  id: string;
-  name: string;
-  destination: string;
-  files: UploadFile[];
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Constants & helpers
-// ─────────────────────────────────────────────────────────────────────────────
-
-const STORAGE_KEY = 'vflics-upload-studio';
-
-/// Built-in destinations: Drive folder IDs are not secrets (visible in
-/// share URLs). Match the iOS Config.destinationFolderIDs. Custom
-/// destinations get added via the UI with manual folder ID entry.
-const BUILTIN_DESTINATIONS: Destination[] = [
-  { slug: 'editorial',  label: 'Editorial',  folderId: '11TrJbaLVZh3MtbN-gdhpPq6Nt2O5QPOU' },
-  { slug: 'portraits',  label: 'Portraits',  folderId: '1CF7yYOl4Y-uWkzqvmw_0-3HFbShKiRkB' },
-  { slug: 'graduation', label: 'Graduation', folderId: '18zpHRcTsOArgjppcJWgBI7kp6DB1lf2v' },
-  { slug: 'engagement', label: 'Engagement', folderId: '1J0e4zP7aMlKgzjNmx0MU-m3_lfA_J6Gf' },
-  { slug: 'events',     label: 'Events',     folderId: '1uZEgnzPehDnNIesaRC-Mk1n3yFINEx9p' },
-  { slug: 'about',      label: 'About',      folderId: '1Xi_xptW_j9-BDqREjFHWfDProFfrFgNF' },
-];
-
-const uid = () => Math.random().toString(36).slice(2, 10);
-
-async function sha256(buffer: ArrayBuffer): Promise<string> {
-  const hash = await crypto.subtle.digest('SHA-256', buffer);
-  return Array.from(new Uint8Array(hash))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-function formatBytes(b: number): string {
-  if (b < 1024) return `${b} B`;
-  if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
-  return `${(b / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function readAsDataURL(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(r.result as string);
-    r.onerror = reject;
-    r.readAsDataURL(file);
-  });
-}
-
-function readAsArrayBuffer(file: File): Promise<ArrayBuffer> {
-  return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(r.result as ArrayBuffer);
-    r.onerror = reject;
-    r.readAsArrayBuffer(file);
-  });
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Shared UI
-// ─────────────────────────────────────────────────────────────────────────────
-
-function Cap({ children, style }: { children: ReactNode; style?: CSSProperties }) {
-  return (
-    <span
-      style={{
-        fontFamily: 'DM Mono, ui-monospace, monospace',
-        fontSize: 10,
-        letterSpacing: '0.22em',
-        textTransform: 'uppercase',
-        ...style,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function Pill({
-  children,
-  onClick,
-  kind = 'default',
-  disabled,
-  type = 'button',
-  style,
-}: {
-  children: ReactNode;
-  onClick?: () => void;
-  kind?: 'default' | 'primary' | 'danger';
-  disabled?: boolean;
-  type?: 'button' | 'submit';
-  style?: CSSProperties;
-}) {
-  const palette =
-    kind === 'primary'
-      ? { bg: '#f5f3ee', fg: '#0a0a0a', border: '#f5f3ee', hoverBg: '#fff' }
-      : kind === 'danger'
-      ? { bg: 'transparent', fg: '#e74c3c', border: '#e74c3c', hoverBg: 'rgba(231,76,60,0.1)' }
-      : {
-          bg: 'transparent',
-          fg: '#f5f3ee',
-          border: 'rgba(245,243,238,0.25)',
-          hoverBg: 'rgba(245,243,238,0.08)',
-        };
-
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 8,
-        padding: '8px 16px',
-        background: palette.bg,
-        color: palette.fg,
-        border: `1px solid ${palette.border}`,
-        borderRadius: 999,
-        fontFamily: 'DM Mono, monospace',
-        fontSize: 10,
-        letterSpacing: '0.22em',
-        textTransform: 'uppercase',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.4 : 1,
-        transition: 'background 0.2s, color 0.2s, border-color 0.2s',
-        ...style,
-      }}
-      onMouseEnter={(e) => {
-        if (!disabled) e.currentTarget.style.background = palette.hoverBg;
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) e.currentTarget.style.background = palette.bg;
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-function Rule({ style }: { style?: CSSProperties }) {
-  return <div style={{ height: 1, background: 'rgba(245,243,238,0.08)', ...style }} />;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Persistence
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface DraftFile {
-  id: string;
-  name: string;
-  size: number;
-  type: string;
-  hash: string;
-}
-interface DraftSet {
-  id: string;
-  name: string;
-  destination: string;
-  files: DraftFile[];
-}
-interface Draft {
-  sets: DraftSet[];
-  destinations: Destination[];
-  savedAt: number;
-}
-
-function loadDraft(): Draft | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as Draft;
-  } catch {
-    return null;
-  }
-}
-
-function saveDraft(sets: UploadSet[], destinations: Destination[]) {
-  try {
-    const data: Draft = {
-      sets: sets.map((s) => ({
-        id: s.id,
-        name: s.name,
-        destination: s.destination,
-        files: s.files.map((f) => ({
-          id: f.id,
-          name: f.name,
-          size: f.size,
-          type: f.type,
-          hash: f.hash,
-        })),
-      })),
-      destinations,
-      savedAt: Date.now(),
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch {
-    // quota / SecurityError — ignore
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Main App
-// ─────────────────────────────────────────────────────────────────────────────
 
 export function StudioApp() {
-  const [sets, setSets] = useState<UploadSet[]>([]);
-  const [destinations, setDestinations] = useState<Destination[]>(BUILTIN_DESTINATIONS);
-  const [activeSetId, setActiveSetId] = useState<string | null>(null);
-  const [selectedFileIds, setSelectedFileIds] = useState<Set<string>>(new Set());
-  const [thumbSize, setThumbSize] = useState(140);
-  const [draggedFileId, setDraggedFileId] = useState<string | null>(null);
-  const [dragOverFileId, setDragOverFileId] = useState<string | null>(null);
-  const [pushOpen, setPushOpen] = useState(false);
-  const [pushedOk, setPushedOk] = useState(false);
-  const [pushing, setPushing] = useState(false);
-  const [pushError, setPushError] = useState<string | null>(null);
-  const [restoreBanner, setRestoreBanner] = useState<{ count: number } | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const [destEditing, setDestEditing] = useState(false);
+  const supabase = useMemo<Client>(() => getSupabaseBrowserClient(), []);
 
-  // OAuth state (Tauri-only). When signed in, push uploads directly to
-  // Drive via the Tauri-bundled OAuth flow. In a regular browser
-  // isTauri() returns false; push is disabled with an explanatory CTA.
-  const inTauri = useMemo(() => isTauri(), []);
-  const [oauthEmail, setOauthEmail] = useState<string | null>(null);
-  const [oauthBusy, setOauthBusy] = useState(false);
-  const [oauthError, setOauthError] = useState<string | null>(null);
-  useEffect(() => {
-    if (!inTauri) return;
-    signedInEmail().then(setOauthEmail).catch(() => {});
-  }, [inTauri]);
+  // ── Auth ──
+  const [session, setSession] = useState<Session | null>(null);
+  const [authReady, setAuthReady] = useState(false);
 
-  // ── Restore draft on mount ──
   useEffect(() => {
-    const data = loadDraft();
-    if (data?.sets?.length) {
-      setSets(
-        data.sets.map((s) => ({
-          ...s,
-          files: (s.files || []).map((f) => ({ ...f, missing: true })),
-        }))
-      );
-      if (data.destinations) {
-        // merge custom destinations from draft; built-ins are hardcoded above
-        const customFromDraft = data.destinations.filter((d) => d.custom);
-        setDestinations((prev) => {
-          const seen = new Set(prev.map((d) => d.slug));
-          return [...prev, ...customFromDraft.filter((d) => !seen.has(d.slug))];
-        });
-      }
-      setActiveSetId(data.sets[0]?.id || null);
-      const missingCount = data.sets.reduce((n, s) => n + (s.files?.length || 0), 0);
-      if (missingCount > 0) setRestoreBanner({ count: missingCount });
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
+      setSession(data.session);
+      setAuthReady(true);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
+      setSession(next);
+      setAuthReady(true);
+    });
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [supabase]);
+
+  // ── Service worker (Studio scope only) ──
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/studio-sw.js', { scope: '/studio' })
+        .catch(() => {});
     }
   }, []);
 
-  // ── Save to localStorage on changes ──
-  useEffect(() => {
-    if (sets.length || destinations.some((d) => d.custom)) {
-      saveDraft(sets, destinations);
-    }
-  }, [sets, destinations]);
-
-  const activeSet = sets.find((s) => s.id === activeSetId) || null;
-  const totalPhotos = sets.reduce((n, s) => n + s.files.length, 0);
-
-  // ── Set CRUD ──
-  const createSet = (name = '') => {
-    const id = uid();
-    const set: UploadSet = { id, name, destination: destinations[0]?.slug || '', files: [] };
-    setSets((prev) => [...prev, set]);
-    setActiveSetId(id);
-  };
-
-  const updateSet = (id: string, patch: Partial<UploadSet>) =>
-    setSets((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)));
-
-  const removeSet = (id: string) => {
-    setSets((prev) => prev.filter((s) => s.id !== id));
-    if (activeSetId === id) {
-      const remaining = sets.filter((s) => s.id !== id);
-      setActiveSetId(remaining[0]?.id || null);
-    }
-  };
-
-  // ── File ingestion ──
-  const ingestFiles = async (fileList: FileList | File[]) => {
-    if (!activeSet) return;
-    const files = Array.from(fileList).filter((f) => f.type.startsWith('image/'));
-    if (!files.length) return;
-
-    const existingHashes = new Set(activeSet.files.map((f) => f.hash).filter(Boolean));
-    const processed: UploadFile[] = [];
-
-    for (const file of files) {
-      try {
-        const [dataURL, buffer] = await Promise.all([readAsDataURL(file), readAsArrayBuffer(file)]);
-        const hash = await sha256(buffer);
-        const duplicate = existingHashes.has(hash);
-        existingHashes.add(hash);
-        processed.push({
-          id: uid(),
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          hash,
-          dataURL,
-          blob: file,
-          duplicate,
-        });
-      } catch {
-        // skip unreadable
-      }
-    }
-
-    updateSet(activeSet.id, { files: [...activeSet.files, ...processed] });
-  };
-
-  // ── File reorder ──
-  const onTileDragStart = (fileId: string) => setDraggedFileId(fileId);
-  const onTileDragOver = (fileId: string, e: ReactDragEvent) => {
-    e.preventDefault();
-    setDragOverFileId(fileId);
-  };
-  const onTileDragEnd = () => {
-    if (draggedFileId && dragOverFileId && draggedFileId !== dragOverFileId && activeSet) {
-      const files = [...activeSet.files];
-      const fromIdx = files.findIndex((f) => f.id === draggedFileId);
-      const toIdx = files.findIndex((f) => f.id === dragOverFileId);
-      if (fromIdx >= 0 && toIdx >= 0) {
-        const [moved] = files.splice(fromIdx, 1);
-        files.splice(toIdx, 0, moved);
-        updateSet(activeSet.id, { files });
-      }
-    }
-    setDraggedFileId(null);
-    setDragOverFileId(null);
-  };
-
-  // ── File selection ──
-  const toggleSelect = (fileId: string) => {
-    setSelectedFileIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(fileId)) next.delete(fileId);
-      else next.add(fileId);
-      return next;
-    });
-  };
-  const clearSelection = () => setSelectedFileIds(new Set());
-  const deleteSelected = () => {
-    if (!activeSet) return;
-    updateSet(activeSet.id, {
-      files: activeSet.files.filter((f) => !selectedFileIds.has(f.id)),
-    });
-    clearSelection();
-  };
-
-  // ── Destination management ──
-  const addDestination = (label: string, folderId: string): Destination | null => {
-    const slug = label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    if (!slug || !folderId.trim() || destinations.find((d) => d.slug === slug)) return null;
-    const dest: Destination = { slug, label, folderId: folderId.trim(), custom: true };
-    setDestinations((prev) => [...prev, dest]);
-    return dest;
-  };
-
-  const removeDestination = (slug: string) => {
-    setDestinations((prev) => prev.filter((d) => d.slug !== slug));
-    setSets((prev) =>
-      prev.map((s) => (s.destination === slug ? { ...s, destination: '' } : s))
-    );
-  };
-
-  // ── Push (real) ──
-  const canPush =
-    sets.length > 0 &&
-    sets.every(
-      (s) =>
-        s.name.trim() &&
-        s.destination &&
-        s.files.length > 0 &&
-        !s.files.some((f) => f.missing)
-    );
-
-  const pushBlockers = useMemo(() => {
-    const issues: string[] = [];
-    sets.forEach((s) => {
-      if (!s.name.trim()) issues.push(`Set "${s.name || '(unnamed)'}" needs a name`);
-      if (!s.destination) issues.push(`"${s.name}" needs a destination`);
-      if (!s.files.length) issues.push(`"${s.name}" has no photos`);
-      if (s.files.some((f) => f.missing)) issues.push(`"${s.name}" has photos to re-attach`);
-      if (s.files.some((f) => f.duplicate)) issues.push(`"${s.name}" contains duplicates`);
-    });
-    return issues;
-  }, [sets]);
-
-  /// Per-file upload progress: (setIdx, setTotal, fileIdx, fileTotal). Null
-  /// when not in a push. Updated before each file goes up the wire.
-  const [pushProgress, setPushProgress] = useState<{
-    setIdx: number;
-    setTotal: number;
-    fileIdx: number;
-    fileTotal: number;
-  } | null>(null);
-
-  /// Set when the per-file Drive uploads are done and we're waiting on the
-  /// publish trigger (GitHub Actions kick-off). The "Publishing…" UI shows
-  /// during this window.
-  const [publishing, setPublishing] = useState(false);
-  const [publishError, setPublishError] = useState<string | null>(null);
-
-  const performPush = async () => {
-    if (!inTauri) {
-      setPushError('Push is only available in the desktop app.');
-      return;
-    }
-    if (!oauthEmail) {
-      setPushError('Sign in with Google before pushing.');
-      return;
-    }
-    setPushing(true);
-    setPushError(null);
-    setPushProgress(null);
-    try {
-      for (let setIdx = 0; setIdx < sets.length; setIdx++) {
-        const set = sets[setIdx];
-        const dest = destinations.find((d) => d.slug === set.destination);
-        if (!dest?.folderId) {
-          throw new Error(`No folder ID for "${set.name}" → ${set.destination}`);
-        }
-
-        for (let i = 0; i < set.files.length; i++) {
-          setPushProgress({
-            setIdx,
-            setTotal: sets.length,
-            fileIdx: i,
-            fileTotal: set.files.length,
-          });
-          const f = set.files[i];
-          if (!f.blob) {
-            throw new Error(`"${set.name}" has photos to re-attach`);
-          }
-          const ext = (f.name.match(/\.[^.]+$/)?.[0] || '.jpg').toLowerCase();
-          const renamed = `${set.name} (${i + 1})${ext}`;
-          const bytes = new Uint8Array(await f.blob.arrayBuffer());
-          await tauriUploadToDrive({
-            folderId: dest.folderId,
-            filename: renamed,
-            bytes,
-            mimeType: f.type,
-          });
-        }
-      }
-      // Drive uploads done — kick off the variant pipeline + site deploy
-      // on GitHub Actions via the Vercel publish proxy. Non-fatal: if the
-      // trigger fails we still surface the upload success but log the
-      // publish error so the user knows to manually rebuild.
-      setPushProgress(null);
-      setPushing(false);
-      setPublishing(true);
-      try {
-        const destinationSlugs = Array.from(
-          new Set(sets.map((s) => s.destination).filter(Boolean))
-        );
-        const res = await fetch('/api/studio/publish', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            client: 'tauri',
-            destinations: destinationSlugs,
-            note: `${sets.length} set${sets.length === 1 ? '' : 's'} pushed`,
-          }),
-        });
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          setPublishError(err?.error ?? `Publish trigger HTTP ${res.status}`);
-        }
-      } catch (e) {
-        setPublishError(e instanceof Error ? e.message : 'Publish trigger failed');
-      } finally {
-        setPublishing(false);
-      }
-
-      setPushedOk(true);
-      setTimeout(() => {
-        setSets([]);
-        setActiveSetId(null);
-        setSelectedFileIds(new Set());
-        setPushOpen(false);
-        setPushedOk(false);
-        setPublishError(null);
-        localStorage.removeItem(STORAGE_KEY);
-      }, 3500);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Upload failed';
-      setPushError(message);
-      setPushing(false);
-      setPushProgress(null);
-    }
-  };
-
-  // ── Render ──
-
-  // Browser context: this page is only useful inside the Tauri desktop app
-  // (only Tauri can authenticate to Drive). Show an explanatory empty state
-  // instead of a dead UI.
-  if (!inTauri) {
+  if (!authReady) {
     return (
       <div
         style={{
           minHeight: '100vh',
-          background: '#0a0a0a',
-          color: '#f5f3ee',
+          background: INK,
+          color: DIM,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 40,
+          fontFamily: SERIF,
+          fontStyle: 'italic',
+          fontSize: 20,
         }}
       >
-        <div style={{ maxWidth: 540, textAlign: 'center' }}>
-          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>vflics Upload Studio</Cap>
-          <h1
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: 60,
-              letterSpacing: '-0.02em',
-              margin: '20px 0 18px',
-              color: '#f5f3ee',
-            }}
-          >
-            Use the desktop app.
-          </h1>
-          <p
-            style={{
-              fontStyle: 'italic',
-              fontSize: 16,
-              lineHeight: 1.55,
-              color: 'rgba(245,243,238,0.7)',
-              margin: 0,
-            }}
-          >
-            Upload Studio runs in the vflics Studio desktop app, where it can
-            sign you in to Google Drive and push photos directly. The browser
-            page is preview-only.
-          </p>
-        </div>
+        Loading…
       </div>
     );
   }
+
+  if (!session) return <LoginScreen supabase={supabase} />;
+
+  return <Composer supabase={supabase} session={session} />;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Authenticated composer
+// ─────────────────────────────────────────────────────────────────────────────
+
+function Composer({ supabase, session }: { supabase: Client; session: Session }) {
+  const [projects, setProjects] = useState<StudioProject[]>([]);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>('compose');
+  const [selectedImageIds, setSelectedImageIds] = useState<Set<string>>(new Set());
+  const [thumbSize, setThumbSize] = useState(150);
+  const [draggedImageId, setDraggedImageId] = useState<string | null>(null);
+  const [dragOverImageId, setDragOverImageId] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [restoreBanner, setRestoreBanner] = useState<{ count: number } | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [reorderSaving, setReorderSaving] = useState(false);
+
+  // ── Load drafts + remote projects on mount ──
+  const loadedRef = useRef(false);
+  useEffect(() => {
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+    const drafts = loadDraft();
+    (async () => {
+      let remote: StudioProject[] = [];
+      try {
+        remote = await loadRemoteProjects(supabase);
+      } catch (e) {
+        setLoadError(e instanceof Error ? e.message : 'Could not load projects.');
+      }
+      // Local drafts win over a remote row with the same id (lets you re-open
+      // a remote project for editing without losing in-memory image work).
+      const draftIds = new Set(drafts.map((d) => d.id));
+      const merged = [...drafts, ...remote.filter((r) => !draftIds.has(r.id))];
+      setProjects(merged);
+      setActiveId(merged[0]?.id ?? null);
+      const missing = drafts.reduce((n, p) => n + p.images.length, 0);
+      if (missing > 0) setRestoreBanner({ count: missing });
+    })();
+  }, [supabase]);
+
+  // ── Persist drafts on change ──
+  useEffect(() => {
+    saveDraft(projects);
+  }, [projects]);
+
+  const active = projects.find((p) => p.id === activeId) ?? null;
+  const localProjects = projects.filter((p) => !p.remote);
+  const totalPhotos = localProjects.reduce((n, p) => n + p.images.length, 0);
+
+  const takenSlugs = useCallback(
+    (exceptId: string) =>
+      new Set(projects.filter((p) => p.id !== exceptId && p.slug).map((p) => p.slug)),
+    [projects]
+  );
+
+  // ── Project CRUD ──
+  const createProject = () => {
+    const proj = newProject(projects.length);
+    setProjects((prev) => [...prev, proj]);
+    setActiveId(proj.id);
+    setTab('compose');
+  };
+
+  const updateProject = useCallback(
+    (id: string, patch: Partial<StudioProject>) =>
+      setProjects((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p))),
+    []
+  );
+
+  const removeProject = (id: string) => {
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+    if (activeId === id) {
+      const remaining = projects.filter((p) => p.id !== id);
+      setActiveId(remaining[0]?.id ?? null);
+    }
+  };
+
+  // Title edit auto-derives slug while the slug hasn't been hand-edited.
+  const onTitleChange = (id: string, title: string) => {
+    const proj = projects.find((p) => p.id === id);
+    if (!proj) return;
+    const derivedFromOld = proj.slug === '' || proj.slug === slugify(proj.title);
+    const patch: Partial<StudioProject> = { title };
+    if (derivedFromOld) {
+      patch.slug = uniqueSlug(slugify(title), takenSlugs(id));
+    }
+    updateProject(id, patch);
+  };
+
+  const onSlugChange = (id: string, raw: string) => {
+    updateProject(id, { slug: slugify(raw) });
+  };
+
+  // ── Image ingestion ──
+  const ingest = useCallback(
+    async (fileList: FileList | File[]) => {
+      if (!active) return;
+      const files = Array.from(fileList).filter((f) => f.type.startsWith('image/'));
+      if (!files.length) return;
+
+      const existingHashes = new Set(active.images.map((f) => f.hash).filter(Boolean));
+      const processed: StudioImage[] = [];
+      for (const file of files) {
+        try {
+          processed.push(await ingestFile(file, existingHashes));
+        } catch {
+          // skip unreadable
+        }
+      }
+      setProjects((prev) =>
+        prev.map((p) => (p.id === active.id ? { ...p, images: [...p.images, ...processed] } : p))
+      );
+    },
+    [active]
+  );
+
+  // ── Image reorder ──
+  const onTileDragEnd = () => {
+    if (draggedImageId && dragOverImageId && draggedImageId !== dragOverImageId && active) {
+      const images = [...active.images];
+      const from = images.findIndex((f) => f.id === draggedImageId);
+      const to = images.findIndex((f) => f.id === dragOverImageId);
+      if (from >= 0 && to >= 0) {
+        const [moved] = images.splice(from, 1);
+        images.splice(to, 0, moved);
+        updateProject(active.id, { images });
+      }
+    }
+    setDraggedImageId(null);
+    setDragOverImageId(null);
+  };
+
+  // ── Image selection ──
+  const toggleSelect = (imageId: string) =>
+    setSelectedImageIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(imageId)) next.delete(imageId);
+      else next.add(imageId);
+      return next;
+    });
+  const clearSelection = () => setSelectedImageIds(new Set());
+  const deleteSelected = () => {
+    if (!active) return;
+    updateProject(active.id, { images: active.images.filter((f) => !selectedImageIds.has(f.id)) });
+    clearSelection();
+  };
+
+  const setCover = (imageId: string) => {
+    if (active) updateProject(active.id, { coverImageId: imageId });
+  };
+  const setAlt = (imageId: string, alt: string) => {
+    if (!active) return;
+    updateProject(active.id, {
+      images: active.images.map((f) => (f.id === imageId ? { ...f, alt } : f)),
+    });
+  };
+
+  // ── Reorder persistence ──
+  const commitOrder = async (orderedIds: string[]) => {
+    setReorderSaving(true);
+    try {
+      const remoteIds = orderedIds.filter((id) => projects.find((p) => p.id === id)?.remote);
+      await persistProjectOrder(supabase, remoteIds);
+      // Reflect the new order locally.
+      setProjects((prev) => {
+        const byId = new Map(prev.map((p) => [p.id, p]));
+        return orderedIds
+          .map((id, index) => {
+            const p = byId.get(id);
+            return p ? { ...p, sortOrder: index } : null;
+          })
+          .filter((p): p is StudioProject => p !== null);
+      });
+    } finally {
+      setReorderSaving(false);
+    }
+  };
+
+  // ── Publish ──
+  const [publishOpen, setPublishOpen] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [progress, setProgress] = useState<PublishProgress | null>(null);
+  const [triggering, setTriggering] = useState(false);
+  const [publishedOk, setPublishedOk] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+  const [triggerError, setTriggerError] = useState<string | null>(null);
+
+  const publishBlockers = useMemo(() => {
+    const issues: string[] = [];
+    const slugSeen = new Set<string>();
+    localProjects.forEach((p) => {
+      const name = p.title || '(untitled)';
+      if (!p.title.trim()) issues.push(`A project needs a title`);
+      if (!p.slug.trim()) issues.push(`"${name}" needs a slug`);
+      else if (slugSeen.has(p.slug)) issues.push(`Duplicate slug "${p.slug}"`);
+      else slugSeen.add(p.slug);
+      if (!p.images.length) issues.push(`"${name}" has no images`);
+      if (p.images.some((f) => f.missing)) issues.push(`"${name}" has images to re-attach`);
+      if (p.images.some((f) => f.duplicate)) issues.push(`"${name}" contains duplicates`);
+    });
+    return Array.from(new Set(issues));
+  }, [localProjects]);
+
+  const canPublish = localProjects.length > 0 && publishBlockers.length === 0;
+
+  const performPublish = async () => {
+    setPublishing(true);
+    setPublishError(null);
+    setTriggerError(null);
+    setProgress(null);
+    try {
+      const { publishedIds, slugs } = await publishProjects(supabase, localProjects, setProgress);
+      setProgress(null);
+      setPublishing(false);
+
+      setTriggering(true);
+      const note = `${slugs.length} project${slugs.length === 1 ? '' : 's'} published`;
+      const trigErr = await triggerRebuild(slugs, note);
+      setTriggerError(trigErr);
+      setTriggering(false);
+
+      // Clear the published projects from the local draft and from state.
+      const publishedSet = new Set(publishedIds);
+      clearDraftProjects(projects, publishedSet);
+
+      setPublishedOk(true);
+      // Reload from Supabase so the just-published projects show as remote.
+      let remote: StudioProject[] = [];
+      try {
+        remote = await loadRemoteProjects(supabase);
+      } catch {
+        // non-fatal
+      }
+      setTimeout(() => {
+        setProjects((prev) => {
+          const survivingDrafts = prev.filter((p) => !p.remote && !publishedSet.has(p.id));
+          const draftIds = new Set(survivingDrafts.map((d) => d.id));
+          return [...survivingDrafts, ...remote.filter((r) => !draftIds.has(r.id))];
+        });
+        setActiveId(null);
+        setSelectedImageIds(new Set());
+        setPublishOpen(false);
+        setPublishedOk(false);
+        setPublishError(null);
+        setTriggerError(null);
+      }, 3500);
+    } catch (err) {
+      setPublishError(err instanceof Error ? err.message : 'Publish failed');
+      setPublishing(false);
+      setProgress(null);
+    }
+  };
 
   return (
     <div
@@ -617,107 +377,106 @@ export function StudioApp() {
         gridTemplateColumns: '260px 1fr',
         gridTemplateRows: 'auto 1fr',
         height: '100vh',
-        background: '#0a0a0a',
-        color: '#f5f3ee',
-        fontFamily: 'Cormorant Garamond, serif',
+        background: INK,
+        color: CREAM,
+        fontFamily: SERIF,
         overflow: 'hidden',
       }}
     >
       <TopBar
-        sets={sets}
+        email={session.user.email ?? ''}
+        localCount={localProjects.length}
         totalPhotos={totalPhotos}
-        canPush={canPush && inTauri && !!oauthEmail}
-        onPush={() => setPushOpen(true)}
-        inTauri={inTauri}
-        oauthEmail={oauthEmail}
-        oauthBusy={oauthBusy}
-        oauthError={oauthError}
-        onDismissOauthError={() => setOauthError(null)}
-        onSignIn={async () => {
-          setOauthBusy(true);
-          setOauthError(null);
-          try {
-            const email = await startOAuth();
-            setOauthEmail(email);
-          } catch (e) {
-            console.error('OAuth failed:', e);
-            setOauthError(e instanceof Error ? e.message : String(e));
-          } finally {
-            setOauthBusy(false);
-          }
-        }}
-        onSignOut={async () => {
-          await tauriSignOut();
-          setOauthEmail(null);
-        }}
+        canPublish={canPublish}
+        onPublish={() => setPublishOpen(true)}
+        onSignOut={() => supabase.auth.signOut()}
       />
 
       <Sidebar
-        sets={sets}
-        destinations={destinations}
-        activeSetId={activeSetId}
-        onSelect={setActiveSetId}
-        onCreate={() => createSet('')}
+        projects={projects}
+        activeId={activeId}
+        tab={tab}
+        loadError={loadError}
+        onSelect={(id) => {
+          setActiveId(id);
+          setTab('compose');
+        }}
+        onSetTab={setTab}
+        onCreate={createProject}
       />
 
-      <Workspace
-        activeSet={activeSet}
-        destinations={destinations}
-        selectedFileIds={selectedFileIds}
-        thumbSize={thumbSize}
-        draggedFileId={draggedFileId}
-        dragOverFileId={dragOverFileId}
-        dragActive={dragActive}
-        restoreBanner={restoreBanner}
-        destEditing={destEditing}
-        onDismissRestore={() => setRestoreBanner(null)}
-        onUpdate={updateSet}
-        onRemove={removeSet}
-        onIngest={ingestFiles}
-        onDragOver={(e) => {
-          if (e.dataTransfer?.types?.includes('Files')) {
-            e.preventDefault();
-            setDragActive(true);
-          }
-        }}
-        onDragLeave={() => setDragActive(false)}
-        onDrop={(e) => {
-          e.preventDefault();
-          setDragActive(false);
-          if (e.dataTransfer?.files?.length) ingestFiles(e.dataTransfer.files);
-        }}
-        onToggleSelect={toggleSelect}
-        onClearSelection={clearSelection}
-        onDeleteSelected={deleteSelected}
-        onThumbSize={setThumbSize}
-        onTileDragStart={onTileDragStart}
-        onTileDragOver={onTileDragOver}
-        onTileDragEnd={onTileDragEnd}
-        onAddDestination={addDestination}
-        onRemoveDestination={removeDestination}
-        onToggleDestEditing={() => setDestEditing((v) => !v)}
-        onCreateSet={createSet}
-      />
+      <main style={{ overflowY: 'auto', background: INK }}>
+        {tab === 'reorder' ? (
+          <div style={{ padding: '32px 36px' }}>
+            <ReorderPanel projects={projects} onCommitOrder={commitOrder} saving={reorderSaving} />
+          </div>
+        ) : tab === 'settings' ? (
+          <div style={{ padding: '32px 36px' }}>
+            <SettingsPanel supabase={supabase} />
+          </div>
+        ) : (
+          <ProjectWorkspace
+            project={active}
+            takenSlugs={active ? takenSlugs(active.id) : new Set()}
+            selectedImageIds={selectedImageIds}
+            thumbSize={thumbSize}
+            draggedImageId={draggedImageId}
+            dragOverImageId={dragOverImageId}
+            dragActive={dragActive}
+            restoreBanner={restoreBanner}
+            onDismissRestore={() => setRestoreBanner(null)}
+            onTitleChange={onTitleChange}
+            onSlugChange={onSlugChange}
+            onUpdate={updateProject}
+            onRemove={removeProject}
+            onIngest={ingest}
+            onCreate={createProject}
+            onDragOver={(e) => {
+              if (e.dataTransfer?.types?.includes('Files')) {
+                e.preventDefault();
+                setDragActive(true);
+              }
+            }}
+            onDragLeave={() => setDragActive(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragActive(false);
+              if (e.dataTransfer?.files?.length) ingest(e.dataTransfer.files);
+            }}
+            onToggleSelect={toggleSelect}
+            onClearSelection={clearSelection}
+            onDeleteSelected={deleteSelected}
+            onSetCover={setCover}
+            onSetAlt={setAlt}
+            onThumbSize={setThumbSize}
+            onTileDragStart={setDraggedImageId}
+            onTileDragOver={(id, e) => {
+              e.preventDefault();
+              setDragOverImageId(id);
+            }}
+            onTileDragEnd={onTileDragEnd}
+          />
+        )}
+      </main>
 
-      {pushOpen && (
-        <PushModal
-          sets={sets}
-          destinations={destinations}
-          blockers={pushBlockers}
-          pushing={pushing}
-          pushedOk={pushedOk}
-          pushError={pushError}
-          pushProgress={pushProgress}
+      {publishOpen && (
+        <PublishModal
+          projects={localProjects}
+          blockers={publishBlockers}
           publishing={publishing}
+          progress={progress}
+          triggering={triggering}
+          publishedOk={publishedOk}
           publishError={publishError}
+          triggerError={triggerError}
           onClose={() => {
-            if (!pushing && !publishing) {
-              setPushOpen(false);
-              setPushError(null);
+            if (!publishing && !triggering) {
+              setPublishOpen(false);
               setPublishError(null);
+              setTriggerError(null);
             }
           }}
-          onConfirm={performPush}
+          onConfirm={performPublish}
         />
       )}
     </div>
@@ -729,28 +488,18 @@ export function StudioApp() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function TopBar({
-  sets,
+  email,
+  localCount,
   totalPhotos,
-  canPush,
-  onPush,
-  inTauri,
-  oauthEmail,
-  oauthBusy,
-  oauthError,
-  onDismissOauthError,
-  onSignIn,
+  canPublish,
+  onPublish,
   onSignOut,
 }: {
-  sets: UploadSet[];
+  email: string;
+  localCount: number;
   totalPhotos: number;
-  canPush: boolean;
-  onPush: () => void;
-  inTauri: boolean;
-  oauthEmail: string | null;
-  oauthBusy: boolean;
-  oauthError: string | null;
-  onDismissOauthError: () => void;
-  onSignIn: () => void;
+  canPublish: boolean;
+  onPublish: () => void;
   onSignOut: () => void;
 }) {
   return (
@@ -758,84 +507,32 @@ function TopBar({
       style={{
         gridColumn: '1 / 3',
         display: 'flex',
-        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 20px',
+        height: 60,
         borderBottom: '1px solid rgba(245,243,238,0.08)',
-        background: '#0a0a0a',
+        background: INK,
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 20px',
-          flex: 1,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
-          <span
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: 22,
-              letterSpacing: '-0.01em',
-            }}
-          >
-            vflics
-          </span>
-          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Upload Studio · local</Cap>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          {inTauri && (
-            oauthEmail ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{oauthEmail}</Cap>
-                <Pill onClick={onSignOut}>Sign out</Pill>
-              </div>
-            ) : (
-              <Pill onClick={onSignIn} disabled={oauthBusy}>
-                {oauthBusy ? 'Signing in…' : 'Sign in with Google'}
-              </Pill>
-            )
-          )}
-          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-            {sets.length} set{sets.length === 1 ? '' : 's'} · {totalPhotos} photos
-          </Cap>
-          <Pill kind="primary" onClick={onPush} disabled={!canPush || totalPhotos === 0}>
-            Push to Drive →
-          </Pill>
-        </div>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
+        <span style={{ fontFamily: SERIF, fontStyle: 'italic', fontWeight: 300, fontSize: 22, letterSpacing: '-0.01em' }}>
+          vflics
+        </span>
+        <Cap style={{ color: DIM }}>Studio</Cap>
       </div>
-      {oauthError && (
-        <div
-          style={{
-            padding: '6px 20px 8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            background: 'rgba(231,76,60,0.08)',
-            borderTop: '1px solid rgba(231,76,60,0.3)',
-          }}
-        >
-          <Cap style={{ color: 'rgb(231,76,60)' }}>Sign-in failed · {oauthError}</Cap>
-          <button
-            onClick={onDismissOauthError}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'rgb(231,76,60)',
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 10,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-            }}
-          >
-            Dismiss
-          </button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        <Cap style={{ color: DIM }}>
+          {localCount} draft{localCount === 1 ? '' : 's'} · {totalPhotos} photos
+        </Cap>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Cap style={{ color: DIM }}>{email}</Cap>
+          <Pill onClick={onSignOut}>Sign out</Pill>
         </div>
-      )}
+        <Pill kind="primary" onClick={onPublish} disabled={!canPublish}>
+          Publish →
+        </Pill>
+      </div>
     </div>
   );
 }
@@ -845,51 +542,80 @@ function TopBar({
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Sidebar({
-  sets,
-  destinations,
-  activeSetId,
+  projects,
+  activeId,
+  tab,
+  loadError,
   onSelect,
+  onSetTab,
   onCreate,
 }: {
-  sets: UploadSet[];
-  destinations: Destination[];
-  activeSetId: string | null;
+  projects: StudioProject[];
+  activeId: string | null;
+  tab: Tab;
+  loadError: string | null;
   onSelect: (id: string) => void;
+  onSetTab: (t: Tab) => void;
   onCreate: () => void;
 }) {
+  const tabBtn = (t: Tab, label: string) => {
+    const isActive = tab === t;
+    return (
+      <button
+        onClick={() => onSetTab(t)}
+        style={{
+          flex: 1,
+          padding: '8px 0',
+          background: isActive ? 'rgba(245,243,238,0.06)' : 'transparent',
+          border: 'none',
+          borderBottom: isActive ? '2px solid #f5f3ee' : '2px solid transparent',
+          color: isActive ? CREAM : DIM,
+          cursor: 'pointer',
+          fontFamily: 'DM Mono, monospace',
+          fontSize: 9,
+          letterSpacing: '0.2em',
+          textTransform: 'uppercase',
+        }}
+      >
+        {label}
+      </button>
+    );
+  };
+
   return (
     <aside
       style={{
         borderRight: '1px solid rgba(245,243,238,0.08)',
-        padding: '20px 0',
         overflowY: 'auto',
-        background: '#0a0a0a',
+        background: INK,
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <div style={{ padding: '0 18px 12px' }}>
-        <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Sets</Cap>
+      <div style={{ display: 'flex', borderBottom: '1px solid rgba(245,243,238,0.08)' }}>
+        {tabBtn('compose', 'Projects')}
+        {tabBtn('reorder', 'Order')}
+        {tabBtn('settings', 'Site')}
       </div>
-      <Rule />
-      <div style={{ padding: '8px 0' }}>
-        {sets.length === 0 ? (
-          <div
-            style={{
-              padding: '24px 18px',
-              color: 'rgba(245,243,238,0.5)',
-              fontStyle: 'italic',
-              fontSize: 14,
-            }}
-          >
-            No sets yet. Create one to get started.
+
+      <div style={{ padding: '8px 0', flex: 1 }}>
+        {loadError && (
+          <div style={{ padding: '12px 18px' }}>
+            <Cap style={{ color: '#e74c3c' }}>{loadError}</Cap>
+          </div>
+        )}
+        {projects.length === 0 ? (
+          <div style={{ padding: '24px 18px', color: 'rgba(245,243,238,0.5)', fontStyle: 'italic', fontSize: 14 }}>
+            No projects yet. Create one to get started.
           </div>
         ) : (
-          sets.map((set) => {
-            const dest = destinations.find((d) => d.slug === set.destination);
-            const isActive = set.id === activeSetId;
+          projects.map((p) => {
+            const isActive = p.id === activeId && tab === 'compose';
+            const count = p.remote ? (p.remoteImageCount ?? 0) : p.images.length;
             return (
               <button
-                key={set.id}
-                onClick={() => onSelect(set.id)}
+                key={p.id}
+                onClick={() => onSelect(p.id)}
                 style={{
                   width: '100%',
                   textAlign: 'left',
@@ -899,10 +625,9 @@ function Sidebar({
                   borderTop: 'none',
                   borderRight: 'none',
                   borderBottom: '1px solid rgba(245,243,238,0.06)',
-                  color: '#f5f3ee',
+                  color: CREAM,
                   cursor: 'pointer',
                   display: 'block',
-                  transition: 'background 0.2s',
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) e.currentTarget.style.background = 'rgba(245,243,238,0.03)';
@@ -913,30 +638,31 @@ function Sidebar({
               >
                 <div
                   style={{
-                    fontFamily: 'Cormorant Garamond, serif',
+                    fontFamily: SERIF,
                     fontStyle: 'italic',
                     fontWeight: 300,
                     fontSize: 19,
                     lineHeight: 1.15,
-                    color: set.name ? '#f5f3ee' : 'rgba(245,243,238,0.4)',
+                    color: p.title ? CREAM : 'rgba(245,243,238,0.4)',
                   }}
                 >
-                  {set.name || 'Untitled set'}
+                  {p.title || 'Untitled project'}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
-                  <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-                    {dest ? dest.label : '— unassigned —'}
+                  <Cap style={{ color: p.remote ? 'rgba(118,200,147,0.8)' : '#d4a93e' }}>
+                    {p.remote ? 'Published' : 'Draft'}
                   </Cap>
-                  <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{set.files.length} pl.</Cap>
+                  <Cap style={{ color: DIM }}>{count} img</Cap>
                 </div>
               </button>
             );
           })
         )}
       </div>
-      <div style={{ padding: '14px 18px' }}>
+
+      <div style={{ padding: '14px 18px', borderTop: '1px solid rgba(245,243,238,0.08)' }}>
         <Pill onClick={onCreate} style={{ width: '100%', justifyContent: 'center' }}>
-          + New set
+          + New project
         </Pill>
       </div>
     </aside>
@@ -944,77 +670,49 @@ function Sidebar({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Workspace
+// Project workspace (compose tab)
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface WorkspaceProps {
-  activeSet: UploadSet | null;
-  destinations: Destination[];
-  selectedFileIds: Set<string>;
+  project: StudioProject | null;
+  takenSlugs: Set<string>;
+  selectedImageIds: Set<string>;
   thumbSize: number;
-  draggedFileId: string | null;
-  dragOverFileId: string | null;
+  draggedImageId: string | null;
+  dragOverImageId: string | null;
   dragActive: boolean;
   restoreBanner: { count: number } | null;
-  destEditing: boolean;
   onDismissRestore: () => void;
-  onUpdate: (id: string, patch: Partial<UploadSet>) => void;
+  onTitleChange: (id: string, title: string) => void;
+  onSlugChange: (id: string, slug: string) => void;
+  onUpdate: (id: string, patch: Partial<StudioProject>) => void;
   onRemove: (id: string) => void;
   onIngest: (files: FileList | File[]) => void;
+  onCreate: () => void;
   onDragOver: (e: ReactDragEvent) => void;
   onDragLeave: () => void;
   onDrop: (e: ReactDragEvent) => void;
-  onToggleSelect: (fileId: string) => void;
+  onToggleSelect: (id: string) => void;
   onClearSelection: () => void;
   onDeleteSelected: () => void;
+  onSetCover: (id: string) => void;
+  onSetAlt: (id: string, alt: string) => void;
   onThumbSize: (n: number) => void;
-  onTileDragStart: (fileId: string) => void;
-  onTileDragOver: (fileId: string, e: ReactDragEvent) => void;
+  onTileDragStart: (id: string) => void;
+  onTileDragOver: (id: string, e: ReactDragEvent) => void;
   onTileDragEnd: () => void;
-  onAddDestination: (label: string, folderId: string) => Destination | null;
-  onRemoveDestination: (slug: string) => void;
-  onToggleDestEditing: () => void;
-  onCreateSet: (name?: string) => void;
 }
 
-function Workspace({
-  activeSet,
-  destinations,
-  selectedFileIds,
-  thumbSize,
-  draggedFileId,
-  dragOverFileId,
-  dragActive,
-  restoreBanner,
-  destEditing,
-  onDismissRestore,
-  onUpdate,
-  onRemove,
-  onIngest,
-  onDragOver,
-  onDragLeave,
-  onDrop,
-  onToggleSelect,
-  onClearSelection,
-  onDeleteSelected,
-  onThumbSize,
-  onTileDragStart,
-  onTileDragOver,
-  onTileDragEnd,
-  onAddDestination,
-  onRemoveDestination,
-  onToggleDestEditing,
-  onCreateSet,
-}: WorkspaceProps) {
+function ProjectWorkspace(props: WorkspaceProps) {
+  const { project } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
-  // Clear any pending-delete prompt when switching to a different set.
   useEffect(() => {
     setConfirmingDelete(false);
-  }, [activeSet?.id]);
+  }, [project?.id]);
 
-  if (!activeSet) {
+  if (!project) {
     return (
       <div
         style={{
@@ -1022,62 +720,39 @@ function Workspace({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          height: '100%',
           padding: 60,
           textAlign: 'center',
         }}
       >
-        <Cap style={{ color: 'rgba(245,243,238,0.55)', marginBottom: 16 }}>Start here</Cap>
-        <h2
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            fontSize: 56,
-            letterSpacing: '-0.02em',
-            margin: 0,
-          }}
-        >
-          Create a set.
-        </h2>
-        <p
-          style={{
-            fontStyle: 'italic',
-            fontSize: 17,
-            color: 'rgba(245,243,238,0.65)',
-            maxWidth: 440,
-            lineHeight: 1.5,
-            marginTop: 14,
-          }}
-        >
-          A set is a group of photos with one destination — like &ldquo;VDR Party&rdquo;
-          headed for Editorial. Add as many sets as you want before pushing.
+        <Cap style={{ color: DIM, marginBottom: 16 }}>Start here</Cap>
+        <Heading size={56}>Create a project.</Heading>
+        <p style={{ fontStyle: 'italic', fontSize: 17, color: 'rgba(245,243,238,0.65)', maxWidth: 440, lineHeight: 1.5, marginTop: 14 }}>
+          A project is a titled set of images with a cover — like a gallery story. Add as many as
+          you want before publishing.
         </p>
         <div style={{ marginTop: 28 }}>
-          <Pill kind="primary" onClick={() => onCreateSet('')}>
-            + New set
+          <Pill kind="primary" onClick={props.onCreate}>
+            + New project
           </Pill>
         </div>
       </div>
     );
   }
 
-  const selected = activeSet.files.filter((f) => selectedFileIds.has(f.id));
-  const duplicates = activeSet.files.filter((f) => f.duplicate);
-  const missing = activeSet.files.filter((f) => f.missing);
+  const selected = project.images.filter((f) => props.selectedImageIds.has(f.id));
+  const duplicates = project.images.filter((f) => f.duplicate);
+  const missing = project.images.filter((f) => f.missing);
+  const effectiveCover = project.coverImageId ?? project.images[0]?.id ?? null;
 
   return (
     <div
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-      style={{
-        position: 'relative',
-        overflowY: 'auto',
-        padding: '24px 28px',
-        background: '#0a0a0a',
-      }}
+      onDragOver={props.onDragOver}
+      onDragLeave={props.onDragLeave}
+      onDrop={props.onDrop}
+      style={{ position: 'relative', padding: '24px 28px', background: INK }}
     >
-      {restoreBanner && (
+      {props.restoreBanner && (
         <div
           style={{
             border: '1px solid rgba(184,134,11,0.4)',
@@ -1090,127 +765,124 @@ function Workspace({
           }}
         >
           <Cap style={{ color: '#d4a93e' }}>
-            Draft restored · {restoreBanner.count} photo references — re-add the originals to
+            Draft restored · {props.restoreBanner.count} image references — re-add the originals to
             re-attach.
           </Cap>
           <button
-            onClick={onDismissRestore}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#d4a93e',
-              cursor: 'pointer',
-              fontSize: 18,
-            }}
+            onClick={props.onDismissRestore}
+            style={{ background: 'transparent', border: 'none', color: '#d4a93e', cursor: 'pointer', fontSize: 18 }}
           >
             ×
           </button>
         </div>
       )}
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          flexWrap: 'wrap',
-          gap: 16,
-        }}
-      >
+      {project.remote && (
+        <div style={{ marginBottom: 18 }}>
+          <Cap style={{ color: 'rgba(118,200,147,0.85)' }}>
+            Published project · edit text, then re-publish to apply. Images load from Supabase on
+            rebuild; add new originals below to append.
+          </Cap>
+        </div>
+      )}
+
+      {/* Header: title + delete */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16 }}>
         <div style={{ flex: 1, minWidth: 280 }}>
-          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Set name</Cap>
+          <Cap style={{ color: DIM }}>Title</Cap>
           <input
-            value={activeSet.name}
-            onChange={(e) => onUpdate(activeSet.id, { name: e.target.value })}
-            placeholder="e.g. VDR Party"
-            style={{
-              display: 'block',
-              width: '100%',
-              maxWidth: 540,
-              background: 'transparent',
-              border: 'none',
-              borderBottom: '1px solid rgba(245,243,238,0.18)',
-              padding: '8px 0 10px',
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: 38,
-              color: '#f5f3ee',
-              outline: 'none',
-              letterSpacing: '-0.015em',
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderBottomColor = '#f5f3ee')}
+            value={project.title}
+            onChange={(e) => props.onTitleChange(project.id, e.target.value)}
+            placeholder="e.g. After Hours"
+            style={titleInputStyle}
+            onFocus={(e) => (e.currentTarget.style.borderBottomColor = CREAM)}
             onBlur={(e) => (e.currentTarget.style.borderBottomColor = 'rgba(245,243,238,0.18)')}
           />
-          <div
-            style={{
-              marginTop: 14,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              flexWrap: 'wrap',
-            }}
-          >
-            <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Destination</Cap>
-            <DestinationPicker
-              destinations={destinations}
-              value={activeSet.destination}
-              editing={destEditing}
-              onChange={(slug) => onUpdate(activeSet.id, { destination: slug })}
-              onAdd={onAddDestination}
-              onRemove={onRemoveDestination}
-              onToggleEditing={onToggleDestEditing}
-            />
-          </div>
         </div>
-
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           {confirmingDelete ? (
             <>
-              <Cap style={{ color: '#e74c3c' }}>Delete &ldquo;{activeSet.name || 'Untitled'}&rdquo;?</Cap>
-              <Pill
-                kind="danger"
-                onClick={() => {
-                  onRemove(activeSet.id);
-                  setConfirmingDelete(false);
-                }}
-              >
-                Yes, delete
+              <Cap style={{ color: '#e74c3c' }}>Remove from Studio?</Cap>
+              <Pill kind="danger" onClick={() => { props.onRemove(project.id); setConfirmingDelete(false); }}>
+                Yes
               </Pill>
               <Pill onClick={() => setConfirmingDelete(false)}>Cancel</Pill>
             </>
           ) : (
             <Pill kind="danger" onClick={() => setConfirmingDelete(true)}>
-              Delete set
+              {project.remote ? 'Close' : 'Delete project'}
             </Pill>
           )}
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 28, marginTop: 18, flexWrap: 'wrap' }}>
-        <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-          {activeSet.files.length} photo{activeSet.files.length === 1 ? '' : 's'}
-        </Cap>
-        {duplicates.length > 0 && (
-          <Cap style={{ color: '#e74c3c' }}>
-            {duplicates.length} duplicate{duplicates.length === 1 ? '' : 's'}
-          </Cap>
-        )}
-        {missing.length > 0 && <Cap style={{ color: '#d4a93e' }}>{missing.length} need re-attach</Cap>}
-        {activeSet.name && (
-          <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-            Renamed as: {activeSet.name} (1) → {activeSet.name} ({activeSet.files.length || 'n'})
-          </Cap>
-        )}
+      {/* Metadata fields */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px 28px', marginTop: 20 }}>
+        <Field label="Slug">
+          <input
+            value={project.slug}
+            onChange={(e) => props.onSlugChange(project.id, e.target.value)}
+            placeholder="after-hours"
+            style={metaInputStyle}
+          />
+        </Field>
+        <Field label="Category (kicker)">
+          <input
+            value={project.category}
+            onChange={(e) => props.onUpdate(project.id, { category: e.target.value })}
+            placeholder="Fashion · Portraiture"
+            style={metaInputStyle}
+          />
+        </Field>
+        <Field label="Location">
+          <input
+            value={project.location}
+            onChange={(e) => props.onUpdate(project.id, { location: e.target.value })}
+            placeholder="Brooklyn, NY"
+            style={metaInputStyle}
+          />
+        </Field>
+        <Field label="Shot date">
+          <input
+            type="date"
+            value={project.shotDate}
+            onChange={(e) => props.onUpdate(project.id, { shotDate: e.target.value })}
+            style={{ ...metaInputStyle, colorScheme: 'dark' }}
+          />
+        </Field>
       </div>
 
+      <div style={{ marginTop: 18 }}>
+        <Field label="Blurb">
+          <textarea
+            value={project.blurb}
+            onChange={(e) => props.onUpdate(project.id, { blurb: e.target.value })}
+            placeholder="A short editorial line shown on the gallery index and project page."
+            rows={2}
+            style={{ ...metaInputStyle, resize: 'vertical', fontStyle: 'italic', fontSize: 16 }}
+          />
+        </Field>
+      </div>
+
+      {/* Stats */}
+      <div style={{ display: 'flex', gap: 28, marginTop: 18, flexWrap: 'wrap' }}>
+        <Cap style={{ color: DIM }}>
+          {project.images.length} image{project.images.length === 1 ? '' : 's'}
+        </Cap>
+        {duplicates.length > 0 && (
+          <Cap style={{ color: '#e74c3c' }}>{duplicates.length} duplicate{duplicates.length === 1 ? '' : 's'}</Cap>
+        )}
+        {missing.length > 0 && <Cap style={{ color: '#d4a93e' }}>{missing.length} need re-attach</Cap>}
+      </div>
+
+      {/* Toolbar */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: 16,
           padding: '16px 0',
-          marginTop: 18,
+          marginTop: 14,
           borderTop: '1px solid rgba(245,243,238,0.08)',
           borderBottom: '1px solid rgba(245,243,238,0.08)',
           flexWrap: 'wrap',
@@ -1224,69 +896,67 @@ function Workspace({
           multiple
           style={{ display: 'none' }}
           onChange={(e) => {
-            if (e.target.files) onIngest(e.target.files);
+            if (e.target.files) props.onIngest(e.target.files);
             e.target.value = '';
           }}
         />
-
         {selected.length > 0 ? (
           <>
-            <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>{selected.length} selected</Cap>
-            <Pill kind="danger" onClick={onDeleteSelected}>
-              Delete selected
-            </Pill>
-            <Pill onClick={onClearSelection}>Clear</Pill>
+            <Cap style={{ color: DIM }}>{selected.length} selected</Cap>
+            <Pill kind="danger" onClick={props.onDeleteSelected}>Delete selected</Pill>
+            <Pill onClick={props.onClearSelection}>Clear</Pill>
           </>
         ) : (
           <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
-            Click thumbnails to select · drag to reorder
+            Click to select · drag to reorder · ☆ to set cover
           </Cap>
         )}
-
         <div style={{ flex: 1 }} />
-
-        <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Thumb size</Cap>
+        <Cap style={{ color: DIM }}>Thumb size</Cap>
         <input
           type="range"
-          min={80}
-          max={240}
-          value={thumbSize}
-          onChange={(e) => onThumbSize(Number(e.target.value))}
-          style={{ accentColor: '#f5f3ee', width: 140 }}
+          min={90}
+          max={260}
+          value={props.thumbSize}
+          onChange={(e) => props.onThumbSize(Number(e.target.value))}
+          style={{ accentColor: CREAM, width: 140 }}
         />
       </div>
 
-      {activeSet.files.length === 0 ? (
-        <EmptyDropZone onClickAdd={() => fileInputRef.current?.click()} dragActive={dragActive} />
+      {/* Grid */}
+      {project.images.length === 0 ? (
+        <EmptyDropZone onClickAdd={() => fileInputRef.current?.click()} dragActive={props.dragActive} />
       ) : (
         <div
           style={{
             marginTop: 22,
             display: 'grid',
-            gridTemplateColumns: `repeat(auto-fill, minmax(${thumbSize}px, 1fr))`,
+            gridTemplateColumns: `repeat(auto-fill, minmax(${props.thumbSize}px, 1fr))`,
             gap: 14,
           }}
         >
-          {activeSet.files.map((file, i) => (
-            <Thumb
-              key={file.id}
-              file={file}
+          {project.images.map((image, i) => (
+            <ImageTile
+              key={image.id}
+              image={image}
               index={i}
-              setName={activeSet.name}
-              selected={selectedFileIds.has(file.id)}
-              draggedId={draggedFileId}
-              dragOverId={dragOverFileId}
-              thumbSize={thumbSize}
-              onToggleSelect={() => onToggleSelect(file.id)}
-              onDragStart={() => onTileDragStart(file.id)}
-              onDragOver={(e) => onTileDragOver(file.id, e)}
-              onDragEnd={onTileDragEnd}
+              selected={props.selectedImageIds.has(image.id)}
+              isCover={effectiveCover === image.id}
+              draggedId={props.draggedImageId}
+              dragOverId={props.dragOverImageId}
+              thumbSize={props.thumbSize}
+              onToggleSelect={() => props.onToggleSelect(image.id)}
+              onSetCover={() => props.onSetCover(image.id)}
+              onAltChange={(alt) => props.onSetAlt(image.id, alt)}
+              onDragStart={() => props.onTileDragStart(image.id)}
+              onDragOver={(e) => props.onTileDragOver(image.id, e)}
+              onDragEnd={props.onTileDragEnd}
             />
           ))}
         </div>
       )}
 
-      {dragActive && (
+      {props.dragActive && (
         <div
           style={{
             position: 'fixed',
@@ -1300,20 +970,11 @@ function Workspace({
             zIndex: 50,
           }}
         >
-          <div
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontStyle: 'italic',
-              fontSize: 44,
-              fontWeight: 300,
-              color: '#f5f3ee',
-              textAlign: 'center',
-            }}
-          >
+          <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 44, fontWeight: 300, color: CREAM, textAlign: 'center' }}>
             Drop to add photos
             <br />
             <Cap style={{ display: 'inline-block', marginTop: 12, color: 'rgba(245,243,238,0.65)' }}>
-              to {activeSet.name || 'this set'}
+              to {project.title || 'this project'}
             </Cap>
           </div>
         </div>
@@ -1322,195 +983,41 @@ function Workspace({
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Destination picker
-// ─────────────────────────────────────────────────────────────────────────────
+const titleInputStyle: React.CSSProperties = {
+  display: 'block',
+  width: '100%',
+  maxWidth: 620,
+  background: 'transparent',
+  border: 'none',
+  borderBottom: '1px solid rgba(245,243,238,0.18)',
+  padding: '8px 0 10px',
+  fontFamily: SERIF,
+  fontStyle: 'italic',
+  fontWeight: 300,
+  fontSize: 38,
+  color: CREAM,
+  outline: 'none',
+  letterSpacing: '-0.015em',
+};
 
-function DestinationPicker({
-  destinations,
-  value,
-  editing,
-  onChange,
-  onAdd,
-  onRemove,
-  onToggleEditing,
-}: {
-  destinations: Destination[];
-  value: string;
-  editing: boolean;
-  onChange: (slug: string) => void;
-  onAdd: (label: string, folderId: string) => Destination | null;
-  onRemove: (slug: string) => void;
-  onToggleEditing: () => void;
-}) {
-  const [adding, setAdding] = useState(false);
-  const [draftLabel, setDraftLabel] = useState('');
-  const [draftFolderId, setDraftFolderId] = useState('');
+const metaInputStyle: React.CSSProperties = {
+  display: 'block',
+  width: '100%',
+  background: 'transparent',
+  border: 'none',
+  borderBottom: '1px solid rgba(245,243,238,0.18)',
+  padding: '6px 0 8px',
+  fontFamily: SERIF,
+  fontSize: 18,
+  color: CREAM,
+  outline: 'none',
+};
 
-  const commit = () => {
-    if (!draftLabel.trim() || !draftFolderId.trim()) return;
-    const d = onAdd(draftLabel.trim(), draftFolderId.trim());
-    if (d) onChange(d.slug);
-    setDraftLabel('');
-    setDraftFolderId('');
-    setAdding(false);
-  };
-
-  const cancel = () => {
-    setDraftLabel('');
-    setDraftFolderId('');
-    setAdding(false);
-  };
-
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-      {destinations.map((d) => {
-        const isActive = value === d.slug;
-        return (
-          <button
-            key={d.slug}
-            onClick={() => onChange(d.slug)}
-            style={{
-              padding: '6px 14px',
-              border: `1px solid ${isActive ? '#f5f3ee' : 'rgba(245,243,238,0.18)'}`,
-              background: isActive ? '#f5f3ee' : 'transparent',
-              color: isActive ? '#0a0a0a' : 'rgba(245,243,238,0.85)',
-              borderRadius: 999,
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 10,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-              position: 'relative',
-              transition: 'background 0.2s',
-            }}
-          >
-            {d.label}
-            {editing && d.custom && (
-              <span
-                onClick={(e: ReactMouseEvent) => {
-                  e.stopPropagation();
-                  onRemove(d.slug);
-                }}
-                style={{ marginLeft: 8, color: '#e74c3c', cursor: 'pointer' }}
-              >
-                ×
-              </span>
-            )}
-          </button>
-        );
-      })}
-
-      {adding ? (
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            padding: '4px 10px',
-            border: '1px solid #f5f3ee',
-            borderRadius: 999,
-          }}
-        >
-          <input
-            autoFocus
-            value={draftLabel}
-            placeholder="Label…"
-            onChange={(e) => setDraftLabel(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') cancel();
-            }}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: '#f5f3ee',
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 10,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              width: 90,
-            }}
-          />
-          <span style={{ color: 'rgba(245,243,238,0.4)' }}>·</span>
-          <input
-            value={draftFolderId}
-            placeholder="Folder ID…"
-            onChange={(e) => setDraftFolderId(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') commit();
-              else if (e.key === 'Escape') cancel();
-            }}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: '#f5f3ee',
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 10,
-              letterSpacing: '0.18em',
-              textTransform: 'none',
-              width: 150,
-            }}
-          />
-          <button
-            onClick={commit}
-            disabled={!draftLabel.trim() || !draftFolderId.trim()}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#f5f3ee',
-              cursor:
-                !draftLabel.trim() || !draftFolderId.trim() ? 'not-allowed' : 'pointer',
-              opacity: !draftLabel.trim() || !draftFolderId.trim() ? 0.4 : 1,
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 10,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              padding: 0,
-            }}
-          >
-            Add
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setAdding(true)}
-          style={{
-            padding: '6px 12px',
-            border: '1px dashed rgba(245,243,238,0.35)',
-            background: 'transparent',
-            color: 'rgba(245,243,238,0.65)',
-            borderRadius: 999,
-            fontFamily: 'DM Mono, monospace',
-            fontSize: 10,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-          }}
-        >
-          + New
-        </button>
-      )}
-
-      {destinations.some((d) => d.custom) && (
-        <button
-          onClick={onToggleEditing}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: editing ? '#f5f3ee' : 'rgba(245,243,238,0.45)',
-            cursor: 'pointer',
-            fontFamily: 'DM Mono, monospace',
-            fontSize: 10,
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            padding: '6px 8px',
-          }}
-        >
-          {editing ? 'Done' : 'Edit'}
-        </button>
-      )}
+    <div>
+      <Cap style={{ color: DIM }}>{label}</Cap>
+      <div style={{ marginTop: 4 }}>{children}</div>
     </div>
   );
 }
@@ -1519,13 +1026,7 @@ function DestinationPicker({
 // Empty drop zone
 // ─────────────────────────────────────────────────────────────────────────────
 
-function EmptyDropZone({
-  onClickAdd,
-  dragActive,
-}: {
-  onClickAdd: () => void;
-  dragActive: boolean;
-}) {
+function EmptyDropZone({ onClickAdd, dragActive }: { onClickAdd: () => void; dragActive: boolean }) {
   return (
     <div
       onClick={onClickAdd}
@@ -1539,213 +1040,42 @@ function EmptyDropZone({
         transition: 'border-color 0.2s, background 0.2s',
       }}
     >
-      <div
-        style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontStyle: 'italic',
-          fontSize: 36,
-          fontWeight: 300,
-          color: '#f5f3ee',
-          letterSpacing: '-0.01em',
-        }}
-      >
+      <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 36, fontWeight: 300, color: CREAM, letterSpacing: '-0.01em' }}>
         Drop photos here
       </div>
-      <Cap style={{ color: 'rgba(245,243,238,0.55)', display: 'inline-block', marginTop: 12 }}>
-        or click to browse
-      </Cap>
+      <Cap style={{ color: DIM, display: 'inline-block', marginTop: 12 }}>or click to browse</Cap>
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Thumb
+// Publish modal
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Thumb({
-  file,
-  index,
-  setName,
-  selected,
-  draggedId,
-  dragOverId,
-  thumbSize,
-  onToggleSelect,
-  onDragStart,
-  onDragOver,
-  onDragEnd,
-}: {
-  file: UploadFile;
-  index: number;
-  setName: string;
-  selected: boolean;
-  draggedId: string | null;
-  dragOverId: string | null;
-  thumbSize: number;
-  onToggleSelect: () => void;
-  onDragStart: () => void;
-  onDragOver: (e: ReactDragEvent) => void;
-  onDragEnd: () => void;
-}) {
-  const isDragged = draggedId === file.id;
-  const isDragOver = dragOverId === file.id && draggedId !== file.id;
-  const ratioHeight = thumbSize * 1.25;
-  const renderedName = setName ? `${setName} (${index + 1})` : `(${index + 1})`;
-
-  return (
-    <div
-      draggable={!file.missing}
-      onDragStart={onDragStart}
-      onDragOver={onDragOver}
-      onDragEnd={onDragEnd}
-      onClick={onToggleSelect}
-      style={{
-        position: 'relative',
-        cursor: file.missing ? 'not-allowed' : 'grab',
-        opacity: isDragged ? 0.4 : 1,
-        // Reorder feedback: solid 3px cream outline on the drop target.
-        outline: isDragOver
-          ? '3px solid #f5f3ee'
-          : selected
-          ? '2px solid #f5f3ee'
-          : '1px solid rgba(245,243,238,0.08)',
-        outlineOffset: 0,
-        background: '#1a1a1a',
-        userSelect: 'none',
-        transition: 'opacity 0.15s, outline-color 0.15s, outline-width 0.15s',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          height: ratioHeight,
-          background: file.dataURL
-            ? `url("${file.dataURL}") center/cover no-repeat #1a1a1a`
-            : '#1a1a1a',
-          position: 'relative',
-        }}
-      >
-        {file.missing && (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'rgba(0,0,0,0.6)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 10,
-              textAlign: 'center',
-            }}
-          >
-            <Cap style={{ color: '#d4a93e' }}>Re-attach</Cap>
-          </div>
-        )}
-        {file.duplicate && !file.missing && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 6,
-              right: 6,
-              padding: '3px 8px',
-              background: 'rgba(231,76,60,0.85)',
-              color: '#fff',
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 8,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Dup
-          </div>
-        )}
-        {selected && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 6,
-              left: 6,
-              width: 22,
-              height: 22,
-              borderRadius: 999,
-              background: '#f5f3ee',
-              color: '#0a0a0a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'DM Mono, monospace',
-              fontSize: 12,
-            }}
-          >
-            ✓
-          </div>
-        )}
-      </div>
-      <div
-        style={{
-          padding: '8px 10px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
-          gap: 6,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontStyle: 'italic',
-            fontSize: 13,
-            color: '#f5f3ee',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {renderedName}
-        </span>
-        <Cap style={{ color: 'rgba(245,243,238,0.4)', fontSize: 8 }}>
-          {file.size ? formatBytes(file.size) : ''}
-        </Cap>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Push modal
-// ─────────────────────────────────────────────────────────────────────────────
-
-function PushModal({
-  sets,
-  destinations,
+function PublishModal({
+  projects,
   blockers,
-  pushing,
-  pushedOk,
-  pushError,
-  pushProgress,
   publishing,
+  progress,
+  triggering,
+  publishedOk,
   publishError,
+  triggerError,
   onClose,
   onConfirm,
 }: {
-  sets: UploadSet[];
-  destinations: Destination[];
+  projects: StudioProject[];
   blockers: string[];
-  pushing: boolean;
-  pushedOk: boolean;
-  pushError: string | null;
-  pushProgress: {
-    setIdx: number;
-    setTotal: number;
-    fileIdx: number;
-    fileTotal: number;
-  } | null;
   publishing: boolean;
+  progress: PublishProgress | null;
+  triggering: boolean;
+  publishedOk: boolean;
   publishError: string | null;
+  triggerError: string | null;
   onClose: () => void;
   onConfirm: () => void;
 }) {
+  const busy = publishing || triggering;
   return (
     <div
       style={{
@@ -1761,12 +1091,12 @@ function PushModal({
         padding: 28,
       }}
       onClick={(e) => {
-        if (e.target === e.currentTarget && !pushing && !publishing) onClose();
+        if (e.target === e.currentTarget && !busy) onClose();
       }}
     >
       <div
         style={{
-          background: '#0a0a0a',
+          background: INK,
           border: '1px solid rgba(245,243,238,0.12)',
           maxWidth: 760,
           width: '100%',
@@ -1775,260 +1105,108 @@ function PushModal({
           padding: 32,
         }}
       >
-        {pushedOk ? (
+        {publishedOk ? (
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-            <Cap style={{ color: '#76c893' }}>
-              {publishError ? 'Pushed (publish failed)' : 'Pushed'}
-            </Cap>
-            <h2
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: 56,
-                margin: '14px 0 16px',
-                letterSpacing: '-0.02em',
-                color: '#f5f3ee',
-              }}
-            >
-              All sets are on their way.
-            </h2>
-            <p
-              style={{
-                fontStyle: 'italic',
-                color: 'rgba(245,243,238,0.65)',
-                fontSize: 18,
-                lineHeight: 1.5,
-              }}
-            >
-              {publishError
-                ? 'Photos are in Drive, but the publish trigger failed. Run `npm run generate-galleries` manually to refresh the site.'
-                : 'The site will rebuild in 2–6 minutes.'}
+            <Cap style={{ color: '#76c893' }}>{triggerError ? 'Published (rebuild failed)' : 'Published'}</Cap>
+            <Heading size={56} style={{ margin: '14px 0 16px' }}>
+              On their way.
+            </Heading>
+            <p style={{ fontStyle: 'italic', color: 'rgba(245,243,238,0.65)', fontSize: 18, lineHeight: 1.5 }}>
+              {triggerError
+                ? 'Projects are saved to Supabase, but the rebuild trigger failed. Run the generate-galleries workflow manually to refresh the site.'
+                : 'Projects are saved. The site will rebuild in 2–6 minutes.'}
             </p>
-            {publishError && (
-              <p
-                style={{
-                  marginTop: 14,
-                  fontFamily: 'DM Mono, monospace',
-                  fontSize: 11,
-                  color: 'rgba(231,76,60,0.85)',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {publishError}
+            {triggerError && (
+              <p style={{ marginTop: 14, fontFamily: 'DM Mono, monospace', fontSize: 11, color: 'rgba(231,76,60,0.85)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                {triggerError}
               </p>
             )}
           </div>
+        ) : triggering ? (
+          <ProgressBlock title="Triggering the gallery rebuild." label="Publishing…" />
         ) : publishing ? (
-          <div style={{ textAlign: 'center', padding: '80px 20px' }}>
-            <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Publishing…</Cap>
-            <p
-              style={{
-                marginTop: 12,
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontSize: 22,
-                color: 'rgba(245,243,238,0.7)',
-              }}
-            >
-              Triggering the gallery rebuild.
-            </p>
-            <div
-              style={{
-                width: 80,
-                height: 2,
-                background: 'rgba(245,243,238,0.18)',
-                margin: '24px auto',
-                overflow: 'hidden',
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: '#f5f3ee',
-                  transform: 'translateX(-100%)',
-                  animation: 'pushBar 1.2s ease-in-out infinite',
-                }}
-              />
-            </div>
-          </div>
-        ) : pushing ? (
-          <div style={{ textAlign: 'center', padding: '80px 20px' }}>
-            <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Uploading…</Cap>
-            {pushProgress && (
-              <div
-                style={{
-                  marginTop: 14,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 4,
-                  alignItems: 'center',
-                }}
-              >
-                <Cap style={{ color: 'rgba(245,243,238,0.5)' }}>
-                  Set {pushProgress.setIdx + 1} of {pushProgress.setTotal}
-                </Cap>
-                <Cap style={{ color: 'rgba(245,243,238,0.4)' }}>
-                  Photo {pushProgress.fileIdx + 1} of {pushProgress.fileTotal}
-                </Cap>
-              </div>
-            )}
-            <div
-              style={{
-                width: 80,
-                height: 2,
-                background: 'rgba(245,243,238,0.18)',
-                margin: '24px auto',
-                overflow: 'hidden',
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: '#f5f3ee',
-                  transform: 'translateX(-100%)',
-                  animation: 'pushBar 1.2s ease-in-out infinite',
-                }}
-              />
-            </div>
-          </div>
+          <ProgressBlock
+            title="Uploading originals to Supabase."
+            label="Uploading…"
+            detail={
+              progress
+                ? `Project ${progress.projectIdx + 1} of ${progress.projectTotal} · ${
+                    progress.phase === 'upload'
+                      ? `image ${progress.fileIdx + 1} of ${progress.fileTotal}`
+                      : progress.phase === 'cover'
+                        ? 'setting cover'
+                        : 'saving rows'
+                  }`
+                : undefined
+            }
+          />
         ) : (
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-              <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>Confirm push</Cap>
-              <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-                {sets.length} set{sets.length === 1 ? '' : 's'}
-              </Cap>
+              <Cap style={{ color: DIM }}>Confirm publish</Cap>
+              <Cap style={{ color: DIM }}>{projects.length} project{projects.length === 1 ? '' : 's'}</Cap>
             </div>
             <Rule style={{ marginTop: 12 }} />
-            <h2
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: 48,
-                margin: '20px 0 8px',
-                letterSpacing: '-0.02em',
-                color: '#f5f3ee',
-              }}
-            >
-              Ready to push?
-            </h2>
-            <p
-              style={{
-                fontStyle: 'italic',
-                color: 'rgba(245,243,238,0.65)',
-                fontSize: 16,
-                lineHeight: 1.45,
-                margin: 0,
-              }}
-            >
-              Each set&apos;s photos will be renamed and uploaded to its destination&apos;s
-              Drive folder.
+            <Heading size={48} style={{ margin: '20px 0 8px' }}>
+              Ready to publish?
+            </Heading>
+            <p style={{ fontStyle: 'italic', color: 'rgba(245,243,238,0.65)', fontSize: 16, lineHeight: 1.45, margin: 0 }}>
+              Originals upload to Supabase Storage and the project rows are written. The site then
+              rebuilds from R2 as usual.
             </p>
 
-            {(blockers.length > 0 || pushError) && (
-              <div
-                style={{
-                  marginTop: 22,
-                  padding: '14px 16px',
-                  border: '1px solid rgba(231,76,60,0.4)',
-                  background: 'rgba(231,76,60,0.08)',
-                }}
-              >
-                <Cap style={{ color: '#e74c3c' }}>
-                  {pushError ? 'Upload failed' : 'Resolve before pushing'}
-                </Cap>
-                <ul
-                  style={{
-                    margin: '10px 0 0',
-                    padding: '0 0 0 18px',
-                    color: '#e74c3c',
-                    fontFamily: 'DM Mono, monospace',
-                    fontSize: 11,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {pushError ? (
-                    <li>{pushError}</li>
-                  ) : (
-                    blockers.map((b, i) => <li key={i}>{b}</li>)
-                  )}
+            {(blockers.length > 0 || publishError) && (
+              <div style={{ marginTop: 22, padding: '14px 16px', border: '1px solid rgba(231,76,60,0.4)', background: 'rgba(231,76,60,0.08)' }}>
+                <Cap style={{ color: '#e74c3c' }}>{publishError ? 'Publish failed' : 'Resolve before publishing'}</Cap>
+                <ul style={{ margin: '10px 0 0', padding: '0 0 0 18px', color: '#e74c3c', fontFamily: 'DM Mono, monospace', fontSize: 11, lineHeight: 1.7 }}>
+                  {publishError ? <li>{publishError}</li> : blockers.map((b, i) => <li key={i}>{b}</li>)}
                 </ul>
               </div>
             )}
 
             <div style={{ marginTop: 24 }}>
-              {sets.map((s) => {
-                const dest = destinations.find((d) => d.slug === s.destination);
-                return (
-                  <div
-                    key={s.id}
-                    style={{ padding: '16px 0', borderTop: '1px solid rgba(245,243,238,0.08)' }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'baseline',
-                        flexWrap: 'wrap',
-                        gap: 12,
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontFamily: 'Cormorant Garamond, serif',
-                          fontStyle: 'italic',
-                          fontSize: 24,
-                          color: '#f5f3ee',
-                        }}
-                      >
-                        {s.name || <span style={{ color: '#e74c3c' }}>(unnamed)</span>}
-                      </div>
-                      <Cap style={{ color: 'rgba(245,243,238,0.55)' }}>
-                        → {dest ? dest.label : 'unassigned'} · {s.files.length} pl.
-                      </Cap>
+              {projects.map((p) => (
+                <div key={p.id} style={{ padding: '16px 0', borderTop: '1px solid rgba(245,243,238,0.08)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 12 }}>
+                    <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 24, color: CREAM }}>
+                      {p.title || <span style={{ color: '#e74c3c' }}>(untitled)</span>}
                     </div>
-                    {s.files.length > 0 && (
-                      <div
-                        style={{
-                          marginTop: 8,
-                          fontFamily: 'DM Mono, monospace',
-                          fontSize: 10,
-                          color: 'rgba(245,243,238,0.55)',
-                          letterSpacing: '0.18em',
-                        }}
-                      >
-                        {s.name || '(name)'} (1) … {s.name || '(name)'} ({s.files.length})
-                      </div>
-                    )}
+                    <Cap style={{ color: DIM }}>/{p.slug || '—'} · {p.images.length} img</Cap>
                   </div>
-                );
-              })}
+                  {p.category && (
+                    <div style={{ marginTop: 6, fontFamily: 'DM Mono, monospace', fontSize: 10, color: DIM, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                      {p.category}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                gap: 10,
-                marginTop: 28,
-                paddingTop: 18,
-                borderTop: '1px solid rgba(245,243,238,0.08)',
-              }}
-            >
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 28, paddingTop: 18, borderTop: '1px solid rgba(245,243,238,0.08)' }}>
               <Pill onClick={onClose}>Cancel</Pill>
               <Pill kind="primary" onClick={onConfirm} disabled={blockers.length > 0}>
-                Push to Drive →
+                Publish →
               </Pill>
             </div>
           </>
         )}
+      </div>
+    </div>
+  );
+}
+
+function ProgressBlock({ title, label, detail }: { title: string; label: string; detail?: string }) {
+  return (
+    <div style={{ textAlign: 'center', padding: '80px 20px' }}>
+      <Cap style={{ color: DIM }}>{label}</Cap>
+      <p style={{ marginTop: 12, fontFamily: SERIF, fontStyle: 'italic', fontSize: 22, color: 'rgba(245,243,238,0.7)' }}>
+        {title}
+      </p>
+      {detail && (
+        <Cap style={{ color: 'rgba(245,243,238,0.5)', display: 'block', marginTop: 8 }}>{detail}</Cap>
+      )}
+      <div style={{ width: 80, height: 2, background: 'rgba(245,243,238,0.18)', margin: '24px auto', overflow: 'hidden', position: 'relative' }}>
+        <div style={{ position: 'absolute', inset: 0, background: CREAM, transform: 'translateX(-100%)', animation: 'pushBar 1.2s ease-in-out infinite' }} />
       </div>
     </div>
   );

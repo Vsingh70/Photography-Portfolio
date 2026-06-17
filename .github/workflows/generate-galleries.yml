@@ -1,14 +1,14 @@
 name: Generate Galleries
 
-# Runs the variant pipeline (Drive → Sharp → R2 → JSON) and commits the
-# resulting src/generated/gallery-*.json + scripts/.manifests/* back to
-# main if anything actually changed.
+# Runs the variant pipeline (Supabase → Sharp → R2 → JSON) and commits the
+# resulting src/generated/*.json + scripts/.manifests/* (+ public/about/about.webp)
+# back to main if anything actually changed.
 #
 # Triggered:
 #   - On manual click in the GitHub UI (workflow_dispatch)
 #   - On a repository_dispatch with event_type "studio-publish",
 #     fired by the Vercel /api/studio/publish endpoint after Studio
-#     finishes pushing photos to Drive
+#     finishes writing projects/images to Supabase
 on:
   workflow_dispatch: {}
   repository_dispatch:
@@ -53,13 +53,8 @@ jobs:
       - name: Run generate-galleries
         working-directory: app
         env:
-          GOOGLE_DRIVE_CLIENT_EMAIL: ${{ secrets.GOOGLE_DRIVE_CLIENT_EMAIL }}
-          GOOGLE_DRIVE_PRIVATE_KEY: ${{ secrets.GOOGLE_DRIVE_PRIVATE_KEY }}
-          GOOGLE_DRIVE_EDITORIAL_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_EDITORIAL_FOLDER_ID }}
-          GOOGLE_DRIVE_PORTRAITS_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_PORTRAITS_FOLDER_ID }}
-          GOOGLE_DRIVE_GRADUATION_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_GRADUATION_FOLDER_ID }}
-          GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_ENGAGEMENT_FOLDER_ID }}
-          GOOGLE_DRIVE_EVENTS_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_EVENTS_FOLDER_ID }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -72,15 +67,17 @@ jobs:
           git config user.name "vflics-bot"
           git config user.email "bot@vflics.com"
           # Stage only what the script writes — avoids picking up stray edits.
-          git add app/src/generated/gallery-*.json
+          git add app/src/generated/*.json
+          git add app/src/generated/projects-registry.ts
           git add app/scripts/.manifests/
+          git add app/public/about/about.webp
           # If nothing changed, the commit step exits 0 silently.
           if git diff --cached --quiet; then
             echo "No changes — nothing to commit."
             exit 0
           fi
-          # Construct a short summary of which galleries changed.
-          changed=$(git diff --cached --name-only | grep "gallery-" | xargs -n1 -I{} basename {} .json | sed 's/gallery-//' | paste -sd ", " -)
-          msg="chore(galleries): auto-update from generate-galleries (${changed})"
+          # Construct a short summary of which projects changed.
+          changed=$(git diff --cached --name-only | grep -oE 'project-[^/]+\.json' | sed -E 's/project-(.*)\.json/\1/' | sort -u | paste -sd ", " -)
+          msg="chore(galleries): auto-update from generate-galleries (${changed:-site})"
           git commit -m "$msg" -m "Triggered by ${{ github.event_name }} on $(date -u +%Y-%m-%dT%H:%M:%SZ)."
           git push origin HEAD:main

@@ -1,1 +1,1 @@
-export { HeroContent } from './HeroContent';
+export { HomeView } from './HomeView';

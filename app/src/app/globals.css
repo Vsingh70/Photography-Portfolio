@@ -1,13 +1,78 @@
 @import "tailwindcss";
+/* Tailwind v4 needs the v3-style config loaded explicitly, otherwise the
+   primary/accent palette + darkMode:'class' are silently dropped. */
+@config "../../tailwind.config.js";
 
 @layer base {
+  /* ---------------------------------------------------------------------
+     Editorial design tokens (vflics)
+     Light + warm-cream dark. The photographs carry the colour; the palette
+     stays neutral with cream as the single warm note in dark mode.
+     `bg-paper / text-ink / text-muted / border-hair / text-accent` (defined
+     in tailwind.config.js as var-backed colours) adapt automatically.
+     --------------------------------------------------------------------- */
+  :root {
+    --paper: #f8f9fa;
+    --paper-2: #f1f3f5;
+    --ink: #16181b;
+    --ink-soft: #495057;
+    --muted: #adb5bd;
+    --hair: #e4e7ea;
+    --accent: #64748b;
+    --cream: #f5f3ee;
+  }
+
+  .dark {
+    --paper: #0e0d0c;
+    --paper-2: #141312;
+    --ink: #f5f3ee;
+    --ink-soft: #cfcabf;
+    --muted: #5c6066;
+    --hair: #211f1d;
+    --accent: #9aa7b5;
+    --cream: #f5f3ee;
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    transition: background 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+
   .font-display {
     font-family: var(--font-canela), serif;
+  }
+
+  /* Tracked, small-caps metadata voice (nav labels, captions, EXIF). */
+  .meta {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 10.5px;
+    color: var(--muted);
   }
 
   @keyframes arrow-nudge {
     0%, 100% { transform: translateX(0); }
     50%      { transform: translateX(4px); }
+  }
+
+  /* Slow downward bob for the hero scroll cue. */
+  @keyframes vf-cue {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+    50%      { transform: translate(-50%, 7px); opacity: 1; }
+  }
+
+  /* Quiet rise-in used for editorial content reveals. */
+  @keyframes vf-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
   }
 
   @keyframes menu-item-in {
@@ -16,7 +81,7 @@
   }
 
   [data-state="open"] .menu-item {
-    animation: menu-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation: menu-item-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
 
   @keyframes lb-fade {
@@ -35,41 +100,44 @@
     100% { transform: translateX(100%); }
   }
 
+  /* Editorial reveal-on-scroll: starts hidden, rises when .is-in is set. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Underline-only editorial form fields, italic placeholders. */
   .editorial-field {
     width: 100%;
     background: transparent;
     border: 0;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--hair);
     border-radius: 0;
     padding: 12px 0 10px;
     font-family: var(--font-canela), serif;
     font-size: 18px;
-    color: #111;
+    color: var(--ink);
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.3s ease;
     resize: vertical;
   }
   .editorial-field::placeholder {
-    color: #adb5bd;
-    opacity: 0.7;
+    color: var(--muted);
+    opacity: 0.85;
     font-style: italic;
   }
   .editorial-field:focus {
-    border-bottom-color: #111;
+    border-bottom-color: var(--ink);
   }
   .editorial-field.error {
     border-bottom-color: #c0392b;
-  }
-
-  .dark .editorial-field {
-    color: #f5f3ee;
-    border-bottom-color: #1f1f1f;
-  }
-  .dark .editorial-field::placeholder {
-    color: #5c6066;
-  }
-  .dark .editorial-field:focus {
-    border-bottom-color: #f5f3ee;
   }
   .dark .editorial-field.error {
     border-bottom-color: #e74c3c;
@@ -77,15 +145,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-state="open"] .menu-item,
-  [data-state] {
-    animation: none !important;
-    transition: none !important;
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

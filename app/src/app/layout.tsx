@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "vflics - Photography Portfolio",
-  description: "Viraj Singh's professional photography portfolio.",
+  title: "vflics — Viraj Singh, Editorial Photography",
+  description:
+    "vflics is the editorial work of Viraj Singh — fashion, portraiture, and commissioned brand stories. Quiet, precise, human.",
 };
 
 export default function RootLayout({
@@ -38,7 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <div className="bg-white dark:bg-black min-h-screen">
+          <div className="bg-paper min-h-screen">
             {children}
           </div>
           <Analytics />

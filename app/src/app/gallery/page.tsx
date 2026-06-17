@@ -1,108 +1,43 @@
 /**
- * Gallery Page
+ * Gallery — editorial project index ("contents page").
  *
- * Main gallery landing page displaying cover images for each gallery category
- * OPTIMIZED: Uses pre-generated static thumbnails for instant loading
+ * Statically generated from the pre-built work index (covers + frame counts).
+ * No runtime data calls; the public site keeps serving from the R2 CDN.
  */
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { Container } from '@/components/ui/Container';
-import { GalleryGrid } from '@/components/gallery/GalleryGrid';
-import type { GalleryCover } from '@/types/gallery';
-import coverThumbnails from '@/generated/cover-thumbnails.json';
+import { GalleryIndex } from '@/components/gallery/GalleryIndex';
+import { getWorkIndex } from '@/lib/projects';
 
-export const revalidate = 3600; // Revalidate every 1 hour (ISR)
-export const dynamic = 'force-static'; // Force static generation
+export const revalidate = 3600; // ISR
+export const dynamic = 'force-static';
 
 export const metadata = {
   title: 'Gallery',
-  description: 'Explore photography galleries showcasing editorial, portraits, events, and more.',
+  description:
+    'Selected editorial photography by Viraj Singh — fashion, portraiture, and brand stories.',
 };
 
-/**
- * Get gallery cover images from pre-generated thumbnails
- * INSTANT LOADING: No API calls, no Google Drive, no serverless cold starts!
- */
-async function getGalleryCovers() {
-  try {
-    // Map pre-generated thumbnails to GalleryCover format
-    const covers: GalleryCover[] = coverThumbnails.map((thumbnail) => ({
-      id: thumbnail.categorySlug,
-      category: thumbnail.displayTitle,
-      slug: thumbnail.categorySlug,
-      title: thumbnail.displayTitle,
-      imageUrl: thumbnail.path, // Static file path: /gallery-covers/editorial.webp
-      width: thumbnail.width,
-      height: thumbnail.height,
-    }));
+export default function GalleryPage() {
+  const work = getWorkIndex();
 
-    // Already sorted by displayOrder in the JSON
-    return {
-      success: true,
-      count: covers.length,
-      covers,
-    };
-  } catch (error) {
-    console.error('Error loading gallery covers:', error);
-    throw error;
-  }
-}
-
-export default async function GalleryPage() {
-  try {
-    const data = await getGalleryCovers();
-
-    if (!data.success || data.covers.length === 0) {
-      return (
-        <>
-          <Navbar visible={true} />
-          <main className="min-h-screen bg-white dark:bg-black">
-            <Container size="xl">
-              <div className="flex min-h-screen flex-col items-center justify-center text-center">
-                <h1 className="font-display font-light text-4xl text-primary-900 dark:text-primary-100 md:text-5xl">
-                  Gallery Unavailable
-                </h1>
-                <p className="mt-4 text-primary-700 dark:text-primary-300">
-                  No gallery images found. Please check back soon.
-                </p>
-              </div>
-            </Container>
-          </main>
-          <Footer />
-        </>
-      );
-    }
-
-    return (
-      <>
-        <Navbar visible={true} />
-        <main className="min-h-screen bg-white dark:bg-black">
-          <Container size="xl">
-            <GalleryGrid covers={data.covers} />
-          </Container>
-        </main>
-        <Footer />
-      </>
-    );
-  } catch (error) {
-    return (
-      <>
-        <Navbar visible={true} />
-        <main className="min-h-screen bg-white dark:bg-black">
-          <Container size="xl">
-            <div className="flex min-h-screen flex-col items-center justify-center text-center">
-              <h1 className="font-display font-light text-4xl text-primary-900 dark:text-primary-100 md:text-5xl">
-                Error Loading Gallery
-              </h1>
-              <p className="mt-4 text-primary-700 dark:text-primary-300">
-                {error instanceof Error ? error.message : 'Unknown error occurred'}
-              </p>
-            </div>
-          </Container>
-        </main>
-        <Footer />
-      </>
-    );
-  }
+  return (
+    <>
+      <Navbar visible={true} />
+      <main className="min-h-screen bg-paper">
+        {work.length === 0 ? (
+          <div className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+            <h1 className="font-display text-4xl font-light italic text-ink md:text-5xl">
+              Index unavailable
+            </h1>
+            <p className="mt-4 text-ink-soft">No work to show yet — check back soon.</p>
+          </div>
+        ) : (
+          <GalleryIndex work={work} />
+        )}
+      </main>
+      <Footer />
+    </>
+  );
 }

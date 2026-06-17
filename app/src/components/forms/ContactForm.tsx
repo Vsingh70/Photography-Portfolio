@@ -19,11 +19,11 @@ const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
     <div className="flex items-baseline gap-2">
-      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
         {children}
       </span>
       {required && (
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary-500 opacity-60">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted opacity-60">
           · Required
         </span>
       )}
@@ -43,10 +43,10 @@ function FieldError({ message }: { message?: string }) {
 function SectionHeader({ num, title }: { num: string; title: string }) {
   return (
     <div className="mt-7 mb-3 md:mt-10">
-      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
         § {num}
       </span>
-      <h2 className="mt-1.5 font-display text-2xl font-light italic leading-tight tracking-[-0.01em] text-primary-900 dark:text-primary-100 md:text-[32px]">
+      <h2 className="mt-1.5 font-display text-2xl font-light italic leading-tight tracking-[-0.01em] text-ink md:text-[32px]">
         {title}
       </h2>
     </div>
@@ -182,13 +182,13 @@ export default function ContactForm() {
                   aria-pressed={active}
                   onClick={() => setValue('preferredContactMethod', opt)}
                   className={`
-                    cursor-pointer rounded-full border px-[18px] py-2 font-mono text-[10px] uppercase tracking-[0.22em]
+                    cursor-pointer rounded-full border px-[18px] py-2 font-display text-[12px] uppercase tracking-[0.18em]
                     transition-colors duration-300
                     disabled:cursor-not-allowed disabled:opacity-50
                     ${
                       active
-                        ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
-                        : 'border-primary-300 bg-transparent text-primary-700 hover:border-primary-500 dark:border-primary-700 dark:text-primary-300 dark:hover:border-primary-500'
+                        ? 'border-ink bg-ink text-paper'
+                        : 'border-hair bg-transparent text-ink-soft hover:border-muted'
                     }
                   `}
                   style={{ transitionTimingFunction: EASE }}
@@ -244,7 +244,7 @@ export default function ContactForm() {
           role="status"
           className={`mt-6 font-display italic ${
             submitStatus.type === 'success'
-              ? 'text-primary-900 dark:text-primary-100'
+              ? 'text-ink'
               : 'text-red-700 dark:text-red-400'
           }`}
         >
@@ -252,20 +252,18 @@ export default function ContactForm() {
         </p>
       )}
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3.5 border-t border-primary-200 pt-5 dark:border-primary-800 md:mt-11">
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary-600 dark:text-primary-400">
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3.5 border-t border-hair pt-5 md:mt-11">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted">
           Reply within 24–48 hours · Protected by Turnstile
         </span>
         <button
           type="submit"
           disabled={isSubmitting}
           className="
-            group inline-flex cursor-pointer items-center gap-3 rounded-full border border-primary-900 px-6 py-3
-            font-mono text-[11px] uppercase tracking-[0.22em] text-primary-900 transition-colors duration-300
-            hover:bg-primary-900 hover:text-white
+            group inline-flex cursor-pointer items-center gap-3 rounded-full border border-ink px-6 py-3
+            font-display text-[13px] uppercase tracking-[0.18em] text-ink transition-colors duration-300
+            hover:bg-ink hover:text-paper
             disabled:cursor-not-allowed disabled:opacity-50
-            dark:border-primary-100 dark:text-primary-100
-            dark:hover:bg-primary-100 dark:hover:text-primary-900
             md:px-7
           "
         >

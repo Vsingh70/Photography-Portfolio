@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>vflics — Project: Denim (design mockup)</title>
+<!-- Production uses Canela. Cormorant Garamond stands in here. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f8f9fa; --paper-2:#f1f3f5; --ink:#16181b; --ink-soft:#495057;
+    --muted:#adb5bd; --hair:#e4e7ea; --accent:#64748b; --cream:#f5f3ee;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --meta:ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",sans-serif;
+    --pad:clamp(20px,6vw,96px);
+    --col:min(760px,86vw);
+  }
+  html[data-theme="dark"]{
+    --paper:#0e0d0c; --paper-2:#141312; --ink:#f5f3ee; --ink-soft:#cfcabf;
+    --muted:#5c6066; --hair:#211f1d; --accent:#9aa7b5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);
+    -webkit-font-smoothing:antialiased;line-height:1.5;transition:background .4s,color .4s}
+  img{display:block;width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  .meta{font-family:var(--meta);text-transform:uppercase;letter-spacing:.22em;font-size:10.5px;color:var(--muted);font-weight:500}
+
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;
+    padding:22px var(--pad);background:color-mix(in srgb,var(--paper) 86%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .wordmark{font-size:21px;letter-spacing:.16em;text-transform:lowercase}
+  nav{display:flex;align-items:center;gap:30px}
+  nav a{font-family:var(--meta);text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--ink-soft)}
+  nav a:hover{color:var(--ink)}
+  .toggle{font-family:var(--meta);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    border:1px solid var(--hair);background:transparent;color:var(--ink-soft);padding:7px 11px;border-radius:2px;cursor:pointer}
+
+  /* project header */
+  .phead{padding:clamp(50px,10vw,120px) var(--pad) clamp(34px,6vw,70px);max-width:var(--col);margin:0 auto;text-align:center}
+  .phead .kicker{font-family:var(--meta);text-transform:uppercase;letter-spacing:.26em;font-size:11px;color:var(--accent)}
+  .phead h1{font-weight:300;font-style:italic;font-size:clamp(54px,9vw,120px);line-height:.96;margin:20px 0 0;letter-spacing:-.01em}
+  .phead .blurb{font-size:clamp(17px,1.9vw,21px);color:var(--ink-soft);margin:30px auto 0;max-width:52ch;line-height:1.6}
+  .phead .pmeta{margin-top:30px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+  .phead .pmeta span{position:relative}
+  .phead .pmeta span+span::before{content:"·";position:absolute;left:-13px;color:var(--muted)}
+
+  /* sequence */
+  .sequence{padding:clamp(20px,4vw,40px) 0 clamp(40px,7vw,90px)}
+  figure{margin:0 auto clamp(40px,7vw,96px);width:var(--col)}
+  figure.wide{width:min(1080px,92vw)}
+  figure.pair{width:min(1080px,92vw);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.5vw,30px)}
+  figure.pair img+img{margin:0}
+  figcaption{font-family:var(--meta);text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--muted);
+    margin-top:14px;display:flex;justify-content:space-between}
+  .imgbox{overflow:hidden;background:var(--paper-2)}
+
+  /* pager */
+  .pager{border-top:1px solid var(--hair);margin:0 var(--pad);padding:46px 0;display:flex;justify-content:space-between;align-items:center}
+  .pager .lab{font-family:var(--meta);text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--muted)}
+  .pager .nm{font-style:italic;font-size:clamp(24px,3vw,38px);font-weight:300;margin-top:6px}
+  .pager a:hover .nm{color:var(--accent)}
+  .pager .next{text-align:right}
+
+  footer{border-top:1px solid var(--hair);padding:48px var(--pad);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer .fl{font-style:italic;font-size:20px}
+  footer .fr{display:flex;gap:26px;align-items:center}
+
+  @media (max-width:680px){
+    figure.pair{grid-template-columns:1fr}
+    nav a:not(.toggle){display:none}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="wordmark" href="home.html">vflics</a>
+  <nav>
+    <a href="home.html#work">Work</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <button class="toggle" id="toggle">Dark</button>
+  </nav>
+</header>
+
+<section class="phead">
+  <div class="kicker">Editorial · Fashion</div>
+  <h1>Denim</h1>
+  <p class="blurb">A styled denim story built on texture and posture — the quiet confidence of a single light, shot close on a 50mm.</p>
+  <div class="pmeta meta">
+    <span>2026</span><span>Studio</span><span>12 frames</span><span>50mm · f/1.4</span>
+  </div>
+</section>
+
+<section class="sequence">
+
+  <figure class="wide">
+    <div class="imgbox"><img loading="eager" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/18uK-PF5w6kx7wk8suBVOv59aa2gtHe_O-lg.webp" alt=""></div>
+    <figcaption><span>Denim — 01</span><span>50mm · f/1.4 · 1/1000</span></figcaption>
+  </figure>
+
+  <figure>
+    <div class="imgbox"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1IMP_JZp02XGYTThiqt1KfBjGGqfY0OQr-lg.webp" alt=""></div>
+    <figcaption><span>Denim — 02</span><span>50mm · f/1.4</span></figcaption>
+  </figure>
+
+  <figure class="pair">
+    <div class="imgbox"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/10bTrmgQaQTm7G1aTmcBPPtWxwtj3kz-9-lg.webp" alt=""></div>
+    <div class="imgbox"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1VmDO14CW3n-Ps4YIZs__6DoqzsZsAE6--lg.webp" alt=""></div>
+  </figure>
+
+  <figure>
+    <div class="imgbox"><img loading="lazy" src="https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/editorial/1f6EtTugJRNNN2870FAMftlXeSln3bNtn-lg.webp" alt=""></div>
+    <figcaption><span>Denim — 05</span><span>50mm · f/2.0</span></figcaption>
+  </figure>
+
+</section>
+
+<div class="pager">
+  <a href="project.html"><div class="lab">Previous</div><div class="nm">Alley</div></a>
+  <a class="next" href="project.html"><div class="lab">Next</div><div class="nm">Party</div></a>
+</div>
+
+<footer>
+  <span class="fl">vflics</span>
+  <div class="fr meta"><a href="#">Instagram</a><a href="#">Email</a><span>© 2026</span></div>
+</footer>
+
+<script>
+  var t=document.getElementById('toggle'), root=document.documentElement;
+  if(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches){root.dataset.theme='dark';}
+  function sync(){var d=root.dataset.theme==='dark';t.textContent=d?'Light':'Dark';}
+  sync();
+  t.addEventListener('click',function(){root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();});
+</script>
+</body>
+</html>

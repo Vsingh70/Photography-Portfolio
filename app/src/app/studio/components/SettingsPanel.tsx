@@ -1,0 +1,228 @@
+'use client';
+
+/**
+ * Site settings panel (req 1 + 4): set the home hero image and the about image.
+ * Each picks an existing image across any project and writes
+ * site_settings.hero_image_id / about_image_id. Current selections show as
+ * signed-URL thumbnails with a swap action.
+ */
+
+import { useEffect, useState } from 'react';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@/types/supabase';
+import {
+  loadImageCatalog,
+  loadSiteSettings,
+  setSiteImage,
+  signedThumb,
+  type CatalogImage,
+} from '@/lib/studio/remote';
+import { Cap, Pill, Rule, Heading, DIM } from './ui';
+
+type Client = SupabaseClient<Database>;
+
+function ThumbPreview({ url, label }: { url: string | null; label: string }) {
+  return (
+    <div
+      style={{
+        width: 120,
+        height: 150,
+        background: url ? `url("${url}") center/cover no-repeat #1a1a1a` : '#1a1a1a',
+        border: '1px solid rgba(245,243,238,0.12)',
+        display: url ? 'block' : 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}
+    >
+      {!url && <Cap style={{ color: 'rgba(245,243,238,0.35)' }}>{label}</Cap>}
+    </div>
+  );
+}
+
+function ImagePickerModal({
+  catalog,
+  thumbUrls,
+  onPick,
+  onClose,
+}: {
+  catalog: CatalogImage[];
+  thumbUrls: Record<string, string>;
+  onPick: (img: CatalogImage) => void;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 120,
+        padding: 28,
+      }}
+    >
+      <div
+        style={{
+          background: '#0a0a0a',
+          border: '1px solid rgba(245,243,238,0.12)',
+          maxWidth: 820,
+          width: '100%',
+          maxHeight: '86vh',
+          overflowY: 'auto',
+          padding: 28,
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <Heading size={32}>Pick an image.</Heading>
+          <Pill onClick={onClose}>Close</Pill>
+        </div>
+        <Rule style={{ margin: '16px 0' }} />
+        {catalog.length === 0 ? (
+          <p style={{ fontStyle: 'italic', color: DIM }}>
+            No images yet — publish a project first.
+          </p>
+        ) : (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))',
+              gap: 12,
+            }}
+          >
+            {catalog.map((img) => (
+              <button
+                key={img.id}
+                onClick={() => onPick(img)}
+                title={`${img.projectTitle} — ${img.alt || img.storage_path}`}
+                style={{
+                  padding: 0,
+                  border: '1px solid rgba(245,243,238,0.1)',
+                  cursor: 'pointer',
+                  background: thumbUrls[img.id]
+                    ? `url("${thumbUrls[img.id]}") center/cover no-repeat #1a1a1a`
+                    : '#1a1a1a',
+                  height: 138,
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function SettingsPanel({ supabase }: { supabase: Client }) {
+  const [catalog, setCatalog] = useState<CatalogImage[]>([]);
+  const [thumbUrls, setThumbUrls] = useState<Record<string, string>>({});
+  const [heroId, setHeroId] = useState<string | null>(null);
+  const [aboutId, setAboutId] = useState<string | null>(null);
+  const [picking, setPicking] = useState<'hero_image_id' | 'about_image_id' | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [cat, settings] = await Promise.all([
+          loadImageCatalog(supabase),
+          loadSiteSettings(supabase),
+        ]);
+        if (cancelled) return;
+        setCatalog(cat);
+        setHeroId(settings.heroImageId);
+        setAboutId(settings.aboutImageId);
+
+        const entries = await Promise.all(
+          cat.map(async (img) => [img.id, await signedThumb(supabase, img.storage_path)] as const)
+        );
+        if (cancelled) return;
+        const urls: Record<string, string> = {};
+        for (const [id, url] of entries) if (url) urls[id] = url;
+        setThumbUrls(urls);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : 'Failed to load settings.');
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [supabase]);
+
+  const choose = async (img: CatalogImage) => {
+    if (!picking) return;
+    const field = picking;
+    setPicking(null);
+    setError(null);
+    try {
+      await setSiteImage(supabase, field, img.id);
+      if (field === 'hero_image_id') setHeroId(img.id);
+      else setAboutId(img.id);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to save.');
+    }
+  };
+
+  const heroUrl = heroId ? thumbUrls[heroId] ?? null : null;
+  const aboutUrl = aboutId ? thumbUrls[aboutId] ?? null : null;
+
+  return (
+    <div>
+      <Cap style={{ color: DIM }}>Site settings</Cap>
+      <Heading size={40} style={{ marginTop: 10 }}>
+        Hero &amp; about.
+      </Heading>
+      <p style={{ fontStyle: 'italic', color: DIM, fontSize: 15, marginTop: 10, maxWidth: 560 }}>
+        Pick any published image as the home hero or the about portrait. These feed the pipeline
+        on the next rebuild.
+      </p>
+
+      {error && (
+        <Cap style={{ color: 'rgb(231,76,60)', display: 'block', marginTop: 14 }}>{error}</Cap>
+      )}
+
+      <div style={{ display: 'flex', gap: 40, marginTop: 28, flexWrap: 'wrap' }}>
+        <div>
+          <Cap style={{ color: DIM, display: 'block', marginBottom: 10 }}>Home hero</Cap>
+          <ThumbPreview url={heroUrl} label="None" />
+          <div style={{ marginTop: 12 }}>
+            <Pill onClick={() => setPicking('hero_image_id')}>
+              {heroId ? 'Swap hero' : 'Set hero'}
+            </Pill>
+          </div>
+        </div>
+        <div>
+          <Cap style={{ color: DIM, display: 'block', marginBottom: 10 }}>About image</Cap>
+          <ThumbPreview url={aboutUrl} label="None" />
+          <div style={{ marginTop: 12 }}>
+            <Pill onClick={() => setPicking('about_image_id')}>
+              {aboutId ? 'Swap about' : 'Set about'}
+            </Pill>
+          </div>
+        </div>
+      </div>
+
+      {picking && (
+        <ImagePickerModal
+          catalog={catalog}
+          thumbUrls={thumbUrls}
+          onPick={choose}
+          onClose={() => setPicking(null)}
+        />
+      )}
+
+      <Rule style={{ marginTop: 36 }} />
+      <Cap style={{ color: 'rgba(245,243,238,0.35)', display: 'block', marginTop: 16 }}>
+        Changes save immediately. Publish a project (or trigger a rebuild) to see them live.
+      </Cap>
+    </div>
+  );
+}

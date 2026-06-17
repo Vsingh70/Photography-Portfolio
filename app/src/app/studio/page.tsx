@@ -1,14 +1,25 @@
+import type { Metadata } from 'next';
 import { StudioApp } from './StudioApp';
 
-export const metadata = {
-  title: 'Upload Studio',
+export const metadata: Metadata = {
+  title: 'vflics Studio',
   robots: { index: false, follow: false },
+  // PWA: link the Studio manifest (installable standalone app). The root
+  // layout is intentionally untouched — this only applies to /studio.
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'vflics Studio',
+  },
+  other: {
+    'theme-color': '#0a0a0a',
+  },
 };
 
 export default function StudioPage() {
-  // The page is public. The StudioApp itself shows an empty-state when run
-  // outside the Tauri desktop app (where the OAuth + Drive upload pipeline
-  // lives), so a browser visitor will see "Use the desktop app." rather than
-  // a dead UI.
+  // Single authenticated web/PWA Project composer (Supabase-backed). The
+  // StudioApp gates itself behind a Supabase session: unauthenticated visitors
+  // see a magic-link login screen, not the composer.
   return <StudioApp />;
 }
