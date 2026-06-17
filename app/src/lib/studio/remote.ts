@@ -25,7 +25,9 @@ export interface CatalogImage {
 export async function loadRemoteProjects(supabase: Client): Promise<StudioProject[]> {
   const { data, error } = await supabase
     .from('projects')
-    .select('id, slug, title, category, blurb, location, shot_date, sort_order, cover_image_id, images(count)')
+    // Disambiguate: there are two FKs between projects/images (images.project_id
+    // and projects.cover_image_id), so name the project_id relationship explicitly.
+    .select('id, slug, title, category, blurb, location, shot_date, sort_order, cover_image_id, images!images_project_id_fkey(count)')
     .order('sort_order', { ascending: true });
   if (error) throw new Error(error.message);
 
@@ -80,7 +82,8 @@ export async function persistProjectMeta(
 export async function loadImageCatalog(supabase: Client): Promise<CatalogImage[]> {
   const { data, error } = await supabase
     .from('images')
-    .select('id, storage_path, alt, project_id, projects(title)')
+    // Same two-FK ambiguity in reverse: name the project_id relationship.
+    .select('id, storage_path, alt, project_id, projects!images_project_id_fkey(title)')
     .order('sort_order', { ascending: true });
   if (error) throw new Error(error.message);
 
