@@ -229,7 +229,12 @@ const ProgressTicks = memo(function ProgressTicks({
       style={{
         bottom: isDesktop ? 36 : 24,
         right: isDesktop ? 32 : 22,
-        maxWidth: isDesktop ? 'calc(100% - 380px)' : 'calc(100vw - 44px)',
+        // Fixed WIDTH (not maxWidth) so the measured width — and thus how many
+        // ticks fit (`capacity`) — stays constant regardless of how many ticks
+        // are currently rendered. With maxWidth the row shrank to its content,
+        // so the short final page collapsed the measured width, which shrank
+        // capacity in a feedback loop and the bar never recovered.
+        width: isDesktop ? 'calc(100% - 380px)' : 'calc(100vw - 44px)',
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.4s ease',
         pointerEvents: visible ? 'auto' : 'none',
@@ -405,6 +410,7 @@ export function EditorialLightbox({
   const [mode, setMode] = useStoredMode();
   const [isDesktop, setIsDesktop] = useState(true);
   const reduce = useReducedMotion();
+  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -421,6 +427,23 @@ export function EditorialLightbox({
     document.documentElement.classList.add('overflow-hidden');
     return () => document.documentElement.classList.remove('overflow-hidden');
   }, [open]);
+
+  // One-time swipe hint on touch devices: a quick, auto-dismissing pop-up the
+  // first time the lightbox is opened, explaining the swipe directions. Shown
+  // once per device (localStorage); desktop uses the arrows/buttons instead.
+  useEffect(() => {
+    if (!open || isDesktop) {
+      setShowHint(false);
+      return;
+    }
+    try {
+      if (localStorage.getItem('vflics:lb-swipe-hint')) return;
+      localStorage.setItem('vflics:lb-swipe-hint', '1');
+    } catch {}
+    setShowHint(true);
+    const t = setTimeout(() => setShowHint(false), 4200);
+    return () => clearTimeout(t);
+  }, [open, isDesktop]);
 
   const total = images.length;
   const prev = useCallback(
@@ -487,6 +510,7 @@ export function EditorialLightbox({
     const travel = horizontal ? adx : ady;
     const flick = travel >= SWIPE_FLICK_DIST && travel / dt >= SWIPE_VELOCITY;
     if (travel <= SWIPE_DIST && !flick) return; // small drag — snap back (no-op)
+    setShowHint(false); // a real swipe dismisses the hint
     if (horizontal) {
       (dx > 0 ? prev : next)();
     } else {
@@ -532,6 +556,26 @@ export function EditorialLightbox({
           onTouchEnd={onTouchEnd}
         >
       <ImageStage image={img} mode={mode} isDesktop={isDesktop} />
+
+      {/* One-time swipe-direction hint (touch only, auto-dismisses). */}
+      <AnimatePresence>
+        {showHint && (
+          <motion.div
+            key="lb-swipe-hint"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: reduce ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => setShowHint(false)}
+            className="absolute left-1/2 z-30 -translate-x-1/2 rounded-full border border-white/20 bg-black/55 px-4 py-2 text-center backdrop-blur-md"
+            style={{ bottom: 104, maxWidth: 'calc(100vw - 48px)' }}
+          >
+            <Caption style={{ color: 'rgba(245,243,238,0.9)', lineHeight: 1.5 }}>
+              Swipe up or left for next · down or right to go back
+            </Caption>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div
         className="absolute left-4 right-4 z-20 flex items-center justify-between gap-4"
