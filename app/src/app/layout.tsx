@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { canela } from "../lib/fonts";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AnalyticsGate } from "@/components/analytics/AnalyticsGate";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -42,8 +41,7 @@ export default function RootLayout({
           <div className="bg-paper min-h-screen">
             {children}
           </div>
-          <Analytics />
-          <SpeedInsights />
+          <AnalyticsGate />
         </ThemeProvider>
       </body>
     </html>

@@ -199,7 +199,11 @@ export async function ingestFile(file: File, existingHashes: Set<string>): Promi
     size: file.size,
     type: file.type,
     hash,
-    dataURL,
+    // NB: the full-resolution `dataURL` is intentionally NOT retained — it's a
+    // ~1.33×-file base64 string that, multiplied across a batch, bloats the
+    // React tree enough to OOM the tab (and crash `performance.measure`'s
+    // structured clone). `thumbDataURL` (~512px) covers display; `blob` covers
+    // upload. The full dataURL is only needed transiently above for decoding.
     thumbDataURL,
     blob: file,
     width,
