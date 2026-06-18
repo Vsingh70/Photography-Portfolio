@@ -41,6 +41,8 @@ export interface ImageTileProps {
   /** Clean, human label ("{Project title} ({index+1})") — never the raw filename. */
   cleanTitle: string;
   selected: boolean;
+  /** True while a multi-selection is being dragged → dim the whole group. */
+  groupDragging?: boolean;
   isCover: boolean;
   draggedId: string | null;
   dragOverId: string | null;
@@ -51,7 +53,7 @@ export interface ImageTileProps {
   lenses: string[];
   /** id-parameterized callbacks so the parent can pass stable refs and let
    * `memo` skip tiles that didn't change between renders. */
-  onToggleSelect: (id: string) => void;
+  onToggleSelect: (id: string, mods?: { shiftKey?: boolean }) => void;
   onSetCover: (id: string) => void;
   onAltChange: (id: string, alt: string) => void;
   /** Patch the image's exif (camera/lens/settings). Caller merges + autosaves
@@ -67,6 +69,7 @@ function ImageTileBase({
   image,
   cleanTitle,
   selected,
+  groupDragging,
   isCover,
   draggedId,
   dragOverId,
@@ -135,6 +138,8 @@ function ImageTileBase({
   const isDragged = draggedId === image.id;
   const isDragOver = dragOverId === image.id && draggedId !== image.id;
   const anyDragging = draggedId !== null;
+  // Dim the dragged tile and, during a multi-selection drag, the whole group.
+  const dimmed = isDragged || (selected && !!groupDragging);
   const ratioHeight = thumbSize * 1.25;
   const dims = image.width && image.height ? `${image.width}×${image.height}` : '';
   // Staged files render the in-memory thumbnail; published images render the
@@ -152,12 +157,13 @@ function ImageTileBase({
 
   return (
     <motion.div
+      data-image-id={image.id}
       // Disable FLIP layout animation while a drag is actively in progress so it
       // doesn't fight the native drag ghost / drop targeting; otherwise a tight
       // spring snaps tiles to their reordered slots.
       layout={!reducedMotion && !anyDragging}
       initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
-      animate={reducedMotion ? { opacity: 1 } : { opacity: isDragged ? 0.4 : 1, scale: 1 }}
+      animate={reducedMotion ? { opacity: dimmed ? 0.5 : 1 } : { opacity: dimmed ? 0.4 : 1, scale: 1 }}
       exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
       transition={
         reducedMotion
@@ -186,7 +192,7 @@ function ImageTileBase({
       }}
     >
       <div
-        onClick={() => onToggleSelect(image.id)}
+        onClick={(e) => onToggleSelect(image.id, { shiftKey: e.shiftKey })}
         style={{
           width: '100%',
           height: ratioHeight,

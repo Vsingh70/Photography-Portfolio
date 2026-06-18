@@ -122,7 +122,15 @@ function ImagePickerModal({
   );
 }
 
-export function SettingsPanel({ supabase }: { supabase: Client }) {
+export function SettingsPanel({
+  supabase,
+  onChanged,
+}: {
+  supabase: Client;
+  /** Fired after the hero/about image is changed, so the parent can enable the
+   * top-bar Publish button to trigger the rebuild that makes it live. */
+  onChanged?: () => void;
+}) {
   const [catalog, setCatalog] = useState<CatalogImage[]>([]);
   const [thumbUrls, setThumbUrls] = useState<Record<string, string>>({});
   const [heroId, setHeroId] = useState<string | null>(null);
@@ -171,6 +179,7 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
       await setSiteImage(supabase, field, img.id);
       if (field === 'hero_image_id') setHeroId(img.id);
       else setAboutId(img.id);
+      onChanged?.();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to save.');
     }
@@ -195,6 +204,7 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
       setThumbUrls((prev) => ({ ...prev, [id]: dataURL }));
       if (field === 'hero_image_id') setHeroId(id);
       else setAboutId(id);
+      onChanged?.();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed.');
     } finally {
@@ -268,7 +278,8 @@ export function SettingsPanel({ supabase }: { supabase: Client }) {
 
       <Rule style={{ marginTop: 36 }} />
       <Cap style={{ color: 'rgba(245,243,238,0.35)', display: 'block', marginTop: 16 }}>
-        Changes save immediately. Publish a project (or trigger a rebuild) to see them live.
+        Changes save immediately. Hit <strong style={{ color: 'rgba(245,243,238,0.6)' }}>Rebuild site →</strong> (top
+        right) to publish them to the live site.
       </Cap>
     </div>
   );

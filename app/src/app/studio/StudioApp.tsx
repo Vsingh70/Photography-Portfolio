@@ -47,6 +47,7 @@ import type { ImageExif, PublishProgress, StudioImage, StudioProject } from '@/l
 import {
   composeSettings,
   parseLensSpec,
+  parseSettings,
   reconcileWithLens,
   type ExposureFields,
 } from '@/lib/studio/lens';
@@ -285,6 +286,10 @@ function Composer({
   const active = projects.find((p) => p.id === activeId) ?? null;
   const localProjects = projects.filter((p) => !p.remote);
   const totalPhotos = localProjects.reduce((n, p) => n + p.images.length, 0);
+  // Latest active-project images, read by stable callbacks (Cmd+A, marquee)
+  // without re-creating them on every edit.
+  const activeImagesRef = useRef<StudioImage[]>([]);
+  activeImagesRef.current = active?.images ?? [];
 
   // ── Lazily load a published project's existing images when it's opened ──
   // Remote projects load with `images: []` + a count; the first time one is
@@ -428,19 +433,30 @@ function Composer({
   // in-memory order until publish.
   const onTileDragEnd = () => {
     if (draggedImageId && dragOverImageId && draggedImageId !== dragOverImageId && active) {
-      const images = [...active.images];
-      const from = images.findIndex((f) => f.id === draggedImageId);
-      const to = images.findIndex((f) => f.id === dragOverImageId);
-      if (from >= 0 && to >= 0) {
-        const [moved] = images.splice(from, 1);
-        images.splice(to, 0, moved);
-        updateProject(active.id, { images });
-        if (active.remote) {
-          const remoteOrder = images.filter((f) => f.remoteImage).map((f) => f.id);
-          if (remoteOrder.length > 0) {
-            persistImageOrder(supabase, remoteOrder).catch((e) =>
-              setImageError(e instanceof Error ? e.message : 'Could not save image order.')
-            );
+      const images = active.images;
+      // If the dragged tile is part of a multi-selection, the whole selected
+      // group moves together (keeping its relative order); otherwise just the
+      // one dragged tile moves. Insert before the drop target.
+      const moveGroup = selectedImageIds.has(draggedImageId) && selectedImageIds.size > 1;
+      const movingSet = moveGroup
+        ? new Set(images.filter((f) => selectedImageIds.has(f.id)).map((f) => f.id))
+        : new Set([draggedImageId]);
+
+      // Can't drop a group onto one of its own members.
+      if (!movingSet.has(dragOverImageId)) {
+        const moving = images.filter((f) => movingSet.has(f.id));
+        const rest = images.filter((f) => !movingSet.has(f.id));
+        const insertAt = rest.findIndex((f) => f.id === dragOverImageId);
+        if (insertAt >= 0) {
+          const next = [...rest.slice(0, insertAt), ...moving, ...rest.slice(insertAt)];
+          updateProject(active.id, { images: next });
+          if (active.remote) {
+            const remoteOrder = next.filter((f) => f.remoteImage).map((f) => f.id);
+            if (remoteOrder.length > 0) {
+              persistImageOrder(supabase, remoteOrder).catch((e) =>
+                setImageError(e instanceof Error ? e.message : 'Could not save image order.')
+              );
+            }
           }
         }
       }
@@ -522,17 +538,69 @@ function Composer({
   // These handlers are wrapped in useCallback (and key off the functional
   // setters / activeId rather than `active`) so the memoized ImageTiles aren't
   // forced to re-render on every drag-over tick.
-  const toggleSelect = useCallback(
-    (imageId: string) =>
-      setSelectedImageIds((prev) => {
-        const next = new Set(prev);
-        if (next.has(imageId)) next.delete(imageId);
-        else next.add(imageId);
-        return next;
-      }),
+  // The anchor is the last plain-clicked tile; Shift+click extends from it to
+  // the clicked tile (inclusive, either direction) — read via a ref so the
+  // handler stays stable.
+  const selectionAnchorRef = useRef<string | null>(null);
+  const toggleSelect = useCallback((imageId: string, mods?: { shiftKey?: boolean }) => {
+    // Shift+click → select the contiguous range from the anchor to here.
+    if (mods?.shiftKey && selectionAnchorRef.current && selectionAnchorRef.current !== imageId) {
+      const imgs = activeImagesRef.current;
+      const a = imgs.findIndex((f) => f.id === selectionAnchorRef.current);
+      const b = imgs.findIndex((f) => f.id === imageId);
+      if (a >= 0 && b >= 0) {
+        const [lo, hi] = a < b ? [a, b] : [b, a];
+        const range = imgs.slice(lo, hi + 1).map((f) => f.id);
+        // Keep the anchor fixed so the range can be re-adjusted by shift-clicking
+        // a different tile.
+        setSelectedImageIds((prev) => new Set([...prev, ...range]));
+        return;
+      }
+    }
+    // Plain click → toggle this tile and make it the new range anchor.
+    selectionAnchorRef.current = imageId;
+    setSelectedImageIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(imageId)) next.delete(imageId);
+      else next.add(imageId);
+      return next;
+    });
+  }, []);
+  const clearSelection = useCallback(() => {
+    selectionAnchorRef.current = null;
+    setSelectedImageIds(new Set());
+  }, []);
+  // Replace the whole selection (marquee drag-select) / select every image
+  // (Cmd+A). Stable refs so the memoized tiles don't churn.
+  const setSelection = useCallback((ids: string[]) => setSelectedImageIds(new Set(ids)), []);
+  const selectAll = useCallback(
+    () => setSelectedImageIds(new Set(activeImagesRef.current.map((f) => f.id))),
     []
   );
-  const clearSelection = useCallback(() => setSelectedImageIds(new Set()), []);
+
+  // Keyboard selection shortcuts (compose tab only, ignored while typing in a
+  // field): Cmd/Ctrl+A selects every image, Cmd/Ctrl+D clears the selection.
+  useEffect(() => {
+    if (tab !== 'compose') return;
+    const onKey = (e: KeyboardEvent) => {
+      if (!(e.metaKey || e.ctrlKey)) return;
+      const key = e.key.toLowerCase();
+      if (key !== 'a' && key !== 'd') return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (key === 'a') {
+        if (activeImagesRef.current.length === 0) return;
+        e.preventDefault();
+        selectAll();
+      } else {
+        e.preventDefault(); // also stops the browser's Cmd+D bookmark
+        clearSelection();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [tab, selectAll, clearSelection]);
+
   const deleteSelected = async () => {
     if (!active) return;
     const ids = active.images.filter((f) => selectedImageIds.has(f.id)).map((f) => f.id);
@@ -667,6 +735,10 @@ function Composer({
   const [publishedOk, setPublishedOk] = useState(false);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [triggerError, setTriggerError] = useState<string | null>(null);
+  // Set when the Site panel changes the hero/about image (saved live to the DB,
+  // but needs a pipeline rebuild to appear on the static site). Enables the
+  // top-bar Publish button so the operator can trigger that rebuild.
+  const [siteDirty, setSiteDirty] = useState(false);
 
   const publishBlockers = useMemo(() => {
     const issues: string[] = [];
@@ -693,18 +765,54 @@ function Composer({
   // single-project rebuild trigger that also flushes text edits + appended
   // originals to Supabase.
   const dirtyActiveRemote = active?.remote && active.dirty ? active : null;
-  // Surfacing rule: if the active project is a dirty saved project, the top-bar
-  // button publishes *that project's* changes; otherwise it falls back to the
-  // brand-new-drafts publish modal.
-  const publishMode: 'changes' | 'drafts' = dirtyActiveRemote ? 'changes' : 'drafts';
-  const canPublish = publishMode === 'changes' ? true : canPublishDrafts;
+  // Surfacing rule (priority order): a dirty saved project publishes *that
+  // project's* changes; else brand-new drafts open the publish modal; else a
+  // site-settings-only change (hero/about) triggers a bare rebuild. Project
+  // publishes also rebuild hero/about (the pipeline always reads site_settings),
+  // so those modes subsume a pending site change.
+  const publishMode: 'changes' | 'drafts' | 'site' = dirtyActiveRemote
+    ? 'changes'
+    : canPublishDrafts
+      ? 'drafts'
+      : siteDirty
+        ? 'site'
+        : 'drafts';
+  const canPublish = publishMode === 'changes' || publishMode === 'site' ? true : canPublishDrafts;
 
   const onTopBarPublish = () => {
     if (publishMode === 'changes' && dirtyActiveRemote) {
       performPublishChanges(dirtyActiveRemote);
+    } else if (publishMode === 'site') {
+      performSiteRebuild();
     } else {
       setPublishOpen(true);
     }
+  };
+
+  // Site-settings-only rebuild: the hero/about selection is already saved live
+  // to site_settings; this just kicks the pipeline (no project payload — the
+  // build always regenerates hero/about) so the change reaches the static site.
+  // Reuses the "Publish changes" progress/success modal.
+  const performSiteRebuild = async () => {
+    setPublishChangesOpen(true);
+    setPublishing(false);
+    setProgress(null);
+    setPublishError(null);
+    setTriggerError(null);
+
+    setTriggering(true);
+    const trigErr = await triggerRebuild([], 'Site settings updated (hero / about)');
+    setTriggerError(trigErr);
+    setTriggering(false);
+    setSiteDirty(false);
+
+    setPublishedOk(true);
+    setTimeout(() => {
+      setPublishChangesOpen(false);
+      setPublishedOk(false);
+      setPublishError(null);
+      setTriggerError(null);
+    }, 3500);
   };
 
   // Publish pending changes for one saved project: flush text edits + appended
@@ -726,6 +834,7 @@ function Composer({
       const trigErr = await triggerRebuild([project.slug], 'Project changes published');
       setTriggerError(trigErr);
       setTriggering(false);
+      setSiteDirty(false); // this rebuild also regenerates hero/about
 
       // Clear the dirty flag and mark any appended originals as remote now that
       // they're saved (so they aren't re-uploaded on a subsequent publish). Keep
@@ -784,6 +893,7 @@ function Composer({
       const trigErr = await triggerRebuild(slugs, note);
       setTriggerError(trigErr);
       setTriggering(false);
+      setSiteDirty(false); // this rebuild also regenerates hero/about
 
       // Clear the published projects from the local draft and from state.
       const publishedSet = new Set(publishedIds);
@@ -840,7 +950,13 @@ function Composer({
         localCount={localProjects.length}
         totalPhotos={totalPhotos}
         canPublish={canPublish}
-        publishLabel={publishMode === 'changes' ? 'Publish changes →' : 'Publish →'}
+        publishLabel={
+          publishMode === 'changes'
+            ? 'Publish changes →'
+            : publishMode === 'site'
+              ? 'Rebuild site →'
+              : 'Publish →'
+        }
         onPublish={onTopBarPublish}
         onSignOut={() => supabase.auth.signOut()}
       />
@@ -884,7 +1000,7 @@ function Composer({
               </div>
             ) : tab === 'settings' ? (
               <div style={{ padding: '32px 36px' }}>
-                <SettingsPanel supabase={supabase} />
+                <SettingsPanel supabase={supabase} onChanged={() => setSiteDirty(true)} />
               </div>
             ) : tab === 'security' ? (
               <div style={{ padding: '32px 36px' }}>
@@ -927,7 +1043,13 @@ function Composer({
             }}
             onToggleSelect={toggleSelect}
             onClearSelection={clearSelection}
+            onSetSelection={setSelection}
             onDeleteSelected={deleteSelected}
+            groupDragging={
+              draggedImageId !== null &&
+              selectedImageIds.size > 1 &&
+              selectedImageIds.has(draggedImageId)
+            }
             onSetCover={setCover}
             onSetAlt={setAlt}
             onSetExif={setExif}
@@ -1334,6 +1456,8 @@ interface WorkspaceProps {
   projectDeleting: boolean;
   takenSlugs: Set<string>;
   selectedImageIds: Set<string>;
+  /** True while a multi-selection is being dragged (so the whole group dims). */
+  groupDragging: boolean;
   thumbSize: number;
   draggedImageId: string | null;
   dragOverImageId: string | null;
@@ -1351,8 +1475,11 @@ interface WorkspaceProps {
   onDragOver: (e: ReactDragEvent) => void;
   onDragLeave: () => void;
   onDrop: (e: ReactDragEvent) => void;
-  onToggleSelect: (id: string) => void;
+  /** Toggle one tile; Shift+click extends a contiguous range from the anchor. */
+  onToggleSelect: (id: string, mods?: { shiftKey?: boolean }) => void;
   onClearSelection: () => void;
+  /** Replace the entire selection (marquee drag-select). */
+  onSetSelection: (ids: string[]) => void;
   onDeleteSelected: () => void;
   onSetCover: (id: string) => void;
   onSetAlt: (id: string, alt: string) => void;
@@ -1391,6 +1518,80 @@ function ProjectWorkspace(props: WorkspaceProps) {
     },
     [onDeleteImage]
   );
+
+  // The kit shared across this project's images, to pre-fill the "apply to all"
+  // control (computed before the null guard so hook order stays stable).
+  const kit = useMemo(() => commonKit(project?.images ?? []), [project?.images]);
+
+  // ── Marquee drag-select ──
+  // Click-drag on empty grid space draws a selection rectangle; every tile it
+  // covers is selected. Shift/Cmd adds to the current selection; a plain click
+  // on empty space clears it. Mousedowns that land on a tile are left alone so
+  // the tile's own click-select and native drag-reorder still work.
+  const gridWrapRef = useRef<HTMLDivElement>(null);
+  const [marquee, setMarquee] = useState<
+    { left: number; top: number; width: number; height: number } | null
+  >(null);
+  const marqueeDrag = useRef<{
+    startX: number;
+    startY: number;
+    base: Set<string>;
+    additive: boolean;
+    moved: boolean;
+  } | null>(null);
+
+  const onGridMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    if ((e.target as HTMLElement).closest('[data-image-id]')) return; // on a tile → leave to it
+    const wrap = gridWrapRef.current;
+    if (!wrap) return;
+    const additive = e.shiftKey || e.metaKey || e.ctrlKey;
+    marqueeDrag.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      base: additive ? new Set(props.selectedImageIds) : new Set<string>(),
+      additive,
+      moved: false,
+    };
+
+    const onMove = (ev: MouseEvent) => {
+      const info = marqueeDrag.current;
+      if (!info) return;
+      // Ignore sub-threshold jitter so a plain click stays a click.
+      if (!info.moved && Math.abs(ev.clientX - info.startX) < 4 && Math.abs(ev.clientY - info.startY) < 4) {
+        return;
+      }
+      info.moved = true;
+      const rect = wrap.getBoundingClientRect();
+      const minX = Math.min(info.startX, ev.clientX);
+      const maxX = Math.max(info.startX, ev.clientX);
+      const minY = Math.min(info.startY, ev.clientY);
+      const maxY = Math.max(info.startY, ev.clientY);
+      setMarquee({ left: minX - rect.left, top: minY - rect.top, width: maxX - minX, height: maxY - minY });
+      const hit: string[] = [];
+      wrap.querySelectorAll<HTMLElement>('[data-image-id]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.left < maxX && r.right > minX && r.top < maxY && r.bottom > minY) {
+          const id = el.dataset.imageId;
+          if (id) hit.push(id);
+        }
+      });
+      props.onSetSelection([...new Set([...info.base, ...hit])]);
+    };
+
+    const onUp = () => {
+      const info = marqueeDrag.current;
+      // A click on empty space (no drag, no modifier) clears the selection.
+      if (info && !info.moved && !info.additive) props.onClearSelection();
+      marqueeDrag.current = null;
+      setMarquee(null);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  };
 
   if (!project) {
     return (
@@ -1624,7 +1825,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
           </>
         ) : (
           <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
-            Click to select · drag to reorder · ☆ to set cover
+            Click or drag a box to select · Shift-click for a range · ⌘A all · ⌘D clear · drag to reorder · ☆ cover
             {project.remote ? ' · Reorders & deletes save instantly; click Publish to rebuild the live site' : ''}
           </Cap>
         )}
@@ -1648,6 +1849,9 @@ function ProjectWorkspace(props: WorkspaceProps) {
             cameras={props.cameras}
             lenses={props.lenses}
             reducedMotion={props.reducedMotion}
+            initialCamera={kit.camera}
+            initialLens={kit.lens}
+            initialSettings={kit.settings}
             onApply={props.onApplyKitToAll}
           />
         </div>
@@ -1698,38 +1902,60 @@ function ProjectWorkspace(props: WorkspaceProps) {
         )
       ) : (
         <div
-          style={{
-            marginTop: 22,
-            display: 'grid',
-            gridTemplateColumns: `repeat(auto-fill, minmax(${props.thumbSize}px, 1fr))`,
-            gap: 14,
-          }}
+          ref={gridWrapRef}
+          onMouseDown={onGridMouseDown}
+          style={{ position: 'relative', marginTop: 22, minHeight: 160, userSelect: 'none' }}
         >
-          <AnimatePresence initial={false}>
-            {project.images.map((image, i) => (
-              <ImageTile
-                key={image.id}
-                image={image}
-                cleanTitle={cleanImageTitle(project.title, i)}
-                reducedMotion={props.reducedMotion}
-                selected={props.selectedImageIds.has(image.id)}
-                isCover={effectiveCover === image.id}
-                draggedId={props.draggedImageId}
-                dragOverId={props.dragOverImageId}
-                thumbSize={props.thumbSize}
-                cameras={props.cameras}
-                lenses={props.lenses}
-                onToggleSelect={props.onToggleSelect}
-                onSetCover={props.onSetCover}
-                onAltChange={props.onSetAlt}
-                onExifChange={props.onSetExif}
-                onDelete={handleTileDelete}
-                onDragStart={props.onTileDragStart}
-                onDragOver={props.onTileDragOver}
-                onDragEnd={props.onTileDragEnd}
-              />
-            ))}
-          </AnimatePresence>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(auto-fill, minmax(${props.thumbSize}px, 1fr))`,
+              gap: 14,
+            }}
+          >
+            <AnimatePresence initial={false}>
+              {project.images.map((image, i) => (
+                <ImageTile
+                  key={image.id}
+                  image={image}
+                  cleanTitle={cleanImageTitle(project.title, i)}
+                  reducedMotion={props.reducedMotion}
+                  selected={props.selectedImageIds.has(image.id)}
+                  groupDragging={props.groupDragging}
+                  isCover={effectiveCover === image.id}
+                  draggedId={props.draggedImageId}
+                  dragOverId={props.dragOverImageId}
+                  thumbSize={props.thumbSize}
+                  cameras={props.cameras}
+                  lenses={props.lenses}
+                  onToggleSelect={props.onToggleSelect}
+                  onSetCover={props.onSetCover}
+                  onAltChange={props.onSetAlt}
+                  onExifChange={props.onSetExif}
+                  onDelete={handleTileDelete}
+                  onDragStart={props.onTileDragStart}
+                  onDragOver={props.onTileDragOver}
+                  onDragEnd={props.onTileDragEnd}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+          {marquee && (
+            <div
+              aria-hidden
+              style={{
+                position: 'absolute',
+                left: marquee.left,
+                top: marquee.top,
+                width: marquee.width,
+                height: marquee.height,
+                border: '1px solid rgba(245,243,238,0.55)',
+                background: 'rgba(245,243,238,0.12)',
+                pointerEvents: 'none',
+                zIndex: 40,
+              }}
+            />
+          )}
         </div>
       )}
 
@@ -1809,15 +2035,41 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 const EMPTY_FIELDS: ExposureFields = { focal: '', aperture: '', shutter: '', iso: '' };
 
+/**
+ * The camera/lens/settings shared across every image in a project, or '' for a
+ * field where the images disagree. Used to pre-fill the "apply to all" kit
+ * control so an existing, uniform kit is visible + tweakable instead of starting
+ * blank (a mixed field stays empty so applying it is an explicit choice).
+ */
+function commonKit(images: StudioImage[]): { camera: string; lens: string; settings: string } {
+  const shared = (get: (e: ImageExif | undefined) => string | undefined): string => {
+    if (!images.length) return '';
+    const first = get(images[0]?.exif) ?? '';
+    return images.every((img) => (get(img.exif) ?? '') === first) ? first : '';
+  };
+  return {
+    camera: shared((e) => e?.camera),
+    lens: shared((e) => e?.lens),
+    settings: shared((e) => e?.settings),
+  };
+}
+
 function ApplyKitControl({
   cameras,
   lenses,
   reducedMotion,
+  initialCamera = '',
+  initialLens = '',
+  initialSettings = '',
   onApply,
 }: {
   cameras: string[];
   lenses: string[];
   reducedMotion: boolean;
+  /** The project's existing shared kit, pre-filled when the panel opens. */
+  initialCamera?: string;
+  initialLens?: string;
+  initialSettings?: string;
   onApply: (camera: string, lens: string, settings?: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -1825,6 +2077,17 @@ function ApplyKitControl({
   const [lens, setLens] = useState('');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [fields, setFields] = useState<ExposureFields>(EMPTY_FIELDS);
+
+  // Open pre-filled with the project's existing shared kit (seeded at open time
+  // so it always reflects the current project/images, not a stale mount value).
+  const openPanel = () => {
+    setCamera(initialCamera);
+    setLens(initialLens);
+    const seeded = parseSettings(initialSettings);
+    setFields(reconcileWithLens(seeded, parseLensSpec(initialLens)));
+    setSettingsOpen(!!initialSettings);
+    setOpen(true);
+  };
 
   // The structured editor's guardrails come from the chosen lens here too.
   const lensSpec = parseLensSpec(lens);
@@ -1848,7 +2111,7 @@ function ApplyKitControl({
   };
 
   if (!open) {
-    return <Pill onClick={() => setOpen(true)}>Apply camera, lens &amp; settings to all</Pill>;
+    return <Pill onClick={openPanel}>Apply camera, lens &amp; settings to all</Pill>;
   }
 
   return (
