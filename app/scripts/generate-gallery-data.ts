@@ -294,12 +294,27 @@ async function downloadOriginal(
   supabase: SupabaseClient<Database>,
   storagePath: string
 ): Promise<Buffer> {
-  const { data, error } = await supabase.storage.from('originals').download(storagePath);
-  if (error || !data) {
-    throw new Error(`Failed to download original "${storagePath}": ${error?.message ?? 'no data'}`);
+  // Storage downloads of many originals in a row can hit transient failures
+  // (502 Bad Gateway, "fetch failed"). Retry a few times with backoff so one
+  // flaky request doesn't abort a whole project (esp. large ones / CI).
+  const attempts = 4;
+  let lastErr = 'unknown error';
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const { data, error } = await supabase.storage.from('originals').download(storagePath);
+      if (!error && data) {
+        const arrayBuffer = await data.arrayBuffer();
+        return Buffer.from(arrayBuffer);
+      }
+      lastErr = error?.message ?? 'no data';
+    } catch (e) {
+      lastErr = e instanceof Error ? e.message : String(e);
+    }
+    if (i < attempts - 1) {
+      await new Promise((r) => setTimeout(r, 500 * 2 ** i)); // 0.5s, 1s, 2s
+    }
   }
-  const arrayBuffer = await data.arrayBuffer();
-  return Buffer.from(arrayBuffer);
+  throw new Error(`Failed to download original "${storagePath}" after ${attempts} attempts: ${lastErr}`);
 }
 
 const MANIFEST_DIR = () => path.join(process.cwd(), 'scripts', '.manifests');
