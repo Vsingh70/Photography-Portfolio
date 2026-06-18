@@ -8,6 +8,7 @@
     "build:with-generation": "npm run generate-all && next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run",
     "generate-galleries": "tsx scripts/generate-gallery-data.ts",
     "generate-all": "npm run generate-galleries",
     "tauri:dev": "bash scripts/tauri-build.sh dev",
@@ -40,16 +41,21 @@
     "@tailwindcss/postcss": "^4",
     "@tauri-apps/api": "^2.11.0",
     "@tauri-apps/cli": "^2.11.2",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.4.4",
+    "jsdom": "^25.0.1",
     "plaiceholder": "^3.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.6"
   }
 }

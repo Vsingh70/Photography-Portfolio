@@ -254,13 +254,25 @@ function Composer({
       } catch (e) {
         setLoadError(e instanceof Error ? e.message : 'Could not load projects.');
       }
-      // Local drafts win over a remote row with the same id (lets you re-open
-      // a remote project for editing without losing in-memory image work).
-      const draftIds = new Set(drafts.map((d) => d.id));
-      const merged = [...drafts, ...remote.filter((r) => !draftIds.has(r.id))];
+      // A draft and a published project can share an id (a project keeps its id
+      // through publish). The published row is the source of truth — it carries
+      // the real per-image metadata (exif/alt/cover) and lazily loads its images
+      // with full exif. A leftover draft only holds STALE metadata and `missing`
+      // images (blobs are dropped on save), so letting it win silently shadows a
+      // published project with empty exif → the Settings editor renders blank.
+      // Prefer the remote row on collision and keep only drafts with no remote
+      // counterpart (true unpublished, local-only work).
+      const remoteIds = new Set(remote.map((r) => r.id));
+      const localOnlyDrafts = drafts.filter((d) => !remoteIds.has(d.id));
+      const merged = [...localOnlyDrafts, ...remote];
       setProjects(merged);
       setActiveId(merged[0]?.id ?? null);
-      const missing = drafts.reduce((n, p) => n + p.images.length, 0);
+      // Purge any now-shadowing drafts from localStorage so the stale empty-exif
+      // copy can't resurface on a later reload (self-healing). `merged` is all
+      // local-only drafts + remote rows, so saveDraft (local-only filter) writes
+      // back exactly the surviving drafts.
+      if (localOnlyDrafts.length !== drafts.length) saveDraft(merged);
+      const missing = localOnlyDrafts.reduce((n, p) => n + p.images.length, 0);
       if (missing > 0) setRestoreBanner({ count: missing });
     })();
   }, [supabase]);
@@ -787,9 +799,14 @@ function Composer({
       }
       setTimeout(() => {
         setProjects((prev) => {
-          const survivingDrafts = prev.filter((p) => !p.remote && !publishedSet.has(p.id));
-          const draftIds = new Set(survivingDrafts.map((d) => d.id));
-          return [...survivingDrafts, ...remote.filter((r) => !draftIds.has(r.id))];
+          // Drop the just-published drafts AND any draft that now collides with a
+          // remote row (the published project is authoritative; a same-id draft
+          // would shadow it with stale empty-exif metadata — same bug as on load).
+          const remoteIds = new Set(remote.map((r) => r.id));
+          const survivingDrafts = prev.filter(
+            (p) => !p.remote && !publishedSet.has(p.id) && !remoteIds.has(p.id)
+          );
+          return [...survivingDrafts, ...remote];
         });
         setActiveId(null);
         setSelectedImageIds(new Set());
