@@ -10,6 +10,7 @@
 
 'use client';
 
+import { useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,6 +32,12 @@ export function HomeView({ work, hero }: HomeViewProps) {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.9, delay, ease: EASE },
   });
+
+  // The scroll cue jumps to the Selected Work section (heading + first project),
+  // instant under reduced-motion.
+  const workRef = useRef<HTMLElement>(null);
+  const scrollToWork = () =>
+    workRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 
   return (
     <>
@@ -92,11 +99,13 @@ export function HomeView({ work, hero }: HomeViewProps) {
             </motion.div>
           </div>
 
-          <div
-            aria-hidden
-            className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[rgba(245,243,238,0.8)] motion-safe:animate-[vf-cue_2.4s_ease-in-out_infinite]"
+          <button
+            type="button"
+            onClick={scrollToWork}
+            aria-label="Scroll to selected work"
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 cursor-pointer p-3 text-[rgba(245,243,238,0.8)] transition-colors duration-300 hover:text-[var(--cream)] focus-visible:text-[var(--cream)] motion-safe:animate-[vf-cue_2.4s_ease-in-out_infinite]"
           >
-            <svg width="18" height="26" viewBox="0 0 18 26" fill="none">
+            <svg width="18" height="26" viewBox="0 0 18 26" fill="none" aria-hidden>
               <path
                 d="M9 1v22M2 16l7 7 7-7"
                 stroke="currentColor"
@@ -105,11 +114,14 @@ export function HomeView({ work, hero }: HomeViewProps) {
                 strokeLinejoin="round"
               />
             </svg>
-          </div>
+          </button>
         </section>
 
         {/* ---- Selected Work index ---- */}
-        <section className="px-5 pb-[clamp(70px,10vw,130px)] pt-[clamp(56px,9vw,120px)] sm:px-8 md:px-12 lg:px-16 xl:px-24">
+        <section
+          ref={workRef}
+          className="px-5 pb-[clamp(70px,10vw,130px)] pt-[clamp(56px,9vw,120px)] sm:px-8 md:px-12 lg:px-16 xl:px-24"
+        >
           <div className="mb-[clamp(34px,5vw,60px)] flex items-baseline justify-between border-t border-hair pt-7">
             <h2 className="font-display text-[clamp(22px,3vw,34px)] font-normal italic text-ink">
               Selected Work
