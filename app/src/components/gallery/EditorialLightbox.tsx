@@ -1,5 +1,6 @@
 /**
- * EditorialLightbox — full-screen viewer with Minimal + Spread modes.
+ * EditorialLightbox — full-screen viewer with Minimal + Detailed modes
+ * (the "detailed" mode is `'spread'` internally — kept for the saved preference).
  *
  * Performance pipeline:
  *   1. blurDataURL paints as a CSS background — first visible frame < 16ms
@@ -168,7 +169,7 @@ const ModeToggle = memo(function ModeToggle({
               ${isDesktop ? 'px-3.5 py-1.5 text-[10px]' : 'px-2.5 py-1 text-[9px]'}
             `}
           >
-            {m === 'minimal' ? 'Minimal' : 'Spread'}
+            {m === 'minimal' ? 'Minimal' : 'Detailed'}
           </button>
         );
       })}
