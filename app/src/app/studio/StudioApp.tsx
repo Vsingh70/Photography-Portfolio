@@ -28,7 +28,7 @@ import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/types/supabase';
 import { ingestFile, fileExt, uid } from '@/lib/studio/ingest';
-import { slugify, uniqueSlug } from '@/lib/studio/slug';
+import { slugify, slugifyInput, uniqueSlug } from '@/lib/studio/slug';
 import { loadDraft, saveDraft, clearDraftProjects } from '@/lib/studio/draft';
 import { publishProjects, publishProjectChanges, triggerRebuild } from '@/lib/studio/publish';
 import {
@@ -385,8 +385,13 @@ function Composer({
     updateProject(id, patch);
   };
 
+  // Live typing uses the lenient sanitizer (so dashes can be entered); the slug
+  // input cleans any trailing hyphen on blur via the strict slugify.
   const onSlugChange = (id: string, raw: string) => {
-    updateProject(id, { slug: slugify(raw) });
+    updateProject(id, { slug: slugifyInput(raw) });
+  };
+  const onSlugBlur = (id: string, value: string) => {
+    updateProject(id, { slug: slugify(value) });
   };
 
   // ── Image ingestion ──
@@ -1023,6 +1028,7 @@ function Composer({
             onDismissRestore={() => setRestoreBanner(null)}
             onTitleChange={onTitleChange}
             onSlugChange={onSlugChange}
+            onSlugBlur={onSlugBlur}
             onUpdate={updateProject}
             onRemove={removeProject}
             onDeleteRemoteProject={removeRemoteProject}
@@ -1466,6 +1472,7 @@ interface WorkspaceProps {
   onDismissRestore: () => void;
   onTitleChange: (id: string, title: string) => void;
   onSlugChange: (id: string, slug: string) => void;
+  onSlugBlur: (id: string, slug: string) => void;
   onUpdate: (id: string, patch: Partial<StudioProject>) => void;
   onRemove: (id: string) => void;
   onDeleteRemoteProject: (project: StudioProject) => void;
@@ -1741,6 +1748,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
           <input
             value={project.slug}
             onChange={(e) => props.onSlugChange(project.id, e.target.value)}
+            onBlur={(e) => props.onSlugBlur(project.id, e.target.value)}
             placeholder="after-hours"
             style={metaInputStyle}
           />
