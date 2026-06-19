@@ -20,5 +20,82 @@
     "blurDataURL": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAABQBACdASoYACQAPuFaqk2opSQiNVgMARAcCWNoAQNt6mqKpduXUfNpTtM4AP7vhH327M8G/ELMJYga7nB33GQO2f+mqrQuWcJguuH43Ahetybe78KQn82/JBP6PDZ1WwOSfJ5vRO9A7VH30wNOkcp2fC0we9ssbsP8wfytv3dUy30MK7GuFkcISL9Y93LrfTjFS8U0h1g6u2dpto3mePZx/GMAG6/kfAjFb4QkLsXlLB0Q4XM3zSKczz6bEgTo/9FI6TR6EsdJXm609JlX4AAA",
     "width": 4672,
     "height": 7008
+  },
+  {
+    "slug": "vdr-denim",
+    "title": "VDR Denim",
+    "category": "Fashion",
+    "blurb": "Denim, trucker jackets, and faded washes, a crew worn in and at home in all that blue",
+    "count": 54,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/e855a21a-29d1-4b0a-b7bf-b494aac0c312-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRvgBAABXRUJQVlA4IOwBAACwCACdASoYACQAPu1kq04ppaQiKqwBMB2JYj2aofD2/u/2wd0vMXkgancID9CdoDyA+AMcLxPfq//JMsA1jOYgPNjtXni/YgORo6GZygAA/rpf5Xmu/2x3Cm/gxgmADK/+P2MpID94bm6c3iPTvpHTEqTFIBd+9ye7L7DP6O+O2PPX6sn4Gh8yL+eWK2lZFW7xH4mr0OzEtzW+oPRE4Keoq/7Ojw/3XhedE7IVVF6Fs1Oo4IaPCnD8CuZlm+G4xMPkNPZ1ahHR3kvCL6RvFqUkQhsP5dl29sfABJKhNTCU3x/RAFx9VCvkUp0z5C54lBKxz1H9wP9hHWm3z/Iobu6nwjEaAIn1Doixj/YseYaQkfEQk3f4ihsPchwDuCN/pOfJv6vrHXzwO+sMvO9Dbb16jl7UDppp+QDt0zf8tLXsxenBfKDwDIaOXnv2Jfv0zHf2xnxtsC0ZWWO+FSRvrfaL51A+Et/N+r/3TuNuTV2v4T5+zZX0/Hp+HXO3iW/9Q1eL53bTfG/L347voOznT/8DfMbCwGFzgKsn6xHLYmIvmPEvoxnKbvBvckvBvfKbr05qzYBm2o4t07u2mRGWjWNahx//hbqrz5N+vt+F/D+ix4YXL+9hQkvnhR2iednaFRDHkqLR9/A1fBnfgAA=",
+    "width": 4672,
+    "height": 7008
+  },
+  {
+    "slug": "vdr-party",
+    "title": "VDR Party",
+    "category": "Fashion",
+    "blurb": "Glamour soaked in gel light and a little lost in it",
+    "count": 101,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-party/a45ecc7d-cbd7-4881-8644-ecbec7641ddc-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRvoAAABXRUJQVlA4IO4AAABQBACdASoYACQAPu1mqE2ppaOiMAgBMB2JaGUiI53K+YSw9IAwAI+jYnPAAP7vX9tFEg/JboYvEM4AnBvuf8uUlG62noVT3AuZGD4ll8iCfJEKSM3JFTQXl8xFg/UXRLOV3gBgg7v+ux9np61UN0Aho7AYw28PLG87/rsWsBvyW1mFveikRjr8/lfXEsWkc4NrYhkP4bgu7aFlX4ZQ9R28nGW2ld5c6OhXRPn6B5lkOSiHvy7W2tXNiJIG6V4krZbPFQ6wasIjJdD/o0JZHy1Zf7oBtrYwVidlgHfvg0AM7LvwWYwJPkK/xA7ipiAA",
+    "width": 4672,
+    "height": 7008
+  },
+  {
+    "slug": "vdr-athletics",
+    "title": "VDR Athletics",
+    "category": "Fashion",
+    "blurb": "Jerseys, rackets, and cleats; athletic wear cut and worn like couture",
+    "count": 48,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-athletics/b8398860-eb98-40f9-af00-9f336cc6d459-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4IFoBAABQBgCdASoYAB4APu1irVAppSQisBgIATAdiWZaCYvmW6YwIEbK8WHzkWI3/h6fzND4m6LgT/8FEJ5WkAD+8Jif/l5hf/Ir6/GsKbt//6pcgI0OcyVeNVuuCj9mlyobWjcf9b38X6dgB3L+bj5QF+0QUonHEOgu/JfE6fvg8Z0Xg1dr/pvv/1Pnc7eYEQaZzPZB8ztGaG937kv/5uP/52zcJI//+++rucjCpC/917qI3aDU53TocLcg/vwgyGgyfvcRDL+E6yAjFi6cb84fUw//4Nd+nnHSqvqWjbVhH54h/fqI9d9GeH5xpzBumyZN+DZDKtGs3cvEQ4SFNUh+fO5P+4/MuAX1XOLX+nKL0cKI8obV+Wz4X0P70rSgu9Lm+2ZRF02ksALqcPJQdppfIgQhXVXiyrx75Cdj3p+LsvTLNdZ9WXZyB8F1RczxKdRa4kpxcTma2VTO5XgA",
+    "width": 4539,
+    "height": 5674
+  },
+  {
+    "slug": "vdr-auto",
+    "title": "VDR Auto",
+    "category": "Fashion",
+    "blurb": "Sleek, expensive, and idling at the edge of fast.",
+    "count": 8,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-auto/15caf70b-6b65-4447-8999-bb99b2ba0678-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRooBAABXRUJQVlA4IH4BAADwCACdASoYAB4APu1orU2ppqSiMBgIATAdiWU966Ax2Pd38n41/AP6B/lbgB+SP+RwKe4INV/wvN588KQA/ECaZvQ9/yH43WP7/8BkDTVsAAD+SrfjUv4TgQ+/5D/fed/+4HkJptfGk6eIOt+/DXI92PRu4MleoQbZsgkAdPJg5Is86k2ya9D27/mf0Oc/3B1GCIVR2uInRiXaUdRS3CdvceEND//xyvV4jDGZAPnW/psA8aWpejAvybPd/+VA8xW+yEL3wXCu5sFv6bJ/i2U6kGGcHgWLBY+lvt4nxUqIX27mDHceDGQ3wMO8Gq+qHmsbMUBjNJEzUcDTLbUAysejtJOKTmqM2j8R8phPjZV/+vZ87H2DD/hQdlDZp/mqPDy6H+trpiGXIlzQ7faPG7B6dSljVdHU5XMKcSlMwWHqO3b+q//2gA/t1EXxPxY4CUaAdIG9ixw/+/pf729+oe9vxBENKJ2t2+TqidrdvoMY/1o+RlBgzqia47Z6gAAA",
+    "width": 4433,
+    "height": 5541
+  },
+  {
+    "slug": "vdr-future",
+    "title": "VDR Future",
+    "category": "Fashion",
+    "blurb": "Sleek, alien, and engineered just past human",
+    "count": 12,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-future/c1018a88-ba7f-4112-83ed-2f4c08dfa561-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAAAwBgCdASoYAB4APu1sq06ppqOiMBgIATAdiWJfgYs69bNygMhvBPWhh1vIK1wCNDf7zOGTIDZnxZWAAP7mqFi/7+oLJV3eO3/mas+3hENfBvQ2sofLN690I0Qvw6baKFo6i7/TX5LnQdLX4DznsKTYSNmQ4G4L7j136nGt1vgrRbKOR7XVHjJrCWaJGjKaqkzgcqeTlliKr30okbC9MaVdRR3Z9iTovHory//aQnMPy6zH88zD3gIfd4FXi7jLwo4h/y3oG+51ZOlWuqF6dUVoJ7lx+0JvPyMkInQl//cO1/nv8+4Gq5+O3wXZskZMbrEWcrVSTml985pfcePmJpfvUTq4xu/ydi1HvfhYMEk/0Kb2e81Z+v+k/9J/FyTl73dqKov2yOygAA==",
+    "width": 1200,
+    "height": 1500
+  },
+  {
+    "slug": "vdr-admin",
+    "title": "VDR Admin",
+    "category": "Fashion",
+    "blurb": "Ties and tailoring with street flair, covering the crew that runs it all",
+    "count": 22,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-admin/f934556f-472c-4fe4-b79f-62d28f2f644d-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRkQBAABXRUJQVlA4IDgBAACwBQCdASoYAB4APu1qq08ppiOiMBgIATAdiWY9x6Puz2zVsoHdV8mfcD1EHGS/4ucAIPsg7wAA/vIZf/tRH/4IH/xi+qZiveRo//6VbQNoS4d0HWqyZYAkdyO4HH+ys4f/UX63YpV3OP/MXk2Un39hyWF//w/0ytHL/Q/3cvK8YlS+ztUnyOW9H18vIf+NZo+wsoY+UlAg5hkL/wJvG6f/Z7jE9tG+txRjD4QhPamyF05z9mCUP13Zq1KMKdF3VwFRfpIpKUCdNL+CCi9fcfOnMPw11S0obRWIJaYXsJpd4ZsPGuG4WYIde2lbr6JoRSQf5tkWcin3LwzKX0eAP0E1+l1O7V7+/QYv8ucFRZm8i8U02wk1OS+KouLRRWVNp3Ww+4jEI2t4TCIi4M0GJXKJQNoWUgaqAAA=",
+    "width": 3478,
+    "height": 4347
+  },
+  {
+    "slug": "vdr-monochrome",
+    "title": "VDR Monochrome",
+    "category": "Fashion",
+    "blurb": "Monochromatic and all in, each look inspired by a single hue",
+    "count": 8,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-monochrome/4fbad810-ca96-4b13-9287-0789f2263fee-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4INgAAACwBACdASoYAB4APt1Wpk2opKOiN/qoARAbiWZXu2spR9AdhGEAH5LJ4BypTogAAP3/tFO2hW1bGDUF+FWBff1fNemTXuTTqXQBSk+myL3OOD7kyoq+CTADf11fI09D7TIh1S4P1HVM9ANiI/0xieO/TrdXp5KbwpJhxsVHVJAB9h8NEtrjlBLjwaMEHan+XwmDDAOAiBCKW6isLUb+kojOESvwY4b2Nvf/Crg15W7ADnPGhn8vkniDm9zTGs/3th5t9znhQR0HH8F71veuDlygld5tkgrxAAA=",
+    "width": 1200,
+    "height": 1500
   }
 ]
