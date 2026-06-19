@@ -68,11 +68,11 @@ export function Navbar({ visible = true, overlay = false }: NavbarProps) {
         data-solid={transparent ? 'false' : 'true'}
         className="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500"
         style={{
-          backgroundColor: transparent
-            ? 'transparent'
-            : 'color-mix(in srgb, var(--paper) 86%, transparent)',
-          backdropFilter: transparent ? 'none' : 'blur(10px)',
-          WebkitBackdropFilter: transparent ? 'none' : 'blur(10px)',
+          // Solid bar = fully opaque paper, NO backdrop-filter. A fixed element
+          // blurring the content scrolling beneath it forces the compositor to
+          // re-rasterize every frame → heavy scroll jank / dropped frames,
+          // especially on mobile. An opaque bar composites for free.
+          backgroundColor: transparent ? 'transparent' : 'var(--paper)',
           borderBottom: `1px solid ${transparent ? 'transparent' : 'var(--hair)'}`,
         }}
       >
