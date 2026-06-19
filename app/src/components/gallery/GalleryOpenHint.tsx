@@ -55,7 +55,7 @@ export function GalleryOpenHint({ dismissed = false }: { dismissed?: boolean }) 
           className="fixed bottom-[clamp(20px,4vw,32px)] left-1/2 z-40 -translate-x-1/2 cursor-pointer rounded-full bg-[var(--ink)] px-5 py-3 shadow-[0_14px_44px_rgba(0,0,0,0.28)]"
           style={{ maxWidth: 'calc(100vw - 40px)' }}
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cream)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]">
             {verb} any image to view it full-screen
           </span>
         </motion.button>
