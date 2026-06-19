@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react';
 import { ProjectSequence } from '@/components/gallery/ProjectSequence';
 import { EditorialLightbox } from '@/components/gallery/EditorialLightbox';
+import { GalleryOpenHint } from '@/components/gallery/GalleryOpenHint';
 import type { GalleryImage } from '@/types/image';
 
 interface GalleryViewProps {
@@ -46,6 +47,9 @@ export function GalleryView({ images, seriesLabel }: GalleryViewProps) {
         onChange={setIndex}
         onClose={() => setOpen(false)}
       />
+
+      {/* First-ever project visit: one-time "open an image" hint. */}
+      <GalleryOpenHint dismissed={open} />
     </>
   );
 }
