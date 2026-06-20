@@ -14,19 +14,24 @@ on:
   repository_dispatch:
     types: [studio-publish]
 
-# Prevent multiple instances from racing each other writing to the same
-# manifest / R2 keys. If a new dispatch arrives while one is mid-run, it
-# queues until the current one finishes (NOT cancel-in-progress — we don't
-# want to abort a partial upload halfway).
+# One run at a time (they write the same manifests / R2 keys). A newer dispatch
+# SUPERSEDES an older queued/running one: the build is incremental and the
+# manifest is only committed at the very end, so cancelling mid-run leaves no
+# partial state — the next run just redoes the idempotent R2 uploads. This also
+# stops a single hung run from holding the lock and stalling every publish
+# behind it (the old `cancel-in-progress: false` + 120-min timeout pile-up).
 concurrency:
   group: generate-galleries
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate:
     name: Build variants + commit
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    # Backstop so a hung run self-fails (was 120 → up to a 2h lock hold). Covers
+    # a large from-scratch rebuild with headroom; normal incremental runs are
+    # a few minutes. A newer publish supersedes a stuck run sooner (concurrency).
+    timeout-minutes: 60
     permissions:
       # Required to push the commit back to main.
       contents: write
