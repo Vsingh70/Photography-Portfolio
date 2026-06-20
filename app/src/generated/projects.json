@@ -44,15 +44,26 @@
     "height": 7008
   },
   {
-    "slug": "vdr-athletics",
-    "title": "VDR Athletics",
+    "slug": "vdr-future",
+    "title": "VDR Future",
     "category": "Fashion",
-    "blurb": "Jerseys, rackets, and cleats; athletic wear cut and worn like couture",
-    "count": 48,
-    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-athletics/b8398860-eb98-40f9-af00-9f336cc6d459-lg.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4IFoBAABQBgCdASoYAB4APu1irVAppSQisBgIATAdiWZaCYvmW6YwIEbK8WHzkWI3/h6fzND4m6LgT/8FEJ5WkAD+8Jif/l5hf/Ir6/GsKbt//6pcgI0OcyVeNVuuCj9mlyobWjcf9b38X6dgB3L+bj5QF+0QUonHEOgu/JfE6fvg8Z0Xg1dr/pvv/1Pnc7eYEQaZzPZB8ztGaG937kv/5uP/52zcJI//+++rucjCpC/917qI3aDU53TocLcg/vwgyGgyfvcRDL+E6yAjFi6cb84fUw//4Nd+nnHSqvqWjbVhH54h/fqI9d9GeH5xpzBumyZN+DZDKtGs3cvEQ4SFNUh+fO5P+4/MuAX1XOLX+nKL0cKI8obV+Wz4X0P70rSgu9Lm+2ZRF02ksALqcPJQdppfIgQhXVXiyrx75Cdj3p+LsvTLNdZ9WXZyB8F1RczxKdRa4kpxcTma2VTO5XgA",
-    "width": 4539,
-    "height": 5674
+    "blurb": "Sleek, alien, and engineered just past human",
+    "count": 12,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-future/c1018a88-ba7f-4112-83ed-2f4c08dfa561-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAAAwBgCdASoYAB4APu1sq06ppqOiMBgIATAdiWJfgYs69bNygMhvBPWhh1vIK1wCNDf7zOGTIDZnxZWAAP7mqFi/7+oLJV3eO3/mas+3hENfBvQ2sofLN690I0Qvw6baKFo6i7/TX5LnQdLX4DznsKTYSNmQ4G4L7j136nGt1vgrRbKOR7XVHjJrCWaJGjKaqkzgcqeTlliKr30okbC9MaVdRR3Z9iTovHory//aQnMPy6zH88zD3gIfd4FXi7jLwo4h/y3oG+51ZOlWuqF6dUVoJ7lx+0JvPyMkInQl//cO1/nv8+4Gq5+O3wXZskZMbrEWcrVSTml985pfcePmJpfvUTq4xu/ydi1HvfhYMEk/0Kb2e81Z+v+k/9J/FyTl73dqKov2yOygAA==",
+    "width": 1200,
+    "height": 1500
+  },
+  {
+    "slug": "vdr-monochrome",
+    "title": "VDR Monochrome",
+    "category": "Fashion",
+    "blurb": "Monochromatic and all in, each look inspired by a single hue",
+    "count": 8,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-monochrome/4fbad810-ca96-4b13-9287-0789f2263fee-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4INgAAACwBACdASoYAB4APt1Wpk2opKOiN/qoARAbiWZXu2spR9AdhGEAH5LJ4BypTogAAP3/tFO2hW1bGDUF+FWBff1fNemTXuTTqXQBSk+myL3OOD7kyoq+CTADf11fI09D7TIh1S4P1HVM9ANiI/0xieO/TrdXp5KbwpJhxsVHVJAB9h8NEtrjlBLjwaMEHan+XwmDDAOAiBCKW6isLUb+kojOESvwY4b2Nvf/Crg15W7ADnPGhn8vkniDm9zTGs/3th5t9znhQR0HH8F71veuDlygld5tkgrxAAA=",
+    "width": 1200,
+    "height": 1500
   },
   {
     "slug": "vdr-auto",
@@ -66,15 +77,15 @@
     "height": 5541
   },
   {
-    "slug": "vdr-future",
-    "title": "VDR Future",
+    "slug": "vdr-athletics",
+    "title": "VDR Athletics",
     "category": "Fashion",
-    "blurb": "Sleek, alien, and engineered just past human",
-    "count": 12,
-    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-future/c1018a88-ba7f-4112-83ed-2f4c08dfa561-lg.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAAAwBgCdASoYAB4APu1sq06ppqOiMBgIATAdiWJfgYs69bNygMhvBPWhh1vIK1wCNDf7zOGTIDZnxZWAAP7mqFi/7+oLJV3eO3/mas+3hENfBvQ2sofLN690I0Qvw6baKFo6i7/TX5LnQdLX4DznsKTYSNmQ4G4L7j136nGt1vgrRbKOR7XVHjJrCWaJGjKaqkzgcqeTlliKr30okbC9MaVdRR3Z9iTovHory//aQnMPy6zH88zD3gIfd4FXi7jLwo4h/y3oG+51ZOlWuqF6dUVoJ7lx+0JvPyMkInQl//cO1/nv8+4Gq5+O3wXZskZMbrEWcrVSTml985pfcePmJpfvUTq4xu/ydi1HvfhYMEk/0Kb2e81Z+v+k/9J/FyTl73dqKov2yOygAA==",
-    "width": 1200,
-    "height": 1500
+    "blurb": "Jerseys, rackets, and cleats; athletic wear cut and worn like couture",
+    "count": 48,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-athletics/b8398860-eb98-40f9-af00-9f336cc6d459-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4IFoBAABQBgCdASoYAB4APu1irVAppSQisBgIATAdiWZaCYvmW6YwIEbK8WHzkWI3/h6fzND4m6LgT/8FEJ5WkAD+8Jif/l5hf/Ir6/GsKbt//6pcgI0OcyVeNVuuCj9mlyobWjcf9b38X6dgB3L+bj5QF+0QUonHEOgu/JfE6fvg8Z0Xg1dr/pvv/1Pnc7eYEQaZzPZB8ztGaG937kv/5uP/52zcJI//+++rucjCpC/917qI3aDU53TocLcg/vwgyGgyfvcRDL+E6yAjFi6cb84fUw//4Nd+nnHSqvqWjbVhH54h/fqI9d9GeH5xpzBumyZN+DZDKtGs3cvEQ4SFNUh+fO5P+4/MuAX1XOLX+nKL0cKI8obV+Wz4X0P70rSgu9Lm+2ZRF02ksALqcPJQdppfIgQhXVXiyrx75Cdj3p+LsvTLNdZ9WXZyB8F1RczxKdRa4kpxcTma2VTO5XgA",
+    "width": 4539,
+    "height": 5674
   },
   {
     "slug": "vdr-admin",
@@ -88,14 +99,14 @@
     "height": 4347
   },
   {
-    "slug": "vdr-monochrome",
-    "title": "VDR Monochrome",
+    "slug": "sfs-vintage",
+    "title": "SFS Vintage",
     "category": "Fashion",
-    "blurb": "Monochromatic and all in, each look inspired by a single hue",
-    "count": 8,
-    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-monochrome/4fbad810-ca96-4b13-9287-0789f2263fee-lg.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4INgAAACwBACdASoYAB4APt1Wpk2opKOiN/qoARAbiWZXu2spR9AdhGEAH5LJ4BypTogAAP3/tFO2hW1bGDUF+FWBff1fNemTXuTTqXQBSk+myL3OOD7kyoq+CTADf11fI09D7TIh1S4P1HVM9ANiI/0xieO/TrdXp5KbwpJhxsVHVJAB9h8NEtrjlBLjwaMEHan+XwmDDAOAiBCKW6isLUb+kojOESvwY4b2Nvf/Crg15W7ADnPGhn8vkniDm9zTGs/3th5t9znhQR0HH8F71veuDlygld5tkgrxAAA=",
-    "width": 1200,
-    "height": 1500
+    "blurb": "Dressed for different age",
+    "count": 33,
+    "coverPath": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-lg.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRrgBAABXRUJQVlA4IKwBAABwBwCdASoYACQAPu1sq0+ppiOiKrgMATAdiWw+fFl8rnrR8A/3WeHIB0K7Y/8m86rVls8J2gGsgTZjCQlwAgPnOx1NCAD+61nR9jy/yrVT7C2o/wmp+yv/DFTXLV0T5zBkyXnob4IU0e6LUwSa14khpTMhVQJFvlPkA/8e7ve5d8d2tbNbrY2zzjmcPoHEfR7qfxuS+18ebc+m//8dnhJtnrpvd6CHOe+Mt0kBqyYa7hxyZdjvyC2p7Lzy0ycNzKDBoWoIiCbMHpIoHHnDzcF0ZLgVbSm8K8hv8Z/964X2Yj+4Mp+OdOHQ2SkH+8AExJn6rfja4zx+qL8tZ9UAbT1HgrdUkalcoUnyr8mfBv/Mst/f5beROff1jev3VgsnKQ0Z2DxHFpWWxR6qnmsv82UErW/VDvT/l204ow5wwb2jeATl//+61FvP//dai3vef43RxmxbxSbGOdu6xC5mYixY5d8hTfs/unECh38X0lNgY6pmoHFP7kL1oSCEgd+cM4CsM6FnoBGPqzGAMByLgYJyP8jONq7yCGGcwpRfy0J/ZWvnus/yCSGvHdAAAA==",
+    "width": 4633,
+    "height": 6950
   }
 ]
