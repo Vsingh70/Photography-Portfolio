@@ -59,6 +59,7 @@ import { DateField } from './components/DateField';
 import { SettingsPanel } from './components/SettingsPanel';
 import { SecurityPanel } from './components/SecurityPanel';
 import { ReorderPanel } from './components/ReorderPanel';
+import { StudioProgress, type StudioActivity } from './components/StudioProgress';
 
 type Client = SupabaseClient<Database>;
 type Tab = 'compose' | 'reorder' | 'settings' | 'security';
@@ -744,6 +745,50 @@ function Composer({
   // but needs a pipeline rebuild to appear on the static site). Enables the
   // top-bar Publish button so the operator can trigger that rebuild.
   const [siteDirty, setSiteDirty] = useState(false);
+  // When a rebuild dispatch is fired, stamp the time so the top-bar progress
+  // ring can show a time-based "building & deploying" estimate (the GH Action +
+  // Vercel deploy run off-client). Auto-clears after the estimate window.
+  const [rebuildStartedAt, setRebuildStartedAt] = useState<number | null>(null);
+  useEffect(() => {
+    if (rebuildStartedAt === null) return;
+    const id = setTimeout(() => setRebuildStartedAt(null), 6.5 * 60_000);
+    return () => clearTimeout(id);
+  }, [rebuildStartedAt]);
+
+  // Unified current-activity model for the top-bar progress ring. Upload % is
+  // real (from the publish flow); building is an estimate; loading is a spinner.
+  const activity = useMemo<StudioActivity | null>(() => {
+    if (publishing && progress) {
+      const { projectIdx, projectTotal, fileIdx, fileTotal, projectTitle, phase } = progress;
+      const within = fileTotal > 0 ? fileIdx / fileTotal : 0;
+      const frac = projectTotal > 0 ? (projectIdx + within) / projectTotal : 0;
+      const phaseLabel = phase === 'upload' ? 'Uploading' : phase === 'rows' ? 'Saving rows' : 'Setting cover';
+      return {
+        kind: 'uploading',
+        progress: frac,
+        label: `Uploading “${projectTitle}”`,
+        detail:
+          `Project ${projectIdx + 1}/${projectTotal} · ${phaseLabel}` +
+          (fileTotal > 0 ? ` · photo ${Math.min(fileIdx + 1, fileTotal)}/${fileTotal}` : ''),
+      };
+    }
+    if (triggering) {
+      return { kind: 'triggering', progress: 0.99, label: 'Triggering the site rebuild' };
+    }
+    if (rebuildStartedAt) {
+      return {
+        kind: 'building',
+        progress: null,
+        startedAt: rebuildStartedAt,
+        label: 'Building & deploying to vflics.com',
+        detail: 'Variants → Cloudflare R2 · static export → Vercel',
+      };
+    }
+    if (loadingImagesId) {
+      return { kind: 'loading', progress: null, label: 'Loading this project’s images' };
+    }
+    return null;
+  }, [publishing, progress, triggering, rebuildStartedAt, loadingImagesId]);
 
   const publishBlockers = useMemo(() => {
     const issues: string[] = [];
@@ -805,6 +850,7 @@ function Composer({
     setPublishError(null);
     setTriggerError(null);
 
+    setRebuildStartedAt(Date.now());
     setTriggering(true);
     const trigErr = await triggerRebuild([], 'Site settings updated (hero / about)');
     setTriggerError(trigErr);
@@ -835,6 +881,7 @@ function Composer({
       setProgress(null);
       setPublishing(false);
 
+      setRebuildStartedAt(Date.now());
       setTriggering(true);
       const trigErr = await triggerRebuild([project.slug], 'Project changes published');
       setTriggerError(trigErr);
@@ -893,6 +940,7 @@ function Composer({
       setProgress(null);
       setPublishing(false);
 
+      setRebuildStartedAt(Date.now());
       setTriggering(true);
       const note = `${slugs.length} project${slugs.length === 1 ? '' : 's'} published`;
       const trigErr = await triggerRebuild(slugs, note);
@@ -954,6 +1002,7 @@ function Composer({
         email={session.user.email ?? ''}
         localCount={localProjects.length}
         totalPhotos={totalPhotos}
+        activity={activity}
         canPublish={canPublish}
         publishLabel={
           publishMode === 'changes'
@@ -1223,6 +1272,7 @@ function TopBar({
   email,
   localCount,
   totalPhotos,
+  activity,
   canPublish,
   publishLabel,
   onPublish,
@@ -1231,6 +1281,7 @@ function TopBar({
   email: string;
   localCount: number;
   totalPhotos: number;
+  activity: StudioActivity | null;
   canPublish: boolean;
   publishLabel: string;
   onPublish: () => void;
@@ -1249,11 +1300,12 @@ function TopBar({
         background: INK,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <span style={{ fontFamily: SERIF, fontStyle: 'italic', fontWeight: 300, fontSize: 22, letterSpacing: '-0.01em' }}>
           vflics
         </span>
         <Cap style={{ color: DIM }}>Studio</Cap>
+        <StudioProgress activity={activity} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
         <Cap style={{ color: DIM }}>
