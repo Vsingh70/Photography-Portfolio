@@ -7,10 +7,10 @@
  * memory (their sort_order is applied on publish).
  */
 
-import { useState } from 'react';
-import type { DragEvent as ReactDragEvent } from 'react';
+import { useRef, useState } from 'react';
 import type { StudioProject } from '@/lib/studio/types';
 import { Cap, Pill, Heading, DIM } from './ui';
+import { usePointerSort } from '@/hooks/usePointerSort';
 
 export function ReorderPanel({
   projects,
@@ -49,6 +49,20 @@ export function ReorderPanel({
     setOverId(null);
   };
 
+  // Unified pointer drag-to-reorder (mouse + touch; long-press on touch).
+  const listRef = useRef<HTMLDivElement>(null);
+  const { onPointerDown } = usePointerSort({
+    containerRef: listRef,
+    attr: 'data-project-id',
+    onLift: setDraggedId,
+    onOver: setOverId,
+    onDrop,
+    onCancel: () => {
+      setDraggedId(null);
+      setOverId(null);
+    },
+  });
+
   return (
     <div style={{ maxWidth: 620 }}>
       <Cap style={{ color: DIM }}>Gallery order</Cap>
@@ -59,7 +73,7 @@ export function ReorderPanel({
         Drag to set how projects appear in the gallery index. Save writes the order to Supabase.
       </p>
 
-      <div style={{ marginTop: 24 }}>
+      <div ref={listRef} style={{ marginTop: 24 }}>
         {order.length === 0 ? (
           <p style={{ fontStyle: 'italic', color: DIM }}>No projects yet.</p>
         ) : (
@@ -69,13 +83,8 @@ export function ReorderPanel({
             return (
               <div
                 key={p.id}
-                draggable
-                onDragStart={() => setDraggedId(p.id)}
-                onDragOver={(e: ReactDragEvent) => {
-                  e.preventDefault();
-                  setOverId(p.id);
-                }}
-                onDragEnd={onDrop}
+                data-project-id={p.id}
+                onPointerDown={(e) => onPointerDown(p.id, e)}
                 style={{
                   display: 'flex',
                   alignItems: 'baseline',
@@ -87,6 +96,9 @@ export function ReorderPanel({
                   userSelect: 'none',
                 }}
               >
+                <Cap style={{ color: 'rgba(245,243,238,0.35)' }} aria-hidden>
+                  ⋮⋮
+                </Cap>
                 <Cap style={{ color: 'rgba(245,243,238,0.4)', width: 28 }}>
                   {String(i + 1).padStart(2, '0')}
                 </Cap>

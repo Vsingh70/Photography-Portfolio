@@ -18,6 +18,7 @@ import {
   type CatalogImage,
 } from '@/lib/studio/remote';
 import { uploadSiteImage } from '@/lib/studio/siteImages';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 import { Cap, Pill, Rule, Heading, DIM } from './ui';
 
 type Client = SupabaseClient<Database>;
@@ -53,6 +54,7 @@ function ImagePickerModal({
   onPick: (img: CatalogImage) => void;
   onClose: () => void;
 }) {
+  const isMobile = useIsMobile();
   return (
     <div
       onClick={(e) => {
@@ -68,7 +70,7 @@ function ImagePickerModal({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 120,
-        padding: 28,
+        padding: isMobile ? 12 : 28,
       }}
     >
       <div
@@ -79,7 +81,7 @@ function ImagePickerModal({
           width: '100%',
           maxHeight: '86vh',
           overflowY: 'auto',
-          padding: 28,
+          padding: isMobile ? 16 : 28,
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>

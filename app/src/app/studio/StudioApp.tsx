@@ -60,6 +60,8 @@ import { SettingsPanel } from './components/SettingsPanel';
 import { SecurityPanel } from './components/SecurityPanel';
 import { ReorderPanel } from './components/ReorderPanel';
 import { StudioProgress, type StudioActivity } from './components/StudioProgress';
+import { useIsMobile, useIsTouch } from '@/hooks/useMediaQuery';
+import { usePointerSort } from '@/hooks/usePointerSort';
 
 type Client = SupabaseClient<Database>;
 type Tab = 'compose' | 'reorder' | 'settings' | 'security';
@@ -173,6 +175,13 @@ function Composer({
   cameFromPassword: boolean;
 }) {
   const reducedMotion = useReducedMotion() ?? false;
+  const isMobile = useIsMobile();
+  const isTouch = useIsTouch();
+  // Mobile: the sidebar is an off-canvas drawer (hamburger in the top bar).
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  useEffect(() => {
+    if (!isMobile) setDrawerOpen(false); // resized back to desktop → no drawer
+  }, [isMobile]);
 
   const [projects, setProjects] = useState<StudioProject[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -705,10 +714,7 @@ function Composer({
     },
     [activeId, rememberGear]
   );
-  const handleTileDragOver = useCallback((id: string, e: ReactDragEvent) => {
-    e.preventDefault();
-    setDragOverImageId(id);
-  }, []);
+  const handleTileDragOver = useCallback((id: string) => setDragOverImageId(id), []);
 
   // ── Reorder persistence ──
   const commitOrder = async (orderedIds: string[]) => {
@@ -997,11 +1003,26 @@ function Composer({
     }
   };
 
+  // Sidebar nav handlers also close the mobile drawer (no-op on desktop).
+  const navSelect = (id: string) => {
+    setActiveId(id);
+    setTab('compose');
+    setDrawerOpen(false);
+  };
+  const navSetTab = (t: Tab) => {
+    setTab(t);
+    setDrawerOpen(false);
+  };
+  const navCreate = () => {
+    createProject();
+    setDrawerOpen(false);
+  };
+
   return (
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '260px 1fr',
+        gridTemplateColumns: isMobile ? '1fr' : '260px 1fr',
         gridTemplateRows: 'auto 1fr',
         height: '100vh',
         background: INK,
@@ -1016,34 +1037,95 @@ function Composer({
         totalPhotos={totalPhotos}
         activity={activity}
         canPublish={canPublish}
-        publishLabel={publishLabel}
+        publishLabel={isMobile ? 'Publish →' : publishLabel}
         onPublish={onTopBarPublish}
         onSignOut={() => supabase.auth.signOut()}
+        isMobile={isMobile}
+        onOpenDrawer={() => setDrawerOpen(true)}
       />
 
       {showPasskeyNudge && (
         <PasskeyNudge
+          isMobile={isMobile}
           onAdd={() => {
             setShowPasskeyNudge(false);
             setTab('security');
+            setDrawerOpen(false);
           }}
           onDismiss={() => setShowPasskeyNudge(false)}
         />
       )}
 
-      <Sidebar
-        projects={projects}
-        activeId={activeId}
-        tab={tab}
-        loadError={loadError}
-        reducedMotion={reducedMotion}
-        onSelect={(id) => {
-          setActiveId(id);
-          setTab('compose');
-        }}
-        onSetTab={setTab}
-        onCreate={createProject}
-      />
+      {/* Sidebar: a static grid column on desktop; an off-canvas drawer on mobile. */}
+      {!isMobile && (
+        <Sidebar
+          projects={projects}
+          activeId={activeId}
+          tab={tab}
+          loadError={loadError}
+          reducedMotion={reducedMotion}
+          onSelect={navSelect}
+          onSetTab={navSetTab}
+          onCreate={navCreate}
+        />
+      )}
+
+      {isMobile && (
+        <AnimatePresence>
+          {drawerOpen && (
+            <>
+              <motion.div
+                key="drawer-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reducedMotion ? 0 : 0.2 }}
+                onClick={() => setDrawerOpen(false)}
+                style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 90 }}
+              />
+              <motion.aside
+                key="drawer"
+                initial={reducedMotion ? { opacity: 0 } : { x: '-100%' }}
+                animate={reducedMotion ? { opacity: 1 } : { x: 0 }}
+                exit={reducedMotion ? { opacity: 0 } : { x: '-100%' }}
+                transition={{ duration: reducedMotion ? 0 : 0.28, ease: PANEL_EASE }}
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: 'min(82vw, 300px)',
+                  zIndex: 91,
+                  background: INK,
+                  borderRight: '1px solid rgba(245,243,238,0.08)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+                  <Sidebar
+                    projects={projects}
+                    activeId={activeId}
+                    tab={tab}
+                    loadError={loadError}
+                    reducedMotion={reducedMotion}
+                    onSelect={navSelect}
+                    onSetTab={navSetTab}
+                    onCreate={navCreate}
+                  />
+                </div>
+                <div style={{ padding: '14px 18px', borderTop: '1px solid rgba(245,243,238,0.08)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <Cap style={{ color: DIM }}>
+                    {localProjects.length} draft{localProjects.length === 1 ? '' : 's'} · {totalPhotos} photos
+                  </Cap>
+                  <Cap style={{ color: DIM, wordBreak: 'break-all' }}>{session.user.email}</Cap>
+                  <Pill onClick={() => supabase.auth.signOut()}>Sign out</Pill>
+                </div>
+              </motion.aside>
+            </>
+          )}
+        </AnimatePresence>
+      )}
 
       <main style={{ overflowY: 'auto', background: INK }}>
         <AnimatePresence mode="wait" initial={false}>
@@ -1055,15 +1137,15 @@ function Composer({
             transition={{ duration: reducedMotion ? 0 : 0.25, ease: PANEL_EASE }}
           >
             {tab === 'reorder' ? (
-              <div style={{ padding: '32px 36px' }}>
+              <div style={{ padding: isMobile ? '20px 16px' : '32px 36px' }}>
                 <ReorderPanel projects={projects} onCommitOrder={commitOrder} saving={reorderSaving} />
               </div>
             ) : tab === 'settings' ? (
-              <div style={{ padding: '32px 36px' }}>
+              <div style={{ padding: isMobile ? '20px 16px' : '32px 36px' }}>
                 <SettingsPanel supabase={supabase} onChanged={() => setSiteDirty(true)} />
               </div>
             ) : tab === 'security' ? (
-              <div style={{ padding: '32px 36px' }}>
+              <div style={{ padding: isMobile ? '20px 16px' : '32px 36px' }}>
                 <SecurityPanel supabase={supabase} />
               </div>
             ) : (
@@ -1121,6 +1203,9 @@ function Composer({
             onTileDragStart={setDraggedImageId}
             onTileDragOver={handleTileDragOver}
             onTileDragEnd={onTileDragEnd}
+            onSelectAll={selectAll}
+            isMobile={isMobile}
+            isTouch={isTouch}
           />
             )}
           </motion.div>
@@ -1194,6 +1279,7 @@ function PublishChangesModal({
   triggerError: string | null;
   onClose: () => void;
 }) {
+  const isMobile = useIsMobile();
   const busy = publishing || triggering;
   return (
     <div
@@ -1207,7 +1293,7 @@ function PublishChangesModal({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 100,
-        padding: 28,
+        padding: isMobile ? 12 : 28,
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget && !busy) onClose();
@@ -1219,7 +1305,7 @@ function PublishChangesModal({
           border: '1px solid rgba(245,243,238,0.12)',
           maxWidth: 620,
           width: '100%',
-          padding: 32,
+          padding: isMobile ? 20 : 32,
         }}
       >
         {publishedOk ? (
@@ -1284,6 +1370,8 @@ function TopBar({
   publishLabel,
   onPublish,
   onSignOut,
+  isMobile,
+  onOpenDrawer,
 }: {
   email: string;
   localCount: number;
@@ -1293,35 +1381,63 @@ function TopBar({
   publishLabel: string;
   onPublish: () => void;
   onSignOut: () => void;
+  isMobile: boolean;
+  onOpenDrawer: () => void;
 }) {
   return (
     <div
       style={{
-        gridColumn: '1 / 3',
+        gridColumn: isMobile ? '1' : '1 / 3',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 20px',
+        gap: 10,
+        padding: isMobile ? '0 12px' : '0 20px',
         height: 60,
         borderBottom: '1px solid rgba(245,243,238,0.08)',
         background: INK,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 16, minWidth: 0 }}>
+        {isMobile && (
+          <button
+            type="button"
+            onClick={onOpenDrawer}
+            aria-label="Menu"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: CREAM,
+              cursor: 'pointer',
+              padding: 4,
+              display: 'inline-flex',
+              flexDirection: 'column',
+              gap: 4,
+            }}
+          >
+            <span style={{ width: 20, height: 1.5, background: CREAM, display: 'block' }} />
+            <span style={{ width: 20, height: 1.5, background: CREAM, display: 'block' }} />
+            <span style={{ width: 20, height: 1.5, background: CREAM, display: 'block' }} />
+          </button>
+        )}
         <span style={{ fontFamily: SERIF, fontStyle: 'italic', fontWeight: 300, fontSize: 22, letterSpacing: '-0.01em' }}>
           vflics
         </span>
-        <Cap style={{ color: DIM }}>Studio</Cap>
+        {!isMobile && <Cap style={{ color: DIM }}>Studio</Cap>}
         <StudioProgress activity={activity} />
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-        <Cap style={{ color: DIM }}>
-          {localCount} draft{localCount === 1 ? '' : 's'} · {totalPhotos} photos
-        </Cap>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Cap style={{ color: DIM }}>{email}</Cap>
-          <Pill onClick={onSignOut}>Sign out</Pill>
-        </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 18 }}>
+        {!isMobile && (
+          <>
+            <Cap style={{ color: DIM }}>
+              {localCount} draft{localCount === 1 ? '' : 's'} · {totalPhotos} photos
+            </Cap>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Cap style={{ color: DIM }}>{email}</Cap>
+              <Pill onClick={onSignOut}>Sign out</Pill>
+            </div>
+          </>
+        )}
         <Pill kind="primary" onClick={onPublish} disabled={!canPublish}>
           {publishLabel}
         </Pill>
@@ -1334,15 +1450,16 @@ function TopBar({
 // Passkey nudge (after a password sign-in with zero passkeys)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function PasskeyNudge({ onAdd, onDismiss }: { onAdd: () => void; onDismiss: () => void }) {
+function PasskeyNudge({ onAdd, onDismiss, isMobile }: { onAdd: () => void; onDismiss: () => void; isMobile: boolean }) {
   return (
     <div
       style={{
         position: 'fixed',
         top: 72,
-        right: 20,
+        right: isMobile ? 12 : 20,
+        left: isMobile ? 12 : undefined,
         zIndex: 80,
-        maxWidth: 360,
+        maxWidth: isMobile ? 'none' : 360,
         border: '1px solid rgba(118,200,147,0.4)',
         background: 'rgba(118,200,147,0.08)',
         backdropFilter: 'blur(6px)',
@@ -1555,8 +1672,12 @@ interface WorkspaceProps {
   lenses: string[];
   onThumbSize: (n: number) => void;
   onTileDragStart: (id: string) => void;
-  onTileDragOver: (id: string, e: ReactDragEvent) => void;
+  onTileDragOver: (id: string) => void;
   onTileDragEnd: () => void;
+  /** Replace the entire selection (Select all). */
+  onSelectAll: () => void;
+  isMobile: boolean;
+  isTouch: boolean;
 }
 
 function ProjectWorkspace(props: WorkspaceProps) {
@@ -1589,12 +1710,24 @@ function ProjectWorkspace(props: WorkspaceProps) {
   // control (computed before the null guard so hook order stays stable).
   const kit = useMemo(() => commonKit(project?.images ?? []), [project?.images]);
 
-  // ── Marquee drag-select ──
+  // ── Pointer-events drag-to-reorder (mouse + touch) ──
+  // Replaces HTML5 DnD so reorder works on touchscreens. Commit reuses the
+  // existing handlers (group move + persistImageOrder) via onTileDragEnd.
+  const gridWrapRef = useRef<HTMLDivElement>(null);
+  const { onPointerDown: onTilePointerDown } = usePointerSort({
+    containerRef: gridWrapRef,
+    attr: 'data-image-id',
+    onLift: props.onTileDragStart,
+    onOver: props.onTileDragOver,
+    onDrop: props.onTileDragEnd,
+    onCancel: props.onTileDragEnd, // onTileDragEnd no-ops when there's no valid target
+  });
+
+  // ── Marquee drag-select (mouse only — gated off on touch) ──
   // Click-drag on empty grid space draws a selection rectangle; every tile it
   // covers is selected. Shift/Cmd adds to the current selection; a plain click
   // on empty space clears it. Mousedowns that land on a tile are left alone so
-  // the tile's own click-select and native drag-reorder still work.
-  const gridWrapRef = useRef<HTMLDivElement>(null);
+  // the tile's own click-select and pointer drag-reorder still work.
   const [marquee, setMarquee] = useState<
     { left: number; top: number; width: number; height: number } | null
   >(null);
@@ -1703,7 +1836,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
       onDragOver={props.onDragOver}
       onDragLeave={props.onDragLeave}
       onDrop={props.onDrop}
-      style={{ position: 'relative', padding: '24px 28px', background: INK }}
+      style={{ position: 'relative', padding: props.isMobile ? '18px 14px' : '24px 28px', background: INK }}
     >
       {props.restoreBanner && (
         <div
@@ -1802,7 +1935,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
       </div>
 
       {/* Metadata fields */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px 28px', marginTop: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: props.isMobile ? '1fr' : 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px 28px', marginTop: 20 }}>
         <Field label="Slug">
           <input
             value={project.slug}
@@ -1888,25 +2021,35 @@ function ProjectWorkspace(props: WorkspaceProps) {
           <>
             <Cap style={{ color: DIM }}>{selected.length} selected</Cap>
             <Pill kind="danger" onClick={props.onDeleteSelected}>Delete selected</Pill>
+            <Pill onClick={props.onSelectAll}>Select all</Pill>
             <Pill onClick={props.onClearSelection}>Clear</Pill>
           </>
         ) : (
-          <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
-            Click or drag a box to select · Shift-click for a range · ⌘A all · ⌘D clear · drag to reorder · ☆ cover
-            {project.remote ? ' · Reorders & deletes save instantly; click Publish to rebuild the live site' : ''}
-          </Cap>
+          <>
+            <Pill onClick={props.onSelectAll}>Select all</Pill>
+            <Cap style={{ color: 'rgba(245,243,238,0.45)' }}>
+              {props.isTouch
+                ? 'Tap to select · long-press & drag to reorder · ☆ cover'
+                : 'Click or drag a box to select · Shift-click for a range · ⌘A all · ⌘D clear · drag to reorder · ☆ cover'}
+            </Cap>
+          </>
         )}
         {props.loadingImages && <Cap style={{ color: 'rgba(118,200,147,0.8)' }}>Loading images…</Cap>}
         <div style={{ flex: 1 }} />
-        <Cap style={{ color: DIM }}>Thumb size</Cap>
-        <input
-          type="range"
-          min={90}
-          max={260}
-          value={props.thumbSize}
-          onChange={(e) => props.onThumbSize(Number(e.target.value))}
-          style={{ accentColor: CREAM, width: 140 }}
-        />
+        {/* Thumb-size slider is awkward on touch — hidden there (mobile uses a fixed smaller grid). */}
+        {!props.isTouch && (
+          <>
+            <Cap style={{ color: DIM }}>Thumb size</Cap>
+            <input
+              type="range"
+              min={90}
+              max={260}
+              value={props.thumbSize}
+              onChange={(e) => props.onThumbSize(Number(e.target.value))}
+              style={{ accentColor: CREAM, width: 140 }}
+            />
+          </>
+        )}
       </div>
 
       {/* Project-level kit: one shoot is usually one kit */}
@@ -1970,14 +2113,16 @@ function ProjectWorkspace(props: WorkspaceProps) {
       ) : (
         <div
           ref={gridWrapRef}
-          onMouseDown={onGridMouseDown}
+          onMouseDown={props.isTouch ? undefined : onGridMouseDown}
           style={{ position: 'relative', marginTop: 22, minHeight: 160, userSelect: 'none' }}
         >
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(auto-fill, minmax(${props.thumbSize}px, 1fr))`,
-              gap: 14,
+              gridTemplateColumns: `repeat(auto-fill, minmax(${
+                props.isMobile ? Math.min(props.thumbSize, 110) : props.thumbSize
+              }px, 1fr))`,
+              gap: props.isMobile ? 10 : 14,
             }}
           >
             <AnimatePresence initial={false}>
@@ -2000,9 +2145,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
                   onAltChange={props.onSetAlt}
                   onExifChange={props.onSetExif}
                   onDelete={handleTileDelete}
-                  onDragStart={props.onTileDragStart}
-                  onDragOver={props.onTileDragOver}
-                  onDragEnd={props.onTileDragEnd}
+                  onTilePointerDown={onTilePointerDown}
                 />
               ))}
             </AnimatePresence>
@@ -2356,6 +2499,7 @@ function PublishModal({
   onClose: () => void;
   onConfirm: () => void;
 }) {
+  const isMobile = useIsMobile();
   const busy = publishing || triggering;
   const totalCount = projects.length + editedProjects.length;
   // Drafts are gated by blockers, but pending saved-project edits can still
@@ -2373,7 +2517,7 @@ function PublishModal({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 100,
-        padding: 28,
+        padding: isMobile ? 12 : 28,
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget && !busy) onClose();
@@ -2387,7 +2531,7 @@ function PublishModal({
           width: '100%',
           maxHeight: '88vh',
           overflowY: 'auto',
-          padding: 32,
+          padding: isMobile ? 20 : 32,
         }}
       >
         {publishedOk ? (

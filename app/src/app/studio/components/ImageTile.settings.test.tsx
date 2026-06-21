@@ -44,9 +44,7 @@ function renderTile(overrides: Partial<ImageTileProps> = {}) {
     onAltChange: vi.fn(),
     onExifChange: vi.fn(),
     onDelete: vi.fn(),
-    onDragStart: vi.fn(),
-    onDragOver: vi.fn(),
-    onDragEnd: vi.fn(),
+    onTilePointerDown: vi.fn(),
     ...overrides,
   };
   return render(<ImageTile {...props} />);
@@ -100,9 +98,7 @@ describe('ImageTile per-image Settings editor', () => {
           onAltChange: vi.fn(),
           onExifChange: vi.fn(),
           onDelete: vi.fn(),
-          onDragStart: vi.fn(),
-          onDragOver: vi.fn(),
-          onDragEnd: vi.fn(),
+          onTilePointerDown: vi.fn(),
         } as ImageTileProps)}
       />
     );

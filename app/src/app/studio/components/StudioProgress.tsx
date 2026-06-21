@@ -21,6 +21,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cap } from './ui';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 const CREAM = '#f5f3ee';
 const INK = '#0a0a0a';
@@ -75,6 +76,7 @@ const ORDER: ActivityKind[] = ['uploading', 'triggering', 'building'];
 const stepIndex = (kind: ActivityKind) => ORDER.indexOf(kind);
 
 export function StudioProgress({ activity }: { activity: StudioActivity | null }) {
+  const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [, setTick] = useState(0);
 
@@ -183,16 +185,19 @@ export function StudioProgress({ activity }: { activity: StudioActivity | null }
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.22, ease: EASE }}
             style={{
-              position: 'absolute',
-              top: 'calc(100% + 12px)',
-              left: 0,
+              // Desktop: anchored under the ring. Mobile: viewport-anchored full
+              // width so the 290px panel can't render off-screen near the edge.
+              position: isMobile ? 'fixed' : 'absolute',
+              top: isMobile ? 64 : 'calc(100% + 12px)',
+              left: isMobile ? 12 : 0,
+              right: isMobile ? 12 : undefined,
               zIndex: 90,
-              width: 290,
+              width: isMobile ? 'auto' : 290,
               background: INK,
               border: '1px solid rgba(245,243,238,0.14)',
               boxShadow: '0 18px 50px rgba(0,0,0,0.6)',
               padding: 16,
-              transformOrigin: 'top left',
+              transformOrigin: isMobile ? 'top center' : 'top left',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>

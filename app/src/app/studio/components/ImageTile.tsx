@@ -20,7 +20,7 @@
  */
 
 import { memo, useEffect, useRef, useState } from 'react';
-import type { DragEvent as ReactDragEvent } from 'react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatBytes } from '@/lib/studio/ingest';
 import {
@@ -60,9 +60,8 @@ export interface ImageTileProps {
    * brand-new camera/lens labels into the gear list. */
   onExifChange: (id: string, patch: Partial<ImageExif>) => void;
   onDelete: (id: string) => void;
-  onDragStart: (id: string) => void;
-  onDragOver: (id: string, e: ReactDragEvent) => void;
-  onDragEnd: () => void;
+  /** Unified pointer-events drag-to-reorder (mouse + touch). */
+  onTilePointerDown: (id: string, e: ReactPointerEvent) => void;
 }
 
 function ImageTileBase({
@@ -82,9 +81,7 @@ function ImageTileBase({
   onAltChange,
   onExifChange,
   onDelete,
-  onDragStart,
-  onDragOver,
-  onDragEnd,
+  onTilePointerDown,
 }: ImageTileProps) {
   // Inline metadata editor expansion (caption + camera/lens/settings).
   const [editing, setEditing] = useState(false);
@@ -172,10 +169,10 @@ function ImageTileBase({
       }
       whileHover={gesturesOn ? { scale: 1.03 } : undefined}
       whileTap={gesturesOn ? { scale: 0.98 } : undefined}
-      draggable={!image.missing}
-      onDragStart={() => onDragStart(image.id)}
-      onDragOver={(e) => onDragOver(image.id, e)}
-      onDragEnd={onDragEnd}
+      // Unified pointer drag-to-reorder (mouse + touch). The hook ignores presses
+      // on buttons/inputs and `missing` tiles, and on touch waits for a long-press
+      // so normal swipes still scroll.
+      onPointerDown={image.missing ? undefined : (e) => onTilePointerDown(image.id, e)}
       style={{
         position: 'relative',
         willChange: 'transform',
@@ -208,6 +205,8 @@ function ImageTileBase({
             src={primarySrc}
             alt=""
             draggable={false}
+            loading="lazy"
+            decoding="async"
             // If the R2 variant 404s (rare — not yet built), fall back to the
             // signed Storage original by dropping remoteThumb from the source list.
             onError={() => {
