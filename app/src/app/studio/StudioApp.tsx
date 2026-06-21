@@ -808,36 +808,31 @@ function Composer({
 
   const canPublishDrafts = localProjects.length > 0 && publishBlockers.length === 0;
 
-  // ── Saved-project "Publish changes" ──
-  // The active project is publishable-as-changes when it's a saved (remote)
-  // project with a pending dirty change (text edit, reorder, delete, append).
-  // The brand-new-draft publish flow (modal) is unchanged; this is a separate,
-  // single-project rebuild trigger that also flushes text edits + appended
-  // originals to Supabase.
-  const dirtyActiveRemote = active?.remote && active.dirty ? active : null;
-  // Surfacing rule (priority order): a dirty saved project publishes *that
-  // project's* changes; else brand-new drafts open the publish modal; else a
-  // site-settings-only change (hero/about) triggers a bare rebuild. Project
-  // publishes also rebuild hero/about (the pipeline always reads site_settings),
-  // so those modes subsume a pending site change.
-  const publishMode: 'changes' | 'drafts' | 'site' = dirtyActiveRemote
-    ? 'changes'
-    : canPublishDrafts
-      ? 'drafts'
-      : siteDirty
-        ? 'site'
-        : 'drafts';
-  const canPublish = publishMode === 'changes' || publishMode === 'site' ? true : canPublishDrafts;
+  // ── What's pending across the WHOLE workspace ──
+  // Every saved (remote) project with unpublished edits — not just the active
+  // one. A single Publish flushes all of these + all new drafts in one run, so
+  // editing several saved projects and hitting Publish once works.
+  const dirtyRemotes = useMemo(() => projects.filter((p) => p.remote && p.dirty), [projects]);
+  // Site-only: nothing to upload/persist, just kick a rebuild.
+  const onlySiteDirty = siteDirty && localProjects.length === 0 && dirtyRemotes.length === 0;
+  const canPublish = onlySiteDirty ? true : canPublishDrafts || dirtyRemotes.length > 0;
 
   const onTopBarPublish = () => {
-    if (publishMode === 'changes' && dirtyActiveRemote) {
-      performPublishChanges(dirtyActiveRemote);
-    } else if (publishMode === 'site') {
+    if (onlySiteDirty) {
       performSiteRebuild();
     } else {
       setPublishOpen(true);
     }
   };
+
+  // Top-bar button label reflecting what's pending.
+  const publishLabel = (() => {
+    if (onlySiteDirty) return 'Rebuild site →';
+    const parts: string[] = [];
+    if (localProjects.length) parts.push(`${localProjects.length} new`);
+    if (dirtyRemotes.length) parts.push(`${dirtyRemotes.length} edited`);
+    return parts.length ? `Publish → · ${parts.join(' · ')}` : 'Publish →';
+  })();
 
   // Site-settings-only rebuild: the hero/about selection is already saved live
   // to site_settings; this just kicks the pipeline (no project payload — the
@@ -870,115 +865,132 @@ function Composer({
   // originals to Supabase (reorders/deletes already saved live), then trigger
   // the rebuild. Reuses the publishing/triggering/progress state + the existing
   // "rebuild in 2–6 min" success surface (via a small inline modal below).
-  const performPublishChanges = async (project: StudioProject) => {
-    setPublishChangesOpen(true);
+  // Post-publish surgical update for a saved project: clear dirty, promote any
+  // appended originals to remote (set storagePath, drop blob/dataURL), keep the
+  // in-memory thumbnails so the open project doesn't flash, and refresh the
+  // count. Deliberately does NOT reload from Supabase — a reload would blank the
+  // lazy-loaded images and (the bug we're fixing) discard pending appends.
+  const surgicalClean = (p: StudioProject): StudioProject => ({
+    ...p,
+    dirty: false,
+    images: p.images.map((img) =>
+      img.remoteImage
+        ? img
+        : {
+            ...img,
+            remoteImage: true,
+            storagePath: `${p.slug}/${img.id}${fileExt(img.name, img.type)}`,
+            blob: undefined,
+            dataURL: undefined,
+          }
+    ),
+    remoteImageCount: p.images.length,
+  });
+
+  // Publish EVERYTHING pending in one run: all valid new drafts, then every
+  // dirty saved project (text/blurb/cover/captions/order + appended originals +
+  // title re-index), then ONE rebuild. Replaces the old split flow where only
+  // the active project — or only drafts — got published.
+  const performPublishAll = async () => {
     setPublishing(true);
     setPublishError(null);
     setTriggerError(null);
     setProgress(null);
+
+    // Invalid drafts are skipped (the modal still shows publishBlockers), so a
+    // bad draft can't block flushing the saved-project edits.
+    const drafts = publishBlockers.length === 0 ? localProjects : [];
+    const remotes = dirtyRemotes;
+    const total = drafts.length + remotes.length;
+
+    const affectedSlugs = new Set<string>();
+    const publishedRemoteIds = new Set<string>();
+    let publishedDraftIds: string[] = [];
+
     try {
-      await publishProjectChanges(supabase, project, setProgress);
-      setProgress(null);
-      setPublishing(false);
-
-      setRebuildStartedAt(Date.now());
-      setTriggering(true);
-      const trigErr = await triggerRebuild([project.slug], 'Project changes published');
-      setTriggerError(trigErr);
-      setTriggering(false);
-      setSiteDirty(false); // this rebuild also regenerates hero/about
-
-      // Clear the dirty flag and mark any appended originals as remote now that
-      // they're saved (so they aren't re-uploaded on a subsequent publish). Keep
-      // their in-memory `thumbDataURL` so the tile stays visible until the next
-      // reload pulls the real R2 variant; set `storagePath` so a delete-before-
-      // reload still removes the Storage original. Drop the heavy blob/dataURL.
-      setProjects((prev) =>
-        prev.map((p) =>
-          p.id === project.id
-            ? {
-                ...p,
-                dirty: false,
-                images: p.images.map((img) =>
-                  img.remoteImage
-                    ? img
-                    : {
-                        ...img,
-                        remoteImage: true,
-                        storagePath: `${p.slug}/${img.id}${fileExt(img.name, img.type)}`,
-                        blob: undefined,
-                        dataURL: undefined,
-                      }
-                ),
-                remoteImageCount: p.images.length,
-              }
-            : p
-        )
-      );
-
-      setPublishedOk(true);
-      setTimeout(() => {
-        setPublishChangesOpen(false);
-        setPublishedOk(false);
-        setPublishError(null);
-        setTriggerError(null);
-      }, 3500);
-    } catch (err) {
-      setPublishError(err instanceof Error ? err.message : 'Publish failed');
-      setPublishing(false);
-      setProgress(null);
-    }
-  };
-
-  const performPublish = async () => {
-    setPublishing(true);
-    setPublishError(null);
-    setTriggerError(null);
-    setProgress(null);
-    try {
-      const { publishedIds, slugs } = await publishProjects(supabase, localProjects, setProgress);
-      setProgress(null);
-      setPublishing(false);
-
-      setRebuildStartedAt(Date.now());
-      setTriggering(true);
-      const note = `${slugs.length} project${slugs.length === 1 ? '' : 's'} published`;
-      const trigErr = await triggerRebuild(slugs, note);
-      setTriggerError(trigErr);
-      setTriggering(false);
-      setSiteDirty(false); // this rebuild also regenerates hero/about
-
-      // Clear the published projects from the local draft and from state.
-      const publishedSet = new Set(publishedIds);
-      clearDraftProjects(projects, publishedSet);
-
-      setPublishedOk(true);
-      // Reload from Supabase so the just-published projects show as remote.
-      let remote: StudioProject[] = [];
-      try {
-        remote = await loadRemoteProjects(supabase);
-      } catch {
-        // non-fatal
+      // ── Phase A — new drafts (batched). publishProjects reports projectIdx
+      // 0..drafts-1; rewrite only the total into the global progress frame.
+      if (drafts.length > 0) {
+        const { publishedIds, slugs } = await publishProjects(supabase, drafts, (p) =>
+          setProgress({ ...p, projectTotal: total })
+        );
+        publishedDraftIds = publishedIds;
+        slugs.forEach((s) => affectedSlugs.add(s));
       }
+
+      // ── Phase B — each dirty saved project.
+      for (let i = 0; i < remotes.length; i++) {
+        const project = remotes[i];
+        const globalIdx = drafts.length + i;
+        await publishProjectChanges(supabase, project, (p) =>
+          setProgress({ ...p, projectIdx: globalIdx, projectTotal: total })
+        );
+        publishedRemoteIds.add(project.id);
+        affectedSlugs.add(project.slug);
+      }
+
+      setProgress(null);
+      setPublishing(false);
+
+      // ── Phase C — one rebuild over everything that changed.
+      setRebuildStartedAt(Date.now());
+      setTriggering(true);
+      const note = `${drafts.length} new · ${remotes.length} edited published`;
+      const trigErr = await triggerRebuild([...affectedSlugs], note);
+      setTriggerError(trigErr);
+      setTriggering(false);
+      setSiteDirty(false); // the rebuild also regenerates hero/about
+
+      // ── Phase D — reconcile. Drafts: clear from local store + reload as remote.
+      const publishedDraftSet = new Set(publishedDraftIds);
+      let reloaded: StudioProject[] = [];
+      if (publishedDraftIds.length > 0) {
+        clearDraftProjects(projects, publishedDraftSet);
+        try {
+          reloaded = await loadRemoteProjects(supabase);
+        } catch {
+          // non-fatal
+        }
+      }
+
+      setPublishedOk(true);
       setTimeout(() => {
         setProjects((prev) => {
-          // Drop the just-published drafts AND any draft that now collides with a
-          // remote row (the published project is authoritative; a same-id draft
-          // would shadow it with stale empty-exif metadata — same bug as on load).
-          const remoteIds = new Set(remote.map((r) => r.id));
+          const reloadedIds = new Set(reloaded.map((r) => r.id));
+          // Drop published drafts + drafts colliding with a reloaded remote row.
           const survivingDrafts = prev.filter(
-            (p) => !p.remote && !publishedSet.has(p.id) && !remoteIds.has(p.id)
+            (p) => !p.remote && !publishedDraftSet.has(p.id) && !reloadedIds.has(p.id)
           );
-          return [...survivingDrafts, ...remote];
+          // Existing remotes: surgical-clean the ones we just republished, keep
+          // the rest as-is (never swap a republished remote for a reloaded copy —
+          // that would blank its lazy-loaded images).
+          const existingRemotes = prev
+            .filter((p) => p.remote)
+            .map((p) => (publishedRemoteIds.has(p.id) ? surgicalClean(p) : p));
+          const existingRemoteIds = new Set(existingRemotes.map((p) => p.id));
+          // Newly-loaded remotes not already present = the just-published drafts.
+          const newRemotes = reloaded.filter((r) => !existingRemoteIds.has(r.id));
+          return [...survivingDrafts, ...existingRemotes, ...newRemotes];
         });
-        setActiveId(null);
-        setSelectedImageIds(new Set());
+        // Only reset the view if the active project was a published draft; keep
+        // the user in context if they were editing a saved project.
+        if (activeId && publishedDraftSet.has(activeId)) {
+          setActiveId(null);
+          setSelectedImageIds(new Set());
+        }
         setPublishOpen(false);
         setPublishedOk(false);
         setPublishError(null);
         setTriggerError(null);
       }, 3500);
     } catch (err) {
+      // Mid-run failure: clear dirty on the remotes already published (so a retry
+      // skips them); the rest stay dirty for the retry.
+      if (publishedRemoteIds.size > 0) {
+        setProjects((prev) =>
+          prev.map((p) => (publishedRemoteIds.has(p.id) ? surgicalClean(p) : p))
+        );
+      }
       setPublishError(err instanceof Error ? err.message : 'Publish failed');
       setPublishing(false);
       setProgress(null);
@@ -1004,13 +1016,7 @@ function Composer({
         totalPhotos={totalPhotos}
         activity={activity}
         canPublish={canPublish}
-        publishLabel={
-          publishMode === 'changes'
-            ? 'Publish changes →'
-            : publishMode === 'site'
-              ? 'Rebuild site →'
-              : 'Publish →'
-        }
+        publishLabel={publishLabel}
         onPublish={onTopBarPublish}
         onSignOut={() => supabase.auth.signOut()}
       />
@@ -1124,6 +1130,7 @@ function Composer({
       {publishOpen && (
         <PublishModal
           projects={localProjects}
+          editedProjects={dirtyRemotes}
           blockers={publishBlockers}
           publishing={publishing}
           progress={progress}
@@ -1138,7 +1145,7 @@ function Composer({
               setTriggerError(null);
             }
           }}
-          onConfirm={performPublish}
+          onConfirm={performPublishAll}
         />
       )}
 
@@ -2300,8 +2307,31 @@ function EmptyDropZone({ onClickAdd, dragActive }: { onClickAdd: () => void; dra
 // Publish modal
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** One project row in the publish-confirm list (new or edited). */
+function PublishRow({ project: p }: { project: StudioProject }) {
+  const count = p.images.length || p.remoteImageCount || 0;
+  return (
+    <div style={{ padding: '14px 0', borderTop: '1px solid rgba(245,243,238,0.08)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 22, color: CREAM }}>
+          {p.title || <span style={{ color: '#e74c3c' }}>(untitled)</span>}
+        </div>
+        <Cap style={{ color: DIM }}>
+          /{p.slug || '—'} · {count} img
+        </Cap>
+      </div>
+      {p.category && (
+        <div style={{ marginTop: 6, fontFamily: 'DM Mono, monospace', fontSize: 10, color: DIM, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+          {p.category}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PublishModal({
   projects,
+  editedProjects,
   blockers,
   publishing,
   progress,
@@ -2312,7 +2342,10 @@ function PublishModal({
   onClose,
   onConfirm,
 }: {
+  /** New drafts to publish. */
   projects: StudioProject[];
+  /** Saved (remote) projects with pending edits to re-publish. */
+  editedProjects: StudioProject[];
   blockers: string[];
   publishing: boolean;
   progress: PublishProgress | null;
@@ -2324,6 +2357,10 @@ function PublishModal({
   onConfirm: () => void;
 }) {
   const busy = publishing || triggering;
+  const totalCount = projects.length + editedProjects.length;
+  // Drafts are gated by blockers, but pending saved-project edits can still
+  // publish even if a draft is invalid (invalid drafts are skipped).
+  const confirmDisabled = blockers.length > 0 && editedProjects.length === 0;
   return (
     <div
       style={{
@@ -2392,48 +2429,58 @@ function PublishModal({
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
               <Cap style={{ color: DIM }}>Confirm publish</Cap>
-              <Cap style={{ color: DIM }}>{projects.length} project{projects.length === 1 ? '' : 's'}</Cap>
+              <Cap style={{ color: DIM }}>
+                {projects.length > 0 && `${projects.length} new`}
+                {projects.length > 0 && editedProjects.length > 0 && ' · '}
+                {editedProjects.length > 0 && `${editedProjects.length} edited`}
+              </Cap>
             </div>
             <Rule style={{ marginTop: 12 }} />
             <Heading size={48} style={{ margin: '20px 0 8px' }}>
               Ready to publish?
             </Heading>
             <p style={{ fontStyle: 'italic', color: 'rgba(245,243,238,0.65)', fontSize: 16, lineHeight: 1.45, margin: 0 }}>
-              Originals upload to Supabase Storage and the project rows are written. The site then
-              rebuilds from R2 as usual.
+              New projects upload their originals to Supabase. Edited projects re-save their text,
+              cover, captions, ordering, and any added photos. The site then rebuilds from R2 once.
             </p>
 
             {(blockers.length > 0 || publishError) && (
               <div style={{ marginTop: 22, padding: '14px 16px', border: '1px solid rgba(231,76,60,0.4)', background: 'rgba(231,76,60,0.08)' }}>
-                <Cap style={{ color: '#e74c3c' }}>{publishError ? 'Publish failed' : 'Resolve before publishing'}</Cap>
+                <Cap style={{ color: '#e74c3c' }}>
+                  {publishError
+                    ? 'Publish failed'
+                    : editedProjects.length > 0
+                      ? 'New drafts skipped until resolved'
+                      : 'Resolve before publishing'}
+                </Cap>
                 <ul style={{ margin: '10px 0 0', padding: '0 0 0 18px', color: '#e74c3c', fontFamily: 'DM Mono, monospace', fontSize: 11, lineHeight: 1.7 }}>
                   {publishError ? <li>{publishError}</li> : blockers.map((b, i) => <li key={i}>{b}</li>)}
                 </ul>
               </div>
             )}
 
-            <div style={{ marginTop: 24 }}>
-              {projects.map((p) => (
-                <div key={p.id} style={{ padding: '16px 0', borderTop: '1px solid rgba(245,243,238,0.08)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 12 }}>
-                    <div style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 24, color: CREAM }}>
-                      {p.title || <span style={{ color: '#e74c3c' }}>(untitled)</span>}
-                    </div>
-                    <Cap style={{ color: DIM }}>/{p.slug || '—'} · {p.images.length} img</Cap>
-                  </div>
-                  {p.category && (
-                    <div style={{ marginTop: 6, fontFamily: 'DM Mono, monospace', fontSize: 10, color: DIM, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-                      {p.category}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            {projects.length > 0 && (
+              <div style={{ marginTop: 24 }}>
+                <Cap style={{ color: '#76c893' }}>New projects</Cap>
+                {projects.map((p) => (
+                  <PublishRow key={p.id} project={p} />
+                ))}
+              </div>
+            )}
+
+            {editedProjects.length > 0 && (
+              <div style={{ marginTop: 24 }}>
+                <Cap style={{ color: '#d4a93e' }}>Edited projects</Cap>
+                {editedProjects.map((p) => (
+                  <PublishRow key={p.id} project={p} />
+                ))}
+              </div>
+            )}
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 28, paddingTop: 18, borderTop: '1px solid rgba(245,243,238,0.08)' }}>
               <Pill onClick={onClose}>Cancel</Pill>
-              <Pill kind="primary" onClick={onConfirm} disabled={blockers.length > 0}>
-                Publish →
+              <Pill kind="primary" onClick={onConfirm} disabled={confirmDisabled}>
+                {`Publish ${totalCount} →`}
               </Pill>
             </div>
           </>
