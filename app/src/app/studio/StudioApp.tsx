@@ -1127,7 +1127,10 @@ function Composer({
         </AnimatePresence>
       )}
 
-      <main style={{ overflowY: 'auto', background: INK }}>
+      {/* minWidth:0 lets this 1fr grid item shrink below its content's intrinsic
+          width (otherwise wide content expands the track → horizontal overflow);
+          overflowX:hidden clips any residual spill so the page stays flush. */}
+      <main style={{ overflowY: 'auto', overflowX: 'hidden', minWidth: 0, background: INK }}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={tab}
@@ -1836,7 +1839,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
       onDragOver={props.onDragOver}
       onDragLeave={props.onDragLeave}
       onDrop={props.onDrop}
-      style={{ position: 'relative', padding: props.isMobile ? '18px 14px' : '24px 28px', background: INK }}
+      style={{ position: 'relative', padding: props.isMobile ? '18px 14px' : '24px 28px', background: INK, maxWidth: '100%', minWidth: 0, overflowX: 'hidden' }}
     >
       {props.restoreBanner && (
         <div
@@ -2114,13 +2117,15 @@ function ProjectWorkspace(props: WorkspaceProps) {
         <div
           ref={gridWrapRef}
           onMouseDown={props.isTouch ? undefined : onGridMouseDown}
-          style={{ position: 'relative', marginTop: 22, minHeight: 160, userSelect: 'none' }}
+          style={{ position: 'relative', marginTop: 22, minHeight: 160, maxWidth: '100%', minWidth: 0, userSelect: 'none' }}
         >
           <div
             style={{
               display: 'grid',
+              // ~2 columns on phones (bigger cards) so the per-card option row
+              // (Set cover / Details / Delete) fits without overflowing.
               gridTemplateColumns: `repeat(auto-fill, minmax(${
-                props.isMobile ? Math.min(props.thumbSize, 110) : props.thumbSize
+                props.isMobile ? Math.min(props.thumbSize, 150) : props.thumbSize
               }px, 1fr))`,
               gap: props.isMobile ? 10 : 14,
             }}
@@ -2134,6 +2139,7 @@ function ProjectWorkspace(props: WorkspaceProps) {
                   reducedMotion={props.reducedMotion}
                   selected={props.selectedImageIds.has(image.id)}
                   groupDragging={props.groupDragging}
+                  compact={props.isMobile}
                   isCover={effectiveCover === image.id}
                   draggedId={props.draggedImageId}
                   dragOverId={props.dragOverImageId}

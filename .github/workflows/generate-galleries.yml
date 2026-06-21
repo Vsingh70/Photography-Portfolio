@@ -85,4 +85,17 @@ jobs:
           changed=$(git diff --cached --name-only | grep -oE 'project-[^/]+\.json' | sed -E 's/project-(.*)\.json/\1/' | sort -u | paste -sd ", " -)
           msg="chore(galleries): auto-update from generate-galleries (${changed:-site})"
           git commit -m "$msg" -m "Triggered by ${{ github.event_name }} on $(date -u +%Y-%m-%dT%H:%M:%SZ)."
-          git push origin HEAD:main
+          # Push with rebase-retry: main may have advanced during the run (a manual
+          # push, or another job). The bot commit only touches generated JSON /
+          # manifests / about.webp, so rebasing onto the latest main is clean.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Push rejected (attempt ${attempt}) — rebasing onto origin/main and retrying…"
+            git fetch origin main || exit 1
+            git rebase origin/main || { git rebase --abort; echo "Rebase conflict — aborting."; exit 1; }
+          done
+          echo "Failed to push after 5 attempts."
+          exit 1

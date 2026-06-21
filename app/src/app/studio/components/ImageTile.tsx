@@ -43,6 +43,8 @@ export interface ImageTileProps {
   selected: boolean;
   /** True while a multi-selection is being dragged → dim the whole group. */
   groupDragging?: boolean;
+  /** Compact (mobile) card: controls wrap + tighter tracking so they fit. */
+  compact?: boolean;
   isCover: boolean;
   draggedId: string | null;
   dragOverId: string | null;
@@ -69,6 +71,7 @@ function ImageTileBase({
   cleanTitle,
   selected,
   groupDragging,
+  compact,
   isCover,
   draggedId,
   dragOverId,
@@ -341,7 +344,15 @@ function ImageTileBase({
           </div>
         )}
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: compact ? 'wrap' : 'nowrap',
+            justifyContent: compact ? 'flex-start' : 'space-between',
+            alignItems: 'center',
+            gap: compact ? '2px 14px' : 8,
+          }}
+        >
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -355,9 +366,10 @@ function ImageTileBase({
               color: isCover ? '#d4a93e' : 'rgba(245,243,238,0.45)',
               cursor: isCover ? 'default' : 'pointer',
               fontFamily: 'DM Mono, monospace',
-              fontSize: 9,
-              letterSpacing: '0.2em',
+              fontSize: compact ? 10 : 9,
+              letterSpacing: compact ? '0.08em' : '0.2em',
               textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
               padding: 0,
             }}
           >
@@ -376,9 +388,10 @@ function ImageTileBase({
               color: editing ? '#f5f3ee' : 'rgba(245,243,238,0.45)',
               cursor: 'pointer',
               fontFamily: 'DM Mono, monospace',
-              fontSize: 9,
-              letterSpacing: '0.2em',
+              fontSize: compact ? 10 : 9,
+              letterSpacing: compact ? '0.08em' : '0.2em',
               textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
               padding: 0,
             }}
           >
@@ -396,9 +409,10 @@ function ImageTileBase({
               color: 'rgba(231,76,60,0.7)',
               cursor: 'pointer',
               fontFamily: 'DM Mono, monospace',
-              fontSize: 9,
-              letterSpacing: '0.2em',
+              fontSize: compact ? 10 : 9,
+              letterSpacing: compact ? '0.08em' : '0.2em',
               textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
               padding: 0,
             }}
           >
