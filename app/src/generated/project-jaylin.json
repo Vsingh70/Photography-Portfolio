@@ -23,9 +23,9 @@
     "width": 4672,
     "height": 7008,
     "metadata": {
-      "camera": "SONY ILCE-7M4",
+      "camera": "Sony A7IV",
       "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/160s · ISO 125 · 50mm",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125",
       "date": "2026-02-27T21:14:05.000Z"
     }
   },
@@ -52,7 +52,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "dabe5152-a605-4af6-b044-c09999dd871f",
@@ -77,7 +81,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "66d751c7-0e56-4247-a6e3-58afeb88d6af",
@@ -102,7 +110,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "b0ae5b73-9b01-408c-b141-4eb34bc5743f",
@@ -127,7 +139,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "98ab4288-1d24-4636-a810-cf94042c94b9",
@@ -153,9 +169,9 @@
     "width": 4672,
     "height": 7008,
     "metadata": {
-      "camera": "SONY ILCE-7M4",
+      "camera": "Sony A7IV",
       "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/160s · ISO 125 · 50mm",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125",
       "date": "2026-02-27T20:58:16.000Z"
     }
   },
@@ -182,7 +198,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "7f7de273-4d8a-447a-bc60-ae347b711566",
@@ -207,7 +227,11 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   },
   {
     "id": "5a8e1fb5-79a5-4af6-9c25-b2ea5ab0bb28",
@@ -232,6 +256,10 @@
     "category": "Fashion",
     "width": 4521,
     "height": 6782,
-    "metadata": {}
+    "metadata": {
+      "camera": "Sony A7IV",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "50mm · f/1.4 · 1/160 · ISO 125"
+    }
   }
 ]

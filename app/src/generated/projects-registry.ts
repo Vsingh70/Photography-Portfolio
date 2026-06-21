@@ -5,6 +5,7 @@
 // image JSON to the browser.
 import type { GalleryImage } from '@/types/image';
 import p_jeffery from './project-jeffery.json';
+import p_jaylin from './project-jaylin.json';
 import p_tk from './project-tk.json';
 import p_vdr_denim from './project-vdr-denim.json';
 import p_vdr_party from './project-vdr-party.json';
@@ -16,10 +17,10 @@ import p_vdr_admin from './project-vdr-admin.json';
 import p_sfs_vintage from './project-sfs-vintage.json';
 import p_ooto_snow from './project-ooto-snow.json';
 import p_ooto_alley from './project-ooto-alley.json';
-import p_jaylin from './project-jaylin.json';
 
 export const PROJECT_IMAGES: Record<string, GalleryImage[]> = {
   "jeffery": p_jeffery as GalleryImage[],
+  "jaylin": p_jaylin as GalleryImage[],
   "tk": p_tk as GalleryImage[],
   "vdr-denim": p_vdr_denim as GalleryImage[],
   "vdr-party": p_vdr_party as GalleryImage[],
@@ -31,5 +32,4 @@ export const PROJECT_IMAGES: Record<string, GalleryImage[]> = {
   "sfs-vintage": p_sfs_vintage as GalleryImage[],
   "ooto-snow": p_ooto_snow as GalleryImage[],
   "ooto-alley": p_ooto_alley as GalleryImage[],
-  "jaylin": p_jaylin as GalleryImage[],
 };

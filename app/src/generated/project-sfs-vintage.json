@@ -1,452 +1,32 @@
 [
   {
-    "id": "c6419084-31c2-4dde-a741-abaa30b038f7",
+    "id": "8c16e2dd-fa73-4559-94f2-8ce57c90be3c",
     "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.avif"
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.avif"
     },
     "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.webp"
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.webp"
     },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRnYBAABXRUJQVlA4IGoBAADwBgCdASoYACQAPu1srlCppiQiqrgKATAdiWxmXJk0b9IHBuB/3ztNfJnMAuw/egwGh0bXwZEx9pxuq6yaH82AAP7odR9/f/9OdOxX9B/31t+BWZ3erAT6eY6J1DmADm+SqjusDoBcd64lgstB3ZVo++vipK9oRX/b7CAvZgbhyCYLimHG4ZEJxY8m56eNGJZ2G+DsOKeXP/6/HzLXSqc+zf8v/CHLclB/f78nfv+K3I9dnvyqQPJzL0VNmYWDcfo40Mpot8dHv+eIAgH1j2D7XD3uJur/3s0PjB8d4reaoTuIh/RS8QecTrjWr+FkW6MYB3pWxIiQ+ABQ+RvQY8jc0WXX2R+ZqrH64yj6pfUOeb9SOit7Sl7F1QV0KKhJBDwbLVF2b+saL3qEVHwBecjpPKYAOMnO+Q5QTRs/5LEkrY7A/T2+6Qyj9DMmxTb4oAxiX0q2CWwls9lTcaKPuT+KueCIVOrYRYAAAA==",
-    "alt": "SFS Vintage (2)",
-    "title": "SFS Vintage (2)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4417,
-    "height": 6626,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:08:07.000Z"
-    }
-  },
-  {
-    "id": "5777bfea-6733-401e-a909-a7d0f85d8ec3",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRrgBAABXRUJQVlA4IKwBAABwBwCdASoYACQAPu1sq0+ppiOiKrgMATAdiWw+fFl8rnrR8A/3WeHIB0K7Y/8m86rVls8J2gGsgTZjCQlwAgPnOx1NCAD+61nR9jy/yrVT7C2o/wmp+yv/DFTXLV0T5zBkyXnob4IU0e6LUwSa14khpTMhVQJFvlPkA/8e7ve5d8d2tbNbrY2zzjmcPoHEfR7qfxuS+18ebc+m//8dnhJtnrpvd6CHOe+Mt0kBqyYa7hxyZdjvyC2p7Lzy0ycNzKDBoWoIiCbMHpIoHHnDzcF0ZLgVbSm8K8hv8Z/964X2Yj+4Mp+OdOHQ2SkH+8AExJn6rfja4zx+qL8tZ9UAbT1HgrdUkalcoUnyr8mfBv/Mst/f5beROff1jev3VgsnKQ0Z2DxHFpWWxR6qnmsv82UErW/VDvT/l204ow5wwb2jeATl//+61FvP//dai3vef43RxmxbxSbGOdu6xC5mYixY5d8hTfs/unECh38X0lNgY6pmoHFP7kL1oSCEgd+cM4CsM6FnoBGPqzGAMByLgYJyP8jONq7yCGGcwpRfy0J/ZWvnus/yCSGvHdAAAA==",
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAADwAwCdASoYAB4APuVepk2pJSOiN/VYASAciWxqjqYIhyG8kAC9vyhAAP76n/+nvnlP875vapd3zW/90tHsKN71gNAAtHXhZjy1v7M++SJ8XHapqCKev/oeTefzgPv+YR7eTNJ2iQM5pFNFUJf5wRTiBbG8zSp+ns8z6p01Sb60V5O+PqSKd/wOkP+Bbhk8MsAwaJGyab9mg941kCjVn1UR7PtkQWg0YOopkkBx1oAAAA==",
     "alt": "SFS Vintage (1)",
     "title": "SFS Vintage (1)",
     "description": "",
     "category": "Fashion",
-    "width": 4633,
-    "height": 6950,
+    "width": 4409,
+    "height": 5511,
     "metadata": {
       "camera": "SONY ILCE-7M4",
       "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:07:00.000Z"
-    }
-  },
-  {
-    "id": "415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRnoBAABXRUJQVlA4IG4BAACwBwCdASoYACQAPu1urlCppqQiqrgKATAdiWwzl/SP8eZwoVXyWTwP9Vw5uSscZ1/tJwxhHw8gPHXSPLEX7MgK9zjXEyOAAP7sisbsWx+uptlRsB/ygnf9o6X6v/eB1Dqi5IGFv389/5pYM094DgBMRl9rFDVSsXVG3eTRVRdKSWGbC3aeaRgEns8evHVPYTmnvQwAaIJ/Vp96sa2TDIytof/5nt9/0/Yz7a/TcWES+R7RX4OkaIZmJpdXjGLOs74F4wSuWqlCeTfnC+0ZEXbFX1tdYUXXW0EkW436K8fTorpoG3K4+EYLq8hLZ9pT5Ze7c7sX5ytYQ/q7wtf9Rkt0qUEAhzKTveuP5Yfi35w+w29GGpnuHlunrlfpiQT1vNzWrdL/saf/bc07Q/1Ell/hr/2uYpe5PrnK9Nb0qFVandbiM8nenGwLgYWTvTjYFwMLJ3pxsC4MzV1GpSELa6SOgjzZoEanfBBAemY4wAA=",
-    "alt": "SFS Vintage (3)",
-    "title": "SFS Vintage (3)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4341,
-    "height": 6511,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:10:31.000Z"
-    }
-  },
-  {
-    "id": "20253493-a60f-4c7d-8fa5-903c719ddd03",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRlwBAABXRUJQVlA4IFABAACQBQCdASoYACQAPu1eqk4ppKOiMBVdUTAdiWxl0NkOvDdApJ2cMcI4uQh032wAB43cP26xsAD+7w1PWvqcP54IjhbTlf/0izmwcHXZk/CnzWMyhEdcF4v4VnC5eM4KORzd2uuJcuxn5IB1NMtD3UC1xEAL+V/tn/4ayMgXwbex3eiqkFscBwOX7Lq/wi/8Df/kJs1I/8+Lu5wj5duDrx8jwv7P4Iu/MeqwMPZ8/77QyKKhRLt/8x5gdbj6b9i3wZlzVsnLqAXt6H8xO/73V3W7Z/ukBj23Xpox8pgiO34wmfBffhdQDWIdre3csARUpu+L/vL/pc0/kvI1P+apoAsIfo+s7Gu9//yeoEbT3fD1ckJ+EaTlMPsfiwat9eD3E84zZqx1urqI+GgqpcAm4Z+2ok0E+6sj9PvLdYDanckwdlx0gXtq5GjF8XEOqOPMAAA=",
-    "alt": "SFS Vintage (4)",
-    "title": "SFS Vintage (4)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4353,
-    "height": 6529,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:11:09.000Z"
-    }
-  },
-  {
-    "id": "0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4IGABAACwBgCdASoYACQAPu1mq02ppaQiKqwBMB2JbGS443GOlJ/DPr3aNJ4AJfpDlWHACVZpiMwSrlpsAFj+i/NaAAD+7w1Nlo9YsYhF5CNdd3zzsTM9EsTCZ+Mcu8l2LS++P5FH8l/FW6ug6xJoL78P//Dz/88cj/11Tygme5wDvBXyypeYD/7/2nu/o+e+7BrgdN8b3eVuQPPdf6M36qVKkDvrWPpj2BFuOEHgaKUP95N54XslFCA8GgBWWJCYQLXd0Q5//8PP4g+zk/+Yz/5h9t9tCeUn8ztEZw/GLjFqnln7FVhlBkQJuTC1qwFb784CYraGmkco7fU4Bh2duzuUb635vx063uAs0LwBQk5Mj5wNp7R7dObF9sTvt9opv//JfY/zv//Ozkx00FQHGp/Zi5O7dv5456vaIHt9hilYRp+IPIyXrArqR3/NkwK6kd9v/z/J2xhx679SmBXWEsILAgAA",
-    "alt": "SFS Vintage (5)",
-    "title": "SFS Vintage (5)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4417,
-    "height": 6626,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:11:35.000Z"
-    }
-  },
-  {
-    "id": "a2ea5a07-6d9c-40ec-9385-712e570b9eae",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAACQBACdASoYACQAPuFgpU2opaOiNVv4ARAcCWYAuyjJofoMN1s137VlUARTd6AA/vCNcDKMDu9Ik1uPSDMAKcJFd0wXiJmrAucojsQqPj0da/9v/t//01QFkrqLqwJ608/HpwwD8yAPyPH7GdYRFFbgrmzT5RmblB35gfahIu1RWi0Fp6TmRfAhfsUbdDnEdCFRf+yxcSdHqIWSSaYpX2eyN92JrIzpSmocAAAA",
-    "alt": "SFS Vintage (6)",
-    "title": "SFS Vintage (6)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4417,
-    "height": 6626,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:11:43.000Z"
-    }
-  },
-  {
-    "id": "98b9c27d-fa62-4966-876a-4b8cb016780b",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRlABAABXRUJQVlA4IEQBAABQBgCdASoYACQAPu1oqE8ppiOiMBVaqTAdiWw+31GC4Fyx54TDla/JBMixLDTDbZgHlVYvkqd4m3YbMAD+6vux7jP2f/Bl68LLfVFft//fgp9vtvPMjGMr72q959e28MXeZOrZrhP/f7hQaS78Yed5ezjx7W/msMeo7Mv/DjBtddNWquhU3vydX6+xJi9urPY8Z6Vw/FpIKDyVCoRaAAcjpJt1P/6LfqCizkXYDxclj8h/UbWSaEGA4kPveOWa8/rzfXkoXt35g61tIPF89g2H4BBkRRu0LKJkz/hXmTfm7D1h7vxKz3QEwoKuYeD+vH1MTOOB88u/U4+/vs6fw0lUK/vYQLRmQgoLnLFR9MLGGc+WLDG6OeKGFfSiO83G7U0oNVMvyVzX/OltDL+3obcbqn2wWXAavwnshEFWdZsa3RBIAAA=",
-    "alt": "SFS Vintage (7)",
-    "title": "SFS Vintage (7)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4417,
-    "height": 6626,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 8000 · 50mm",
-      "date": "2026-02-16T00:12:16.000Z"
-    }
-  },
-  {
-    "id": "458188d4-3274-4cbe-a9f7-4269accbe265",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAAAQBACdASoYAB4APu1sqlEppaOiqAqpMB2JbDdAubBKl2IdrG7A9hOigAD+7zhBeN7+FVsnrvYsPF2mvtsd30cn/6gM45PtjsQQK8rzef2/Qw/mGfm88o07/80/XTEW1OjrsZlxudHPyl501SDZ57Gbh0OdUoFDKygveaeIbvZ0YS5hjF6Fjl3NeeyMUH/BQATUBMq8ZC7v6dp3ZxnBv4Ok5Yepyuii1zGQ65fOlNA1Iz+pjCrFt54Jbu4yBYAV+vgj0977EcgmgvbrPDCF1Z6mNJtTXoAA",
-    "alt": "SFS Vintage (8)",
-    "title": "SFS Vintage (8)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4358,
-    "height": 5447,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
-      "date": "2026-02-16T00:13:42.000Z"
-    }
-  },
-  {
-    "id": "ac649123-4de1-43c9-8bb2-976ea72021f9",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAACwAwCdASoYACQAPu1kq1AppSOiqrgMATAdiWgAnTmAgHo6M9hcAAD+8CbxD/n/ixg/gpcBopE02fRTDl+31q/KL/WtOEB0Mi4Irfz1324VlH5vHuTPE8PJ0jU5eQRMQOQSwDhglZ+Mmd0o5TFv/6ennpMcCzkk9q251EZCfFQ/7AjAjYWcES2dLXNLdVCiaVPbMWBdSCvkw6XTaETZ+qiAAAA=",
-    "alt": "SFS Vintage (9)",
-    "title": "SFS Vintage (9)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4672,
-    "height": 7008,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
-      "date": "2026-02-16T00:15:06.000Z"
-    }
-  },
-  {
-    "id": "af875a88-d958-40c5-9b02-2fdc380cc774",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRiYBAABXRUJQVlA4IBoBAADQBACdASoYACQAPu1irU8ppSQiMBVaqTAdiWw+0+tEKBWV0LYE0EUAAQiiWrnjQAD+7zHUfJPZMtD8scFdoXxajL5RkKio+9QVxjzuS16NFnGmJx2I93piwAME92oVWmGJ/VsraeI0L494Nb4VD1R4woJTkmTpFkwR/r/pqe99zJ/+JFXAFaVuGDL5p6UgMBgzSz0kgilkgxMTsXhze5ppVJgAPR1bdiB70+4Oy7WULuH2TrBkv1e9dkoR23e/6VOHQAKcHVc4Ncq4Tv/7//U/ePn56H//r+cKJXjGGy0L9d4EezJTNYmJWT7csd8BKKpzJTsilmkZkiakXpZ7L5jcN/rvOpam0WIKNi2K3d515fRZBybgReKwAAA=",
-    "alt": "SFS Vintage (10)",
-    "title": "SFS Vintage (10)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4207,
-    "height": 6311,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
-      "date": "2026-02-16T00:15:02.000Z"
-    }
-  },
-  {
-    "id": "212b1272-2d01-46c0-a059-6cfa9f17049b",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAQBACdASoYACQAPu1cqE2ppKOiNVQMATAdiWRpZUyupjEzCLVQK25xwAD+9kiqCf3rK6MLwkSSyIbbDiuFfSHDc3AZYjn7A96pBDtdrhXRqeSSB8H+VWWJkQHsbJu6XXxJFsZEpxiDibIjuSvJJzlZu07GtUvDy1cg5NUSJnnadhM/6V9H3S2rOvoXfd2wP3UjrrD+AAA=",
-    "alt": "SFS Vintage (12)",
-    "title": "SFS Vintage (12)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4450,
-    "height": 6675,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
-      "date": "2026-02-16T00:19:00.000Z"
-    }
-  },
-  {
-    "id": "d83f34d5-a2bd-4858-8ed2-5c6c019300f5",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABwAwCdASoYAB4APu1kqk2ppaQiMBgMATAdiWphVEYAK3Dr6kAA/vXHgQkhlM8eVGWAZ4d3azjB/84LCzv+0AcnmAm9mSe0zFwwSgYlcGyDiPnM5ygah98z6lflVw60Uw5MlTSCMZUoALf4xou271Hcll/pssEX/BnzvJ5V/r3gtEGry3WuxGjPWQd356oIyHvX0mZVpYZwQHnL/uP/55XsAAA=",
-    "alt": "SFS Vintage (14)",
-    "title": "SFS Vintage (14)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4374,
-    "height": 5467,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
-      "date": "2026-02-16T00:19:21.000Z"
-    }
-  },
-  {
-    "id": "6f6f06e0-328f-4bc8-8aa4-3ed030f4a165",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAAAwBACdASoYACQAPu1kp04ppaMiKq35MB2JZmcvRssTjwHiUCsDjfcwewAA/vbEbOfiFE2ogb7xsJ+Rv6O/7riMg57zu2v365rgEVZHT3t0H3bBsIvf0f/MujYXruhpJ6qVklrc/ZkTNdf32q2D+ECnizGCKBbQqocUfRgCX9SuNrVvZvHtxyWbP8pGP5+Ira0huQbyALUZr0U17yCHAoC+QQ4FAXyCHAoC+1CJgMABUAKS5Q0OiBR3lELirnLAe8AAAA==",
-    "alt": "SFS Vintage (15)",
-    "title": "SFS Vintage (15)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4247,
-    "height": 6370,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
-      "date": "2026-02-16T00:20:04.000Z"
-    }
-  },
-  {
-    "id": "3b71be84-a0e2-4562-adae-65b1223c9dd8",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAABQBACdASoYACQAPu1sqlAppiOiqrgMATAdiWYAw2eWvBHASwAAv2/V6mUgAP7wc7g21Ng6vk/yZ8Z3v5aujFif5uTj+kqSK8YhnP8veyRkc0sdteDhWOFtPJFWzI2Bd4qtjs3bjjyhLC33jovKcqqJqhXeCL1VG4Dc3aKwmWelKH8gSMaLovDx9Mm1HoKEk39EoRzknZdI36/QAAA=",
-    "alt": "SFS Vintage (16)",
-    "title": "SFS Vintage (16)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4387,
-    "height": 6580,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
-      "date": "2026-02-16T00:20:10.000Z"
-    }
-  },
-  {
-    "id": "17d52e7e-76eb-4b9f-a357-5a1ffa5560fa",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACwAwCdASoYACQAPu1wslKppiSipWmZMB2JaGtyWed9UAgJduhBAAD+8FxmnbNvnfCAMKCwXTRcYLmaXRnPll+PlcZqgfuTTd+8ZjPb5DuBT9GHOpup1D9n8/6FhDAnm30TKFYT+qz5h1Jzk2v+rNKj00d6cTI0phjXesRYTw2GtnwWItfOPUKHF4+dMZMOjbYAAA==",
-    "alt": "SFS Vintage (17)",
-    "title": "SFS Vintage (17)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4285,
-    "height": 6427,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
-      "date": "2026-02-16T00:20:18.000Z"
+      "settings": "f/1.4 · 1/250s · ISO 2000 · 50mm",
+      "date": "2026-02-16T00:25:29.000Z"
     }
   },
   {
@@ -466,8 +46,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d418a421-c09f-4fe1-9b89-71f3f4aa7170-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d418a421-c09f-4fe1-9b89-71f3f4aa7170-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAADQBACdASoYACQAPu1urVEppqQiqrgKATAdiWZqjpLNeB6yuPdXa6snIBnRmtIfgAD+8KM1P/x2WhUnasKyvJGfe6GLaA5klgKmcw28t3M8WMDg9HEjCS4cpt3AImpavYw+xcyQHeWZyWpvNsPCgSXDtfI9/uLBjnx/1C9RfO73Nwj5wgIEBbqy4xTARc3e32drov0GEx6CP0wii388AG0NUQuABwez+9kPthT5oQutWa9hv2XE8XA9fRlNVl17uMiBZ7RT2K/4BbrMdHzgKV0hTZpE/u2OOrZAAA==",
-    "alt": "SFS Vintage (20)",
-    "title": "SFS Vintage (20)",
+    "alt": "SFS Vintage (2)",
+    "title": "SFS Vintage (2)",
     "description": "",
     "category": "Fashion",
     "width": 4455,
@@ -496,8 +76,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/988b668d-565b-4190-9e70-bc7cdb005faf-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/988b668d-565b-4190-9e70-bc7cdb005faf-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRgwBAABXRUJQVlA4IAABAADQBACdASoYACQAPu1mqk6ppaOiKrgN+TAdiWxq4BPqggoEMHzKkBNNgDkVMjYQAAD+8I3pkFp5ixnsxaPO+C4ssAUHu6kwm0mfvx2SdM3hA8BfnqUPsM2AcQkXeoIQ/ylM7UinQS34U8wtOEv/eu5KasinKIDdPNO//Ux/f/JSEH+7v03OOH7hKCXMPzdLvaSwxH7akf+WWiBJteet9HItj4SjKpgsQ+6RZMRJ/biypBMTMzYHCfsF3gadHWBUfszKn64MZjOt1To/vJck9GAXRr40zgmNIkEv4pWn5NIwoRy5kew8b4BYvfQUDlruLsvwkgkDXNgYDXmILBC1E4AA",
-    "alt": "SFS Vintage (21)",
-    "title": "SFS Vintage (21)",
+    "alt": "SFS Vintage (3)",
+    "title": "SFS Vintage (3)",
     "description": "",
     "category": "Fashion",
     "width": 4542,
@@ -526,8 +106,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a497db16-4c39-46b2-b19c-85a00f99bfd6-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a497db16-4c39-46b2-b19c-85a00f99bfd6-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRg4BAABXRUJQVlA4IAIBAADQBACdASoYACQAPu1eqE6ppKOiMBVdUTAdiWxl9DVIzlLZEBAl5GyhwN1fqvqfgAD+8EJ5+KOENPEC4g3/etOmSeTvjEEcXi5amIdxy8B+y8eVvSe3qfqrLooKsr+qb7d0ngZP8dxvyrYVOL+OLyrA88/J3yIP2RvJAFaXxWMvv9/O3fE1gklNtx9/7MS/ExOW1ZrZxxviLaZuSEUZtWyQdqa/C/T68zQ3lEaRCRa9424vr17w72eatkae2zUackOm2V2bcZnGwGoGF6FTVlfRH4bmYffI3byRBryj3zUVVBK5qZmzoyVpo/dqSBH8Gu4HDE5/BtJNdSGUUopXFxH4AAA=",
-    "alt": "SFS Vintage (23)",
-    "title": "SFS Vintage (23)",
+    "alt": "SFS Vintage (4)",
+    "title": "SFS Vintage (4)",
     "description": "",
     "category": "Fashion",
     "width": 4409,
@@ -556,8 +136,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/11543e44-e7d1-4b14-bdaa-b7101079c4a4-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/11543e44-e7d1-4b14-bdaa-b7101079c4a4-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAABwAwCdASoYACQAPtVaoE2oJaMiNUwBABqJbGsJVLMhdfaytgAA/vEf+JpG/sYD72Zf379m+U6k+Ro9Mg9YXfF+kSpW/11eIWoQDAjy74vBtP2dA41SwDRw337xuO0KW68TC9HdHPQ7E/m3+lsJ27vk/Kj4dsm0kyfoErtRlj4C7v2NGBZwK2/ZPWQwKl89b05zQl6pRd/SkLaBRo4bYO9ymkCa42kyeILkLTn45ZQAAA==",
-    "alt": "SFS Vintage (24)",
-    "title": "SFS Vintage (24)",
+    "alt": "SFS Vintage (5)",
+    "title": "SFS Vintage (5)",
     "description": "",
     "category": "Fashion",
     "width": 4583,
@@ -586,8 +166,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f1c7755-e36a-4dbc-91bd-3c6d3b38ad11-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f1c7755-e36a-4dbc-91bd-3c6d3b38ad11-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAACQAwCdASoYACQAPu1qrFAppaQisBVYATAdiWQAuNryBiC8jaYAAP7x9rxOmcMhyUs9v/WIY3a3W3J6nTwys79JVY0Z/2ueVsWJYDHYWRrE5sJbLZUrwTrP2ylSGC/Ext56dRGeIIuU4tn2SLKO4xIHWK2WC2/kuOvfs/O1BWtgxems68sIAA==",
-    "alt": "SFS Vintage (25)",
-    "title": "SFS Vintage (25)",
+    "alt": "SFS Vintage (6)",
+    "title": "SFS Vintage (6)",
     "description": "",
     "category": "Fashion",
     "width": 4252,
@@ -597,36 +177,6 @@
       "lens": "50mm F1.4 DG DN | Art 023",
       "settings": "f/1.4 · 1/250s · ISO 2000 · 50mm",
       "date": "2026-02-16T00:24:23.000Z"
-    }
-  },
-  {
-    "id": "8c16e2dd-fa73-4559-94f2-8ce57c90be3c",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/8c16e2dd-fa73-4559-94f2-8ce57c90be3c-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAADwAwCdASoYAB4APuVepk2pJSOiN/VYASAciWxqjqYIhyG8kAC9vyhAAP76n/+nvnlP875vapd3zW/90tHsKN71gNAAtHXhZjy1v7M++SJ8XHapqCKev/oeTefzgPv+YR7eTNJ2iQM5pFNFUJf5wRTiBbG8zSp+ns8z6p01Sb60V5O+PqSKd/wOkP+Bbhk8MsAwaJGyab9mg941kCjVn1UR7PtkQWg0YOopkkBx1oAAAA==",
-    "alt": "SFS Vintage (27)",
-    "title": "SFS Vintage (27)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4409,
-    "height": 5511,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/1.4 · 1/250s · ISO 2000 · 50mm",
-      "date": "2026-02-16T00:25:29.000Z"
     }
   },
   {
@@ -646,8 +196,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/30cd8731-e2a0-4de5-8110-e8e80bc26cfb-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/30cd8731-e2a0-4de5-8110-e8e80bc26cfb-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAADQAwCdASoYACQAPu1iqU4ppSOiNVQIATAdiWw3XbsqUuwhzPY2UYAA/vMDaOlJ0r9/r5L1py28Du4GoiD17f1kdIL4wree8nLlzzQH+40vmy90F0kqDxCtAP5gLz/uHI5iuPG0wDzBliX8wGM8RlthZgDmOa6fwgMcpqpvTWPDEg3DlUqdgQC75WKRbcTnxwU/S058nMBwNYA42TjmEdXJutNYyfq6ZK0yiz/NMRqu6olRju5meSgV+LYAAA==",
-    "alt": "SFS Vintage (28)",
-    "title": "SFS Vintage (28)",
+    "alt": "SFS Vintage (7)",
+    "title": "SFS Vintage (7)",
     "description": "",
     "category": "Fashion",
     "width": 4600,
@@ -676,8 +226,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cf4c631e-f242-4e95-9b99-9689c5e39152-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cf4c631e-f242-4e95-9b99-9689c5e39152-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwAwCdASoYACQAPu1mqVAppSOiqqoBMB2JQBgMoHcGSau9D4AA/vDdj8mh1dOp9QQ4xFn9h6ACo3eJauhaVptmm0TdEf3DOc3O+C8pqZRoLoAuCvprNOv5QD+KeaVd0AA=",
-    "alt": "SFS Vintage (30)",
-    "title": "SFS Vintage (30)",
+    "alt": "SFS Vintage (8)",
+    "title": "SFS Vintage (8)",
     "description": "",
     "category": "Fashion",
     "width": 4359,
@@ -706,8 +256,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/675a8638-44fd-4c12-a139-5b160bd00608-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/675a8638-44fd-4c12-a139-5b160bd00608-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAACQAwCdASoYACQAPu1mp0+ppSMiMBVaqTAdiU1p6ixhDpmBrT8AAP7wtrCH4+YG8R8A1ds76diBN/TNBTYTpTFOmXEeGLJcrS2o5yXh9kwpA8hkA+1cHHgsL9bFAmiAnd60fi+A/Jd3YxtEtXpfrx9+EdkXMKROswjdzM6FCtcBCmwv2r7VExIWKTEJ0agVAAA=",
-    "alt": "SFS Vintage (31)",
-    "title": "SFS Vintage (31)",
+    "alt": "SFS Vintage (9)",
+    "title": "SFS Vintage (9)",
     "description": "",
     "category": "Fashion",
     "width": 4672,
@@ -736,8 +286,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ff6f01a0-c4b9-43b6-a3f4-fc4c30f3ca29-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ff6f01a0-c4b9-43b6-a3f4-fc4c30f3ca29-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAACwBACdASoYACQAPu1mrE8ppaQiMBVaqTAdiWpoQ4B1MAi0v4nSOIQGLr7wBsUAAP76Am2RDbO8ODksfU0MzW+ggPitjCPX/Ues+KJYXmu4HsiAaBzAgSlimzwA+pnDXxzc2pmLQU6IWhdlghE+2AGnE/WPRMz3+5/1wv2FvPX3+1wHkOYeZUmmJTCBEKTY4qmg1DL6c9/rUclGJZ8CbT8eapGlfoIqAlRr8ewn0U3YzZx1/Zf5FFpi3EscaSGO4KmcvwFcaoQ7VbBraCXpTcG9OkrA3ncIUqsUWxRbFGhprijKEMJ6B57Pb+/7AnidogxDQPsAAAA=",
-    "alt": "SFS Vintage (33)",
-    "title": "SFS Vintage (33)",
+    "alt": "SFS Vintage (10)",
+    "title": "SFS Vintage (10)",
     "description": "",
     "category": "Fashion",
     "width": 4476,
@@ -747,6 +297,1236 @@
       "lens": "50mm F1.4 DG DN | Art 023",
       "settings": "f/1.4 · 1/250s · ISO 2000 · 50mm",
       "date": "2026-02-16T00:26:02.000Z"
+    }
+  },
+  {
+    "id": "c6419084-31c2-4dde-a741-abaa30b038f7",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c6419084-31c2-4dde-a741-abaa30b038f7-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRnYBAABXRUJQVlA4IGoBAADwBgCdASoYACQAPu1srlCppiQiqrgKATAdiWxmXJk0b9IHBuB/3ztNfJnMAuw/egwGh0bXwZEx9pxuq6yaH82AAP7odR9/f/9OdOxX9B/31t+BWZ3erAT6eY6J1DmADm+SqjusDoBcd64lgstB3ZVo++vipK9oRX/b7CAvZgbhyCYLimHG4ZEJxY8m56eNGJZ2G+DsOKeXP/6/HzLXSqc+zf8v/CHLclB/f78nfv+K3I9dnvyqQPJzL0VNmYWDcfo40Mpot8dHv+eIAgH1j2D7XD3uJur/3s0PjB8d4reaoTuIh/RS8QecTrjWr+FkW6MYB3pWxIiQ+ABQ+RvQY8jc0WXX2R+ZqrH64yj6pfUOeb9SOit7Sl7F1QV0KKhJBDwbLVF2b+saL3qEVHwBecjpPKYAOMnO+Q5QTRs/5LEkrY7A/T2+6Qyj9DMmxTb4oAxiX0q2CWwls9lTcaKPuT+KueCIVOrYRYAAAA==",
+    "alt": "SFS Vintage (11)",
+    "title": "SFS Vintage (11)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4417,
+    "height": 6626,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:08:07.000Z"
+    }
+  },
+  {
+    "id": "5777bfea-6733-401e-a909-a7d0f85d8ec3",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5777bfea-6733-401e-a909-a7d0f85d8ec3-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRrgBAABXRUJQVlA4IKwBAABwBwCdASoYACQAPu1sq0+ppiOiKrgMATAdiWw+fFl8rnrR8A/3WeHIB0K7Y/8m86rVls8J2gGsgTZjCQlwAgPnOx1NCAD+61nR9jy/yrVT7C2o/wmp+yv/DFTXLV0T5zBkyXnob4IU0e6LUwSa14khpTMhVQJFvlPkA/8e7ve5d8d2tbNbrY2zzjmcPoHEfR7qfxuS+18ebc+m//8dnhJtnrpvd6CHOe+Mt0kBqyYa7hxyZdjvyC2p7Lzy0ycNzKDBoWoIiCbMHpIoHHnDzcF0ZLgVbSm8K8hv8Z/964X2Yj+4Mp+OdOHQ2SkH+8AExJn6rfja4zx+qL8tZ9UAbT1HgrdUkalcoUnyr8mfBv/Mst/f5beROff1jev3VgsnKQ0Z2DxHFpWWxR6qnmsv82UErW/VDvT/l204ow5wwb2jeATl//+61FvP//dai3vef43RxmxbxSbGOdu6xC5mYixY5d8hTfs/unECh38X0lNgY6pmoHFP7kL1oSCEgd+cM4CsM6FnoBGPqzGAMByLgYJyP8jONq7yCGGcwpRfy0J/ZWvnus/yCSGvHdAAAA==",
+    "alt": "SFS Vintage (12)",
+    "title": "SFS Vintage (12)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4633,
+    "height": 6950,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:07:00.000Z"
+    }
+  },
+  {
+    "id": "415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/415c6b9d-0b58-4f99-84f4-e6eeb1b6c9b1-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRnoBAABXRUJQVlA4IG4BAACwBwCdASoYACQAPu1urlCppqQiqrgKATAdiWwzl/SP8eZwoVXyWTwP9Vw5uSscZ1/tJwxhHw8gPHXSPLEX7MgK9zjXEyOAAP7sisbsWx+uptlRsB/ygnf9o6X6v/eB1Dqi5IGFv389/5pYM094DgBMRl9rFDVSsXVG3eTRVRdKSWGbC3aeaRgEns8evHVPYTmnvQwAaIJ/Vp96sa2TDIytof/5nt9/0/Yz7a/TcWES+R7RX4OkaIZmJpdXjGLOs74F4wSuWqlCeTfnC+0ZEXbFX1tdYUXXW0EkW436K8fTorpoG3K4+EYLq8hLZ9pT5Ze7c7sX5ytYQ/q7wtf9Rkt0qUEAhzKTveuP5Yfi35w+w29GGpnuHlunrlfpiQT1vNzWrdL/saf/bc07Q/1Ell/hr/2uYpe5PrnK9Nb0qFVandbiM8nenGwLgYWTvTjYFwMLJ3pxsC4MzV1GpSELa6SOgjzZoEanfBBAemY4wAA=",
+    "alt": "SFS Vintage (13)",
+    "title": "SFS Vintage (13)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4341,
+    "height": 6511,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:10:31.000Z"
+    }
+  },
+  {
+    "id": "20253493-a60f-4c7d-8fa5-903c719ddd03",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/20253493-a60f-4c7d-8fa5-903c719ddd03-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRlwBAABXRUJQVlA4IFABAACQBQCdASoYACQAPu1eqk4ppKOiMBVdUTAdiWxl0NkOvDdApJ2cMcI4uQh032wAB43cP26xsAD+7w1PWvqcP54IjhbTlf/0izmwcHXZk/CnzWMyhEdcF4v4VnC5eM4KORzd2uuJcuxn5IB1NMtD3UC1xEAL+V/tn/4ayMgXwbex3eiqkFscBwOX7Lq/wi/8Df/kJs1I/8+Lu5wj5duDrx8jwv7P4Iu/MeqwMPZ8/77QyKKhRLt/8x5gdbj6b9i3wZlzVsnLqAXt6H8xO/73V3W7Z/ukBj23Xpox8pgiO34wmfBffhdQDWIdre3csARUpu+L/vL/pc0/kvI1P+apoAsIfo+s7Gu9//yeoEbT3fD1ckJ+EaTlMPsfiwat9eD3E84zZqx1urqI+GgqpcAm4Z+2ok0E+6sj9PvLdYDanckwdlx0gXtq5GjF8XEOqOPMAAA=",
+    "alt": "SFS Vintage (14)",
+    "title": "SFS Vintage (14)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4353,
+    "height": 6529,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:11:09.000Z"
+    }
+  },
+  {
+    "id": "0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0dd43ba6-c7ed-4b6e-a3a6-a1610099d30b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4IGABAACwBgCdASoYACQAPu1mq02ppaQiKqwBMB2JbGS443GOlJ/DPr3aNJ4AJfpDlWHACVZpiMwSrlpsAFj+i/NaAAD+7w1Nlo9YsYhF5CNdd3zzsTM9EsTCZ+Mcu8l2LS++P5FH8l/FW6ug6xJoL78P//Dz/88cj/11Tygme5wDvBXyypeYD/7/2nu/o+e+7BrgdN8b3eVuQPPdf6M36qVKkDvrWPpj2BFuOEHgaKUP95N54XslFCA8GgBWWJCYQLXd0Q5//8PP4g+zk/+Yz/5h9t9tCeUn8ztEZw/GLjFqnln7FVhlBkQJuTC1qwFb784CYraGmkco7fU4Bh2duzuUb635vx063uAs0LwBQk5Mj5wNp7R7dObF9sTvt9opv//JfY/zv//Ozkx00FQHGp/Zi5O7dv5456vaIHt9hilYRp+IPIyXrArqR3/NkwK6kd9v/z/J2xhx679SmBXWEsILAgAA",
+    "alt": "SFS Vintage (15)",
+    "title": "SFS Vintage (15)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4417,
+    "height": 6626,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:11:35.000Z"
+    }
+  },
+  {
+    "id": "a2ea5a07-6d9c-40ec-9385-712e570b9eae",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2ea5a07-6d9c-40ec-9385-712e570b9eae-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAACQBACdASoYACQAPuFgpU2opaOiNVv4ARAcCWYAuyjJofoMN1s137VlUARTd6AA/vCNcDKMDu9Ik1uPSDMAKcJFd0wXiJmrAucojsQqPj0da/9v/t//01QFkrqLqwJ608/HpwwD8yAPyPH7GdYRFFbgrmzT5RmblB35gfahIu1RWi0Fp6TmRfAhfsUbdDnEdCFRf+yxcSdHqIWSSaYpX2eyN92JrIzpSmocAAAA",
+    "alt": "SFS Vintage (16)",
+    "title": "SFS Vintage (16)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4417,
+    "height": 6626,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/400s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:11:43.000Z"
+    }
+  },
+  {
+    "id": "98b9c27d-fa62-4966-876a-4b8cb016780b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/98b9c27d-fa62-4966-876a-4b8cb016780b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRlABAABXRUJQVlA4IEQBAABQBgCdASoYACQAPu1oqE8ppiOiMBVaqTAdiWw+31GC4Fyx54TDla/JBMixLDTDbZgHlVYvkqd4m3YbMAD+6vux7jP2f/Bl68LLfVFft//fgp9vtvPMjGMr72q959e28MXeZOrZrhP/f7hQaS78Yed5ezjx7W/msMeo7Mv/DjBtddNWquhU3vydX6+xJi9urPY8Z6Vw/FpIKDyVCoRaAAcjpJt1P/6LfqCizkXYDxclj8h/UbWSaEGA4kPveOWa8/rzfXkoXt35g61tIPF89g2H4BBkRRu0LKJkz/hXmTfm7D1h7vxKz3QEwoKuYeD+vH1MTOOB88u/U4+/vs6fw0lUK/vYQLRmQgoLnLFR9MLGGc+WLDG6OeKGFfSiO83G7U0oNVMvyVzX/OltDL+3obcbqn2wWXAavwnshEFWdZsa3RBIAAA=",
+    "alt": "SFS Vintage (17)",
+    "title": "SFS Vintage (17)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4417,
+    "height": 6626,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:12:16.000Z"
+    }
+  },
+  {
+    "id": "458188d4-3274-4cbe-a9f7-4269accbe265",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/458188d4-3274-4cbe-a9f7-4269accbe265-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAAAQBACdASoYAB4APu1sqlEppaOiqAqpMB2JbDdAubBKl2IdrG7A9hOigAD+7zhBeN7+FVsnrvYsPF2mvtsd30cn/6gM45PtjsQQK8rzef2/Qw/mGfm88o07/80/XTEW1OjrsZlxudHPyl501SDZ57Gbh0OdUoFDKygveaeIbvZ0YS5hjF6Fjl3NeeyMUH/BQATUBMq8ZC7v6dp3ZxnBv4Ok5Yepyuii1zGQ65fOlNA1Iz+pjCrFt54Jbu4yBYAV+vgj0977EcgmgvbrPDCF1Z6mNJtTXoAA",
+    "alt": "SFS Vintage (18)",
+    "title": "SFS Vintage (18)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4358,
+    "height": 5447,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
+      "date": "2026-02-16T00:13:42.000Z"
+    }
+  },
+  {
+    "id": "ac649123-4de1-43c9-8bb2-976ea72021f9",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/ac649123-4de1-43c9-8bb2-976ea72021f9-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAACwAwCdASoYACQAPu1kq1AppSOiqrgMATAdiWgAnTmAgHo6M9hcAAD+8CbxD/n/ixg/gpcBopE02fRTDl+31q/KL/WtOEB0Mi4Irfz1324VlH5vHuTPE8PJ0jU5eQRMQOQSwDhglZ+Mmd0o5TFv/6ennpMcCzkk9q251EZCfFQ/7AjAjYWcES2dLXNLdVCiaVPbMWBdSCvkw6XTaETZ+qiAAAA=",
+    "alt": "SFS Vintage (19)",
+    "title": "SFS Vintage (19)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
+      "date": "2026-02-16T00:15:06.000Z"
+    }
+  },
+  {
+    "id": "af875a88-d958-40c5-9b02-2fdc380cc774",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/af875a88-d958-40c5-9b02-2fdc380cc774-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRiYBAABXRUJQVlA4IBoBAADQBACdASoYACQAPu1irU8ppSQiMBVaqTAdiWw+0+tEKBWV0LYE0EUAAQiiWrnjQAD+7zHUfJPZMtD8scFdoXxajL5RkKio+9QVxjzuS16NFnGmJx2I93piwAME92oVWmGJ/VsraeI0L494Nb4VD1R4woJTkmTpFkwR/r/pqe99zJ/+JFXAFaVuGDL5p6UgMBgzSz0kgilkgxMTsXhze5ppVJgAPR1bdiB70+4Oy7WULuH2TrBkv1e9dkoR23e/6VOHQAKcHVc4Ncq4Tv/7//U/ePn56H//r+cKJXjGGy0L9d4EezJTNYmJWT7csd8BKKpzJTsilmkZkiakXpZ7L5jcN/rvOpam0WIKNi2K3d515fRZBybgReKwAAA=",
+    "alt": "SFS Vintage (20)",
+    "title": "SFS Vintage (20)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4207,
+    "height": 6311,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 1000 · 50mm",
+      "date": "2026-02-16T00:15:02.000Z"
+    }
+  },
+  {
+    "id": "212b1272-2d01-46c0-a059-6cfa9f17049b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/212b1272-2d01-46c0-a059-6cfa9f17049b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAQBACdASoYACQAPu1cqE2ppKOiNVQMATAdiWRpZUyupjEzCLVQK25xwAD+9kiqCf3rK6MLwkSSyIbbDiuFfSHDc3AZYjn7A96pBDtdrhXRqeSSB8H+VWWJkQHsbJu6XXxJFsZEpxiDibIjuSvJJzlZu07GtUvDy1cg5NUSJnnadhM/6V9H3S2rOvoXfd2wP3UjrrD+AAA=",
+    "alt": "SFS Vintage (21)",
+    "title": "SFS Vintage (21)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4450,
+    "height": 6675,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
+      "date": "2026-02-16T00:19:00.000Z"
+    }
+  },
+  {
+    "id": "d83f34d5-a2bd-4858-8ed2-5c6c019300f5",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d83f34d5-a2bd-4858-8ed2-5c6c019300f5-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABwAwCdASoYAB4APu1kqk2ppaQiMBgMATAdiWphVEYAK3Dr6kAA/vXHgQkhlM8eVGWAZ4d3azjB/84LCzv+0AcnmAm9mSe0zFwwSgYlcGyDiPnM5ygah98z6lflVw60Uw5MlTSCMZUoALf4xou271Hcll/pssEX/BnzvJ5V/r3gtEGry3WuxGjPWQd356oIyHvX0mZVpYZwQHnL/uP/55XsAAA=",
+    "alt": "SFS Vintage (22)",
+    "title": "SFS Vintage (22)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4374,
+    "height": 5467,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
+      "date": "2026-02-16T00:19:21.000Z"
+    }
+  },
+  {
+    "id": "6f6f06e0-328f-4bc8-8aa4-3ed030f4a165",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/6f6f06e0-328f-4bc8-8aa4-3ed030f4a165-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAAAwBACdASoYACQAPu1kp04ppaMiKq35MB2JZmcvRssTjwHiUCsDjfcwewAA/vbEbOfiFE2ogb7xsJ+Rv6O/7riMg57zu2v365rgEVZHT3t0H3bBsIvf0f/MujYXruhpJ6qVklrc/ZkTNdf32q2D+ECnizGCKBbQqocUfRgCX9SuNrVvZvHtxyWbP8pGP5+Ira0huQbyALUZr0U17yCHAoC+QQ4FAXyCHAoC+1CJgMABUAKS5Q0OiBR3lELirnLAe8AAAA==",
+    "alt": "SFS Vintage (23)",
+    "title": "SFS Vintage (23)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4247,
+    "height": 6370,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
+      "date": "2026-02-16T00:20:04.000Z"
+    }
+  },
+  {
+    "id": "3b71be84-a0e2-4562-adae-65b1223c9dd8",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/3b71be84-a0e2-4562-adae-65b1223c9dd8-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAABQBACdASoYACQAPu1sqlAppiOiqrgMATAdiWYAw2eWvBHASwAAv2/V6mUgAP7wc7g21Ng6vk/yZ8Z3v5aujFif5uTj+kqSK8YhnP8veyRkc0sdteDhWOFtPJFWzI2Bd4qtjs3bjjyhLC33jovKcqqJqhXeCL1VG4Dc3aKwmWelKH8gSMaLovDx9Mm1HoKEk39EoRzknZdI36/QAAA=",
+    "alt": "SFS Vintage (24)",
+    "title": "SFS Vintage (24)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4387,
+    "height": 6580,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
+      "date": "2026-02-16T00:20:10.000Z"
+    }
+  },
+  {
+    "id": "17d52e7e-76eb-4b9f-a357-5a1ffa5560fa",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/17d52e7e-76eb-4b9f-a357-5a1ffa5560fa-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACwAwCdASoYACQAPu1wslKppiSipWmZMB2JaGtyWed9UAgJduhBAAD+8FxmnbNvnfCAMKCwXTRcYLmaXRnPll+PlcZqgfuTTd+8ZjPb5DuBT9GHOpup1D9n8/6FhDAnm30TKFYT+qz5h1Jzk2v+rNKj00d6cTI0phjXesRYTw2GtnwWItfOPUKHF4+dMZMOjbYAAA==",
+    "alt": "SFS Vintage (25)",
+    "title": "SFS Vintage (25)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4285,
+    "height": 6427,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/250s · ISO 3200 · 50mm",
+      "date": "2026-02-16T00:20:18.000Z"
+    }
+  },
+  {
+    "id": "81edaca6-b920-4e40-b588-f6c4020f9754",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/81edaca6-b920-4e40-b588-f6c4020f9754-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRlIBAABXRUJQVlA4IEYBAABQBgCdASoYACQAPu1gqU4ppSOiMBVdUTAdiWxjWsJ3e7KoMA8SidMYR497p+KvOlZUBAZIACflT82tsAD+7ohvWL/9o/QyczzVev/j7GEMBkGG3PHZ1MkZVz/9UTHC8UZR2CBF+8OlVteeH2uK1eocTUP/z1reIJ9hNeta7aCtzKmZu91vfRHoBSxMsKmYCzuMZ4HvZB1N4I50G+CARc8SZzX7SPvFskkHd9fXh/0/zUFh8xy8j33D16qWIvqqKpFeoUksifYT64JkiNHL5KbTC9sc0TciveX49nOQPN5p8Sf+0Y4/ft1/uqq3pVwZgCmLVfVyPcRhVqhoX2ziWVM5yxY+o/lGQp8RRxy3etI07iKZn573VtYFl4XKkyMVQ5+7EVAXSO1esk1VtW05ySqtw7jxCOB4ikDTpebvHiGgQTCEyUAAAA==",
+    "alt": "SFS Vintage (26)",
+    "title": "SFS Vintage (26)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4606,
+    "height": 6909,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 2000 · 50mm",
+      "date": "2026-02-16T01:11:37.000Z"
+    }
+  },
+  {
+    "id": "cc322eaf-36c3-4222-8087-e2adef68f931",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/cc322eaf-36c3-4222-8087-e2adef68f931-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRjABAABXRUJQVlA4ICQBAABwBQCdASoYACQAPuleqU2pJSQiNVgIASAdCWxjWrUOwhqD6KkKPJVtYU8h6KwGmNNedINEAP7uH/InYf/PlwbfRBWSKZ41oX7jq41UGyF1or+c5oWPclzzv4FOKWk3LBA6IrbyRbNfAmjZaBLP8WSgJPbm+ecpugmaI43ShrpHJXaMFTvJndognfxX6YvPpekARVH7TXQpfD+24/pMKA5dJfEMwEVzfUhlhoATb1VKl3hr614fPSqrpAxxx6ncsJe8XEOC55KLOyes6sBDUftNHE1SONYJ5Eigf0hujBVUnjAXU4ASgGQHVZIb1p/CsBPsVnVX01HsPq/BW0YfpsFHJy3tMZGGjbUVwcVXGY6uACr6Xv7BgnrPqSGnKdEFYf+StAAA",
+    "alt": "SFS Vintage (27)",
+    "title": "SFS Vintage (27)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4304,
+    "height": 6456,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 8000 · 50mm",
+      "date": "2026-02-16T01:04:43.000Z"
+    }
+  },
+  {
+    "id": "a2820050-f835-4032-83c5-303960d77fbb",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a2820050-f835-4032-83c5-303960d77fbb-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRjABAABXRUJQVlA4ICQBAABQBQCdASoYACQAPulcpU2pJKMiMBqtUSAdCWxhB4gLiswEIU4eLotCVy3eoDYwo3QePwAA/u0dh6fjkVy26qCAVZBelI+XmZiLYZrfxBcJ//HA5U+ccnpBHE7x8FUvL/nSw55FfPbYBCBlo8Nm4zyvgd5ZnkAIJNjgoQxXLKaOtSVNCXnn/+pv8HRnkmt+Xec7N5CIAaZZ+8IwjwoePK7cXx/pFl67x9Z8oqB3F8t/A2M9jxjBY7EojnP2jhdODjmqnslXAOkSWub+KaWpZmCJ58KxuMoZVSy2Ikr4k+Xvpi10nvvKyBjFVJIZ08HEtrnCSwcgunOEl7XmT5amaAfTyYx2XD2w0ipXmyuiNOr5rFEpZZ8LtABv0QD7IX+qCyE00AAA",
+    "alt": "SFS Vintage (28)",
+    "title": "SFS Vintage (28)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4585,
+    "height": 6877,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 8000 · 50mm",
+      "date": "2026-02-16T01:05:20.000Z"
+    }
+  },
+  {
+    "id": "fc5dc16f-c411-45c6-98c2-fa174ee78234",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fc5dc16f-c411-45c6-98c2-fa174ee78234-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRhoBAABXRUJQVlA4IA4BAAAQBQCdASoYAB4APu1qq08ppiOiMBgIATAdiWxlhY1mNKUBDlYng0U1dMA3mMCh710AAP7vgbr9Wx2ssNIYfhWNtuDn4qvPaXb3Wxe87Bb6Kfeh+RrjHWhdhsZQI+rpQmdTYMpPPt8QlC2mKIdOdZ+BBx9sw9Wq/WRWkIfHjqhDVTRcyoZ3yre/B80YCqTnZ4Vsf63qaCkX9FEbC3eij04Gx22EKzJR+DsD0e2cZcc69tE6n2qLmPIfBrSJFyKEea9f/739n/9Ll8s4vrlwYbFsQC/98s3AD/eWbirAzSYM7u8dss5vdMiO2ldUidPKQAy5pHMIiy1K4ewL6vEI5/64475Lx0UR71Dwx9AAAAA=",
+    "alt": "SFS Vintage (29)",
+    "title": "SFS Vintage (29)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4547,
+    "height": 5684,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/2.8 · 1/320s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:55:55.000Z"
+    }
+  },
+  {
+    "id": "f13229df-442d-499e-8b0b-27338ba08e2b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/f13229df-442d-499e-8b0b-27338ba08e2b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAABwBACdASoYAB4APu1srFEppaQiqAqpMB2JbGNSUvVAIcrG7gp5wYAJGJYHAAD+7lcmck37x6FfcfRpOcSXjHXfhn52cKo1Glw/Y/w//EOXwMVyqrhFBHlUFxofc2LKRMw73Ch1IcT9VzLaDhEdBPHVl8Inbxi2yOsKZTkk1sX2MIJbAAoHSMw+tpFzSopLo4aSc6GU3K2KbmojFVgkZI6UHM53McKPAZUPYM6spCreJMyfMP/mrCXuvvDYgtPA0YYVQptrq3/XkTf2HIO3GdkJQ2owb/e++lvk3ye5wPj/RvgfAAA=",
+    "alt": "SFS Vintage (30)",
+    "title": "SFS Vintage (30)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4570,
+    "height": 5713,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/2.8 · 1/320s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:52:37.000Z"
+    }
+  },
+  {
+    "id": "5315e13d-f076-47b7-b6d0-fefd54c9cd4d",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/5315e13d-f076-47b7-b6d0-fefd54c9cd4d-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRgQBAABXRUJQVlA4IPgAAABQBACdASoYACQAPu1mp02ppaMiKq35MB2JbGbGIalEtGabyaagNL764IAAAP7uTDqiL6RD/vDS69TKS3VFLrPs2IJrDgjSfKgY//kq7f+vsr32tKii3NqhhNvR3+bJGm++mxFRjOInBrqdqDzlrLTthB9v0ssM2snd7BtD3ZSipSQ2qLJsPC677RLXKXRy560x7QZWFMDInpPki74W/p29/kgXleUcIPpnK20aS4YLHGJvrqmoDr16pFqv/2wAFUY5H7Sawh108R+zo9jWJRx2XwA3xwLW3HI3so0+nygvxsvjZe/hHTrJhQUMQjWJ90/uqL+YGwAAAA==",
+    "alt": "SFS Vintage (31)",
+    "title": "SFS Vintage (31)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4457,
+    "height": 6686,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/2.8 · 1/320s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:50:57.000Z"
+    }
+  },
+  {
+    "id": "0c9f6a26-5e2a-4826-9a24-94941ff222dc",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0c9f6a26-5e2a-4826-9a24-94941ff222dc-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRg4BAABXRUJQVlA4IAIBAADwBACdASoYAB4APu1gq1AppKOisBgIATAdiWxXs1sb9uxFpsfXvQFvY2TUBR4ddAAA/u2j5E0Ym5ZyW7s7Tlvjno7dN08j/8GJvxV3xvGGJ33CVNtMfndGXkfsZFgx0lucMYLhBy7q0Yd2aygawetcnt4Fw10//LTXo5r9SPhnSZ+EM6HiaM8nWINARP45/8y5+N5QUFV0tsuo2vv/O98Fu4Krfv/6u3/Wg8NuiJNP0/zqYHOBI5f12Xhslff6MjH98vzbsa3/V+y8q7nBwvZ0tQ0167QYtlftFau3n/7Xx2BB/7yRowv8TCRmkGxtto7ocwyNI6SYBzyyzkDGyuoXIAA=",
+    "alt": "SFS Vintage (32)",
+    "title": "SFS Vintage (32)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4613,
+    "height": 5766,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/2.8 · 1/320s · ISO 8000 · 50mm",
+      "date": "2026-02-16T00:48:09.000Z"
+    }
+  },
+  {
+    "id": "a3fad9f7-3406-49ed-8e9c-3545b7995b69",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/a3fad9f7-3406-49ed-8e9c-3545b7995b69-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4IMQAAADwAwCdASoYAB4APu1oq04ppiQiMAgBMB2JbGAHlIdCRDR4GLhH0sgAAP7ut7Xx1fal2LcX8H85hJxT1PuRgryiscqtDd/b9f/EOSq8eznYE56F4zq5Tsj05fmaOfzVLw6we/Bwe4IPkW3DH4pn3x4fLkAEOO8NLCeN098PnGOX5sVR96AnmLWFLxuI+isYH//Yb3VV1Z2vhBXVd7f/IKSq6ZorpUrXGmM38dirFP4M5wwF9IXPrNQVUnDGMC8Cc6fqAAAA",
+    "alt": "SFS Vintage (33)",
+    "title": "SFS Vintage (33)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4551,
+    "height": 5689,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 2000 · 50mm",
+      "date": "2026-02-16T01:14:28.000Z"
+    }
+  },
+  {
+    "id": "16f40c6b-06b4-4169-bbf4-81fa9c880906",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/16f40c6b-06b4-4169-bbf4-81fa9c880906-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAACQAwCdASoYACQAPu1ep02ppSOiNVgIATAdiWhrLFHNJTftsPecAP7z8lgWGpfLekgCFak+s4/086N9S8EWYM4NmEVp6d4RDHpXA3dxGTyHsrNi4KU+TSMci6J0lVO5bhdkDq2Kv1MGUWuOYuY4zvyRdCOlQ8lJKIR26igNqSsToQXWmYDXIFzeAAA=",
+    "alt": "SFS Vintage (34)",
+    "title": "SFS Vintage (34)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4505,
+    "height": 6757,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:23:21.000Z"
+    }
+  },
+  {
+    "id": "51597858-ef05-4f00-bdc0-433ecc814e7c",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/51597858-ef05-4f00-bdc0-433ecc814e7c-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuwAAABXRUJQVlA4IOAAAABQBACdASoYACQAPu1iqE4ppaOiMBqqqTAdiWxn0qDIWssPUABR131dE8sAAP7yb0ys3Sd/3LIYwmWv+HwnKTVmEukbulx/HqKBbclxEb99WYno45N5ufQnLwlTsccPx0QECXnjmMn5Ggjri7sp2iGwIYT7wp0ePn8yniJ8pSzfMI/+yg9y7mS2yD9bspoB0MODiQNMRD0xw9WrLJsb1xsnPQTKbIKKv6VxGHB2cxrrZtH5JcKmwvqDPPYiV2qO4bZY2Wn5Y+X3Xp1/DcETVtrhNdPsDSVMXw0MxQubUAAAAA==",
+    "alt": "SFS Vintage (35)",
+    "title": "SFS Vintage (35)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4535,
+    "height": 6803,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:25:42.000Z"
+    }
+  },
+  {
+    "id": "1b4cd3eb-3ac3-4674-95f7-80cde225e4bf",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b4cd3eb-3ac3-4674-95f7-80cde225e4bf-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAABQBACdASoYACQAPu1epU2ppSMiNVQMATAdiWxiiQTLE4XTIU1wJpuTQvgAAP7wcn7+tp+phonBfiDpgppUdJEaELW3eLuFrgZnCn4VRFm62z13OrjdtyY7EOv4Ri8iIEx5BVwlEfxYA9xQdRMfjKAMr3+hmO9OiJuwRlLBRIAfSRhEAUpolDNKboGHGyojGXSceBX2ExOLApfqr/+JnrehKtp8kkb+uvX1h52HnHHk53D5FGhABy2CvTqEfv0IV0yrafmDOyRU8Kw6QIhY20h0xdTos2st61rYrWWAAAA=",
+    "alt": "SFS Vintage (36)",
+    "title": "SFS Vintage (36)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4406,
+    "height": 6609,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:29:26.000Z"
+    }
+  },
+  {
+    "id": "d17c5cd2-be9e-406c-9ddd-a95c6e4470ea",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d17c5cd2-be9e-406c-9ddd-a95c6e4470ea-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAACwBACdASoYACQAPu1mqE+ppSOiMBVaqTAdiWxmXSyqnTkdtHpme80ANNZ1if7AAP7wjP3nwazFwa7eokgfObrPF3is5O4tLv2BREqpm37G5O0mA87n+aWuS9zMBVbKTMu0itGEWeozEcPKx0lf/r6kI+TNgAuXBLjbZ0FMOhElomIM9Sb7drtc+VJeA8TRpB3vsUNoZP8GZ8xePZyWL4bgVCA4H3PepaMUclRdD8xpx2JiQOL2Ff4UJBmnQ2HqWNUHKOR9L4fXDKu8OaduYq1gcIk2BQGY7wgST4azmUUoKuxmgAAAAA==",
+    "alt": "SFS Vintage (37)",
+    "title": "SFS Vintage (37)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:29:15.000Z"
+    }
+  },
+  {
+    "id": "c9cebf11-19e0-491f-a9d3-9fe8f45a81eb",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c9cebf11-19e0-491f-a9d3-9fe8f45a81eb-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABQAwCdASoYACQAPt1epk2opaOiNUgBEBuJYmssWVuhdfCooAD+8Q9nS0fMrNwSAuZSBC+YGUE7dGXm7q4gOsYAEcKy0w/WcNG99j31JPm1jnzVCO2fdXgyVri+bCfGxKMJNsxrxklSb9C3MJHYWu6VKRLSV1YkAAA=",
+    "alt": "SFS Vintage (38)",
+    "title": "SFS Vintage (38)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4425,
+    "height": 6637,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:38:55.000Z"
+    }
+  },
+  {
+    "id": "fa3e1249-88f2-4e1f-8e1e-7539e3d200ad",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/fa3e1249-88f2-4e1f-8e1e-7539e3d200ad-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAwCdASoYACQAPu1kqk4ppaOiKqwBMB2JYgDE2Ca6O3EWAAD+8MrJZ8A8CBfZrj0cUif1XMnNJZ9251zt6pHnfAht4wsHgzQODBzav0MANLaaAG2yuwr8rDpMLDKMGNmgDJkge8/cAAAA",
+    "alt": "SFS Vintage (39)",
+    "title": "SFS Vintage (39)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4573,
+    "height": 6860,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:38:50.000Z"
+    }
+  },
+  {
+    "id": "84940ddf-68a3-4631-a9c5-3ee9f88c4f1a",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/84940ddf-68a3-4631-a9c5-3ee9f88c4f1a-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRhgBAABXRUJQVlA4IAwBAABQBQCdASoYACQAPu1gqk8ppSOiMBqoATAdiWwtNTqOlLRc75u25C61kroo07eC1uu6eqAA/vDd/vjh/kX9PD/SSHVlHK+YMyi6DEgN6NDXb6rWpuuNUbuoC+wb3QNhGK9kht78Au4J2HPMLRgZ3dsp/ZJyOTrG+RjIvdP8nTKHvtySd7byKmy02mzRb/dE5tK80fHi39d5/551Z1Y7Y4S0Qtixx66/XrDwIMdV1gwsiEmEDOEB+Ot/m7EoVl4kNxBw2TJab1c/xxui4OqxMqZVzbmceNe3W2Ne+BI46040U9PtxOWM3o6QUWmdb2a+Mw7XDKqxDQOpL9hFxRFC/tBAoyVX3vzPEhYQAAAA",
+    "alt": "SFS Vintage (40)",
+    "title": "SFS Vintage (40)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:42:38.000Z"
+    }
+  },
+  {
+    "id": "0787cc38-8ca9-458d-8090-15b8680ed2f9",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/0787cc38-8ca9-458d-8090-15b8680ed2f9-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRoABAABXRUJQVlA4IHQBAAAwBgCdASoYACQAPu1orFCppaQisBVYATAdiWxgExCWZ2ArUGFPM8pw11nFJThjB5/lH9HIEn3sB79AAP7wQmfCaV/z3PavvcWihs6pUoBbEapsKzZDXlBlGImcnSjxFZZP8+SCIYo0nkxbMKu/L/dJ366w4//q0bN/dcfLAU7Rrb3HMYLZECr6qI5rK4GVuqv+nsyVIkYzsUyzADjekbLYWxdZzzm/PujyH0jNZar8a7GGvaEx/K7dqdshep97vIIG6WsEjndaU92nr8P8fJJiNPhhep9hDseDgOmLnJp4pKiOt9a/6FNP5PWng/0zJve2f1gi8elw9fiYzudpH8FcV1+Ml1lZd88JwKuCrN6OB4aMaw7EDi+n3eNfxCvE2av/f6EFwicFe+hedXMtp2S34iJDCLt7Acgg0k8RGsN2HBlhV5kNia2I94120zapm6Kj9vrbJWGq75vvH7iWR3RPMN+P4t5j3z5j74ruiffP7ptwAAA=",
+    "alt": "SFS Vintage (41)",
+    "title": "SFS Vintage (41)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:42:46.000Z"
+    }
+  },
+  {
+    "id": "94bb39a7-6adf-4cee-8c0c-91954c0b7a7c",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/94bb39a7-6adf-4cee-8c0c-91954c0b7a7c-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACwAwCdASoYACQAPu1qrFEppaQipWzJMB2JYmsJTaUSw6UBDijsQAD+9WMTm1nfdPdial6i1IONXXXOYiLeeWGES9hjBBUbUb4n2ErvVoRmpSeHCk6TK5gX+17IMsXz5tgR4hiX4Q319WadYvhn1O/tkQg/nnKYJzIgK35AkDugWFgA",
+    "alt": "SFS Vintage (42)",
+    "title": "SFS Vintage (42)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4672,
+    "height": 7008,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:46:13.000Z"
+    }
+  },
+  {
+    "id": "972ebec7-8095-4a00-aa57-ddacac8012a1",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/972ebec7-8095-4a00-aa57-ddacac8012a1-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAADQBACdASoYACQAPu1krFGppSQiqrgKATAdiWxizwjr6SErW8hZDuevAQmTNOBfQAD+8FdFzpsth3b8TpDVd4Cg/IZGM0fWDjP267EanAR6u6Cj7+TTHb2zbziklA2tAkqeQi9yBpv9d+gfTCAufzzJGnfeivNvi1lHukwNCLOpW2JaG4l+oXVkpUCnUpwbrzf02iul5+6KW/UDtuM56HqYQdoPyDOI1bRGJZGJl2/L/D/9JaKH6jmbfvG2e64236ukMEZ3NV/7uX6afvaAAA==",
+    "alt": "SFS Vintage (43)",
+    "title": "SFS Vintage (43)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4505,
+    "height": 6757,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:48:49.000Z"
+    }
+  },
+  {
+    "id": "c48f35d6-0eab-4d2c-9e68-f3361ec08518",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c48f35d6-0eab-4d2c-9e68-f3361ec08518-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAACwAwCdASoYACQAPtFao02oJaMiOrmYAQAaCWxrlVHjdyKWUQv+wAD+8fVVBENrfbzD+NH/bM7G33cFgXCwlFd2sIx35H4jukroZfktxt7YqiZv3otjOhGbyOsg5EhKCYAmtX1inZIyxxPcsOdgjHTcWM7NX7RDLdpcAA==",
+    "alt": "SFS Vintage (44)",
+    "title": "SFS Vintage (44)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4629,
+    "height": 6943,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:50:47.000Z"
+    }
+  },
+  {
+    "id": "87266daf-af7b-4d44-a429-c3513d25ec7d",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/87266daf-af7b-4d44-a429-c3513d25ec7d-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAADQAwCdASoYACQAPulepk2pJSOiNVgIASAdCWJrT1NGGZgXyO6UqCAA/vCyKqAjKoKUIpNeZXq8Zhvm+8WW3R7MpsNp1vUSyQEnUcnyESwlmXEvDL3F2/hbNYY0j0N1Oj1M9WSnogpqBedcc93uSW8nMqTkyLQl+ne422R5qgZJWaCSJvfyxrBDUmnZpJiRGHLiXMBh7qmKHkN06NknzpTyHzAAAA==",
+    "alt": "SFS Vintage (45)",
+    "title": "SFS Vintage (45)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4585,
+    "height": 6877,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:52:26.000Z"
+    }
+  },
+  {
+    "id": "c5609a75-543a-4680-8040-8a3f6e44138f",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/c5609a75-543a-4680-8040-8a3f6e44138f-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAAAQBACdASoYACQAPu1kqE+ppSOiMBVaqTAdiWg+6RjHxjSIAFdKs7EUAAD+8HUiPPZFYvueaQxfYAa4eSAj558N3tHXrDLReR+U9bsZkMMlH/M6a2TXWAUNDjVlA8+7QUmxbFCUUgajOf6RtgJL0mEULjax1eTq92ygzHOGQcrmze9OgxfQFhct1WR7Ia0MHFQ0kifuFXGk3LEMs54qE2pX/EymoPatPMDaeuvjuOOTT25baTt3Nq8JL/rlshiAd/8Nhvf/DYb3+1i3eKfdIFfdGUc2ikjjBZE0w7xRwAA=",
+    "alt": "SFS Vintage (46)",
+    "title": "SFS Vintage (46)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4603,
+    "height": 6904,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:55:46.000Z"
+    }
+  },
+  {
+    "id": "d84a5afd-5294-4195-ba18-a5160f9f3976",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/d84a5afd-5294-4195-ba18-a5160f9f3976-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAADQAwCdASoYACQAPu1yq1KppqOipWsxMB2JZmkwuUhnD6oBCg09iEAA/vCgWZCyWv8ysM1zk9Np852++u0mo/Nq/6GOas28V0qeV81iCrR/0g9lbvg0IAPN9gcKo9N/8ddV7qw+rFBTSGOz4g8xISogJvkmVFveWSwUBNhHTloGONouEBR/kMbArfdf3tlHfBCeAJukBT9/R4AA",
+    "alt": "SFS Vintage (47)",
+    "title": "SFS Vintage (47)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4511,
+    "height": 6766,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:57:39.000Z"
+    }
+  },
+  {
+    "id": "dede065e-27eb-460b-b7ee-371ebaf69c64",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/dede065e-27eb-460b-b7ee-371ebaf69c64-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAACwAwCdASoYACQAPu1irVAppSQiqrgMATAdiWgApLOAgcOzJEJAAAD+8HR3mJd0LqFnwEUCKCSyMw/zMhp/YQBzDLCEJs+75hgunPpcxZ6sJv1jpPag9lwpfzGQkgaiqwTBh+IGD3P79DB0EbOzrtwP4Rqyo0lIm9NDLREVS9fdF5QcUZq5pSOUqrbvDcKos7WUeNfq9TNTTSN6KtFN2yUJWfrQzwCzMI6tadkiyAA=",
+    "alt": "SFS Vintage (48)",
+    "title": "SFS Vintage (48)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4541,
+    "height": 6811,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:57:50.000Z"
+    }
+  },
+  {
+    "id": "1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/1b98fe0c-c2bf-4656-97ac-3bfbe02fb57b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAADwAwCdASoYACQAPu1wrFKppiOipWsxMB2JZGgqUeHSd6qAtDZmsjAAAP7wXIesWOmog2zTy4oUfLyTP5fkGCOabWXcsvdCKLsQW6GFPJFJ8bm7Qed76Hq3ciVtvhMQ4bQ5kwZ/LseXF0Qxvsd4Xrtz1YZVNuIs3xe/uVqIOLcOMW+zUDE+mtwa8Pz/nUKG6Xb8JMT+IVzV4OYcAAA=",
+    "alt": "SFS Vintage (49)",
+    "title": "SFS Vintage (49)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4619,
+    "height": 6928,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:58:08.000Z"
+    }
+  },
+  {
+    "id": "771922ac-108c-4e60-91f3-0b4b81c27c8c",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/771922ac-108c-4e60-91f3-0b4b81c27c8c-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAACwAwCdASoYACQAPu1yrlGppyQiqrgIATAdiWxmzFCWfqgS0PgveAD+8Les/+ojtiQxZ55ioHw6vC1uFNmtE0spuvIX+S5Ex4KPWfLXC/2XYyrnm/CGWyZmb5M6fkV0ZeRYKlVfEK6zU/yKQnK75wUHCv4BibZkCjzJqDd+1MxrinwooNSdpuwWOcncBM2KOATNQmxiCNrPe7naw7QO+PIDhtxkGMcHlmUtuIuOpAEhqWEVPHM73XIc5SN5rnQV1OhLIPySysip3MQgAAA=",
+    "alt": "SFS Vintage (50)",
+    "title": "SFS Vintage (50)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4579,
+    "height": 6868,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:59:47.000Z"
+    }
+  },
+  {
+    "id": "da4ec35d-d202-400c-ba71-d3dfdd6b200b",
+    "avif": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-sm.avif",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-md.avif",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-lg.avif",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-xl.avif"
+    },
+    "webp": {
+      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-sm.webp",
+      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-md.webp",
+      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-lg.webp",
+      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-xl.webp"
+    },
+    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-xl.webp",
+    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/sfs-vintage/da4ec35d-d202-400c-ba71-d3dfdd6b200b-md.webp",
+    "blurDataURL": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAACwAwCdASoYACQAPu1mq04ppaQiKqwBMB2JamoljYYnKHKIv9GGAAD+8I3vD4879+xlUowirdi0aHnkN0ARSOvOBe/DBqJHxH2ePDsstwjD0vpGlRxuPMqJSbXugZFHCgaStXziCw2XvBnq+2tqa5YfC8D/34Fr7kaTenD8Idg/8A0EMGXc8k1CxrO5k+0Hz9eEcBPgwiKEYCVPgLfP3TRljCNMNdbG8ldOfm+y5OnvmWfb3Q4vlLxkOf222sAA",
+    "alt": "SFS Vintage (51)",
+    "title": "SFS Vintage (51)",
+    "description": "",
+    "category": "Fashion",
+    "width": 4651,
+    "height": 6977,
+    "metadata": {
+      "camera": "SONY ILCE-7M4",
+      "lens": "50mm F1.4 DG DN | Art 023",
+      "settings": "f/1.4 · 1/640s · ISO 6400 · 50mm",
+      "date": "2026-02-16T01:59:57.000Z"
     }
   }
 ]
