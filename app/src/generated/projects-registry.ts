@@ -14,6 +14,9 @@ import p_vdr_auto from './project-vdr-auto.json';
 import p_vdr_athletics from './project-vdr-athletics.json';
 import p_vdr_admin from './project-vdr-admin.json';
 import p_sfs_vintage from './project-sfs-vintage.json';
+import p_ooto_snow from './project-ooto-snow.json';
+import p_ooto_alley from './project-ooto-alley.json';
+import p_jaylin from './project-jaylin.json';
 
 export const PROJECT_IMAGES: Record<string, GalleryImage[]> = {
   "jeffery": p_jeffery as GalleryImage[],
@@ -26,4 +29,7 @@ export const PROJECT_IMAGES: Record<string, GalleryImage[]> = {
   "vdr-athletics": p_vdr_athletics as GalleryImage[],
   "vdr-admin": p_vdr_admin as GalleryImage[],
   "sfs-vintage": p_sfs_vintage as GalleryImage[],
+  "ooto-snow": p_ooto_snow as GalleryImage[],
+  "ooto-alley": p_ooto_alley as GalleryImage[],
+  "jaylin": p_jaylin as GalleryImage[],
 };
