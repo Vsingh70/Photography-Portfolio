@@ -328,35 +328,5 @@
       "settings": "f/5.6 · 1/200s · ISO 2000 · 50mm",
       "date": "2025-11-08T23:01:55.000Z"
     }
-  },
-  {
-    "id": "ce736200-4b0e-49f5-8d54-a9e64da59a52",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/ooto-alley/ce736200-4b0e-49f5-8d54-a9e64da59a52-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRvoBAABXRUJQVlA4IO4BAACwCQCdASoYACQAPt1YpU2opSOiOrZoARAbiWxh/J1ZTwtdYVeF/lVYN3H9QO875Ae6eN14/2uZ/iBIBv8i/ydfkyP5wPb1LbbvnqtMA3n0KyGuGdDjAADkP+9thHnUmnz+u/gwoCQXM8zknvN6AXZXmPn929WkgF7XUC+XFxV/nw8pVq9y0vSuBFznKXVNdZ3FKY1wq1KDkrmMbrttwM8TecKZr7smkwsmVkpw+g0r7HqK6j/7nY3YPvnfp6h25Ys9O782NIlliEyM5agMM6FW0WNlSl5a/g2/84qtLXSI1bMribzHoIR9DvejR0TH0O7Nt1i0I/G1KEKpWGVJOCyJif50lM/9O/nn4d9sn+d8M/uN7OAu//42F+XpqsKpS757a/JvE5p1yCRq6AcHeH7wygev/v1aZfyieZUXCniH/dGz9tuGkE768GvKDfHH70fEKE7LSj5k/HqEVmFq7yWk5w7+u+Vre/5zW0jE9Ho190zf3vTrQRHk/AJNVu4N3s4oo4lHcsjQstaLoVzjgn4Ez96YsIvdHv47Vs5UDjwznYZBp43/jMEKoX/8MDDF2Q3ftNee5PQgWwwMU5Bhg53Quut9X15fX0D7S/i6ghqKPHZf1V7dxf5SseUUb9YAsbfwERg4gCz0i0Db3YPAAA==",
-    "alt": "OOTO Alley (12)",
-    "title": "OOTO Alley (12)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4672,
-    "height": 7008,
-    "metadata": {
-      "camera": "SONY ILCE-7M4",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "f/5.6 · 1/250s · ISO 3200 · 50mm",
-      "date": "2025-11-08T23:06:24.000Z"
-    }
   }
 ]
