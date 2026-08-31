@@ -126,6 +126,7 @@ function getR2Client() {
     region: 'auto',
     endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
     credentials: { accessKeyId, secretAccessKey },
+    maxAttempts: 6,
   });
 }
 
@@ -392,15 +393,22 @@ async function buildProject(opts: {
         FORMATS.map((fmt) => ({ Key: `galleries/${slug}/${id}-${size.name}.${fmt}` }))
       )
     );
-    for (let i = 0; i < objects.length; i += 1000) {
-      await r2.send(
-        new DeleteObjectsCommand({
-          Bucket: bucket,
-          Delete: { Objects: objects.slice(i, i + 1000), Quiet: true },
-        })
+    try {
+      for (let i = 0; i < objects.length; i += 1000) {
+        await r2.send(
+          new DeleteObjectsCommand({
+            Bucket: bucket,
+            Delete: { Objects: objects.slice(i, i + 1000), Quiet: true },
+          })
+        );
+      }
+      deleted = staleIds.length;
+    } catch (err) {
+      console.warn(
+        `  ⚠️  Could not delete stale images (will retry next run):`,
+        (err as Error).message
       );
     }
-    deleted = staleIds.length;
   }
 
   const next: Manifest = {};
