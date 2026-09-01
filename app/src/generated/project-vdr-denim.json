@@ -1377,36 +1377,6 @@
     }
   },
   {
-    "id": "9d940421-fe41-48b4-b187-780082ef3d80",
-    "avif": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-sm.avif",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-md.avif",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-lg.avif",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-xl.avif"
-    },
-    "webp": {
-      "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-sm.webp",
-      "md": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-md.webp",
-      "lg": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-lg.webp",
-      "xl": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-xl.webp"
-    },
-    "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-xl.webp",
-    "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/9d940421-fe41-48b4-b187-780082ef3d80-md.webp",
-    "blurDataURL": "data:image/webp;base64,UklGRgACAABXRUJQVlA4IPQBAADwCACdASoYACQAPu1qrVCppaQipWzJMB2JbD2bUByNdpNgD8Z8YogGj+aI/kvmB7oEgHhP5x/pBSFcyZ/4D1Df57/qJwxhHQ99GCKxDwrYwAD+v7+v/pj5NmzLpf/+zsH/rv6Qvpxz0L/L1rtjGamjLf7qO3Ko8lvpKqnBPu7N4KazPR67nf2BOvqXV6LA0x8yfr2zxKtr4zfJ1Imn+TfDH4lBffzpd3Nm/rwS11AauVyG3L+7G+SzddfiWDW/dfxLlVl6lB+QUr8xzY6mLF8VfNKJgK6urJjMLi/8kKiLB2TlfzCnUsI+yen1ILtVAJgF/XjvouOr3tE/TckV3v9XusGGDzwmuJ9012RRCuvi7J31hv28HwkxKbBeH5y9KK3MXFiQ9sPSf/0DT/QHGuKbN1xyuYr50He+qfqRs+0N5GF4vKZFtHyRn9IqYttOq97lD3Y1MNMzSUI8N/up71CBmILeu3aOlXnG5FliKY3RmvUGXlGsd6wRnRXAMt06JfdYGHfPo6CrxTaE0QH69PcQF2XZfw2/DioYUh99MLV30Opvphau+h1N9L0BvNfc1HMIib/a7yse3AoYGhmGIjcdsBcwZZ4doYAfkcKHC/p9j8W339PsfjIyT0W5+ZCXzzmmwC+47U85j5Keeb3LhrQfmQAAAA==",
-    "alt": "VDR Denim (47)",
-    "title": "VDR Denim (47)",
-    "description": "",
-    "category": "Fashion",
-    "width": 4672,
-    "height": 7008,
-    "metadata": {
-      "camera": "Sony A7IV",
-      "lens": "50mm F1.4 DG DN | Art 023",
-      "settings": "50mm · f/2.8 · 1/300 · ISO 330",
-      "date": "2025-12-07T00:06:04.000Z"
-    }
-  },
-  {
     "id": "4bf69b1e-05b3-4b08-8399-2a01b53a8a53",
     "avif": {
       "sm": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/4bf69b1e-05b3-4b08-8399-2a01b53a8a53-sm.avif",
@@ -1423,8 +1393,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/4bf69b1e-05b3-4b08-8399-2a01b53a8a53-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/4bf69b1e-05b3-4b08-8399-2a01b53a8a53-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRuQBAABXRUJQVlA4INgBAAAQCQCdASoYACQAPu1sr1CppiSiqrgKATAdiWg+V6N+xOyUr3vLesBrgPx3+wHeM8gPcEG38Z3zvybkIrzwDTQI4I/jP9unDH2heA5JSrFQgAAA/uCTp7/Z+eb/9XP9OBGAybv/2tHr/j/6/3BlOYJv9vIXLPFE2tsb3pPVtIGZtgrFfNso1ep0A5GE9bB6aUKDxMXIFIzgBok/sZ/bafPSz+3vTIH+lM/Ea1+wEyvZPj6d+/IP0pz7i8IjG9B5PtTe6P6Xr9JrA2vtbwiiLxBlTN/0E1G/wr0wvgVQ7ToiYHUUOhl/m9TxfOh99V/KLP8/kZtCBa9z5k0dfyx2lwqz8l9OscelDqOzX7HtetdnzAHfvYvsAl2Wkleg/fyGQZS6yiLyGoE2p1WUMR5M/2IqP2tzL6tw3sP/SmP3WnrfRwCk+FW8lOpah5F6u/UdqZ2kDpWQmjdKsSt3s8gVS06heyKgAI+A7lsnyLMQAC0aFZ+Pz350YTXc8eV+nG+qtsljmoNMHTgXRClLj5x1ZExsZc7PqQI/+JhoKULvkAWvT7EEJH+JWjfi20AS/3hDoxlMyTnfhrDH2VkRZAcRQPhfzkKPAOt82V24GrAnDBA04h+R2XVHEygA",
-    "alt": "VDR Denim (48)",
-    "title": "VDR Denim (48)",
+    "alt": "VDR Denim (47)",
+    "title": "VDR Denim (47)",
     "description": "",
     "category": "Fashion",
     "width": 4363,
@@ -1453,8 +1423,8 @@
     "src": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/0a3357ac-77a2-4835-9a07-49ba2c20b485-xl.webp",
     "thumbnail": "https://pub-bd79df0de9c640f7a1e7e492d578ae53.r2.dev/galleries/vdr-denim/0a3357ac-77a2-4835-9a07-49ba2c20b485-md.webp",
     "blurDataURL": "data:image/webp;base64,UklGRvABAABXRUJQVlA4IOQBAADQCQCdASoYACQAPulkqU2pJiQiMAqpIB0JZD4HWX/jvFvG//dPyq4Z+OsCA/Kv+67Y3kB7zQ5Xjm+aFIgWYB5TeKB6A/8u/2H86urGDPuFjAMawCKdXQAA/twP8f/+Dz5huemZptB1I4cwf+GnTyIqFp1boEyabVBq/9WKRWCr2BAu/WNaV07z+kqhxafOTbR/FzgsSZUocv+Bq6eXvjLdE7x//EH/59P6++/p13enIP3yNXtxbFEA9wlqtdVnfxiWAN6hxEb3gCjEOwPUa28jqTzisPiQusM/JqC4XeqvnPNF+psXzCs8851Dr/3XZF3svEotbKZ1AkVtVe/5USVHmEN3cPev5A3/i8CQ//qEGmb3UPSARB2Ip1h91epO236IOwCgNBsNoUNs7GqKDvCWF4pMkTaszntR7vC6F3mBBTSifD3VhCemz/JTAoPkTqq4t0a4cVNfv9Llre2f+8OaMfY1qClhfmXraRlQJx2G5TGUyb+to553CbestK6Rp4DNEx0fQXPYKvnnTtO7DFTn+gb9z/OfaaGJbTaVKp7tGr/evuZU/NZDO/rJ4LRGpyl8YwzwQCnoVJT+uYKr+a09Oji7Vf/GFD/ZJKVHuny7YxWuI7iXaqFLImH+CtEvJadO+KAA",
-    "alt": "VDR Denim (49)",
-    "title": "VDR Denim (49)",
+    "alt": "VDR Denim (48)",
+    "title": "VDR Denim (48)",
     "description": "",
     "category": "Fashion",
     "width": 4672,
